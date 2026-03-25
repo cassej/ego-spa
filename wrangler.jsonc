@@ -1,0 +1,14 @@
+{
+  "name": "ego-spa",
+  "main": "worker.js",
+  "compatibility_date": "2024-01-01",
+  "assets": {
+    "directory": "."
+  },
+  "kv_namespaces": [
+    {
+      "binding": "EGO_DATA",
+      "id": "EGO_DATA"
+    }
+  ]
+}
