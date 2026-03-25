@@ -63,13 +63,13 @@
     "imperial":        { "name": "Imperial",         "pricingSystem": "M11-M18", "allowedCodes": ["M12","M13","M14","M15","M16"], "allowedScenarios": ["massage-table"] },
     "zurzum":          { "name": "Zurzum",           "pricingSystem": "M11-M18", "allowedCodes": ["M12","M13","M14","M15","M16"], "allowedScenarios": ["massage-table","tatami"] },
     "miso":            { "name": "Miso",             "pricingSystem": "M11-M18", "allowedCodes": ["M12","M13","M14","M15","M16"], "allowedScenarios": ["massage-table","tatami"] },
-    "nuru":            { "name": "Nuru",             "pricingSystem": "Tiered",  "basePrice": 135, "allowedScenarios": ["tatami","tantric-sink"] },
-    "flegg":           { "name": "Flegg",            "pricingSystem": "Tiered",  "basePrice": 135, "allowedScenarios": ["tatami","tantric-sink"] },
-    "lingam":          { "name": "Lingam",           "pricingSystem": "Tiered",  "basePrice": 135, "allowedScenarios": ["massage-table","tatami","tantric-couch","tantric-chair","tantric-sink"] },
-    "circuit":         { "name": "Circuit",          "pricingSystem": "Tiered",  "basePrice": 165, "allowedScenarios": ["massage-table","tatami","tantric-couch","tantric-chair","tantric-sink"], "minScenarios": { "40": 2, "60": 3 } },
-    "circuit-deluxe":  { "name": "Circuit Deluxe",   "pricingSystem": "Tiered",  "basePrice": 165, "allowedScenarios": ["massage-table","tatami","tantric-couch","tantric-chair","tantric-sink"], "minScenarios": { "40": 2, "60": 3 } },
-    "cocktail":        { "name": "Cocktail",         "pricingSystem": "Tiered",  "basePrice": 195, "allowedScenarios": ["massage-table","tatami","tantric-couch","tantric-chair","tantric-sink"] },
-    "cocktail-deluxe": { "name": "Cocktail Deluxe",  "pricingSystem": "Tiered",  "basePrice": 195, "allowedScenarios": ["massage-table","tatami","tantric-couch","tantric-chair","tantric-sink"] }
+    "nuru":            { "name": "Nuru",             "pricingSystem": "Tiered",  "basePrice": 135, "allowedScenarios": ["tatami","tantric-sink"], "allowedCombinations": [ {"hands": 2, "duration": 60}, {"hands": 2, "duration": 90}, {"hands": 4, "duration": 75} ] },
+    "flegg":           { "name": "Flegg",            "pricingSystem": "Tiered",  "basePrice": 135, "allowedScenarios": ["tatami","tantric-sink"], "allowedCombinations": [ {"hands": 2, "duration": 60}, {"hands": 2, "duration": 90}, {"hands": 4, "duration": 75} ] },
+    "lingam":          { "name": "Lingam",           "pricingSystem": "Tiered",  "basePrice": 135, "allowedScenarios": ["massage-table","tatami"], "allowedCombinations": [ {"hands": 2, "duration": 60}, {"hands": 2, "duration": 90}, {"hands": 4, "duration": 75} ] },
+    "circuit":         { "name": "Circuit",          "pricingSystem": "Tiered",  "basePrice": 165, "allowedScenarios": ["massage-table","tatami","tantric-couch","tantric-chair","tantric-sink"], "allowedCombinations": [ {"hands": 6, "duration": 60}, {"hands": 6, "duration": 90} ], "minScenarios": { "40": 2, "60": 3 } },
+    "circuit-deluxe":  { "name": "Circuit Deluxe",   "pricingSystem": "Tiered",  "basePrice": 165, "allowedScenarios": ["massage-table","tatami","tantric-couch","tantric-chair","tantric-sink"], "allowedCombinations": [ {"hands": 6, "duration": 60}, {"hands": 6, "duration": 90} ], "minScenarios": { "40": 2, "60": 3 } },
+    "cocktail":        { "name": "Cocktail",         "pricingSystem": "Tiered",  "basePrice": 195, "allowedScenarios": ["massage-table","tatami","tantric-couch","tantric-chair","tantric-sink"], "allowedCombinations": [ {"hands": 4, "duration": 120} ] },
+    "cocktail-deluxe": { "name": "Cocktail Deluxe",  "pricingSystem": "Tiered",  "basePrice": 195, "allowedScenarios": ["massage-table","tatami","tantric-couch","tantric-chair","tantric-sink"], "allowedCombinations": [ {"hands": 4, "duration": 120} ] }
   },
 
   "SCENARIO_DATA": {
