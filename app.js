@@ -99,19 +99,11 @@ async function init() {
          */
         function resetToTechniqueDefaults(technique) {
             const techniqueData = TECHNIQUE_DATA[technique];
-    
-            if (techniqueData.pricingSystem === 'M11-M18') {
-                const firstCode = techniqueData.allowedCodes[0];
-                const mCodeData = M_CODE_PRICING[firstCode];
-                state.single.hands = mCodeData.hands;
-                state.single.duration = mCodeData.duration;
-                state.single.mCode = firstCode;
-            } else {
-                state.single.hands = 2;
-                state.single.duration = 60;
-                state.single.mCode = null;
-            }
-    
+
+            // Reset all values - no defaults
+            state.single.hands = null;
+            state.single.duration = null;
+            state.single.mCode = null;
             state.single.scenario = null;
             state.single.scenarioName = '';
             state.single.selectedScenarios = [];
@@ -357,10 +349,13 @@ async function init() {
                 const mCodeData = M_CODE_PRICING[state.single.mCode];
                 total = state.isAuth ? mCodeData.egoPrice : mCodeData.regularPrice;
             } else if (state.single.pricingSystem === 'Tiered' && state.single.technique) {
-                const techniqueData = TECHNIQUE_DATA[state.single.technique];
-                total = techniqueData.basePrice;
-                total += TIERED_MODIFIERS.hands[state.single.hands];
-                total += TIERED_MODIFIERS.duration[state.single.duration];
+                // Only calculate if hands and duration are selected
+                if (state.single.hands !== null && state.single.duration !== null) {
+                    const techniqueData = TECHNIQUE_DATA[state.single.technique];
+                    total = techniqueData.basePrice;
+                    total += TIERED_MODIFIERS.hands[state.single.hands];
+                    total += TIERED_MODIFIERS.duration[state.single.duration];
+                }
             }
     
             // Add extras
@@ -430,8 +425,12 @@ async function init() {
                 if (state.single.scenarioName) {
                     parts.push(state.single.scenarioName);
                 }
-                parts.push(`${state.single.hands} manos`);
-                parts.push(`${state.single.duration}m`);
+                if (state.single.hands !== null) {
+                    parts.push(`${state.single.hands} manos`);
+                }
+                if (state.single.duration !== null) {
+                    parts.push(`${state.single.duration}m`);
+                }
                 if (state.single.extras.length > 0) {
                     parts.push(`+${state.single.extras.length} extras`);
                 }
