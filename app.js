@@ -292,7 +292,10 @@ async function init() {
             let price = 0;
     
             if (state.single.technique) {
-                content = `${techniqueName} | ${hands} Hands | ${duration}m`;
+                const parts = [techniqueName];
+                if (hands !== null) parts.push(`${hands} Hands`);
+                if (duration !== null) parts.push(`${duration}m`);
+                content = parts.join(' | ');
                 price = calculateTotalPrice();
             } else {
                 content = 'Select a technique to begin';
