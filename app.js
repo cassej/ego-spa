@@ -33,9 +33,9 @@ async function init() {
                 scenario: null, // Selected scenario (massage-table, tatami, etc.)
                 scenarioName: '',
                 basePrice: 0,
-                hands: 2,
+                hands: null,
                 handsAddon: 0,
-                duration: 60,
+                duration: null,
                 durationAddon: 0,
                 extras: [], // Add-ons like Double Sensitive, Night Rate
                 masseuseName: '',
@@ -158,7 +158,11 @@ async function init() {
                 }
 
                 if (techniqueData.allowedCombinations) {
-                    const hasAnyCombo = techniqueData.allowedCombinations.some(c => c.hands === h);
+                    // If duration is selected, check if this hands count works with it
+                    // If duration is not selected, check if this hands count exists in any combination
+                    const hasAnyCombo = duration === null
+                        ? techniqueData.allowedCombinations.some(c => c.hands === h)
+                        : techniqueData.allowedCombinations.some(c => c.hands === h && c.duration === duration);
                     if (!hasAnyCombo) {
                         isLocked = true;
                         lockReason = 'Not available for this technique';
@@ -194,9 +198,11 @@ async function init() {
                 }
 
                 if (techniqueData.allowedCombinations) {
-                    const hasCombo = techniqueData.allowedCombinations.some(
-                        c => c.hands === hands && c.duration === d
-                    );
+                    // If hands is not selected, check if this duration exists in any combination
+                    // If hands is selected, check if this duration works with the selected hands
+                    const hasCombo = hands === null
+                        ? techniqueData.allowedCombinations.some(c => c.duration === d)
+                        : techniqueData.allowedCombinations.some(c => c.hands === hands && c.duration === d);
                     if (!hasCombo) {
                         isLocked = true;
                         lockReason = 'Not available for this technique';
@@ -588,7 +594,21 @@ async function init() {
     
         function goBack() {
             if (state.currentStep > 1) {
-                goToStep(state.currentStep - 1);
+                const previousStep = state.currentStep - 1;
+
+                // Reset values that create constraints when going back
+                if (state.currentFlow === 'single') {
+                    // Reset duration when going back from step 3+
+                    if (state.currentStep > 3) {
+                        state.single.duration = null;
+                    }
+                    // Reset hands when going back from step 2+
+                    if (state.currentStep > 2) {
+                        state.single.hands = null;
+                    }
+                }
+
+                goToStep(previousStep);
             } else {
                 // Go back to flow selection
                 state.currentFlow = null;
@@ -615,9 +635,9 @@ async function init() {
                 scenario: null,
                 scenarioName: '',
                 basePrice: 0,
-                hands: 2,
+                hands: null,
                 handsAddon: 0,
-                duration: 60,
+                duration: null,
                 durationAddon: 0,
                 extras: []
             };
