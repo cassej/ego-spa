@@ -13,7 +13,6 @@ async function init() {
     const HOTEL_SERVICE_PRICING = DATA.HOTEL_SERVICE_PRICING;
     const TECHNIQUE_DATA = DATA.TECHNIQUE_DATA;
     const SCENARIO_DATA = DATA.SCENARIO_DATA;
-    const ADDON_PRICING = DATA.ADDON_PRICING;
     const TIERED_MODIFIERS = DATA.TIERED_MODIFIERS;
     
     // ============================================
@@ -146,24 +145,26 @@ async function init() {
                 const h = parseInt(btn.dataset.hands);
                 let isLocked = false;
                 let lockReason = '';
-    
-                if (duration === 20 && h > 2) {
-                    isLocked = true;
-                    lockReason = '20 min max 2 hands';
-                }
-                if (duration === 40 && h > 4) {
-                    isLocked = true;
-                    lockReason = '40 min max 4 hands';
-                }
-    
+
                 if (techniqueData.pricingSystem === 'M11-M18') {
-                    const mCode = findMCode(h, duration);
-                    if (!techniqueData.allowedCodes.includes(mCode)) {
+                    // Check if ANY M-code exists for this hands count in this technique
+                    const hasAnyCode = techniqueData.allowedCodes.some(code => {
+                        return M_CODE_PRICING[code] && M_CODE_PRICING[code].hands === h;
+                    });
+                    if (!hasAnyCode) {
                         isLocked = true;
                         lockReason = 'Not available for this technique';
                     }
                 }
-    
+
+                if (techniqueData.allowedCombinations) {
+                    const hasAnyCombo = techniqueData.allowedCombinations.some(c => c.hands === h);
+                    if (!hasAnyCombo) {
+                        isLocked = true;
+                        lockReason = 'Not available for this technique';
+                    }
+                }
+
                 btn.classList.toggle('option-locked', isLocked);
                 btn.disabled = isLocked;
                 btn.dataset.lockReason = lockReason;
@@ -187,6 +188,16 @@ async function init() {
                 if (techniqueData.pricingSystem === 'M11-M18') {
                     const mCode = findMCode(hands, d);
                     if (!mCode || !techniqueData.allowedCodes.includes(mCode)) {
+                        isLocked = true;
+                        lockReason = 'Not available for this technique';
+                    }
+                }
+
+                if (techniqueData.allowedCombinations) {
+                    const hasCombo = techniqueData.allowedCombinations.some(
+                        c => c.hands === hands && c.duration === d
+                    );
+                    if (!hasCombo) {
                         isLocked = true;
                         lockReason = 'Not available for this technique';
                     }
@@ -331,89 +342,7 @@ async function init() {
         function formatPrice(price) {
             return `$${price}`;
         }
-    
-        // Update available options based on technique constraints
-        function updateTechniqueConstraints() {
-            const technique = state.single.technique;
-            if (!technique) return;
-    
-            const techniqueData = TECHNIQUE_DATA[technique];
-    
-            // Update scenario availability
-            const allowedScenarios = techniqueData.allowedScenarios || [];
-            document.querySelectorAll('.scenario-btn').forEach(btn => {
-                const scenario = btn.dataset.scenario;
-                if (allowedScenarios.includes(scenario)) {
-                    btn.classList.remove('disabled', 'hidden');
-                    btn.disabled = false;
-                    btn.style.opacity = '1';
-                } else {
-                    btn.classList.add('disabled', 'hidden');
-                    btn.disabled = true;
-                    btn.style.opacity = '0.3';
-                }
-            });
-    
-            if (techniqueData.pricingSystem === 'M11-M18') {
-                const allowedCodes = techniqueData.allowedCodes;
-    
-                // Get unique durations and hands from allowed codes
-                const allowedDurations = [...new Set(allowedCodes.map(code => M_CODE_PRICING[code].duration))];
-                const allowedHands = [...new Set(allowedCodes.map(code => M_CODE_PRICING[code].hands))];
-    
-                // Enable/disable duration buttons
-                document.querySelectorAll('.duration-btn').forEach(btn => {
-                    const duration = parseInt(btn.dataset.duration);
-                    if (allowedDurations.includes(duration)) {
-                        btn.classList.remove('disabled');
-                        btn.disabled = false;
-                        btn.style.opacity = '1';
-                    } else {
-                        btn.classList.add('disabled');
-                        btn.disabled = true;
-                        btn.style.opacity = '0.3';
-                    }
-                });
-    
-                // Enable/disable hands buttons
-                document.querySelectorAll('.hands-btn').forEach(btn => {
-                    const hands = parseInt(btn.dataset.hands);
-                    if (allowedHands.includes(hands)) {
-                        btn.classList.remove('disabled');
-                        btn.disabled = false;
-                        btn.style.opacity = '1';
-                    } else {
-                        btn.classList.add('disabled');
-                        btn.disabled = true;
-                        btn.style.opacity = '0.3';
-                    }
-                });
-    
-                // Show 75min option for M16
-                const duration75 = document.getElementById('duration-75');
-                if (duration75) {
-                    if (allowedCodes.includes('M16')) {
-                        duration75.classList.remove('hidden');
-                    } else {
-                        duration75.classList.add('hidden');
-                    }
-                }
-            } else {
-                // Tiered pricing: all options available
-                document.querySelectorAll('.duration-btn, .hands-btn').forEach(btn => {
-                    btn.classList.remove('disabled');
-                    btn.disabled = false;
-                    btn.style.opacity = '1';
-                });
-    
-                // Hide 75min for tiered pricing
-                const duration75 = document.getElementById('duration-75');
-                if (duration75) {
-                    duration75.classList.add('hidden');
-                }
-            }
-        }
-    
+
         function calculateSinglePrice() {
             let total = 0;
     
@@ -483,28 +412,7 @@ async function init() {
             console.log('Hotel Final Price:', total);
             return total;
         }
-    
-        /**
-         * Calculates night rate for hotel services
-         * Night rate applies when service ends between midnight and 6 AM
-         */
-        function calculateHotelNightRate() {
-            if (!state.hotel.bookingDate || !state.hotel.bookingTime) {
-                state.hotel.nightRate = 0;
-                return;
-            }
-    
-            const bookingDateTime = new Date(`${state.hotel.bookingDate}T${state.hotel.bookingTime}`);
-            const endTime = new Date(bookingDateTime.getTime() + state.hotel.duration * 60000);
-    
-            const endHour = endTime.getHours();
-            const isAfterMidnight = endHour >= 0 && endHour < 6;
-    
-            console.log('🏨 Hotel Night Rate:', { bookingTime: state.hotel.bookingTime, duration: state.hotel.duration, endTime: endTime.toLocaleTimeString(), endHour, isAfterMidnight });
-    
-            state.hotel.nightRate = isAfterMidnight ? 25 : 0;
-        }
-    
+
         function updateSummary() {
             let details = '';
             let price = 0;
@@ -667,7 +575,7 @@ async function init() {
             if (state.isAuth) {
                 // Calculate regular price for comparison
                 const key = `${state.hotel.duration}-${state.hotel.hands}`;
-                const regularPrice = HOTEL_SERVICE_PRICING[key].regularPrice;
+                let regularPrice = HOTEL_SERVICE_PRICING[key].regularPrice;
                 state.hotel.extras.forEach(e => { regularPrice += e.addon; });
     
                 const savings = regularPrice - price;
