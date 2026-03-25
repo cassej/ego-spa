@@ -531,8 +531,8 @@ async function init() {
         function updateFinalSummary() {
             document.getElementById('finalTechnique').textContent = state.single.techniqueName;
             document.getElementById('finalScenario').textContent = state.single.scenarioName;
-            document.getElementById('finalHands').textContent = state.single.hands + ' Manos';
-            document.getElementById('finalDuration').textContent = state.single.duration + ' min';
+            document.getElementById('finalHands').textContent = state.single.hands !== null ? state.single.hands + ' Manos' : '';
+            document.getElementById('finalDuration').textContent = state.single.duration !== null ? state.single.duration + ' min' : '';
     
             const extrasText = state.single.extras.map(e => e.name).join(', ') || 'Sensitive';
             document.getElementById('finalExtras').textContent = extrasText;
@@ -596,21 +596,7 @@ async function init() {
     
         function goBack() {
             if (state.currentStep > 1) {
-                const previousStep = state.currentStep - 1;
-
-                // Reset values that create constraints when going back
-                if (state.currentFlow === 'single') {
-                    // Reset duration when going back from step 3+
-                    if (state.currentStep > 3) {
-                        state.single.duration = null;
-                    }
-                    // Reset hands when going back from step 2+
-                    if (state.currentStep > 2) {
-                        state.single.hands = null;
-                    }
-                }
-
-                goToStep(previousStep);
+                goToStep(state.currentStep - 1);
             } else {
                 // Go back to flow selection
                 state.currentFlow = null;
