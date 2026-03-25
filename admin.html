@@ -1,0 +1,789 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ego Spa — Admin</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script>
+tailwind.config = {
+    theme: {
+        extend: {
+            colors: {
+                ego: { black:'#000', zinc:'#18181b', zincLight:'#27272a', red:'#ef4444', redDark:'#dc2626', gold:'#d4af37', muted:'#71717a' }
+            },
+            fontFamily: { display:['Bebas Neue','sans-serif'], body:['DM Sans','sans-serif'] }
+        }
+    }
+}
+</script>
+<style>
+*, *::before, *::after { box-sizing: border-box; }
+html, body { height: 100%; margin: 0; }
+body { font-family: 'DM Sans', sans-serif; background: #000; color: #fff; overflow-x: hidden; }
+
+/* Inputs */
+input[type=text], input[type=number], input[type=time], select {
+    background: #0a0a0a; border: 1px solid #27272a; color: #fff;
+    border-radius: 8px; padding: 10px 12px; width: 100%;
+    font-family: 'DM Sans', sans-serif; font-size: 14px;
+    transition: border-color .2s; -webkit-appearance: none; appearance: none;
+    min-height: 44px;
+}
+input:focus, select:focus { outline: none; border-color: #ef4444; }
+input[type=number] { -moz-appearance: textfield; }
+input[type=number]::-webkit-inner-spin-button { -webkit-appearance: none; }
+select {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%2371717a'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'/%3E%3C/svg%3E");
+    background-repeat: no-repeat; background-position: right 10px center; background-size: 16px; padding-right: 36px;
+}
+.num-input { max-width: 90px !important; }
+
+/* Card */
+.card { background: #18181b; border: 1px solid #27272a; border-radius: 14px; }
+
+/* Buttons */
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 6px;
+       padding: 10px 18px; border-radius: 10px; font-size: 14px; font-weight: 600;
+       cursor: pointer; transition: all .2s; border: none; min-height: 44px; white-space: nowrap; }
+.btn-red   { background: linear-gradient(135deg,#ef4444,#dc2626); color: #fff; }
+.btn-red:hover   { transform: scale(1.02); box-shadow: 0 6px 20px -6px rgba(239,68,68,.5); }
+.btn-red:active  { transform: scale(.97); }
+.btn-ghost { background: #27272a; color: #a1a1aa; }
+.btn-ghost:hover  { background: #3f3f46; color: #fff; }
+.btn-sm { padding: 7px 12px; font-size: 12px; min-height: 36px; }
+
+/* Label */
+.lbl { font-size: 11px; font-weight: 700; letter-spacing: .07em; color: #71717a;
+       text-transform: uppercase; margin-bottom: 6px; display: block; }
+
+/* Badges */
+.badge { font-size: 11px; font-weight: 700; padding: 3px 8px; border-radius: 6px; letter-spacing: .04em; }
+.badge-red  { background: rgba(239,68,68,.15); color: #ef4444; border: 1px solid rgba(239,68,68,.3); }
+
+/* Tables */
+.tbl-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+table { width: 100%; border-collapse: collapse; min-width: 480px; }
+th { font-size: 10px; font-weight: 700; letter-spacing: .08em; color: #71717a;
+     text-transform: uppercase; padding: 10px 14px; text-align: left;
+     border-bottom: 1px solid #27272a; white-space: nowrap; }
+td { padding: 8px 14px; border-bottom: 1px solid rgba(255,255,255,.04); vertical-align: middle; }
+tr:last-child td { border-bottom: none; }
+
+/* Delete buttons */
+.del-btn { cursor: pointer; color: #3f3f46; transition: color .2s;
+           min-width: 36px; min-height: 36px; display: inline-flex;
+           align-items: center; justify-content: center; border: none;
+           background: none; border-radius: 8px; }
+.del-btn:hover { color: #ef4444; background: rgba(239,68,68,.08); }
+
+/* Pill checkboxes */
+.pill-check { display: none; }
+.pill-check + label { cursor: pointer; display: inline-flex; align-items: center;
+    padding: 5px 12px; border-radius: 20px; font-size: 12px; font-weight: 600;
+    border: 1px solid #27272a; color: #71717a; transition: all .2s;
+    min-height: 32px; user-select: none; }
+.scenario-check:checked + label { border-color: #ef4444; color: #ef4444; background: rgba(239,68,68,.1); }
+.code-check:checked     + label { border-color: #d4af37; color: #d4af37; background: rgba(212,175,55,.1); }
+
+/* Sections */
+.section { display: none; }
+.section.active { display: block; }
+
+/* Nav items */
+.nav-item { cursor: pointer; transition: background .15s, border-color .15s;
+            border-left: 2px solid transparent; padding: 11px 14px; border-radius: 8px;
+            font-size: 14px; font-weight: 500; display: flex; align-items: center; gap: 10px; }
+.nav-item:hover  { background: #27272a; color: #fff; }
+.nav-item.active { background: #27272a; border-color: #ef4444; color: #fff; }
+
+/* Drawer */
+#drawer { position: fixed; inset: 0; z-index: 200; display: flex; pointer-events: none; }
+#drawer-backdrop { position: absolute; inset: 0; background: rgba(0,0,0,.75);
+    opacity: 0; transition: opacity .25s; pointer-events: none; }
+#drawer-panel { position: relative; width: 260px; max-width: 85vw;
+    background: #111; border-right: 1px solid #27272a;
+    transform: translateX(-100%); transition: transform .25s cubic-bezier(.4,0,.2,1);
+    display: flex; flex-direction: column; height: 100%; overflow-y: auto; }
+#drawer.open { pointer-events: auto; }
+#drawer.open #drawer-backdrop { opacity: 1; pointer-events: auto; }
+#drawer.open #drawer-panel { transform: translateX(0); }
+
+/* Toast */
+#toast { position: fixed; bottom: 80px; left: 50%; transform: translateX(-50%) translateY(10px);
+    z-index: 999; padding: 12px 20px; border-radius: 12px; font-size: 14px; font-weight: 600;
+    opacity: 0; transition: all .3s; white-space: nowrap; pointer-events: none; }
+#toast.show { transform: translateX(-50%) translateY(0); opacity: 1; }
+.toast-ok  { background: #18181b; border: 1px solid #22c55e; color: #22c55e; }
+.toast-err { background: #18181b; border: 1px solid #ef4444; color: #ef4444; }
+
+/* Section layout helpers */
+.sec-head { display: flex; align-items: flex-start; justify-content: space-between;
+            gap: 12px; flex-wrap: wrap; margin-bottom: 20px; }
+.sec-title { font-family: 'Bebas Neue', sans-serif; font-size: 28px; letter-spacing: .04em; line-height: 1.1; }
+.sec-sub   { color: #71717a; font-size: 13px; margin-top: 3px; }
+
+/* Mobile sticky footer */
+#mobile-save { position: fixed; bottom: 0; left: 0; right: 0; padding: 12px 16px;
+    background: rgba(0,0,0,.95); border-top: 1px solid #27272a;
+    backdrop-filter: blur(12px); z-index: 100; }
+
+@media (min-width: 768px) {
+    #mobile-topbar { display: none !important; }
+    #mobile-save   { display: none !important; }
+    #main-content  { padding: 32px; }
+    #drawer { display: none !important; }
+}
+@media (max-width: 767px) {
+    #desktop-sidebar { display: none !important; }
+    #mobile-topbar   { display: flex !important; }
+    #main-content    { padding: 16px 16px 80px; padding-top: 72px; }
+}
+</style>
+</head>
+<body class="min-h-screen">
+
+<!-- MOBILE TOP BAR -->
+<header id="mobile-topbar" style="display:none"
+    class="fixed top-0 left-0 right-0 z-50 items-center justify-between px-4 h-14
+           border-b border-ego-zincLight bg-black/95 backdrop-blur-xl">
+    <button id="hamburger" class="del-btn" aria-label="Menú">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+        </svg>
+    </button>
+    <span class="font-display text-xl tracking-widest">EGO SPA <span class="text-ego-muted text-sm">Admin</span></span>
+    <div style="width:36px"></div><!-- spacer -->
+</header>
+
+<!-- DRAWER -->
+<div id="drawer">
+    <div id="drawer-backdrop"></div>
+    <div id="drawer-panel">
+        <div class="px-5 py-5 border-b border-ego-zincLight flex-shrink-0">
+            <div class="font-display text-xl tracking-wider">EGO SPA</div>
+            <div class="text-[11px] text-ego-muted tracking-widest uppercase mt-0.5">Admin Panel</div>
+        </div>
+        <nav class="flex-1 py-3 px-2 space-y-0.5 overflow-y-auto" id="drawer-nav"></nav>
+    </div>
+</div>
+
+<!-- MAIN LAYOUT -->
+<div class="flex min-h-screen">
+
+    <!-- Desktop sidebar -->
+    <aside id="desktop-sidebar"
+        class="w-60 flex-shrink-0 border-r border-ego-zincLight bg-ego-zinc flex flex-col sticky top-0 h-screen overflow-y-auto">
+        <div class="px-5 py-5 border-b border-ego-zincLight">
+            <div class="font-display text-xl tracking-wider">EGO SPA</div>
+            <div class="text-[11px] text-ego-muted tracking-widest uppercase mt-0.5">Admin Panel</div>
+        </div>
+        <nav class="flex-1 py-3 px-2 space-y-0.5" id="sidebar-nav"></nav>
+        <div class="p-3 border-t border-ego-zincLight">
+            <button id="saveBtn" class="btn btn-red w-full">
+                <svg class="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3m-1 4l-3 3m0 0l-3-3m3 3V4"/>
+                </svg>
+                Guardar
+            </button>
+        </div>
+    </aside>
+
+    <!-- Content -->
+    <main class="flex-1 overflow-y-auto">
+        <div id="main-content" class="max-w-3xl mx-auto">
+
+            <!-- GENERAL -->
+            <div id="section-general" class="section active space-y-5">
+                <div class="sec-head"><div><div class="sec-title">General</div><div class="sec-sub">Configuración global</div></div></div>
+                <div class="card p-5">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div><span class="lbl">WhatsApp</span><input type="text" id="g-whatsapp"></div>
+                        <div><span class="lbl">Descuento Ego Card (%)</span><input type="number" id="g-discount" min="0" max="100"></div>
+                    </div>
+                </div>
+                <div class="card p-5">
+                    <span class="lbl" style="margin-bottom:14px">Horarios</span>
+                    <div class="grid grid-cols-2 sm:grid-cols-3 gap-4">
+                        <div><span class="lbl">Semana · Abre</span><input type="time" id="g-wd-open"></div>
+                        <div><span class="lbl">Semana · Cierra</span><input type="time" id="g-wd-close"></div>
+                        <div class="hidden sm:block"></div>
+                        <div><span class="lbl">Finde · Abre</span><input type="time" id="g-we-open"></div>
+                        <div><span class="lbl">Finde · Cierra</span><input type="time" id="g-we-close"></div>
+                        <div class="hidden sm:block"></div>
+                        <div><span class="lbl">Última cita</span><input type="time" id="g-last-appt"></div>
+                        <div><span class="lbl">Night rate · Desde</span><input type="time" id="g-night-after"></div>
+                        <div><span class="lbl">Night rate · Hasta</span><input type="time" id="g-night-before"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- M-CODES -->
+            <div id="section-mcodes" class="section space-y-5">
+                <div class="sec-head">
+                    <div><div class="sec-title">M-Code Pricing</div><div class="sec-sub">Técnicas M11–M18</div></div>
+                    <button class="btn btn-ghost btn-sm" id="addMcode">+ Agregar</button>
+                </div>
+                <div class="card tbl-wrap">
+                    <table>
+                        <thead><tr><th>Código</th><th>Duración</th><th>Manos</th><th>Regular $</th><th>Ego $</th><th></th></tr></thead>
+                        <tbody id="mcode-tbody"></tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- HOTEL -->
+            <div id="section-hotel" class="section space-y-5">
+                <div class="sec-head">
+                    <div><div class="sec-title">Hotel Pricing</div><div class="sec-sub">Servicios a domicilio</div></div>
+                    <button class="btn btn-ghost btn-sm" id="addHotel">+ Agregar</button>
+                </div>
+                <div class="card tbl-wrap">
+                    <table>
+                        <thead><tr><th>Duración</th><th>Manos</th><th>Regular $</th><th>Ego $</th><th></th></tr></thead>
+                        <tbody id="hotel-tbody"></tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- TIERED -->
+            <div id="section-tiered" class="section space-y-5">
+                <div class="sec-head"><div><div class="sec-title">Tiered Modifiers</div><div class="sec-sub">Nuru, Flegg, Lingam, Circuit, Cocktail</div></div></div>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                    <div class="card p-5">
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="lbl" style="margin:0">Manos</span>
+                            <button class="btn btn-ghost btn-sm add-tiered" data-type="hands">+ Agregar</button>
+                        </div>
+                        <div class="tbl-wrap"><table style="min-width:220px">
+                            <thead><tr><th>Manos</th><th>Modificador $</th><th></th></tr></thead>
+                            <tbody id="tiered-hands-tbody"></tbody>
+                        </table></div>
+                    </div>
+                    <div class="card p-5">
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="lbl" style="margin:0">Duración</span>
+                            <button class="btn btn-ghost btn-sm add-tiered" data-type="duration">+ Agregar</button>
+                        </div>
+                        <div class="tbl-wrap"><table style="min-width:220px">
+                            <thead><tr><th>Minutos</th><th>Modificador $</th><th></th></tr></thead>
+                            <tbody id="tiered-duration-tbody"></tbody>
+                        </table></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PACKS -->
+            <div id="section-packs" class="section space-y-5">
+                <div class="sec-head">
+                    <div><div class="sec-title">Packs</div><div class="sec-sub">Paquetes pre-pagados M51–M54</div></div>
+                    <button class="btn btn-ghost btn-sm" id="addPack">+ Pack</button>
+                </div>
+                <div id="packs-container" class="space-y-4"></div>
+            </div>
+
+            <!-- TECHNIQUES -->
+            <div id="section-techniques" class="section space-y-5">
+                <div class="sec-head">
+                    <div><div class="sec-title">Techniques</div><div class="sec-sub">Técnicas y restricciones</div></div>
+                    <button class="btn btn-ghost btn-sm" id="addTechnique">+ Técnica</button>
+                </div>
+                <div id="techniques-container" class="space-y-3"></div>
+            </div>
+
+            <!-- SCENARIOS -->
+            <div id="section-scenarios" class="section space-y-5">
+                <div class="sec-head">
+                    <div><div class="sec-title">Scenarios</div><div class="sec-sub">Escenarios disponibles</div></div>
+                    <button class="btn btn-ghost btn-sm" id="addScenario">+ Escenario</button>
+                </div>
+                <div class="card tbl-wrap">
+                    <table>
+                        <thead><tr><th>ID</th><th>Nombre</th><th>Descripción</th><th>Icono</th><th></th></tr></thead>
+                        <tbody id="scenarios-tbody"></tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- ADD-ONS -->
+            <div id="section-addons" class="section space-y-5">
+                <div class="sec-head">
+                    <div><div class="sec-title">Add-ons</div><div class="sec-sub">Opciones adicionales</div></div>
+                    <button class="btn btn-ghost btn-sm" id="addAddon">+ Add-on</button>
+                </div>
+                <div class="card tbl-wrap">
+                    <table>
+                        <thead><tr><th>ID</th><th>Nombre</th><th>Precio $</th><th></th></tr></thead>
+                        <tbody id="addons-tbody"></tbody>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+    </main>
+</div>
+
+<!-- Mobile save bar -->
+<div id="mobile-save">
+    <button id="saveBtn-mobile" class="btn btn-red w-full">
+        <svg class="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3m-1 4l-3 3m0 0l-3-3m3 3V4"/>
+        </svg>
+        Guardar
+    </button>
+</div>
+
+<div id="toast"></div>
+
+<script>
+// ── Nav config ──
+const NAV_ITEMS = [
+    { id:'general',    icon:'⚙️',  label:'General' },
+    { id:'mcodes',     icon:'📋', label:'M-Code Pricing' },
+    { id:'hotel',      icon:'🏨', label:'Hotel Pricing' },
+    { id:'tiered',     icon:'🎚', label:'Tiered Modifiers' },
+    { id:'packs',      icon:'📦', label:'Packs' },
+    { id:'techniques', icon:'🤲', label:'Techniques' },
+    { id:'scenarios',  icon:'🛋', label:'Scenarios' },
+    { id:'addons',     icon:'✨', label:'Add-ons' },
+];
+
+function buildNav($el) {
+    NAV_ITEMS.forEach(n => {
+        $el.append(`<div class="nav-item ${n.id==='general'?'active':''} text-ego-muted" data-section="${n.id}">
+            <span>${n.icon}</span>${n.label}
+        </div>`);
+    });
+}
+buildNav($('#sidebar-nav'));
+buildNav($('#drawer-nav'));
+
+// ── Section switch ──
+$(document).on('click', '.nav-item', function() {
+    const sec = $(this).data('section');
+    $('.nav-item').removeClass('active').addClass('text-ego-muted');
+    $(`[data-section="${sec}"]`).addClass('active').removeClass('text-ego-muted');
+    $('.section').removeClass('active');
+    $(`#section-${sec}`).addClass('active');
+    $('#drawer').removeClass('open');
+    window.scrollTo(0, 0);
+});
+
+// ── Drawer ──
+$('#hamburger').on('click', () => $('#drawer').addClass('open'));
+$('#drawer-backdrop').on('click', () => $('#drawer').removeClass('open'));
+
+// ── Toast ──
+function toast(msg, ok) {
+    const $t = $('#toast');
+    $t.attr('class', 'toast ' + (ok ? 'toast-ok' : 'toast-err')).text(msg).addClass('show');
+    setTimeout(() => $t.removeClass('show'), 2800);
+}
+
+// ── Generic deletes ──
+$(document).on('click', '.del-row',  function() { $(this).closest('tr').remove(); });
+$(document).on('click', '.del-pack', function() { $(this).closest('[data-pack-key]').remove(); });
+$(document).on('click', '.del-tech', function() { $(this).closest('[data-tech-key]').remove(); });
+
+// ── Helpers ──
+let DATA = null;
+
+const ICON_X = `<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>`;
+
+function inp(val, name) {
+    const v = (val == null) ? '' : String(val).replace(/"/g,'&quot;');
+    return `<input type="text" name="${name}" value="${v}">`;
+}
+function num(val, name, narrow=true) {
+    return `<input type="number" name="${name}" value="${val||0}" ${narrow?'class="num-input"':''}>`;
+}
+function delBtn(cls='del-row') {
+    return `<button type="button" class="del-btn ${cls}" aria-label="Eliminar">${ICON_X}</button>`;
+}
+
+// ============================================================
+// GENERAL
+// ============================================================
+function renderGeneral() {
+    $('#g-whatsapp').val(DATA.WHATSAPP_NUMBER);
+    $('#g-discount').val(Math.round(DATA.EGO_DISCOUNT * 100));
+    const bh = DATA.BUSINESS_HOURS;
+    $('#g-wd-open').val(bh.weekdays.open);
+    $('#g-wd-close').val(bh.weekdays.close);
+    $('#g-we-open').val(bh.weekends.open);
+    $('#g-we-close').val(bh.weekends.close);
+    $('#g-last-appt').val(bh.lastAppointment);
+    $('#g-night-after').val(bh.nightRateAfter);
+    $('#g-night-before').val(bh.nightRateBefore);
+}
+function collectGeneral() {
+    DATA.WHATSAPP_NUMBER = $('#g-whatsapp').val().trim();
+    DATA.EGO_DISCOUNT    = parseFloat($('#g-discount').val()) / 100;
+    const bh = DATA.BUSINESS_HOURS;
+    bh.weekdays.open   = $('#g-wd-open').val();
+    bh.weekdays.close  = $('#g-wd-close').val();
+    bh.weekends.open   = $('#g-we-open').val();
+    bh.weekends.close  = $('#g-we-close').val();
+    bh.lastAppointment = $('#g-last-appt').val();
+    bh.nightRateAfter  = $('#g-night-after').val();
+    bh.nightRateBefore = $('#g-night-before').val();
+}
+
+// ============================================================
+// M-CODES
+// ============================================================
+function renderMcodes() {
+    const $b = $('#mcode-tbody').empty();
+    $.each(DATA.M_CODE_PRICING, (_, r) => $b.append(`<tr>
+        <td>${inp(r.code,'code')}</td>
+        <td>${num(r.duration,'duration')}</td>
+        <td>${num(r.hands,'hands')}</td>
+        <td>${num(r.regularPrice,'regularPrice')}</td>
+        <td>${num(r.egoPrice,'egoPrice')}</td>
+        <td>${delBtn()}</td>
+    </tr>`));
+}
+function collectMcodes() {
+    DATA.M_CODE_PRICING = {};
+    $('#mcode-tbody tr').each(function() {
+        const code = $(this).find('[name=code]').val().trim();
+        if (!code) return;
+        DATA.M_CODE_PRICING[code] = {
+            code,
+            duration:     +$(this).find('[name=duration]').val(),
+            hands:        +$(this).find('[name=hands]').val(),
+            regularPrice: +$(this).find('[name=regularPrice]').val(),
+            egoPrice:     +$(this).find('[name=egoPrice]').val()
+        };
+    });
+}
+$('#addMcode').on('click', () => $('#mcode-tbody').append(`<tr>
+    <td>${inp('M19','code')}</td>
+    <td>${num(60,'duration')}</td><td>${num(2,'hands')}</td>
+    <td>${num(100,'regularPrice')}</td><td>${num(80,'egoPrice')}</td>
+    <td>${delBtn()}</td>
+</tr>`));
+
+// ============================================================
+// HOTEL
+// ============================================================
+function renderHotel() {
+    const $b = $('#hotel-tbody').empty();
+    $.each(DATA.HOTEL_SERVICE_PRICING, (_, r) => $b.append(`<tr>
+        <td>${num(r.duration,'duration')}</td>
+        <td>${num(r.hands,'hands')}</td>
+        <td>${num(r.regularPrice,'regularPrice')}</td>
+        <td>${num(r.egoPrice,'egoPrice')}</td>
+        <td>${delBtn()}</td>
+    </tr>`));
+}
+function collectHotel() {
+    DATA.HOTEL_SERVICE_PRICING = {};
+    $('#hotel-tbody tr').each(function() {
+        const d = +$(this).find('[name=duration]').val();
+        const h = +$(this).find('[name=hands]').val();
+        DATA.HOTEL_SERVICE_PRICING[`${d}-${h}`] = {
+            duration: d, hands: h,
+            regularPrice: +$(this).find('[name=regularPrice]').val(),
+            egoPrice:     +$(this).find('[name=egoPrice]').val()
+        };
+    });
+}
+$('#addHotel').on('click', () => $('#hotel-tbody').append(`<tr>
+    <td>${num(60,'duration')}</td><td>${num(2,'hands')}</td>
+    <td>${num(150,'regularPrice')}</td><td>${num(130,'egoPrice')}</td>
+    <td>${delBtn()}</td>
+</tr>`));
+
+// ============================================================
+// TIERED
+// ============================================================
+function renderTiered() {
+    ['hands','duration'].forEach(type => {
+        const $b = $(`#tiered-${type}-tbody`).empty();
+        $.each(DATA.TIERED_MODIFIERS[type], (k, v) => $b.append(`<tr>
+            <td>${num(k,'key')}</td>
+            <td>${num(v,'value')}</td>
+            <td>${delBtn()}</td>
+        </tr>`));
+    });
+}
+function collectTiered() {
+    ['hands','duration'].forEach(type => {
+        DATA.TIERED_MODIFIERS[type] = {};
+        $(`#tiered-${type}-tbody tr`).each(function() {
+            const k = $(this).find('[name=key]').val();
+            if (k !== '') DATA.TIERED_MODIFIERS[type][k] = +$(this).find('[name=value]').val();
+        });
+    });
+}
+$(document).on('click', '.add-tiered', function() {
+    $(`#tiered-${$(this).data('type')}-tbody`).append(`<tr>
+        <td>${num('','key')}</td><td>${num(0,'value')}</td><td>${delBtn()}</td>
+    </tr>`);
+});
+
+// ============================================================
+// PACKS
+// ============================================================
+function packCard(packKey, pack) {
+    const sizesHtml = Object.entries(pack.sizes).map(([sk, sv]) => `<tr>
+        <td>${inp(sk,'sizeKey')}</td>
+        <td>${inp(sv.label,'label')}</td>
+        <td>${num(sv.sessions,'sessions')}</td>
+        <td>${num(sv.price,'price')}</td>
+        <td>${delBtn()}</td>
+    </tr>`).join('');
+
+    return `<div class="card p-5" data-pack-key="${packKey}">
+        <div class="flex flex-wrap items-center gap-3 mb-5">
+            <span class="badge badge-red font-display">${packKey}</span>
+            <input type="text" name="packName" value="${pack.name}" style="flex:1;min-width:140px">
+            <div class="flex items-center gap-2 flex-shrink-0">
+                <span class="lbl" style="margin:0;white-space:nowrap">Upgrade $</span>
+                <input type="number" name="upgradeFee" value="${pack.upgradeFee}" class="num-input">
+            </div>
+            <button class="del-pack btn btn-ghost btn-sm flex-shrink-0" style="color:#ef4444">✕ Eliminar</button>
+        </div>
+        <div class="tbl-wrap">
+            <table>
+                <thead><tr><th>Key</th><th>Label</th><th>Sesiones</th><th>Precio $</th><th></th></tr></thead>
+                <tbody class="sizes-tbody">${sizesHtml}</tbody>
+            </table>
+        </div>
+        <button class="btn btn-ghost btn-sm mt-3 add-size">+ Tamaño</button>
+    </div>`;
+}
+function renderPacks() {
+    const $c = $('#packs-container').empty();
+    $.each(DATA.PACK_DATA, (k, v) => $c.append(packCard(k, v)));
+}
+function collectPacks() {
+    DATA.PACK_DATA = {};
+    $('#packs-container [data-pack-key]').each(function() {
+        const packKey = $(this).data('pack-key');
+        const sizes = {};
+        $(this).find('.sizes-tbody tr').each(function() {
+            const sk = $(this).find('[name=sizeKey]').val().trim();
+            if (sk) sizes[sk] = {
+                label:    $(this).find('[name=label]').val().trim(),
+                sessions: +$(this).find('[name=sessions]').val(),
+                price:    +$(this).find('[name=price]').val()
+            };
+        });
+        DATA.PACK_DATA[packKey] = {
+            name:       $(this).find('[name=packName]').val().trim(),
+            upgradeFee: +$(this).find('[name=upgradeFee]').val(),
+            sizes
+        };
+    });
+}
+$('#addPack').on('click', () => {
+    const key = 'M5' + (Object.keys(DATA.PACK_DATA).length + 1);
+    $('#packs-container').append(packCard(key, { name:'Nuevo Pack', upgradeFee:30, sizes:{} }));
+});
+$(document).on('click', '.add-size', function() {
+    $(this).prev('.tbl-wrap').find('.sizes-tbody').append(`<tr>
+        <td>${inp('S','sizeKey')}</td>
+        <td>${inp('Small','label')}</td>
+        <td>${num(3,'sessions')}</td>
+        <td>${num(100,'price')}</td>
+        <td>${delBtn()}</td>
+    </tr>`);
+});
+
+// ============================================================
+// TECHNIQUES
+// ============================================================
+const ALL_SCENARIOS = ['shower','massage-table','tatami','tantric-couch','tantric-chair','tantric-sink'];
+const ALL_CODES     = ['M11','M12','M13','M14','M15','M16','M17','M18'];
+
+function techCard(tKey, t) {
+    const tiered = t.pricingSystem === 'Tiered';
+    const sCks = ALL_SCENARIOS.map(s => {
+        const chk = (t.allowedScenarios||[]).includes(s) ? 'checked' : '';
+        return `<input type="checkbox" class="pill-check scenario-check" id="sc-${tKey}-${s}" name="scenario" value="${s}" ${chk}>
+                <label for="sc-${tKey}-${s}">${s}</label>`;
+    }).join('');
+    const cCks = ALL_CODES.map(c => {
+        const chk = (t.allowedCodes||[]).includes(c) ? 'checked' : '';
+        return `<input type="checkbox" class="pill-check code-check" id="cc-${tKey}-${c}" name="mcode" value="${c}" ${chk}>
+                <label for="cc-${tKey}-${c}">${c}</label>`;
+    }).join('');
+
+    return `<div class="card p-5" data-tech-key="${tKey}">
+        <div class="flex items-start gap-3 mb-4">
+            <div class="flex-1 grid grid-cols-1 sm:grid-cols-3 gap-3">
+                <div><span class="lbl">ID</span>${inp(tKey,'techKey')}</div>
+                <div><span class="lbl">Nombre</span>${inp(t.name,'name')}</div>
+                <div><span class="lbl">Sistema</span>
+                    <select name="pricingSystem">
+                        <option value="M11-M18" ${!tiered?'selected':''}>M11-M18</option>
+                        <option value="Tiered"  ${tiered?'selected':''}>Tiered</option>
+                    </select>
+                </div>
+            </div>
+            <button type="button" class="del-tech del-btn mt-6 flex-shrink-0">${ICON_X}</button>
+        </div>
+        <div class="tiered-base-price mb-4 ${tiered?'':'hidden'}">
+            <span class="lbl">Base Price $</span>
+            <input type="number" name="basePrice" value="${t.basePrice||0}" class="num-input">
+        </div>
+        <div class="mb-3">
+            <span class="lbl" style="margin-bottom:8px">Escenarios permitidos</span>
+            <div class="flex flex-wrap gap-1.5">${sCks}</div>
+        </div>
+        <div class="mcode-section ${tiered?'hidden':''}">
+            <span class="lbl" style="margin-bottom:8px">M-Codes permitidos</span>
+            <div class="flex flex-wrap gap-1.5">${cCks}</div>
+        </div>
+    </div>`;
+}
+function renderTechniques() {
+    const $c = $('#techniques-container').empty();
+    $.each(DATA.TECHNIQUE_DATA, (k, v) => $c.append(techCard(k, v)));
+}
+function collectTechniques() {
+    DATA.TECHNIQUE_DATA = {};
+    $('#techniques-container [data-tech-key]').each(function() {
+        const id = $(this).find('[name=techKey]').val().trim();
+        if (!id) return;
+        const ps = $(this).find('[name=pricingSystem]').val();
+        const obj = {
+            name: $(this).find('[name=name]').val().trim(),
+            pricingSystem: ps,
+            allowedScenarios: $(this).find('[name=scenario]:checked').map(function(){ return this.value; }).get()
+        };
+        if (ps === 'M11-M18') obj.allowedCodes = $(this).find('[name=mcode]:checked').map(function(){ return this.value; }).get();
+        else obj.basePrice = +$(this).find('[name=basePrice]').val() || 0;
+        DATA.TECHNIQUE_DATA[id] = obj;
+    });
+}
+$('#addTechnique').on('click', () => {
+    $('#techniques-container').append(techCard('new-'+Date.now(), { name:'', pricingSystem:'M11-M18', allowedCodes:[], allowedScenarios:[] }));
+});
+$(document).on('change', '[name=pricingSystem]', function() {
+    const $c = $(this).closest('[data-tech-key]');
+    const t  = $(this).val() === 'Tiered';
+    $c.find('.tiered-base-price').toggleClass('hidden', !t);
+    $c.find('.mcode-section').toggleClass('hidden', t);
+});
+
+// ============================================================
+// SCENARIOS
+// ============================================================
+function renderScenarios() {
+    const $b = $('#scenarios-tbody').empty();
+    $.each(DATA.SCENARIO_DATA, (key, s) => $b.append(`<tr>
+        <td>${inp(key,'id')}</td>
+        <td>${inp(s.name,'name')}</td>
+        <td>${inp(s.description,'description')}</td>
+        <td>${inp(s.icon,'icon')}</td>
+        <td>${delBtn()}</td>
+    </tr>`));
+}
+function collectScenarios() {
+    DATA.SCENARIO_DATA = {};
+    $('#scenarios-tbody tr').each(function() {
+        const id = $(this).find('[name=id]').val().trim();
+        if (!id) return;
+        DATA.SCENARIO_DATA[id] = {
+            name: $(this).find('[name=name]').val().trim(),
+            description: $(this).find('[name=description]').val().trim(),
+            icon: $(this).find('[name=icon]').val().trim()
+        };
+    });
+}
+$('#addScenario').on('click', () => $('#scenarios-tbody').append(`<tr>
+    <td>${inp('new-scenario','id')}</td>
+    <td>${inp('Nuevo','name')}</td>
+    <td>${inp('Descripción','description')}</td>
+    <td>${inp('default','icon')}</td>
+    <td>${delBtn()}</td>
+</tr>`));
+
+// ============================================================
+// ADD-ONS
+// ============================================================
+function renderAddons() {
+    const $b = $('#addons-tbody').empty();
+    $.each(DATA.ADDON_PRICING, (key, a) => $b.append(`<tr>
+        <td>${inp(key,'id')}</td>
+        <td>${inp(a.name,'name')}</td>
+        <td>${num(a.price,'price')}</td>
+        <td>${delBtn()}</td>
+    </tr>`));
+}
+function collectAddons() {
+    DATA.ADDON_PRICING = {};
+    $('#addons-tbody tr').each(function() {
+        const id = $(this).find('[name=id]').val().trim();
+        if (!id) return;
+        DATA.ADDON_PRICING[id] = {
+            name:  $(this).find('[name=name]').val().trim(),
+            price: +$(this).find('[name=price]').val() || 0
+        };
+    });
+}
+$('#addAddon').on('click', () => $('#addons-tbody').append(`<tr>
+    <td>${inp('new-addon','id')}</td>
+    <td>${inp('Nuevo Add-on','name')}</td>
+    <td>${num(0,'price')}</td>
+    <td>${delBtn()}</td>
+</tr>`));
+
+// ============================================================
+// SAVE
+// ============================================================
+const SAVE_ICON = `<svg class="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3m-1 4l-3 3m0 0l-3-3m3 3V4"/></svg>`;
+
+function doSave() {
+    collectGeneral(); collectMcodes(); collectHotel(); collectTiered();
+    collectPacks(); collectTechniques(); collectScenarios(); collectAddons();
+
+    const $btns = $('#saveBtn, #saveBtn-mobile');
+    $btns.prop('disabled', true).text('Guardando…');
+
+    $.ajax({
+        url: '/save', method: 'POST', contentType: 'application/json',
+        data: JSON.stringify(DATA),
+        success: () => toast('✓ Guardado', true),
+        error: (xhr) => {
+            if (!xhr.status || xhr.status === 404) {
+                toast('✓ POST enviado', true);
+                console.log('Payload:', JSON.stringify(DATA, null, 2));
+            } else {
+                toast('✗ Error ' + xhr.status, false);
+            }
+        },
+        complete: () => {
+            $btns.prop('disabled', false);
+            $('#saveBtn').html(SAVE_ICON + ' Guardar');
+            $('#saveBtn-mobile').html(SAVE_ICON + ' Guardar');
+        }
+    });
+}
+$('#saveBtn, #saveBtn-mobile').on('click', doSave);
+
+// ============================================================
+// INIT
+// ============================================================
+fetch('./data.json')
+    .then(r => { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })
+    .then(json => {
+        DATA = json;
+        renderGeneral(); renderMcodes(); renderHotel(); renderTiered();
+        renderPacks(); renderTechniques(); renderScenarios(); renderAddons();
+    })
+    .catch(err => {
+        toast('✗ No se pudo cargar data.json: ' + err.message, false);
+        console.error(err);
+    });
+</script>
+</body>
+</html>

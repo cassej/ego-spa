@@ -1,0 +1,114 @@
+{
+  "PACK_DATA": {
+    "M51": {
+      "name": "MTX - 20 min",
+      "upgradeFee": 30,
+      "sizes": {
+        "S": { "sessions": 3, "price": 115, "label": "Small" },
+        "M": { "sessions": 6, "price": 185, "label": "Medium" },
+        "L": { "sessions": 14, "price": 395, "label": "Large" }
+      }
+    },
+    "M52": {
+      "name": "Baby - 40 min",
+      "upgradeFee": 30,
+      "sizes": {
+        "S": { "sessions": 2, "price": 135, "label": "Small" },
+        "M": { "sessions": 3, "price": 195, "label": "Medium" },
+        "L": { "sessions": 10, "price": 395, "label": "Large" }
+      }
+    },
+    "M53": {
+      "name": "3x4 - 90 min",
+      "upgradeFee": 50,
+      "sizes": {
+        "R": { "sessions": 3, "price": 295, "label": "Regular" },
+        "D": { "sessions": 3, "price": 375, "label": "Double" },
+        "XL": { "sessions": 6, "price": 695, "label": "XL" }
+      }
+    },
+    "M54": {
+      "name": "6x6 - 60 min",
+      "upgradeFee": 50,
+      "sizes": {
+        "R": { "sessions": 6, "price": 450, "label": "Regular" },
+        "D": { "sessions": 6, "price": 570, "label": "Double" },
+        "XL": { "sessions": 14, "price": 1200, "label": "XL" }
+      }
+    }
+  },
+
+  "M_CODE_PRICING": {
+    "M11": { "code": "M11", "duration": 20, "hands": 2, "regularPrice": 55,  "egoPrice": 50  },
+    "M12": { "code": "M12", "duration": 40, "hands": 2, "regularPrice": 85,  "egoPrice": 70  },
+    "M13": { "code": "M13", "duration": 60, "hands": 2, "regularPrice": 105, "egoPrice": 85  },
+    "M14": { "code": "M14", "duration": 90, "hands": 2, "regularPrice": 155, "egoPrice": 135 },
+    "M15": { "code": "M15", "duration": 40, "hands": 4, "regularPrice": 120, "egoPrice": 100 },
+    "M16": { "code": "M16", "duration": 75, "hands": 4, "regularPrice": 155, "egoPrice": 135 },
+    "M17": { "code": "M17", "duration": 60, "hands": 6, "regularPrice": 250, "egoPrice": 200 },
+    "M18": { "code": "M18", "duration": 60, "hands": 8, "regularPrice": 350, "egoPrice": 300 }
+  },
+
+  "HOTEL_SERVICE_PRICING": {
+    "60-2":  { "duration": 60,  "hands": 2, "regularPrice": 150, "egoPrice": 135 },
+    "90-2":  { "duration": 90,  "hands": 2, "regularPrice": 200, "egoPrice": 180 },
+    "120-2": { "duration": 120, "hands": 2, "regularPrice": 250, "egoPrice": 225 },
+    "60-4":  { "duration": 60,  "hands": 4, "regularPrice": 250, "egoPrice": 225 },
+    "90-4":  { "duration": 90,  "hands": 4, "regularPrice": 350, "egoPrice": 315 }
+  },
+
+  "TECHNIQUE_DATA": {
+    "tantric":         { "name": "Tantric",         "pricingSystem": "M11-M18", "allowedCodes": ["M11","M12","M13","M14","M15","M16","M17","M18"], "allowedScenarios": ["shower","massage-table","tatami","tantric-couch","tantric-chair","tantric-sink"] },
+    "thai":            { "name": "Thai",             "pricingSystem": "M11-M18", "allowedCodes": ["M12","M13","M14","M15","M16"], "allowedScenarios": ["tatami"] },
+    "imperial":        { "name": "Imperial",         "pricingSystem": "M11-M18", "allowedCodes": ["M12","M13","M14","M15","M16"], "allowedScenarios": ["massage-table"] },
+    "zurzum":          { "name": "Zurzum",           "pricingSystem": "M11-M18", "allowedCodes": ["M12","M13","M14","M15","M16"], "allowedScenarios": ["massage-table","tatami"] },
+    "miso":            { "name": "Miso",             "pricingSystem": "M11-M18", "allowedCodes": ["M12","M13","M14","M15","M16"], "allowedScenarios": ["massage-table","tatami"] },
+    "nuru":            { "name": "Nuru",             "pricingSystem": "Tiered",  "basePrice": 135, "allowedScenarios": ["tatami","tantric-sink"] },
+    "flegg":           { "name": "Flegg",            "pricingSystem": "Tiered",  "basePrice": 135, "allowedScenarios": ["tatami","tantric-sink"] },
+    "lingam":          { "name": "Lingam",           "pricingSystem": "Tiered",  "basePrice": 135, "allowedScenarios": ["massage-table","tatami","tantric-couch","tantric-chair","tantric-sink"] },
+    "circuit":         { "name": "Circuit",          "pricingSystem": "Tiered",  "basePrice": 165, "allowedScenarios": ["massage-table","tatami","tantric-couch","tantric-chair","tantric-sink"], "minScenarios": { "40": 2, "60": 3 } },
+    "circuit-deluxe":  { "name": "Circuit Deluxe",   "pricingSystem": "Tiered",  "basePrice": 165, "allowedScenarios": ["massage-table","tatami","tantric-couch","tantric-chair","tantric-sink"], "minScenarios": { "40": 2, "60": 3 } },
+    "cocktail":        { "name": "Cocktail",         "pricingSystem": "Tiered",  "basePrice": 195, "allowedScenarios": ["massage-table","tatami","tantric-couch","tantric-chair","tantric-sink"] },
+    "cocktail-deluxe": { "name": "Cocktail Deluxe",  "pricingSystem": "Tiered",  "basePrice": 195, "allowedScenarios": ["massage-table","tatami","tantric-couch","tantric-chair","tantric-sink"] }
+  },
+
+  "SCENARIO_DATA": {
+    "shower":        { "name": "Shower",        "icon": "shower", "description": "Shower experience" },
+    "massage-table": { "name": "Massage Table", "icon": "table",  "description": "Traditional massage table" },
+    "tatami":        { "name": "Tatami",        "icon": "mat",    "description": "Japanese tatami (wet available)" },
+    "tantric-couch": { "name": "Tantric Couch", "icon": "couch",  "description": "Specialized tantric couch" },
+    "tantric-chair": { "name": "Tantric Chair", "icon": "chair",  "description": "Specialized tantric chair" },
+    "tantric-sink":  { "name": "Tantric Sink",  "icon": "sink",   "description": "Tantric sink experience" }
+  },
+
+  "ADDON_PRICING": {
+    "double-sensitive": { "name": "Double Sensitive", "price": 25 },
+    "hotel":            { "name": "Mobility",         "price": 25 },
+    "night-rate":       { "name": "Night Rate",       "price": 25 },
+    "sensitive":        { "name": "Sensitive",        "price": 0  }
+  },
+
+  "TIERED_MODIFIERS": {
+    "hands":    { "2": 0, "4": 50, "6": 100, "8": 150 },
+    "duration": { "20": -20, "40": -20, "60": 0, "75": 25, "90": 50, "120": 100 }
+  },
+
+  "EGO_DISCOUNT": 0.18,
+
+  "WHATSAPP_NUMBER": "50760000000",
+
+  "BUSINESS_HOURS": {
+    "weekdays": { "label": "Lunes a Sábado", "open": "08:30", "close": "00:30" },
+    "weekends":  { "label": "Domingos y Feriados", "open": "10:00", "close": "00:30" },
+    "lastAppointment": "00:00",
+    "nightRateAfter": "00:00",
+    "nightRateBefore": "06:00"
+  },
+
+  "FLOWS": [
+    { "id": "single", "label": "MASAJES INDIVIDUALES", "description": "Una visita unica. Escoge tecnica, manos y duracion.", "icon": "heart", "color": "red" },
+    { "id": "packs",  "label": "PACKS & CONTRATOS",    "description": "Paquetes pre-pagados M51-M54. Multiples sesiones.", "icon": "package", "color": "red" },
+    { "id": "hotel",  "label": "HOTEL SERVICES",       "description": "Servicio a tu habitacion. Disponible 24/7.",      "icon": "hotel",   "color": "gold" },
+    { "id": "jetlag", "label": "JETLAGAWAY",            "description": "Recuperacion especial para viajeros. Proximamente.", "icon": "plane", "color": "gold", "comingSoon": true }
+  ]
+}

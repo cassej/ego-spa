@@ -1,0 +1,982 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ego Spa & Barba | Reservas</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link 
+href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@400;500;600;700&display=swap" 
+rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        ego: {
+                            black: '#000000',
+                            zinc: '#18181b',
+                            zincLight: '#27272a',
+                            red: '#ef4444',
+                            redDark: '#dc2626',
+                            gold: '#d4af37',
+                            muted: '#71717a'
+                        }
+                    },
+                    fontFamily: {
+                        display: ['Bebas Neue', 'sans-serif'],
+                        body: ['DM Sans', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="text-white font-body">
+<!-- Ambient Background -->
+<div class="bg-ambient"></div>
+<div class="grid-overlay"></div>
+
+<!-- Main Container -->
+<div class="relative z-10 min-h-screen pb-32">
+
+    <!-- Header -->
+    <header class="sticky top-0 z-50 backdrop-blur-xl bg-black/80 border-b 
+border-white/5">
+        <div class="max-w-lg mx-auto px-4 py-4 flex items-center 
+justify-between">
+            <div class="fade-up">
+                <h1 class="font-display text-2xl tracking-wider 
+text-white">EGO SPA & BARBA</h1>
+                <p class="text-xs text-ego-muted tracking-widest 
+uppercase">Panama</p>
+            </div>
+            <button id="authBtn" class="fade-up stagger-1 flex 
+items-center gap-2 px-3 py-2 rounded-lg bg-ego-zinc hover:bg-ego-zincLight 
+transition-colors" aria-label="Autenticacion Ego Card">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" 
+viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" 
+stroke-width="2" d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 
+17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 
+9z"/>
+                </svg>
+                <span id="authLabel" class="text-sm">Ego Card</span>
+            </button>
+        </div>
+    </header>
+
+    <!-- Auth Modal -->
+    <div id="authModal" class="fixed inset-0 z-[100] hidden items-center 
+justify-center p-4 modal-backdrop">
+        <div class="w-full max-w-sm bg-ego-zinc rounded-2xl p-6 border 
+border-white/10 fade-up">
+            <div class="text-center mb-6">
+                <div class="w-16 h-16 mx-auto mb-4 rounded-full 
+bg-gradient-to-br from-ego-red to-ego-redDark flex items-center 
+justify-center">
+                    <svg class="w-8 h-8" fill="none" stroke="currentColor" 
+viewBox="0 0 24 24">
+                        <path stroke-linecap="round" 
+stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 
+17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 
+12l5.714-2.143L13 3z"/>
+                    </svg>
+                </div>
+                <h2 class="font-display text-3xl tracking-wide mb-2">EGO 
+CARD</h2>
+                <p class="text-ego-muted text-sm">Accede a tarifas 
+exclusivas con tu correo</p>
+            </div>
+
+            <form id="authForm" class="space-y-4">
+                <div>
+                    <label for="emailInput" class="block text-sm 
+text-ego-muted mb-2">Correo electronico</label>
+                    <input
+                            type="email"
+                            id="emailInput"
+                            placeholder="tu@email.com"
+                            class="w-full px-4 py-3 bg-ego-black border 
+border-white/10 rounded-lg text-white placeholder-ego-muted 
+focus:border-ego-red transition-colors"
+                            required
+                    >
+                </div>
+                <button type="submit" class="btn-primary w-full py-3 
+rounded-lg font-semibold text-white uppercase tracking-wider">
+                    Desbloquear Precios
+                </button>
+            </form>
+
+            <p class="text-xs text-ego-muted text-center mt-4">
+                Ahorra hasta 20% en todos los servicios
+            </p>
+
+            <button id="closeAuthModal" class="absolute top-4 right-4 
+text-ego-muted hover:text-white transition-colors" aria-label="Cerrar">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" 
+viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" 
+stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                </svg>
+            </button>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main class="max-w-lg mx-auto px-4 py-6">
+
+        <!-- Flow Selection (Step 0) -->
+        <section id="flowSelection" class="space-y-6">
+            <div class="text-center fade-up stagger-1">
+                <h2 class="font-display text-4xl md:text-5xl tracking-wide 
+mb-2">RESERVA TU EXPERIENCIA</h2>
+                <p class="text-ego-muted">Selecciona el tipo de 
+servicio</p>
+            </div>
+
+            <div class="grid gap-4 mt-8">
+                <button class="flow-btn option-card rounded-2xl p-6 text-left fade-up stagger-2" data-flow="single" aria-label="Masajes individuales">
+                    <div class="flex items-start gap-4">
+                        <div class="w-14 h-14 rounded-xl bg-gradient-to-br from-ego-red/20 to-transparent flex items-center justify-center flex-shrink-0">
+                            <svg class="w-7 h-7 text-ego-red" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
+                            </svg>
+                        </div>
+                        <div class="flex-1">
+                            <h3 class="font-display text-2xl tracking-wide mb-1">MASAJES INDIVIDUALES</h3>
+                            <p class="text-ego-muted text-sm">Una visita unica. Escoge tecnica, manos y duracion.</p>
+                        </div>
+                        <svg class="w-6 h-6 text-ego-muted flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                        </svg>
+                    </div>
+                </button>
+
+                <button class="flow-btn option-card rounded-2xl p-6 text-left fade-up stagger-3" data-flow="packs" aria-label="Paquetes y contratos">
+                    <div class="flex items-start gap-4">
+                        <div class="w-14 h-14 rounded-xl bg-gradient-to-br from-ego-red/20 to-transparent flex items-center justify-center flex-shrink-0">
+                            <svg class="w-7 h-7 text-ego-red" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/>
+                            </svg>
+                        </div>
+                        <div class="flex-1">
+                            <h3 class="font-display text-2xl tracking-wide mb-1">PACKS & CONTRATOS</h3>
+                            <p class="text-ego-muted text-sm">Paquetes pre-pagados M51-M54. Multiples sesiones.</p>
+                        </div>
+                        <svg class="w-6 h-6 text-ego-muted flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                        </svg>
+                    </div>
+                </button>
+
+                <button class="flow-btn option-card rounded-2xl p-6 text-left fade-up stagger-4" data-flow="hotel" aria-label="Hotel Services">
+                    <div class="flex items-start gap-4">
+                        <div class="w-14 h-14 rounded-xl bg-gradient-to-br from-ego-gold/20 to-transparent flex items-center justify-center flex-shrink-0">
+                            <svg class="w-7 h-7 text-ego-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/>
+                            </svg>
+                        </div>
+                        <div class="flex-1">
+                            <h3 class="font-display text-2xl tracking-wide mb-1">HOTEL SERVICES</h3>
+                            <p class="text-ego-muted text-sm">Servicio a tu habitacion. Disponible 24/7.</p>
+                        </div>
+                        <svg class="w-6 h-6 text-ego-muted flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                        </svg>
+                    </div>
+                </button>
+
+                <button class="flow-btn option-card rounded-2xl p-6 text-left fade-up stagger-5" data-flow="jetlag" aria-label="JetLagAway">
+                    <div class="flex items-start gap-4">
+                        <div class="w-14 h-14 rounded-xl bg-gradient-to-br from-ego-gold/20 to-transparent flex items-center justify-center flex-shrink-0">
+                            <svg class="w-7 h-7 text-ego-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"/>
+                            </svg>
+                        </div>
+                        <div class="flex-1">
+                            <h3 class="font-display text-2xl tracking-wide mb-1">JETLAGAWAY</h3>
+                            <p class="text-ego-muted text-sm">Recuperacion especial para viajeros. Proximamente.</p>
+                        </div>
+                        <svg class="w-6 h-6 text-ego-muted flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                        </svg>
+                    </div>
+                </button>
+            </div>
+        </section>
+
+        <!-- Single Massage Flow -->
+        <section id="singleFlow" class="hidden space-y-6">
+            <!-- Step indicator -->
+            <div class="flex items-center justify-center gap-3 py-4 fade-up">
+                <div class="step-dot active" data-step="1"></div>
+                <div class="w-8 h-px bg-ego-zincLight"></div>
+                <div class="step-dot" data-step="2"></div>
+                <div class="w-8 h-px bg-ego-zincLight"></div>
+                <div class="step-dot" data-step="3"></div>
+                <div class="w-8 h-px bg-ego-zincLight"></div>
+                <div class="step-dot" data-step="4"></div>
+                <div class="w-8 h-px bg-ego-zincLight"></div>
+                <div class="step-dot" data-step="5"></div>
+                <div class="w-8 h-px bg-ego-zincLight"></div>
+                <div class="step-dot" data-step="6"></div>
+                <div class="w-8 h-px bg-ego-zincLight"></div>
+                <div class="step-dot" data-step="7"></div>
+            </div>
+
+            <!-- Step 1: Technique -->
+            <div id="singleStep1" class="step-content">
+                <div class="text-center mb-6 fade-up">
+                    <span class="text-ego-red text-sm font-semibold tracking-wider">PASO 1 DE 7</span>
+                    <h2 class="font-display text-4xl tracking-wide mt-2">TECNICA</h2>
+                    <p class="text-ego-muted text-sm mt-1">Selecciona el tipo de masaje</p>
+                </div>
+
+                <div class="grid grid-cols-2 gap-3">
+                    <button class="technique-btn option-card rounded-xl p-4 text-center fade-up stagger-1" data-technique="tantric">
+                        <h3 class="font-semibold text-lg">Tantric</h3>
+                    </button>
+
+                    <button class="technique-btn option-card rounded-xl p-4 text-center fade-up stagger-2" data-technique="thai">
+                        <h3 class="font-semibold text-lg">Thai</h3>
+                    </button>
+
+                    <button class="technique-btn option-card rounded-xl p-4 text-center fade-up stagger-3" data-technique="imperial">
+                        <h3 class="font-semibold text-lg">Imperial</h3>
+                    </button>
+
+                    <button class="technique-btn option-card rounded-xl p-4 text-center fade-up stagger-4" data-technique="zurzum">
+                        <h3 class="font-semibold text-lg">Zurzum</h3>
+                    </button>
+
+                    <button class="technique-btn option-card rounded-xl p-4 text-center fade-up stagger-5" data-technique="nuru">
+                        <h3 class="font-semibold text-lg">Nuru Japanese</h3>
+                    </button>
+
+                    <button class="technique-btn option-card rounded-xl p-4 text-center fade-up stagger-6" data-technique="lingam">
+                        <h3 class="font-semibold text-lg">Lingam</h3>
+                    </button>
+
+                    <button class="technique-btn option-card rounded-xl p-4 text-center fade-up stagger-7" data-technique="miso">
+                        <h3 class="font-semibold text-lg">Miso</h3>
+                    </button>
+
+                    <button class="technique-btn option-card rounded-xl p-4 text-center fade-up stagger-8" data-technique="flegg">
+                        <h3 class="font-semibold text-lg">Flegg</h3>
+                    </button>
+
+                    <button class="technique-btn option-card rounded-xl p-4 text-center fade-up stagger-9" data-technique="circuit">
+                        <h3 class="font-semibold text-lg">Circuit</h3>
+                    </button>
+
+                    <button class="technique-btn option-card rounded-xl p-4 text-center fade-up stagger-10" data-technique="circuit-deluxe">
+                        <h3 class="font-semibold text-lg">Circuit Deluxe</h3>
+                    </button>
+
+                    <button class="technique-btn option-card rounded-xl p-4 text-center fade-up stagger-11" data-technique="cocktail">
+                        <h3 class="font-semibold text-lg">Cocktail</h3>
+                    </button>
+
+                    <button class="technique-btn option-card rounded-xl p-4 text-center fade-up stagger-12" data-technique="cocktail-deluxe">
+                        <h3 class="font-semibold text-lg">Cocktail Deluxe</h3>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Step 2: Hands -->
+            <div id="singleStep2" class="step-content hidden">
+                <div class="text-center mb-6 fade-up">
+                    <span class="text-ego-red text-sm font-semibold tracking-wider">PASO 2 DE 7</span>
+                    <h2 class="font-display text-4xl tracking-wide mt-2">MANOS</h2>
+                    <p class="text-ego-muted text-sm mt-1">Número de manos</p>
+                </div>
+
+                <div class="grid grid-cols-4 gap-3">
+                    <button class="hands-btn option-card rounded-xl p-4 text-center fade-up stagger-1" data-hands="2">
+                        <div class="font-display text-3xl text-white">2</div>
+                        <p class="text-ego-muted text-xs mt-1">Manos</p>
+                    </button>
+
+                    <button class="hands-btn option-card rounded-xl p-4 text-center fade-up stagger-2" data-hands="4">
+                        <div class="font-display text-3xl text-white">4</div>
+                        <p class="text-ego-muted text-xs mt-1">Manos</p>
+                    </button>
+
+                    <button class="hands-btn option-card rounded-xl p-4 text-center fade-up stagger-3" data-hands="6">
+                        <div class="font-display text-3xl text-white">6</div>
+                        <p class="text-ego-muted text-xs mt-1">Manos</p>
+                    </button>
+
+                    <button class="hands-btn option-card rounded-xl p-4 text-center fade-up stagger-4" data-hands="8">
+                        <div class="font-display text-3xl text-white">8</div>
+                        <p class="text-ego-muted text-xs mt-1">Manos</p>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Step 3: Duration -->
+            <div id="singleStep3" class="step-content hidden">
+                <div class="text-center mb-6 fade-up">
+                    <span class="text-ego-red text-sm font-semibold tracking-wider">PASO 3 DE 7</span>
+                    <h2 class="font-display text-4xl tracking-wide mt-2">DURACIÓN</h2>
+                    <p class="text-ego-muted text-sm mt-1">Duración del masaje</p>
+                </div>
+
+                <div class="grid grid-cols-3 gap-3">
+                    <button class="duration-btn option-card rounded-xl p-4 text-center fade-up stagger-1" data-duration="20">
+                        <div class="font-display text-3xl text-white">20</div>
+                        <p class="text-ego-muted text-xs mt-1">min</p>
+                    </button>
+
+                    <button class="duration-btn option-card rounded-xl p-4 text-center fade-up stagger-2" data-duration="40">
+                        <div class="font-display text-3xl text-white">40</div>
+                        <p class="text-ego-muted text-xs mt-1">min</p>
+                    </button>
+
+                    <button class="duration-btn option-card rounded-xl p-4 text-center fade-up stagger-3" data-duration="60">
+                        <div class="font-display text-3xl text-white">60</div>
+                        <p class="text-ego-muted text-xs mt-1">min</p>
+                    </button>
+
+                    <button class="duration-btn option-card rounded-xl p-4 text-center fade-up stagger-4" data-duration="75">
+                        <div class="font-display text-3xl text-white">75</div>
+                        <p class="text-ego-muted text-xs mt-1">min</p>
+                    </button>
+
+                    <button class="duration-btn option-card rounded-xl p-4 text-center fade-up stagger-5" data-duration="90">
+                        <div class="font-display text-3xl text-white">90</div>
+                        <p class="text-ego-muted text-xs mt-1">min</p>
+                    </button>
+
+                    <button class="duration-btn option-card rounded-xl p-4 text-center fade-up stagger-6" data-duration="120">
+                        <div class="font-display text-3xl text-white">120</div>
+                        <p class="text-ego-muted text-xs mt-1">min</p>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Step 4: Scenarios -->
+            <div id="singleStep4" class="step-content hidden">
+                <div class="text-center mb-6 fade-up">
+                    <span class="text-ego-red text-sm font-semibold tracking-wider">PASO 4 DE 7</span>
+                    <h2 class="font-display text-4xl tracking-wide mt-2">ESCENARIOS</h2>
+                    <p class="text-ego-muted text-sm mt-1">Elige tu experiencia</p>
+                    <p id="scenarioHint" class="text-ego-gold text-xs mt-2 hidden"></p>
+                </div>
+
+                <div class="grid grid-cols-3 gap-3">
+                    <button class="scenario-btn option-card rounded-xl p-4 text-center fade-up stagger-1" data-scenario="shower" id="scenario-shower">
+                        <div class="w-10 h-10 mx-auto mb-2 rounded-full bg-ego-red/20 flex items-center justify-center">
+                            <svg class="w-5 h-5 text-ego-red" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 14v3m4-3v3m4-3v3M3 21h18M3 10h18M3 7l9-4 9 4M4 10h16v11H4V10z"/>
+                            </svg>
+                        </div>
+                        <h3 class="font-semibold text-sm">Shower</h3>
+                    </button>
+
+                    <button class="scenario-btn option-card rounded-xl p-4 text-center fade-up stagger-2" data-scenario="massage-table" id="scenario-massage-table">
+                        <div class="w-10 h-10 mx-auto mb-2 rounded-full bg-ego-red/20 flex items-center justify-center">
+                            <svg class="w-5 h-5 text-ego-red" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+                            </svg>
+                        </div>
+                        <h3 class="font-semibold text-sm">Massage Table</h3>
+                    </button>
+
+                    <button class="scenario-btn option-card rounded-xl p-4 text-center fade-up stagger-3" data-scenario="tatami" id="scenario-tatami">
+                        <div class="w-10 h-10 mx-auto mb-2 rounded-full bg-ego-red/20 flex items-center justify-center">
+                            <svg class="w-5 h-5 text-ego-red" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM4 13a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H5a1 1 0 01-1-1v-6z"/>
+                            </svg>
+                        </div>
+                        <h3 class="font-semibold text-sm">Tatami</h3>
+                    </button>
+
+                    <button class="scenario-btn option-card rounded-xl p-4 text-center fade-up stagger-4" data-scenario="tantric-couch" id="scenario-tantric-couch">
+                        <div class="w-10 h-10 mx-auto mb-2 rounded-full bg-ego-gold/20 flex items-center justify-center">
+                            <svg class="w-5 h-5 text-ego-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 12H4"/>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 12v6a2 2 0 002 2h12a2 2 0 002-2v-6"/>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 4v3m6-3v3"/>
+                            </svg>
+                        </div>
+                        <h3 class="font-semibold text-sm">Tantric Couch</h3>
+                    </button>
+
+                    <button class="scenario-btn option-card rounded-xl p-4 text-center fade-up stagger-5" data-scenario="tantric-chair" id="scenario-tantric-chair">
+                        <div class="w-10 h-10 mx-auto mb-2 rounded-full bg-ego-gold/20 flex items-center justify-center">
+                            <svg class="w-5 h-5 text-ego-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+                            </svg>
+                        </div>
+                        <h3 class="font-semibold text-sm">Tantric Chair</h3>
+                    </button>
+
+                    <button class="scenario-btn option-card rounded-xl p-4 text-center fade-up stagger-6" data-scenario="tantric-sink" id="scenario-tantric-sink">
+                        <div class="w-10 h-10 mx-auto mb-2 rounded-full bg-ego-gold/20 flex items-center justify-center">
+                            <svg class="w-5 h-5 text-ego-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"/>
+                            </svg>
+                        </div>
+                        <h3 class="font-semibold text-sm">Tantric Sink</h3>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Step 5: PRAECOQUIS -->
+            <div id="singleStep5" class="step-content hidden">
+                <div class="text-center mb-6 fade-up">
+                    <span class="text-ego-red text-sm font-semibold tracking-wider">PASO 5 DE 7</span>
+                    <h2 class="font-display text-4xl tracking-wide mt-2">PRAECOQUIS</h2>
+                    <p class="text-ego-muted text-sm mt-1">Opciones adicionales</p>
+                </div>
+
+                <div class="space-y-3">
+                    <label class="option-card rounded-xl p-4 flex items-center gap-4 cursor-pointer fade-up stagger-1">
+                        <input type="checkbox" class="extra-check custom-radio" data-extra="sensitive" data-addon="0" checked>
+                        <div class="flex-1">
+                            <h3 class="font-semibold">Sensitive</h3>
+                            <p class="text-ego-muted text-sm">Incluido</p>
+                        </div>
+                    </label>
+
+                    <label class="option-card rounded-xl p-4 flex items-center gap-4 cursor-pointer fade-up stagger-2">
+                        <input type="checkbox" class="extra-check custom-radio" data-extra="double-sensitive" data-addon="25">
+                        <div class="flex-1">
+                            <h3 class="font-semibold">Double Sensitive</h3>
+                            <p class="text-ego-muted text-sm">Experiencia dual intensificada</p>
+                        </div>
+                    </label>
+                </div>
+                <!-- Continue button will be added in Task 6 -->
+            </div>
+
+            <!-- Step 6: Logistics -->
+            <div id="singleStep6" class="step-content hidden">
+                <div class="text-center mb-6 fade-up">
+                    <span class="text-ego-red text-sm font-semibold tracking-wider">PASO 6 DE 7</span>
+                    <h2 class="font-display text-4xl tracking-wide mt-2">LOGÍSTICA</h2>
+                    <p class="text-ego-muted text-sm mt-1">Masseuse y traslados</p>
+                </div>
+
+                <div class="space-y-4">
+                    <div class="option-card rounded-xl p-4 fade-up stagger-1">
+                        <label class="flex items-center gap-3 mb-3">
+                            <input type="radio" name="masseuse-pref" value="no-pref" checked class="custom-radio">
+                            <span class="font-semibold">Sin preferencia</span>
+                        </label>
+                    </div>
+
+                    <div class="option-card rounded-xl p-4 fade-up stagger-2">
+                        <label class="flex items-center gap-3 mb-3">
+                            <input type="radio" name="masseuse-pref" value="specific" class="custom-radio">
+                            <span class="font-semibold">Masseuse específica</span>
+                        </label>
+                        <input type="text" id="masseuseName" class="masseuse-input w-full bg-ego-zinc rounded-lg p-3 text-white placeholder-ego-muted" placeholder="Nombre de la masseuse" disabled>
+                    </div>
+
+                    <div class="option-card rounded-xl p-4 fade-up stagger-3">
+                        <label class="flex items-center justify-between">
+                            <div>
+                                <h3 class="font-semibold">Transfer from another branch</h3>
+                                <p class="text-ego-muted text-sm">Traslado de masseuse</p>
+                            </div>
+                            <label class="relative inline-flex items-center cursor-pointer">
+                                <input type="checkbox" id="mobilityToggle" class="sr-only peer" disabled>
+                                <div class="w-11 h-6 bg-ego-zinc peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-ego-red"></div>
+                            </label>
+                        </label>
+                    </div>
+                </div>
+                <!-- Continue button will be added in Task 6 -->
+            </div>
+
+            <!-- Step 7: Date & Time + Final Summary -->
+            <div id="singleStep7" class="step-content hidden">
+                <div class="text-center mb-6 fade-up">
+                    <span class="text-ego-red text-sm font-semibold tracking-wider">PASO 7 DE 7</span>
+                    <h2 class="font-display text-4xl tracking-wide mt-2">FECHA Y HORA</h2>
+                    <p class="text-ego-muted text-sm mt-1">Confirma tu reserva</p>
+                </div>
+
+                <div class="space-y-4 mb-6">
+                    <div class="option-card rounded-xl p-4 fade-up stagger-1">
+                        <label class="block">
+                            <span class="text-ego-muted text-sm">Fecha</span>
+                            <input type="date" id="bookingDate" class="w-full mt-2 bg-ego-zinc rounded-lg p-3 text-white">
+                        </label>
+                    </div>
+
+                    <div class="option-card rounded-xl p-4 fade-up stagger-2">
+                        <label class="block">
+                            <span class="text-ego-muted text-sm">Hora</span>
+                            <input type="time" id="bookingTime" class="w-full mt-2 bg-ego-zinc rounded-lg p-3 text-white">
+                        </label>
+                    </div>
+
+                    <div class="text-ego-muted text-xs text-center fade-up stagger-3">
+                        Horario: Lun-Sáb 8:30 AM - 12:30 AM | Dom/Fest 10:00 AM - 12:30 AM
+                    </div>
+                </div>
+
+                <div class="bg-ego-zinc rounded-xl p-4 mb-4 fade-up stagger-4">
+                    <h3 class="font-display text-xl text-ego-gold mb-3 text-center">RESUMEN</h3>
+
+                    <div class="space-y-2 text-sm">
+                        <div class="flex justify-between">
+                            <span class="text-ego-muted">Técnica:</span>
+                            <span id="finalTechnique" class="text-white"></span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-ego-muted">Escenario:</span>
+                            <span id="finalScenario" class="text-white"></span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-ego-muted">Manos:</span>
+                            <span id="finalHands" class="text-white"></span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-ego-muted">Duración:</span>
+                            <span id="finalDuration" class="text-white"></span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-ego-muted">PRAECOQUIS:</span>
+                            <span id="finalExtras" class="text-white"></span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-ego-muted">Masseuse:</span>
+                            <span id="finalMasseuse" class="text-white"></span>
+                        </div>
+                        <div id="finalMobilityRow" class="flex justify-between hidden">
+                            <span class="text-ego-muted">Traslado:</span>
+                            <span class="text-white">+$25</span>
+                        </div>
+                        <div id="finalNightRateRow" class="flex justify-between hidden">
+                            <span class="text-ego-muted">🌙 Night Rate:</span>
+                            <span class="text-white">+$25</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-ego-muted">Fecha:</span>
+                            <span id="finalDate" class="text-white"></span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-ego-muted">Hora:</span>
+                            <span id="finalTime" class="text-white"></span>
+                        </div>
+                        <div class="border-t border-ego-zincLight my-2"></div>
+                        <div class="flex justify-between items-center">
+                            <span class="font-semibold text-white">TOTAL:</span>
+                            <span id="finalPrice" class="font-display text-3xl text-ego-red"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <button id="singleBookBtn" class="btn-primary w-full py-4 rounded-xl font-semibold text-white uppercase tracking-wider fade-up stagger-5" disabled>
+                    Reservar por WhatsApp
+                </button>
+            </div>
+        </section>
+
+        <!-- Packs Flow -->
+        <section id="packsFlow" class="hidden space-y-6">
+            <!-- Step indicator -->
+            <div class="flex items-center justify-center gap-3 py-4 
+fade-up">
+                <div class="step-dot active" data-step="1"></div>
+                <div class="w-8 h-px bg-ego-zincLight"></div>
+                <div class="step-dot" data-step="2"></div>
+                <div class="w-8 h-px bg-ego-zincLight"></div>
+                <div class="step-dot" data-step="3"></div>
+            </div>
+
+            <!-- Step 1: Pack Selection -->
+            <div id="packStep1" class="step-content">
+                <div class="text-center mb-6 fade-up">
+                    <span class="text-ego-red text-sm font-semibold 
+tracking-wider">PASO 1 DE 3</span>
+                    <h2 class="font-display text-4xl tracking-wide 
+mt-2">SELECCIONA PACK</h2>
+                    <p class="text-ego-muted text-sm mt-1">Paquetes 
+pre-pagados</p>
+                </div>
+
+                <div class="space-y-3">
+                    <button class="pack-btn option-card w-full rounded-xl p-4 text-left fade-up stagger-1" data-pack="M51">
+                        <div>
+                            <p class="text-ego-red text-xs font-bold tracking-wider">M51</p>
+                            <h3 class="font-semibold text-lg mt-1">MTX - 20 min</h3>
+                            <p class="text-ego-muted text-xs">Multiple sessions</p>
+                        </div>
+                    </button>
+
+                    <button class="pack-btn option-card w-full rounded-xl p-4 text-left fade-up stagger-2" data-pack="M52">
+                        <div>
+                            <p class="text-ego-red text-xs font-bold tracking-wider">M52</p>
+                            <h3 class="font-semibold text-lg mt-1">Baby - 40 min</h3>
+                            <p class="text-ego-muted text-xs">Multiple sessions</p>
+                        </div>
+                    </button>
+
+                    <button class="pack-btn option-card w-full rounded-xl p-4 text-left fade-up stagger-3" data-pack="M53">
+                        <div>
+                            <p class="text-ego-red text-xs font-bold tracking-wider">M53</p>
+                            <h3 class="font-semibold text-lg mt-1">3x4 - 90 min</h3>
+                            <p class="text-ego-muted text-xs">Multiple sessions</p>
+                        </div>
+                    </button>
+
+                    <button class="pack-btn option-card w-full rounded-xl p-4 text-left fade-up stagger-4" data-pack="M54">
+                        <div>
+                            <p class="text-ego-red text-xs font-bold tracking-wider">M54</p>
+                            <h3 class="font-semibold text-lg mt-1">6x6 - 60 min</h3>
+                            <p class="text-ego-muted text-xs">Multiple sessions</p>
+                        </div>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Step 2: Size Selection -->
+            <div id="packStep2" class="step-content hidden">
+                <div class="text-center mb-6 fade-up">
+                    <span class="text-ego-red text-sm font-semibold 
+tracking-wider">PASO 2 DE 3</span>
+                    <h2 class="font-display text-4xl tracking-wide 
+mt-2">TAMAÑO</h2>
+                    <p class="text-ego-muted text-sm mt-1">Cantidad de 
+sesiones incluidas</p>
+                </div>
+
+                <div id="sizeOptions" class="grid grid-cols-2 gap-3">
+                    <!-- Dynamically populated -->
+                </div>
+            </div>
+
+            <!-- Step 3: Upgrade -->
+            <div id="packStep3" class="step-content hidden">
+                <div class="text-center mb-6 fade-up">
+                    <span class="text-ego-red text-sm font-semibold 
+tracking-wider">PASO 3 DE 3</span>
+                    <h2 class="font-display text-4xl tracking-wide 
+mt-2">UPGRADE</h2>
+                    <p class="text-ego-muted text-sm mt-1">Mejora tu pack 
+a 4 manos</p>
+                </div>
+
+                <div class="space-y-3">
+                    <button class="upgrade-btn option-card rounded-xl p-4 text-left fade-up stagger-1 selected" data-upgrade="2">
+                        <div>
+                            <h3 class="font-semibold text-lg">2 Manos</h3>
+                            <p class="text-ego-muted text-sm">Estandar</p>
+                        </div>
+                    </button>
+
+                    <button class="upgrade-btn option-card rounded-xl p-4 text-left fade-up stagger-2" data-upgrade="4">
+                        <div>
+                            <h3 class="font-semibold text-lg">4 Manos</h3>
+                            <p class="text-ego-muted text-sm">Experiencia premium</p>
+                        </div>
+                    </button>
+                </div>
+
+                <button id="packBookBtn" class="btn-primary w-full py-4 
+rounded-xl font-semibold text-white uppercase tracking-wider mt-6 fade-up 
+stagger-3">
+                    Reservar Ahora
+                </button>
+            </div>
+        </section>
+
+        <!-- Hotel Services Flow -->
+        <section id="hotelFlow" class="hidden space-y-6">
+            <!-- Step indicator -->
+            <div class="flex items-center justify-center gap-3 py-4 fade-up">
+                <div class="step-dot active" data-step="1"></div>
+                <div class="w-8 h-px bg-ego-zincLight"></div>
+                <div class="step-dot" data-step="2"></div>
+                <div class="w-8 h-px bg-ego-zincLight"></div>
+                <div class="step-dot" data-step="3"></div>
+                <div class="w-8 h-px bg-ego-zincLight"></div>
+                <div class="step-dot" data-step="4"></div>
+            </div>
+
+            <!-- Step 1: Technique -->
+            <div id="hotelStep1" class="step-content">
+                <div class="text-center mb-6 fade-up">
+                    <span class="text-ego-gold text-sm font-semibold tracking-wider">PASO 1 DE 4</span>
+                    <h2 class="font-display text-4xl tracking-wide mt-2">TECNICA</h2>
+                    <p class="text-ego-muted text-sm mt-1">Selecciona el tipo de masaje</p>
+                </div>
+
+                <div class="grid grid-cols-2 gap-3">
+                    <button class="hotel-technique-btn option-card rounded-xl p-4 text-center fade-up stagger-1" data-technique="tantric">
+                        <h3 class="font-semibold text-lg">Tantric</h3>
+                    </button>
+
+                    <button class="hotel-technique-btn option-card rounded-xl p-4 text-center fade-up stagger-2" data-technique="thai">
+                        <h3 class="font-semibold text-lg">Thai</h3>
+                    </button>
+
+                    <button class="hotel-technique-btn option-card rounded-xl p-4 text-center fade-up stagger-3" data-technique="nuru">
+                        <h3 class="font-semibold text-lg">Nuru Japanese</h3>
+                    </button>
+
+                    <button class="hotel-technique-btn option-card rounded-xl p-4 text-center fade-up stagger-4" data-technique="lingam">
+                        <h3 class="font-semibold text-lg">Lingam</h3>
+                    </button>
+
+                    <button class="hotel-technique-btn option-card rounded-xl p-4 text-center fade-up stagger-5" data-technique="circuit">
+                        <h3 class="font-semibold text-lg">Circuit</h3>
+                    </button>
+
+                    <button class="hotel-technique-btn option-card rounded-xl p-4 text-center fade-up stagger-6" data-technique="cocktail">
+                        <h3 class="font-semibold text-lg">Cocktail</h3>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Step 2: Scenario -->
+            <div id="hotelStep2" class="step-content hidden">
+                <div class="text-center mb-6 fade-up">
+                    <span class="text-ego-gold text-sm font-semibold tracking-wider">PASO 2 DE 4</span>
+                    <h2 class="font-display text-4xl tracking-wide mt-2">ESCENARIO</h2>
+                    <p class="text-ego-muted text-sm mt-1">Selecciona el lugar de tu experiencia</p>
+                </div>
+
+                <div class="grid grid-cols-2 gap-3">
+                    <button class="hotel-scenario-btn option-card rounded-xl p-4 text-center fade-up stagger-1" data-scenario="massage-table">
+                        <div class="w-10 h-10 mx-auto mb-2 rounded-full bg-ego-gold/20 flex items-center justify-center">
+                            <svg class="w-5 h-5 text-ego-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+                            </svg>
+                        </div>
+                        <h3 class="font-semibold text-base">Massage Table</h3>
+                    </button>
+
+                    <button class="hotel-scenario-btn option-card rounded-xl p-4 text-center fade-up stagger-2" data-scenario="tatami">
+                        <div class="w-10 h-10 mx-auto mb-2 rounded-full bg-ego-gold/20 flex items-center justify-center">
+                            <svg class="w-5 h-5 text-ego-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM4 13a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H5a1 1 0 01-1-1v-6z"/>
+                            </svg>
+                        </div>
+                        <h3 class="font-semibold text-base">Tatami</h3>
+                    </button>
+
+                    <button class="hotel-scenario-btn option-card rounded-xl p-4 text-center fade-up stagger-3" data-scenario="tantric-couch">
+                        <div class="w-10 h-10 mx-auto mb-2 rounded-full bg-ego-gold/20 flex items-center justify-center">
+                            <svg class="w-5 h-5 text-ego-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 12H4M20 12v6a2 2 0 01-2 2H6a2 2 0 01-2-2v-6"/>
+                            </svg>
+                        </div>
+                        <h3 class="font-semibold text-base">Tantric Couch</h3>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Step 3: Configuration -->
+            <div id="hotelStep3" class="step-content hidden">
+                <div class="text-center mb-6 fade-up">
+                    <span class="text-ego-gold text-sm font-semibold tracking-wider">PASO 3 DE 4</span>
+                    <h2 class="font-display text-4xl tracking-wide mt-2">CONFIGURACION</h2>
+                    <p class="text-ego-muted text-sm mt-1">Elige manos y duracion</p>
+                </div>
+
+                <!-- Hands -->
+                <div class="mb-4">
+                    <p class="text-ego-muted text-xs uppercase tracking-wider mb-2 px-1">Manos</p>
+                    <div class="grid grid-cols-2 gap-2">
+                        <button class="hotel-hands-btn option-card rounded-xl p-3 text-center fade-up" data-hands="2">
+                            <p class="font-display text-2xl text-ego-gold">2</p>
+                        </button>
+                        <button class="hotel-hands-btn option-card rounded-xl p-3 text-center fade-up" data-hands="4">
+                            <p class="font-display text-2xl text-ego-gold">4</p>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Duration -->
+                <div>
+                    <p class="text-ego-muted text-xs uppercase tracking-wider mb-2 px-1">Duracion</p>
+                    <div class="grid grid-cols-3 gap-2">
+                        <button class="hotel-duration-btn option-card rounded-xl p-3 text-center fade-up" data-duration="60">
+                            <p class="font-display text-xl text-ego-gold">60</p>
+                            <p class="text-xs text-ego-muted">min</p>
+                        </button>
+                        <button class="hotel-duration-btn option-card rounded-xl p-3 text-center fade-up" data-duration="90">
+                            <p class="font-display text-xl text-ego-gold">90</p>
+                            <p class="text-xs text-ego-muted">min</p>
+                        </button>
+                        <button class="hotel-duration-btn option-card rounded-xl p-3 text-center fade-up" data-duration="120">
+                            <p class="font-display text-xl text-ego-gold">120</p>
+                            <p class="text-xs text-ego-muted">min</p>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 4: Extras & Complete -->
+            <div id="hotelStep4" class="step-content hidden">
+                <div class="text-center mb-6 fade-up">
+                    <span class="text-ego-gold text-sm font-semibold tracking-wider">PASO 4 DE 4</span>
+                    <h2 class="font-display text-4xl tracking-wide mt-2">EXTRAS</h2>
+                    <p class="text-ego-muted text-sm mt-1">Opcionales para tu experiencia</p>
+                </div>
+
+                <div class="space-y-3 mb-4">
+                    <label class="option-card rounded-xl p-4 flex items-center gap-4 cursor-pointer fade-up stagger-1">
+                        <input type="checkbox" class="hotel-extra-check custom-radio" data-extra="sensitive" data-addon="0">
+                        <div class="flex-1">
+                            <h3 class="font-semibold">Sensitive</h3>
+                            <p class="text-ego-muted text-sm">Incluido</p>
+                        </div>
+                    </label>
+
+                    <label class="option-card rounded-xl p-4 flex items-center gap-4 cursor-pointer fade-up stagger-2">
+                        <input type="checkbox" class="hotel-extra-check custom-radio" data-extra="double-sensitive" data-addon="25">
+                        <div class="flex-1">
+                            <h3 class="font-semibold">Double Sensitive</h3>
+                            <p class="text-ego-muted text-sm">Experiencia dual intensificada</p>
+                        </div>
+                    </label>
+
+                    <label class="option-card rounded-xl p-4 flex items-center gap-4 cursor-pointer fade-up stagger-3">
+                        <input type="checkbox" class="hotel-extra-check custom-radio" data-extra="night-rate" data-addon="25">
+                        <div class="flex-1">
+                            <h3 class="font-semibold">Night Rate</h3>
+                            <p class="text-ego-muted text-sm">Despues de 12:00 AM</p>
+                        </div>
+                    </label>
+                </div>
+
+                <!-- Final Summary -->
+                <div class="bg-ego-zinc rounded-xl p-4 mb-4">
+                    <div class="text-center">
+                        <p id="hotelFinalTechnique" class="font-display text-xl text-white"></p>
+                        <p id="hotelFinalScenario" class="text-ego-gold text-sm mt-1"></p>
+                        <p id="hotelFinalConfig" class="text-ego-muted text-sm mt-2"></p>
+                        <p id="hotelFinalExtras" class="text-ego-muted text-xs mt-1"></p>
+                        <p id="hotelFinalPrice" class="font-display text-3xl text-ego-gold mt-4"></p>
+                        <p id="hotelFinalSavings" class="text-sm text-ego-gold savings-pulse hidden"></p>
+                    </div>
+                </div>
+
+                <button id="hotelBookBtn" class="btn-primary w-full py-4 rounded-xl font-semibold text-white uppercase tracking-wider fade-up stagger-4">
+                    Reservar por WhatsApp
+                </button>
+            </div>
+        </section>
+
+        <!-- JetLagAway Flow -->
+        <section id="jetlagFlow" class="hidden space-y-6">
+            <div class="text-center fade-up">
+                <div class="w-20 h-20 mx-auto mb-6 rounded-full bg-gradient-to-br from-ego-gold/20 to-transparent flex items-center justify-center">
+                    <svg class="w-10 h-10 text-ego-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"/>
+                    </svg>
+                </div>
+                <h2 class="font-display text-4xl tracking-wide mb-2">JETLAGAWAY</h2>
+                <p class="text-ego-muted">Recuperacion especial para viajeros</p>
+            </div>
+
+            <div class="bg-ego-zinc rounded-2xl p-6 text-center">
+                <p class="text-ego-muted mb-4">Pronto disponible. Tratamientos especializados para combatir el jet lag.</p>
+                <div class="inline-block px-6 py-3 rounded-xl bg-ego-gold/10 border border-ego-gold/30">
+                    <p class="text-ego-gold font-semibold">PROXIMAMENTE</p>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Sticky Summary Footer -->
+    <div id="stickySummary" class="fixed bottom-0 left-0 right-0 
+sticky-summary z-40 transform translate-y-full transition-transform 
+duration-300">
+        <div class="max-w-lg mx-auto px-4 py-4">
+            <div class="flex items-center justify-between">
+                <div>
+                    <p id="summaryLabel" class="text-ego-muted text-xs 
+uppercase tracking-wider">Tu seleccion</p>
+                    <p id="summaryDetails" class="font-display text-xl 
+tracking-wide"></p>
+                </div>
+                <div class="text-right">
+                    <p id="summaryPrice" class="font-display text-3xl
+text-ego-red"></p>
+                    <p id="summarySavings" class="text-sm hidden"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Back Button -->
+    <button id="backBtn" class="fixed top-20 left-4 z-30 p-2 rounded-full
+bg-ego-zinc hover:bg-ego-zincLight transition-colors hidden"
+aria-label="Volver">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0
+0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round"
+stroke-width="2" d="M15 19l-7-7 7-7"/>
+        </svg>
+    </button>
+
+    <!-- Hours Info Button -->
+    <button id="hoursBtn" class="fixed top-20 right-4 z-30 p-2 rounded-full bg-ego-zinc hover:bg-ego-zincLight transition-colors" aria-label="Horarios">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+        </svg>
+    </button>
+
+    <!-- Hours Modal -->
+    <div id="hoursModal" class="fixed inset-0 z-[100] hidden items-center justify-center p-4 modal-backdrop">
+        <div class="w-full max-w-sm bg-ego-zinc rounded-2xl p-6 border border-white/10 fade-up">
+            <div class="text-center mb-6">
+                <div class="w-16 h-16 mx-auto mb-4 rounded-full bg-gradient-to-br from-ego-red to-ego-redDark flex items-center justify-center">
+                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                    </svg>
+                </div>
+                <h2 class="font-display text-3xl tracking-wide mb-2">HORARIOS</h2>
+            </div>
+
+            <div class="space-y-4">
+                <div class="bg-ego-black rounded-xl p-4">
+                    <p class="text-ego-red text-sm font-semibold mb-2">LUNES A SABADO</p>
+                    <p class="text-white">08:30 a.m. - 12:30 a.m.</p>
+                </div>
+                <div class="bg-ego-black rounded-xl p-4">
+                    <p class="text-ego-red text-sm font-semibold mb-2">DOMINGOS Y FERIADOS</p>
+                    <p class="text-white">10:00 a.m. - 12:30 a.m.</p>
+                </div>
+                <div class="bg-ego-gold/10 rounded-xl p-4 border border-ego-gold/30">
+                    <p class="text-ego-gold text-sm">Citas hasta 12:00 a.m.</p>
+                    <p class="text-ego-gold text-sm">Puertas abiertas hasta 12:30 a.m.</p>
+                </div>
+            </div>
+
+            <button id="closeHoursModal" class="w-full mt-6 py-3 rounded-lg bg-ego-red hover:bg-ego-redDark font-semibold text-white uppercase tracking-wider transition-colors">
+                Entendido
+            </button>
+        </div>
+    </div>
+
+</div>
+
+    <script src="app.js"></script>
+
+<!-- Sticky Footer -->
+<div id="stickyFooter" class="sticky-footer">
+    <div class="sticky-footer-content">
+        <span class="footer-content">Select a technique to begin</span>
+        <div class="flex items-center">
+            <span class="footer-price"></span>
+            <span class="night-rate-badge hidden">🌙 Night Rate</span>
+        </div>
+    </div>
+</div>
+</body>
+</html>
