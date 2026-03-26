@@ -337,6 +337,15 @@ async function init() {
             continueBtn.disabled = !bothSelected;
         }
 
+        function updateHotelConfigContinueButton() {
+            const continueBtn = document.getElementById('hotelConfigContinueBtn');
+            if (!continueBtn) return;
+
+            // Enable button only when both hands and duration are selected
+            const bothSelected = state.hotel.hands !== null && state.hotel.duration !== null;
+            continueBtn.disabled = !bothSelected;
+        }
+
         // ============================================
         // DOM ELEMENTS
         // ============================================
@@ -589,6 +598,11 @@ async function init() {
                         const durationBtn = document.querySelector(`.hotel-duration-btn[data-duration="${state.hotel.duration}"]`);
                         if (durationBtn) durationBtn.classList.add('selected');
                     }
+                }
+
+                // Update continue button state on step 3
+                if (step === 3) {
+                    updateHotelConfigContinueButton();
                 }
 
                 // Populate final summary on step 4
@@ -1284,44 +1298,48 @@ ${branchText}
                 document.querySelectorAll('.hotel-hands-btn').forEach(b =>
     b.classList.remove('selected'));
                 btn.classList.add('selected');
-    
+
                 state.hotel.hands = parseInt(btn.dataset.hands);
-    
-                // Check if duration is selected, if yes, go to step 4
-                const durationBtn = document.querySelector(`.hotel-duration-btn[data-duration="${state.hotel.duration}"]`);
-                if (durationBtn && durationBtn.classList.contains('selected')) {
-                    setTimeout(() => goToStep(4), 200);
-                }
-    
+
+                // Check if continue button should be enabled
+                updateHotelConfigContinueButton();
+
                 // If on step 4 and duration is selected, update price
+                const durationBtn = document.querySelector(`.hotel-duration-btn[data-duration="${state.hotel.duration}"]`);
                 if (state.currentStep === 4 && durationBtn && durationBtn.classList.contains('selected')) {
                     updateHotelFinalSummary();
                 }
             });
         });
-    
+
         // Step 3: Duration
         document.querySelectorAll('.hotel-duration-btn').forEach(btn => {
             btn.addEventListener('click', () => {
                 document.querySelectorAll('.hotel-duration-btn').forEach(b =>
     b.classList.remove('selected'));
                 btn.classList.add('selected');
-    
+
                 state.hotel.duration = parseInt(btn.dataset.duration);
-    
-                // Check if hands is selected, if yes, go to step 4
-                const handsBtn = document.querySelector(`.hotel-hands-btn[data-hands="${state.hotel.hands}"]`);
-                if (handsBtn && handsBtn.classList.contains('selected')) {
-                    setTimeout(() => goToStep(4), 200);
-                }
-    
+
+                // Check if continue button should be enabled
+                updateHotelConfigContinueButton();
+
                 // If on step 4 and hands is selected, update price
+                const handsBtn = document.querySelector(`.hotel-hands-btn[data-hands="${state.hotel.hands}"]`);
                 if (state.currentStep === 4 && handsBtn && handsBtn.classList.contains('selected')) {
                     updateHotelFinalSummary();
                 }
             });
         });
-    
+
+        // Step 3 Continue button
+        const hotelConfigContinueBtn = document.getElementById('hotelConfigContinueBtn');
+        if (hotelConfigContinueBtn) {
+            hotelConfigContinueBtn.addEventListener('click', () => {
+                goToStep(4); // Go to extras
+            });
+        }
+
         // Step 4: Extras
         document.querySelectorAll('.hotel-extra-check').forEach(check => {
             check.addEventListener('change', () => {
