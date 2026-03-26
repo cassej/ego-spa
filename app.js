@@ -518,7 +518,35 @@ async function init() {
             // Show current step content
             if (state.currentFlow === 'single') {
                 document.getElementById(`singleStep${step}`).classList.remove('hidden');
-    
+
+                // Restore button selections based on state
+                if (state.single.technique) {
+                    // Restore technique selection
+                    const techBtn = document.querySelector(`.technique-btn[data-technique="${state.single.technique}"]`);
+                    if (techBtn) techBtn.classList.add('selected');
+
+                    // Restore hands selection
+                    if (state.single.hands !== null) {
+                        const handsBtn = document.querySelector(`.hands-btn[data-hands="${state.single.hands}"]`);
+                        if (handsBtn) handsBtn.classList.add('selected');
+                    }
+
+                    // Restore duration selection
+                    if (state.single.duration !== null) {
+                        const durationBtn = document.querySelector(`.duration-btn[data-duration="${state.single.duration}"]`);
+                        if (durationBtn) durationBtn.classList.add('selected');
+                    }
+
+                    // Restore scenario selection
+                    if (state.single.scenario) {
+                        const scenarioBtn = document.querySelector(`.scenario-btn[data-scenario="${state.single.scenario}"]`);
+                        if (scenarioBtn) scenarioBtn.classList.add('selected');
+                    }
+
+                    // Update constraints to reflect current state
+                    updateConstraints();
+                }
+
                 // Update final summary on step 7
                 if (step === 7) {
                     updateFinalSummary();
@@ -527,7 +555,28 @@ async function init() {
                 document.getElementById(`packStep${step}`).classList.remove('hidden');
             } else if (state.currentFlow === 'hotel') {
                 document.getElementById(`hotelStep${step}`).classList.remove('hidden');
-    
+
+                // Restore hotel selections
+                if (state.hotel.technique) {
+                    const techBtn = document.querySelector(`.hotel-technique-btn[data-technique="${state.hotel.technique}"]`);
+                    if (techBtn) techBtn.classList.add('selected');
+
+                    if (state.hotel.scenario) {
+                        const scenarioBtn = document.querySelector(`.hotel-scenario-btn[data-scenario="${state.hotel.scenario}"]`);
+                        if (scenarioBtn) scenarioBtn.classList.add('selected');
+                    }
+
+                    if (state.hotel.hands) {
+                        const handsBtn = document.querySelector(`.hotel-hands-btn[data-hands="${state.hotel.hands}"]`);
+                        if (handsBtn) handsBtn.classList.add('selected');
+                    }
+
+                    if (state.hotel.duration) {
+                        const durationBtn = document.querySelector(`.hotel-duration-btn[data-duration="${state.hotel.duration}"]`);
+                        if (durationBtn) durationBtn.classList.add('selected');
+                    }
+                }
+
                 // Populate final summary on step 4
                 if (step === 4) {
                     updateHotelFinalSummary();
