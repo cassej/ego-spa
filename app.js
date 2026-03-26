@@ -269,7 +269,7 @@ async function init() {
             // NOTE: This uses browser's local timezone. Assumes user is in Panama (UTC-5).
             // For production, consider proper timezone handling if users book from other timezones.
             const bookingDateTime = new Date(`${state.single.bookingDate}T${state.single.bookingTime}`);
-            const endTime = new Date(bookingDateTime.getTime() + state.single.duration * 60000);
+            const endTime = new Date(bookingDateTime.getTime() + Number(state.single.duration || 0) * 60000);
     
             const endHour = endTime.getHours();
             const isAfterMidnight = endHour >= 0 && endHour < 6;
@@ -382,11 +382,13 @@ async function init() {
 
         function calculateSinglePrice() {
             let total = 0;
-    
+
             // Base price
             if (state.single.pricingSystem === 'M11-M18' && state.single.mCode) {
                 const mCodeData = M_CODE_PRICING[state.single.mCode];
-                total = state.isAuth ? mCodeData.egoPrice : mCodeData.regularPrice;
+                if (mCodeData) {
+                    total = state.isAuth ? mCodeData.egoPrice : mCodeData.regularPrice;
+                }
             } else if (state.single.pricingSystem === 'Tiered' && state.single.technique) {
                 // Only calculate if hands and duration are selected
                 if (state.single.hands !== null && state.single.duration !== null) {
@@ -396,18 +398,18 @@ async function init() {
                     total += TIERED_MODIFIERS.duration[String(state.single.duration)];
                 }
             }
-    
+
             // Add extras
             state.single.extras.forEach(extra => {
                 total += extra.addon;
             });
-    
+
             // Add mobility fee
             total += state.single.mobilityFee;
-    
+
             // Add night rate
             total += state.single.nightRate;
-    
+
             return total;
         }
     
