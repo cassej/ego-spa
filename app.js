@@ -327,7 +327,16 @@ async function init() {
                 nightBadge.classList.toggle('hidden', state.single.nightRate === 0);
             }
         }
-    
+
+        function updateConfigContinueButton() {
+            const continueBtn = document.getElementById('singleConfigContinueBtn');
+            if (!continueBtn) return;
+
+            // Enable button only when both hands and duration are selected
+            const bothSelected = state.single.hands !== null && state.single.duration !== null;
+            continueBtn.disabled = !bothSelected;
+        }
+
         // ============================================
         // DOM ELEMENTS
         // ============================================
@@ -547,8 +556,13 @@ async function init() {
                     updateConstraints();
                 }
 
-                // Update final summary on step 7
-                if (step === 7) {
+                // Update continue button state on step 2
+                if (step === 2) {
+                    updateConfigContinueButton();
+                }
+
+                // Update final summary on step 6
+                if (step === 6) {
                     updateFinalSummary();
                 }
             } else if (state.currentFlow === 'packs') {
@@ -991,31 +1005,24 @@ ${branchText}
         document.querySelectorAll('.hands-btn').forEach(btn => {
             btn.addEventListener('click', () => {
                 const h = parseInt(btn.dataset.hands);
-    
+
                 if (btn.classList.contains('option-locked')) return;
-    
+
                 document.querySelectorAll('.hands-btn').forEach(b => b.classList.remove('selected'));
                 btn.classList.add('selected');
-    
+
                 state.single.hands = h;
-    
+
                 // Update M-code if applicable
                 if (state.single.pricingSystem === 'M11-M18') {
                     state.single.mCode = findMCode(h, state.single.duration);
                 }
-    
+
                 updateConstraints();
                 updateStickyFooter();
-    
-                // Auto-advance to Step 3 (Duration) or Step 4 (Scenarios)
-                const durationBtn = document.querySelector(`.duration-btn[data-duration="${state.single.duration}"]`);
-                if (durationBtn && durationBtn.classList.contains('selected')) {
-                    // Duration already selected, go to scenarios
-                    setTimeout(() => goToStep(4), 200);
-                } else {
-                    // Duration not selected, go to duration selection
-                    setTimeout(() => goToStep(3), 200);
-                }
+
+                // Check if continue button should be enabled
+                updateConfigContinueButton();
             });
         });
     
@@ -1023,24 +1030,24 @@ ${branchText}
         document.querySelectorAll('.duration-btn').forEach(btn => {
             btn.addEventListener('click', () => {
                 const d = parseInt(btn.dataset.duration);
-    
+
                 if (btn.classList.contains('option-locked')) return;
-    
+
                 document.querySelectorAll('.duration-btn').forEach(b => b.classList.remove('selected'));
                 btn.classList.add('selected');
-    
+
                 state.single.duration = d;
-    
+
                 // Update M-code if applicable
                 if (state.single.pricingSystem === 'M11-M18') {
                     state.single.mCode = findMCode(state.single.hands, d);
                 }
-    
+
                 updateConstraints();
                 updateStickyFooter();
-    
-                // Auto-advance to scenarios
-                setTimeout(() => goToStep(4), 200);
+
+                // Check if continue button should be enabled
+                updateConfigContinueButton();
             });
         });
     
@@ -1093,26 +1100,26 @@ ${branchText}
                     if (state.single.selectedScenarios.length >= minRequired) {
                         state.single.scenario = state.single.selectedScenarios[0];
                         state.single.scenarioName = scenarioData.name;
-                        setTimeout(() => goToStep(5), 200);
+                        setTimeout(() => goToStep(4), 200);
                     }
                 } else {
                     // Single scenario selection for other techniques
                     document.querySelectorAll('.scenario-btn').forEach(b => b.classList.remove('selected'));
                     btn.classList.add('selected');
-    
+
                     state.single.scenario = scenario;
                     state.single.scenarioName = scenarioData.name;
                     state.single.selectedScenarios = [scenario];
-    
+
                     updateScenarioHint();
                     updateStickyFooter();
-    
-                    setTimeout(() => goToStep(5), 200);
+
+                    setTimeout(() => goToStep(4), 200);
                 }
             });
         });
-    
-        // Step 5: PRAECOQUIS extras
+
+        // Step 4: PRAECOQUIS extras
         document.querySelectorAll('.extra-check').forEach(check => {
             check.addEventListener('change', () => {
                 const extra = {
@@ -1131,14 +1138,14 @@ ${branchText}
             });
         });
     
-        // Add continue button to Step 5
+        // Add continue button to Step 4
         const praecoquisContinueBtn = document.createElement('button');
         praecoquisContinueBtn.className = 'btn-primary w-full py-4 rounded-xl font-semibold text-white uppercase tracking-wider mt-4';
         praecoquisContinueBtn.textContent = 'Continuar';
-        praecoquisContinueBtn.addEventListener('click', () => goToStep(6));
-        document.getElementById('singleStep5').querySelector('.space-y-3').appendChild(praecoquisContinueBtn);
-    
-        // Step 6: Logistics (masseuse preference and mobility)
+        praecoquisContinueBtn.addEventListener('click', () => goToStep(5));
+        document.getElementById('singleStep4').querySelector('.space-y-3').appendChild(praecoquisContinueBtn);
+
+        // Step 5: Logistics (masseuse preference and mobility)
         // Masseuse preference radio buttons
         document.querySelectorAll('input[name="masseuse-pref"]').forEach(radio => {
             radio.addEventListener('change', () => {
@@ -1179,14 +1186,14 @@ ${branchText}
             updateStickyFooter();
         });
     
-        // Add continue button to Step 6
+        // Add continue button to Step 5
         const logisticsContinueBtn = document.createElement('button');
         logisticsContinueBtn.className = 'btn-primary w-full py-4 rounded-xl font-semibold text-white uppercase tracking-wider mt-4';
         logisticsContinueBtn.textContent = 'Continuar';
-        logisticsContinueBtn.addEventListener('click', () => goToStep(7));
-        document.getElementById('singleStep6').querySelector('.space-y-4').appendChild(logisticsContinueBtn);
-    
-        // Step 7: Date & Time selection with night rate calculation
+        logisticsContinueBtn.addEventListener('click', () => goToStep(6));
+        document.getElementById('singleStep5').querySelector('.space-y-4').appendChild(logisticsContinueBtn);
+
+        // Step 6: Date & Time selection with night rate calculation
         const bookingDateInput = document.getElementById('bookingDate');
         const bookingTimeInput = document.getElementById('bookingTime');
         const bookBtn = document.getElementById('singleBookBtn');
@@ -1208,7 +1215,15 @@ ${branchText}
     
         bookingDateInput.addEventListener('change', checkDateTimeComplete);
         bookingTimeInput.addEventListener('change', checkDateTimeComplete);
-    
+
+        // Step 2 Continue button
+        const singleConfigContinueBtn = document.getElementById('singleConfigContinueBtn');
+        if (singleConfigContinueBtn) {
+            singleConfigContinueBtn.addEventListener('click', () => {
+                goToStep(3); // Go to scenarios
+            });
+        }
+
         // Book single massage
         document.getElementById('singleBookBtn').addEventListener('click', ()   => {
             const message = generateWhatsAppMessage();

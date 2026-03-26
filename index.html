@@ -257,14 +257,12 @@ stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
                 <div class="step-dot" data-step="5"></div>
                 <div class="w-8 h-px bg-ego-zincLight"></div>
                 <div class="step-dot" data-step="6"></div>
-                <div class="w-8 h-px bg-ego-zincLight"></div>
-                <div class="step-dot" data-step="7"></div>
             </div>
 
             <!-- Step 1: Technique -->
             <div id="singleStep1" class="step-content">
                 <div class="text-center mb-6 fade-up">
-                    <span class="text-ego-red text-sm font-semibold tracking-wider">PASO 1 DE 7</span>
+                    <span class="text-ego-red text-sm font-semibold tracking-wider">PASO 1 DE 6</span>
                     <h2 class="font-display text-4xl tracking-wide mt-2">TECNICA</h2>
                     <p class="text-ego-muted text-sm mt-1">Selecciona el tipo de masaje</p>
                 </div>
@@ -320,82 +318,86 @@ stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
                 </div>
             </div>
 
-            <!-- Step 2: Hands -->
+            <!-- Step 2: Hands & Duration -->
             <div id="singleStep2" class="step-content hidden">
                 <div class="text-center mb-6 fade-up">
-                    <span class="text-ego-red text-sm font-semibold tracking-wider">PASO 2 DE 7</span>
-                    <h2 class="font-display text-4xl tracking-wide mt-2">MANOS</h2>
-                    <p class="text-ego-muted text-sm mt-1">Número de manos</p>
+                    <span class="text-ego-red text-sm font-semibold tracking-wider">PASO 2 DE 6</span>
+                    <h2 class="font-display text-4xl tracking-wide mt-2">MANOS Y DURACIÓN</h2>
+                    <p class="text-ego-muted text-sm mt-1">Configura tu masaje</p>
                 </div>
 
-                <div class="grid grid-cols-4 gap-3">
-                    <button class="hands-btn option-card rounded-xl p-4 text-center fade-up stagger-1" data-hands="2">
-                        <div class="font-display text-3xl text-white">2</div>
-                        <p class="text-ego-muted text-xs mt-1">Manos</p>
-                    </button>
+                <!-- Hands -->
+                <div class="mb-6">
+                    <p class="text-ego-muted text-xs mb-3 uppercase tracking-wider">Número de manos</p>
+                    <div class="grid grid-cols-4 gap-3">
+                        <button class="hands-btn option-card rounded-xl p-4 text-center fade-up stagger-1" data-hands="2">
+                            <div class="font-display text-3xl text-white">2</div>
+                            <p class="text-ego-muted text-xs mt-1">Manos</p>
+                        </button>
 
-                    <button class="hands-btn option-card rounded-xl p-4 text-center fade-up stagger-2" data-hands="4">
-                        <div class="font-display text-3xl text-white">4</div>
-                        <p class="text-ego-muted text-xs mt-1">Manos</p>
-                    </button>
+                        <button class="hands-btn option-card rounded-xl p-4 text-center fade-up stagger-2" data-hands="4">
+                            <div class="font-display text-3xl text-white">4</div>
+                            <p class="text-ego-muted text-xs mt-1">Manos</p>
+                        </button>
 
-                    <button class="hands-btn option-card rounded-xl p-4 text-center fade-up stagger-3" data-hands="6">
-                        <div class="font-display text-3xl text-white">6</div>
-                        <p class="text-ego-muted text-xs mt-1">Manos</p>
-                    </button>
+                        <button class="hands-btn option-card rounded-xl p-4 text-center fade-up stagger-3" data-hands="6">
+                            <div class="font-display text-3xl text-white">6</div>
+                            <p class="text-ego-muted text-xs mt-1">Manos</p>
+                        </button>
 
-                    <button class="hands-btn option-card rounded-xl p-4 text-center fade-up stagger-4" data-hands="8">
-                        <div class="font-display text-3xl text-white">8</div>
-                        <p class="text-ego-muted text-xs mt-1">Manos</p>
-                    </button>
-                </div>
-            </div>
-
-            <!-- Step 3: Duration -->
-            <div id="singleStep3" class="step-content hidden">
-                <div class="text-center mb-6 fade-up">
-                    <span class="text-ego-red text-sm font-semibold tracking-wider">PASO 3 DE 7</span>
-                    <h2 class="font-display text-4xl tracking-wide mt-2">DURACIÓN</h2>
-                    <p class="text-ego-muted text-sm mt-1">Duración del masaje</p>
+                        <button class="hands-btn option-card rounded-xl p-4 text-center fade-up stagger-4" data-hands="8">
+                            <div class="font-display text-3xl text-white">8</div>
+                            <p class="text-ego-muted text-xs mt-1">Manos</p>
+                        </button>
+                    </div>
                 </div>
 
-                <div class="grid grid-cols-3 gap-3">
-                    <button class="duration-btn option-card rounded-xl p-4 text-center fade-up stagger-1" data-duration="20">
-                        <div class="font-display text-3xl text-white">20</div>
-                        <p class="text-ego-muted text-xs mt-1">min</p>
-                    </button>
+                <!-- Duration -->
+                <div class="mb-6">
+                    <p class="text-ego-muted text-xs mb-3 uppercase tracking-wider">Duración del masaje</p>
+                    <div class="grid grid-cols-3 gap-3">
+                        <button class="duration-btn option-card rounded-xl p-4 text-center fade-up stagger-1" data-duration="20">
+                            <div class="font-display text-3xl text-white">20</div>
+                            <p class="text-ego-muted text-xs mt-1">min</p>
+                        </button>
 
-                    <button class="duration-btn option-card rounded-xl p-4 text-center fade-up stagger-2" data-duration="40">
-                        <div class="font-display text-3xl text-white">40</div>
-                        <p class="text-ego-muted text-xs mt-1">min</p>
-                    </button>
+                        <button class="duration-btn option-card rounded-xl p-4 text-center fade-up stagger-2" data-duration="40">
+                            <div class="font-display text-3xl text-white">40</div>
+                            <p class="text-ego-muted text-xs mt-1">min</p>
+                        </button>
 
-                    <button class="duration-btn option-card rounded-xl p-4 text-center fade-up stagger-3" data-duration="60">
-                        <div class="font-display text-3xl text-white">60</div>
-                        <p class="text-ego-muted text-xs mt-1">min</p>
-                    </button>
+                        <button class="duration-btn option-card rounded-xl p-4 text-center fade-up stagger-3" data-duration="60">
+                            <div class="font-display text-3xl text-white">60</div>
+                            <p class="text-ego-muted text-xs mt-1">min</p>
+                        </button>
 
-                    <button class="duration-btn option-card rounded-xl p-4 text-center fade-up stagger-4" data-duration="75">
-                        <div class="font-display text-3xl text-white">75</div>
-                        <p class="text-ego-muted text-xs mt-1">min</p>
-                    </button>
+                        <button class="duration-btn option-card rounded-xl p-4 text-center fade-up stagger-4" data-duration="75">
+                            <div class="font-display text-3xl text-white">75</div>
+                            <p class="text-ego-muted text-xs mt-1">min</p>
+                        </button>
 
-                    <button class="duration-btn option-card rounded-xl p-4 text-center fade-up stagger-5" data-duration="90">
-                        <div class="font-display text-3xl text-white">90</div>
-                        <p class="text-ego-muted text-xs mt-1">min</p>
-                    </button>
+                        <button class="duration-btn option-card rounded-xl p-4 text-center fade-up stagger-5" data-duration="90">
+                            <div class="font-display text-3xl text-white">90</div>
+                            <p class="text-ego-muted text-xs mt-1">min</p>
+                        </button>
 
-                    <button class="duration-btn option-card rounded-xl p-4 text-center fade-up stagger-6" data-duration="120">
-                        <div class="font-display text-3xl text-white">120</div>
-                        <p class="text-ego-muted text-xs mt-1">min</p>
-                    </button>
+                        <button class="duration-btn option-card rounded-xl p-4 text-center fade-up stagger-6" data-duration="120">
+                            <div class="font-display text-3xl text-white">120</div>
+                            <p class="text-ego-muted text-xs mt-1">min</p>
+                        </button>
+                    </div>
                 </div>
+
+                <!-- Continue button -->
+                <button id="singleConfigContinueBtn" class="btn-primary w-full py-3 rounded-lg font-semibold text-white uppercase tracking-wider fade-up" disabled>
+                    Continuar
+                </button>
             </div>
 
             <!-- Step 4: Scenarios -->
-            <div id="singleStep4" class="step-content hidden">
+            <div id="singleStep3" class="step-content hidden">
                 <div class="text-center mb-6 fade-up">
-                    <span class="text-ego-red text-sm font-semibold tracking-wider">PASO 4 DE 7</span>
+                    <span class="text-ego-red text-sm font-semibold tracking-wider">PASO 3 DE 6</span>
                     <h2 class="font-display text-4xl tracking-wide mt-2">ESCENARIOS</h2>
                     <p class="text-ego-muted text-sm mt-1">Elige tu experiencia</p>
                     <p id="scenarioHint" class="text-ego-gold text-xs mt-2 hidden"></p>
@@ -477,9 +479,9 @@ stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
             </div>
 
             <!-- Step 5: PRAECOQUIS -->
-            <div id="singleStep5" class="step-content hidden">
+            <div id="singleStep4" class="step-content hidden">
                 <div class="text-center mb-6 fade-up">
-                    <span class="text-ego-red text-sm font-semibold tracking-wider">PASO 5 DE 7</span>
+                    <span class="text-ego-red text-sm font-semibold tracking-wider">PASO 4 DE 6</span>
                     <h2 class="font-display text-4xl tracking-wide mt-2">PRAECOQUIS</h2>
                     <p class="text-ego-muted text-sm mt-1">Opciones adicionales</p>
                 </div>
@@ -505,9 +507,9 @@ stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
             </div>
 
             <!-- Step 6: Logistics -->
-            <div id="singleStep6" class="step-content hidden">
+            <div id="singleStep5" class="step-content hidden">
                 <div class="text-center mb-6 fade-up">
-                    <span class="text-ego-red text-sm font-semibold tracking-wider">PASO 6 DE 7</span>
+                    <span class="text-ego-red text-sm font-semibold tracking-wider">PASO 5 DE 6</span>
                     <h2 class="font-display text-4xl tracking-wide mt-2">LOGÍSTICA</h2>
                     <p class="text-ego-muted text-sm mt-1">Masseuse y traslados</p>
                 </div>
@@ -545,9 +547,9 @@ stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
             </div>
 
             <!-- Step 7: Date & Time + Final Summary -->
-            <div id="singleStep7" class="step-content hidden">
+            <div id="singleStep6" class="step-content hidden">
                 <div class="text-center mb-6 fade-up">
-                    <span class="text-ego-red text-sm font-semibold tracking-wider">PASO 7 DE 7</span>
+                    <span class="text-ego-red text-sm font-semibold tracking-wider">PASO 6 DE 6</span>
                     <h2 class="font-display text-4xl tracking-wide mt-2">FECHA Y HORA</h2>
                     <p class="text-ego-muted text-sm mt-1">Confirma tu reserva</p>
                 </div>
