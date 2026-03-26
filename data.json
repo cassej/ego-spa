@@ -58,34 +58,35 @@
   },
 
   "TECHNIQUE_DATA": {
-    "tantric":         { "name": "Tantric",         "pricingSystem": "M11-M18", "allowedCodes": ["M11","M12","M13","M14","M15","M16","M17","M18"], "allowedScenarios": ["shower","massage-table","tatami","tantric-couch","tantric-chair","tantric-sink"] },
-    "thai":            { "name": "Thai",             "pricingSystem": "M11-M18", "allowedCodes": ["M12","M13","M14","M15","M16"], "allowedScenarios": ["tatami"] },
-    "imperial":        { "name": "Imperial",         "pricingSystem": "M11-M18", "allowedCodes": ["M12","M13","M14","M15","M16"], "allowedScenarios": ["massage-table"] },
-    "zurzum":          { "name": "Zurzum",           "pricingSystem": "M11-M18", "allowedCodes": ["M12","M13","M14","M15","M16"], "allowedScenarios": ["massage-table","tatami"] },
-    "miso":            { "name": "Miso",             "pricingSystem": "M11-M18", "allowedCodes": ["M12","M13","M14","M15","M16"], "allowedScenarios": ["massage-table","tatami"] },
-    "nuru":            { "name": "Nuru",             "pricingSystem": "Tiered",  "basePrice": 135, "allowedScenarios": ["tatami","tantric-sink"], "allowedCombinations": [ {"hands": 2, "duration": 60}, {"hands": 2, "duration": 90}, {"hands": 4, "duration": 75} ] },
-    "flegg":           { "name": "Flegg",            "pricingSystem": "Tiered",  "basePrice": 135, "allowedScenarios": ["tatami","tantric-sink"], "allowedCombinations": [ {"hands": 2, "duration": 60}, {"hands": 2, "duration": 90}, {"hands": 4, "duration": 75} ] },
-    "lingam":          { "name": "Lingam",           "pricingSystem": "Tiered",  "basePrice": 135, "allowedScenarios": ["massage-table","tatami"], "allowedCombinations": [ {"hands": 2, "duration": 60}, {"hands": 2, "duration": 90}, {"hands": 4, "duration": 75} ] },
-    "circuit":         { "name": "Circuit",          "pricingSystem": "Tiered",  "basePrice": 165, "allowedScenarios": ["massage-table","tatami","tantric-couch","tantric-chair","tantric-sink"], "allowedCombinations": [ {"hands": 6, "duration": 60}, {"hands": 6, "duration": 90} ], "minScenarios": { "40": 2, "60": 3 } },
-    "circuit-deluxe":  { "name": "Circuit Deluxe",   "pricingSystem": "Tiered",  "basePrice": 165, "allowedScenarios": ["massage-table","tatami","tantric-couch","tantric-chair","tantric-sink"], "allowedCombinations": [ {"hands": 6, "duration": 60}, {"hands": 6, "duration": 90} ], "minScenarios": { "40": 2, "60": 3 } },
-    "cocktail":        { "name": "Cocktail",         "pricingSystem": "Tiered",  "basePrice": 195, "allowedScenarios": ["massage-table","tatami","tantric-couch","tantric-chair","tantric-sink"], "allowedCombinations": [ {"hands": 4, "duration": 120} ] },
-    "cocktail-deluxe": { "name": "Cocktail Deluxe",  "pricingSystem": "Tiered",  "basePrice": 195, "allowedScenarios": ["massage-table","tatami","tantric-couch","tantric-chair","tantric-sink"], "allowedCombinations": [ {"hands": 4, "duration": 120} ] }
+    "tantric":         { "name": "Tantric",         "pricingSystem": "M11-M18", "allowedCodes": ["M11","M12","M13","M14","M15","M16","M17","M18"], "allowedScenarios": ["shower","massage-table","tatami-dry","tatami-wet","tantric-couch","tantric-chair","tantric-sink"] },
+    "thai":            { "name": "Thai",            "pricingSystem": "M11-M18", "allowedCodes": ["M12","M13","M14","M15","M16"], "allowedScenarios": ["tatami-dry"] },
+    "imperial":        { "name": "Imperial",        "pricingSystem": "M11-M18", "allowedCodes": ["M12","M13","M14","M15","M16"], "allowedScenarios": ["massage-table"] },
+    "zurzum":          { "name": "Zurzum",          "pricingSystem": "M11-M18", "allowedCodes": ["M12","M13","M14","M15","M16"], "allowedScenarios": ["massage-table","tatami-dry"] },
+    "miso":            { "name": "Miso",            "pricingSystem": "M11-M18", "allowedCodes": ["M12","M13","M14","M15","M16"], "allowedScenarios": ["massage-table","tatami-dry"] },
+    "nuru":            { "name": "Nuru",            "pricingSystem": "Tiered",  "basePrice": 135, "allowedScenarios": ["tatami-wet","tantric-sink"], "allowedCombinations": [ {"hands": 2, "duration": 60}, {"hands": 2, "duration": 90}, {"hands": 4, "duration": 75} ] },
+    "flegg":           { "name": "Flegg",           "pricingSystem": "Tiered",  "basePrice": 135, "allowedScenarios": ["tatami-wet","tantric-sink"], "allowedCombinations": [ {"hands": 2, "duration": 60}, {"hands": 2, "duration": 90}, {"hands": 4, "duration": 75} ] },
+    "lingam":          { "name": "Lingam",          "pricingSystem": "Tiered",  "basePrice": 135, "allowedScenarios": ["massage-table","tatami-dry"], "allowedCombinations": [ {"hands": 2, "duration": 60}, {"hands": 2, "duration": 90}, {"hands": 4, "duration": 75} ] },
+    "circuit":         { "name": "Circuit",         "pricingSystem": "Tiered",  "basePrice": 165, "allowedScenarios": ["massage-table","tatami-dry","tantric-couch","tantric-chair","tantric-sink"], "allowedCombinations": [ {"hands": 6, "duration": 60}, {"hands": 6, "duration": 90} ], "minScenarios": { "40": 2, "60": 3 } },
+    "circuit-deluxe":  { "name": "Circuit Deluxe", "pricingSystem": "Tiered",  "basePrice": 165, "allowedScenarios": ["massage-table","tatami-dry","tantric-couch","tantric-chair","tantric-sink"], "allowedCombinations": [ {"hands": 6, "duration": 60}, {"hands": 6, "duration": 90} ], "minScenarios": { "40": 2, "60": 3 } },
+    "cocktail":        { "name": "Cocktail",        "pricingSystem": "Tiered",  "basePrice": 195, "allowedScenarios": ["massage-table","tatami-dry","tantric-couch","tantric-chair","tantric-sink"], "allowedCombinations": [ {"hands": 4, "duration": 120} ] },
+    "cocktail-deluxe": { "name": "Cocktail Deluxe", "pricingSystem": "Tiered",  "basePrice": 195, "allowedScenarios": ["massage-table","tatami-dry","tantric-couch","tantric-chair","tantric-sink"], "allowedCombinations": [ {"hands": 4, "duration": 120} ] }
   },
 
   "SCENARIO_DATA": {
-    "shower":        { "name": "Shower",        "icon": "shower", "description": "Shower experience" },
-    "massage-table": { "name": "Massage Table", "icon": "table",  "description": "Traditional massage table" },
-    "tatami":        { "name": "Tatami",        "icon": "mat",    "description": "Japanese tatami (wet available)" },
-    "tantric-couch": { "name": "Tantric Couch", "icon": "couch",  "description": "Specialized tantric couch" },
-    "tantric-chair": { "name": "Tantric Chair", "icon": "chair",  "description": "Specialized tantric chair" },
-    "tantric-sink":  { "name": "Tantric Sink",  "icon": "sink",   "description": "Tantric sink experience" }
+    "shower":        { "name": "Shower",         "icon": "shower", "description": "Shower experience" },
+    "massage-table": { "name": "Massage Table",  "icon": "table",  "description": "Traditional massage table" },
+    "tatami-dry":    { "name": "Tatami (Dry)",   "icon": "mat",    "description": "Japanese tatami - dry experience" },
+    "tatami-wet":    { "name": "Wet Tatami",     "icon": "water",  "description": "Japanese tatami - wet experience with gel/oil" },
+    "tantric-couch": { "name": "Tantric Couch",  "icon": "couch",  "description": "Specialized tantric couch" },
+    "tantric-chair": { "name": "Tantric Chair",  "icon": "chair",  "description": "Specialized tantric chair" },
+    "tantric-sink":  { "name": "Tantric Sink",   "icon": "sink",   "description": "Tantric sink experience" }
   },
 
   "ADDON_PRICING": {
     "double-sensitive": { "name": "Double Sensitive", "price": 25 },
-    "hotel":            { "name": "Mobility",         "price": 25 },
-    "night-rate":       { "name": "Night Rate",       "price": 25 },
-    "sensitive":        { "name": "Sensitive",        "price": 0  }
+    "move-to-branches": { "name": "Mobility",        "price": 25 },
+    "night-rate":       { "name": "Night Rate",      "price": 25 },
+    "sensitive":        { "name": "Sensitive",       "price": 0  }
   },
 
   "TIERED_MODIFIERS": {
@@ -95,7 +96,7 @@
 
   "EGO_DISCOUNT": 0.18,
 
-  "WHATSAPP_NUMBER": "50760000000",
+  "WHATSAPP_NUMBER": "50760185879",
 
   "BUSINESS_HOURS": {
     "weekdays": { "label": "Lunes a Sábado", "open": "08:30", "close": "00:30" },

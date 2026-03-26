@@ -22,6 +22,8 @@ async function init() {
         const state = {
             isAuth: false,
             email: '',
+            selectedBranch: null, // 'marbella', 'costa-del-este', or 'hotel-service'
+            selectedBranchName: '', // Display name for WhatsApp
             currentFlow: null, // 'single', 'packs', 'hotel', or 'jetlag'
             currentStep: 0,
             // Single massage state (Spa)
@@ -283,28 +285,43 @@ async function init() {
         function updateStickyFooter() {
             const footer = document.getElementById('stickyFooter');
             if (!footer) return;
-    
-            const techniqueName = state.single.techniqueName || 'Select technique';
-            const hands = state.single.hands;
-            const duration = state.single.duration;
-    
+
+            // Start with branch if selected
             let content = '';
             let price = 0;
-    
-            if (state.single.technique) {
+
+            if (state.selectedBranchName) {
+                content = `📍 ${state.selectedBranchName}`;
+            }
+
+            if (state.currentFlow === 'single' && state.single.technique) {
+                const techniqueName = state.single.techniqueName;
+                const hands = state.single.hands;
+                const duration = state.single.duration;
+
                 const parts = [techniqueName];
                 if (hands !== null) parts.push(`${hands} Hands`);
                 if (duration !== null) parts.push(`${duration}m`);
-                content = parts.join(' | ');
+
+                if (content) content += ' | ';
+                content += parts.join(' | ');
                 price = calculateTotalPrice();
-            } else {
-                content = 'Select a technique to begin';
+            } else if (state.currentFlow === 'packs' && state.pack.code) {
+                if (content) content += ' | ';
+                content += `${state.pack.code} - ${state.pack.sizeLabel} (${state.pack.sessions} sesiones)`;
+                price = calculatePackPrice();
+            } else if (state.currentFlow === 'hotel' && state.hotel.technique) {
+                if (content) content += ' | ';
+                content += `${state.hotel.techniqueName} | ${state.hotel.hands} Hands | ${state.hotel.duration}m`;
+                price = calculateHotelPrice();
+            } else if (!state.currentFlow) {
+                content = content || 'Select a branch to begin';
             }
-    
+
             footer.querySelector('.footer-content').textContent = content;
             const priceEl = footer.querySelector('.footer-price');
             if (priceEl) priceEl.textContent = price > 0 ? `$${price}` : '';
-    
+
             const nightBadge = footer.querySelector('.night-rate-badge');
             if (nightBadge) {
                 nightBadge.classList.toggle('hidden', state.single.nightRate === 0);
@@ -598,18 +615,28 @@ async function init() {
             if (state.currentStep > 1) {
                 goToStep(state.currentStep - 1);
             } else {
-                // Go back to flow selection
+                // Go back to flow selection or branch selection
                 state.currentFlow = null;
                 state.currentStep = 0;
                 elements.singleFlow.classList.add('hidden');
                 elements.packsFlow.classList.add('hidden');
                 elements.hotelFlow.classList.add('hidden');
                 elements.jetlagFlow.classList.add('hidden');
-                elements.flowSelection.classList.remove('hidden');
+
+                if (state.selectedBranch === 'hotel-service') {
+                    // Hotel branch goes back to branch selection
+                    state.selectedBranch = null;
+                    state.selectedBranchName = '';
+                    document.getElementById('branchSelection').classList.remove('hidden');
+                } else {
+                    // Spa branches go back to flow selection
+                    elements.flowSelection.classList.remove('hidden');
+                }
+
                 elements.backBtn.classList.add('hidden');
                 elements.stickySummary.classList.add('translate-y-full');
-    
-                // Reset selections
+
+                // Reset selections (but keep branch)
                 resetSelections();
             }
         }
@@ -660,49 +687,76 @@ async function init() {
     
         function generateWhatsAppMessage() {
             let message = '';
-    
+
+            // Add Branch info
+            const branchText = state.selectedBranchName ? `\n🏢 UBICACIÓN: ${state.selectedBranchName}` : '';
+
             if (state.currentFlow === 'single') {
                 const extras = state.single.extras.map(e => e.name).join(', ') || 'Sensitive';
                 const masseuse = state.single.masseuseName || 'Sin preferencia';
                 const mobility = state.single.mobilityFee > 0 ? 'Sí (+$25)' : 'No';
                 const nightRateText = state.single.nightRate > 0 ? '\n🌙 Incluye Night Rate (+$25)' : '';
                 const egoCardText = state.isAuth ? '\n💳 Ego Card aplicado' : '';
-    
+
                 let scenarios = state.single.scenarioName;
                 if (state.single.technique === 'circuit' || state.single.technique === 'circuit-deluxe') {
                     scenarios = state.single.selectedScenarios.map(s => SCENARIO_DATA[s].name).join(', ');
                 }
-    
+
                 const total = calculateSinglePrice();
                 const discountedTotal = state.isAuth ? Math.round(total * (1 - EGO_DISCOUNT)) : total;
                 const finalPrice = state.isAuth ? discountedTotal : total;
-    
+
                 message = `🔥 NUEVA RESERVA - SINGLE MASSAGE
-    
+${branchText}
     📋 TÉCNICA: ${state.single.techniqueName}
     🛋️ ESCENARIO: ${scenarios}
     👆 MANOS: ${state.single.hands}
     ⏱️ DURACIÓN: ${state.single.duration} min
-    
+
     ✨ PRAECOQUIS: ${extras}
     👩‍🦰 MASAJISTA: ${masseuse}
     🚚 TRASLADO: ${mobility}
-    
+
     📅 FECHA: ${state.single.bookingDate}
     🕕 HORA: ${state.single.bookingTime}
-    
+
     💰 PRECIO FINAL: $${finalPrice}${nightRateText}${egoCardText}`;
-    
+
                 if (state.isAuth) {
                     message += `\n📧 Ego Card: ${state.email}`;
                 }
             } else if (state.currentFlow === 'packs') {
                 const price = state.isAuth ? Math.round(calculatePackPrice() * (1 - EGO_DISCOUNT)) : calculatePackPrice();
-    
-                message = `[Flow: Pack] | ${state.pack.code} - ${state.pack.name} | ${state.pack.sizeLabel} (${state.pack.sessions} sesiones) | ${state.pack.hands} Manos | Total: $${price}`;
-    
+
+                message = `🔥 NUEVA RESERVA - PACK
+${branchText}
+    📦 PAQUETE: ${state.pack.code} - ${state.pack.name}
+    📏 TAMAÑO: ${state.pack.sizeLabel} (${state.pack.sessions} sesiones)
+    👆 MANOS: ${state.pack.hands}
+    💰 TOTAL: $${price}`;
+
                 if (state.isAuth) {
-                    message += ` (Ego Card: ${state.email})`;
+                    message += `\n📧 Ego Card: ${state.email}`;
+                }
+            } else if (state.currentFlow === 'hotel') {
+                const price = calculateHotelPrice();
+                const finalPrice = state.isAuth ? Math.round(price * (1 - EGO_DISCOUNT)) : price;
+
+                message = `🔥 NUEVA RESERVA - HOTEL/HOME SERVICE
+${branchText}
+    📋 TÉCNICA: ${state.hotel.techniqueName}
+    🛋️ ESCENARIO: ${state.hotel.scenarioName}
+    👆 MANOS: ${state.hotel.hands}
+    ⏱️ DURACIÓN: ${state.hotel.duration} min
+
+    📅 FECHA: ${state.hotel.bookingDate}
+    🕕 HORA: ${state.hotel.bookingTime}
+
+    💰 PRECIO FINAL: $${finalPrice}`;
+
+                if (state.isAuth) {
+                    message += `\n📧 Ego Card: ${state.email}`;
                 }
             }
     
@@ -710,15 +764,8 @@ async function init() {
         }
     
         function generateHotelWhatsAppMessage() {
-            const price = calculateHotelPrice();
-            const extrasList = state.hotel.extras.length > 0 ? state.hotel.extras.map(e => e.name).join(', ') : 'Ninguno';
-    
-            let message = `[Flow: Hotel] | ${state.hotel.techniqueName || 'Masaje'} | ${state.hotel.scenarioName || 'N/A'} | ${state.hotel.hands} Manos | ${state.hotel.duration}min | Extras: ${extrasList} | Total: $${price}`;
-    
-            if (state.isAuth) {
-                message += ` (Ego Card: ${state.email})`;
-            }
-    
+            // Use the same generateWhatsAppMessage function for consistency
+            const message = generateWhatsAppMessage();
             return encodeURIComponent(message);
         }
     
@@ -774,8 +821,51 @@ async function init() {
                 updateSummary();
             }
         });
-    
-        // Flow selection
+
+        // Branch selection (Step 0)
+        document.querySelectorAll('.branch-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const branch = btn.dataset.branch;
+                const branchNames = {
+                    'marbella': 'Spa Marbella',
+                    'costa-del-este': 'Spa Costa del Este',
+                    'hotel-service': 'Hotel/Home Service'
+                };
+
+                state.selectedBranch = branch;
+                state.selectedBranchName = branchNames[branch];
+
+                // Hide branch selection
+                document.getElementById('branchSelection').classList.add('hidden');
+
+                if (branch === 'hotel-service') {
+                    // Direct to Hotel Flow
+                    state.currentFlow = 'hotel';
+                    state.currentStep = 1;
+                    elements.hotelFlow.classList.remove('hidden');
+                    elements.backBtn.classList.remove('hidden');
+                    goToStep(1);
+                } else {
+                    // Show flow selection for Spa branches
+                    document.getElementById('flowSelection').classList.remove('hidden');
+                }
+
+                updateStickyFooter();
+            });
+        });
+
+        // Change branch button (return to branch selection)
+        const changeBranchBtn = document.getElementById('changeBranchBtn');
+        if (changeBranchBtn) {
+            changeBranchBtn.addEventListener('click', () => {
+                state.selectedBranch = null;
+                state.selectedBranchName = '';
+                document.getElementById('flowSelection').classList.add('hidden');
+                document.getElementById('branchSelection').classList.remove('hidden');
+            });
+        }
+
+        // Flow selection (after branch)
         document.querySelectorAll('.flow-btn').forEach(btn => {
             btn.addEventListener('click', () => {
                 const flow = btn.dataset.flow;
@@ -1054,8 +1144,7 @@ async function init() {
         // Book single massage
         document.getElementById('singleBookBtn').addEventListener('click', ()   => {
             const message = generateWhatsAppMessage();
-            window.open(`https://wa.me/50760000000?text=${message}`,
-    '_blank');
+            window.open(`https://wa.me/50760000000?text=${encodeURIComponent(message)}`, '_blank');
         });
     
         // ============================================
@@ -1171,7 +1260,7 @@ async function init() {
         // Book hotel service
         document.getElementById('hotelBookBtn').addEventListener('click', () => {
             const message = generateHotelWhatsAppMessage();
-            window.open(`https://wa.me/50760000000?text=${message}`, '_blank');
+            window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${message}`, '_blank');
         });
     
         // ============================================
@@ -1241,7 +1330,7 @@ async function init() {
         // Book pack
         document.getElementById('packBookBtn').addEventListener('click', () => {
             const message = generateWhatsAppMessage();
-            window.open(`https://wa.me/50760000000?text=${message}`, '_blank');
+            window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`, '_blank');
         });
     
         // ============================================

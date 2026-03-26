@@ -6,6 +6,7 @@
             --accent-dark: #dc2626;
             --muted: #71717a;
             --gold: #d4af37;
+            --blue: #3b82f6;
         }
 
         * {
@@ -93,6 +94,7 @@ transparent 1px);
         .stagger-4 { animation-delay: 0.4s; }
         .stagger-5 { animation-delay: 0.5s; }
         .stagger-6 { animation-delay: 0.6s; }
+        .stagger-7 { animation-delay: 0.7s; }
 
         /* Card styles */
         .option-card {
@@ -426,4 +428,13 @@ var(--panel-light) 50%, var(--panel) 100%);
         /* Main container padding for sticky footer */
         .main-container {
             padding-bottom: 80px;
+        }
+
+        /* Color utilities */
+        .text-ego-blue {
+            color: var(--blue);
+        }
+
+        .bg-ego-blue\/20 {
+            background-color: rgba(59, 130, 246, 0.2);
         }
