@@ -495,7 +495,7 @@ async function init() {
         }
     
         function goToStep(step) {
-            console.log(`➡️ Going to Step ${step} from ${state.currentStep}`);
+            console.log(`➡️ Going to Step ${step} from ${state.currentStep}, flow: ${state.currentFlow}`);
             state.currentStep = step;
     
             // Update step indicators
@@ -504,9 +504,14 @@ async function init() {
                 if (i + 1 < step) dot.classList.add('completed');
                 if (i + 1 === step) dot.classList.add('active');
             });
-    
-            // Hide all step content
-            document.querySelectorAll('.step-content').forEach(el => {
+
+            // Hide all step content in current flow
+            let stepContentSelector = '.step-content';
+            if (state.currentFlow === 'single') stepContentSelector = '#singleFlow .step-content';
+            else if (state.currentFlow === 'packs') stepContentSelector = '#packsFlow .step-content';
+            else if (state.currentFlow === 'hotel') stepContentSelector = '#hotelFlow .step-content';
+
+            document.querySelectorAll(stepContentSelector).forEach(el => {
                 el.classList.add('hidden');
             });
     
@@ -869,24 +874,37 @@ ${branchText}
         document.querySelectorAll('.flow-btn').forEach(btn => {
             btn.addEventListener('click', () => {
                 const flow = btn.dataset.flow;
+                console.log('Flow selected:', flow);
                 state.currentFlow = flow;
                 state.currentStep = 1;
-    
+
                 elements.flowSelection.classList.add('hidden');
-    
+
                 if (flow === 'single') {
+                    console.log('Showing single flow');
                     elements.singleFlow.classList.remove('hidden');
+                    elements.backBtn.classList.remove('hidden');
                     goToStep(1);
+                    updateSummary();
                 } else if (flow === 'packs') {
+                    console.log('Showing packs flow');
                     elements.packsFlow.classList.remove('hidden');
+                    elements.backBtn.classList.remove('hidden');
                     goToStep(1);
+                    updateSummary();
                 } else if (flow === 'hotel') {
+                    console.log('Showing hotel flow');
                     elements.hotelFlow.classList.remove('hidden');
+                    elements.backBtn.classList.remove('hidden');
                     goToStep(1);
+                    updateSummary();
                 } else if (flow === 'jetlag') {
+                    console.log('Showing jetlag flow');
                     elements.jetlagFlow.classList.remove('hidden');
                     elements.backBtn.classList.remove('hidden');
                 }
+
+                updateStickyFooter();
             });
         });
     
