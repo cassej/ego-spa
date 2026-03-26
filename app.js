@@ -14,6 +14,7 @@ async function init() {
     const TECHNIQUE_DATA = DATA.TECHNIQUE_DATA;
     const SCENARIO_DATA = DATA.SCENARIO_DATA;
     const TIERED_MODIFIERS = DATA.TIERED_MODIFIERS;
+    const WHATSAPP_NUMBER = DATA.WHATSAPP_NUMBER;
     
     // ============================================
         // STATE
@@ -391,8 +392,8 @@ async function init() {
                 if (state.single.hands !== null && state.single.duration !== null) {
                     const techniqueData = TECHNIQUE_DATA[state.single.technique];
                     total = techniqueData.basePrice;
-                    total += TIERED_MODIFIERS.hands[state.single.hands];
-                    total += TIERED_MODIFIERS.duration[state.single.duration];
+                    total += TIERED_MODIFIERS.hands[String(state.single.hands)];
+                    total += TIERED_MODIFIERS.duration[String(state.single.duration)];
                 }
             }
     
