@@ -820,7 +820,8 @@ ${branchText}
         function generateHotelWhatsAppMessage() {
             // Use the same generateWhatsAppMessage function for consistency
             const message = generateWhatsAppMessage();
-            return encodeURIComponent(message);
+            // Don't encode here - generateWhatsAppMessage already does it
+            return message;
         }
     
         // ============================================
