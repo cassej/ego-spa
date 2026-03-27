@@ -24,6 +24,12 @@
       "label": "Mix Massage",
       "description": "Unique blend techniques",
       "techniques": ["miso", "zurzum", "circuit", "circuit-deluxe", "cocktail", "cocktail-deluxe"]
+    },
+    "COUPLE_MASSAGE": {
+      "name": "COUPLE MASSAGE",
+      "label": "Couple Massage",
+      "description": "Special experience for two",
+      "techniques": ["tantric-couple", "nuru-couple"]
     }
   },
 
@@ -101,7 +107,21 @@
     "circuit":         { "name": "Circuit",         "category": "MIX_MASSAGE",    "pricingSystem": "Tiered",  "basePrice": 165, "allowedScenarios": ["massage-table","tatami-dry","tantric-couch","tantric-chair"], "allowedCombinations": [ {"hands": 6, "duration": 60}, {"hands": 6, "duration": 90} ] },
     "circuit-deluxe":  { "name": "Circuit Deluxe", "category": "MIX_MASSAGE",    "pricingSystem": "Tiered",  "basePrice": 165, "allowedScenarios": ["massage-table","tatami-dry","tantric-couch","tantric-chair"], "allowedCombinations": [ {"hands": 6, "duration": 90} ] },
     "cocktail":        { "name": "Cocktail",        "category": "MIX_MASSAGE",    "pricingSystem": "Tiered",  "basePrice": 195, "allowedScenarios": ["massage-table","tatami-dry","tantric-couch","tantric-chair"], "allowedCombinations": [ {"hands": 4, "duration": 120} ] },
-    "cocktail-deluxe": { "name": "Cocktail Deluxe", "category": "MIX_MASSAGE",    "pricingSystem": "Tiered",  "basePrice": 195, "allowedScenarios": ["massage-table","tatami-dry","tantric-couch","tantric-chair"], "allowedCombinations": [ {"hands": 4, "duration": 120} ] }
+    "cocktail-deluxe": { "name": "Cocktail Deluxe", "category": "MIX_MASSAGE",    "pricingSystem": "Tiered",  "basePrice": 195, "allowedScenarios": ["massage-table","tatami-dry","tantric-couch","tantric-chair"], "allowedCombinations": [ {"hands": 4, "duration": 120} ] },
+    "tantric-couple": {
+      "name": "Tantric Couple",
+      "label": "Tantric (Couple)",
+      "pricingSystem": "Tiered",
+      "basePrice": 160,
+      "allowedScenarios": ["massage-table", "tatami"]
+    },
+    "nuru-couple": {
+      "name": "Nuru Couple",
+      "label": "Nuru (Couple)",
+      "pricingSystem": "Tiered",
+      "basePrice": 200,
+      "allowedScenarios": ["tatami"]
+    }
   },
 
   "SCENARIO_DATA": {
