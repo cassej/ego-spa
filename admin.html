@@ -322,6 +322,31 @@ tr:last-child td { border-bottom: none; }
                 </div>
             </div>
 
+            <!-- SCENARIO RULES -->
+            <div id="section-scenario-rules" class="section space-y-5">
+                <div class="sec-head">
+                    <div><div class="sec-title">Scenario Rules</div><div class="sec-sub">Límites y exclusiones por duración</div></div>
+                </div>
+
+                <!-- Limits by Duration -->
+                <div class="card p-5">
+                    <div class="sec-title text-xl mb-4">Límites por Duración</div>
+                    <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
+                        <div><span class="lbl">40 min</span><input type="number" id="limit-40" class="num-input" min="1"></div>
+                        <div><span class="lbl">60 min</span><input type="number" id="limit-60" class="num-input" min="1"></div>
+                        <div><span class="lbl">75 min</span><input type="number" id="limit-75" class="num-input" min="1"></div>
+                        <div><span class="lbl">90 min</span><input type="number" id="limit-90" class="num-input" min="1"></div>
+                        <div><span class="lbl">120 min</span><input type="number" id="limit-120" class="num-input" min="1"></div>
+                    </div>
+                </div>
+
+                <!-- Technique Exclusions -->
+                <div class="card p-5">
+                    <div class="sec-title text-xl mb-4">Exclusiones por Técnica</div>
+                    <div id="technique-exclusions-container" class="space-y-3"></div>
+                </div>
+            </div>
+
         </div>
     </main>
 </div>
@@ -341,14 +366,15 @@ tr:last-child td { border-bottom: none; }
 <script>
 // ── Nav config ──
 const NAV_ITEMS = [
-    { id:'general',    icon:'⚙️',  label:'General' },
-    { id:'mcodes',     icon:'📋', label:'M-Code Pricing' },
-    { id:'hotel',      icon:'🏨', label:'Hotel Pricing' },
-    { id:'tiered',     icon:'🎚', label:'Tiered Modifiers' },
-    { id:'packs',      icon:'📦', label:'Packs' },
-    { id:'techniques', icon:'🤲', label:'Techniques' },
-    { id:'scenarios',  icon:'🛋', label:'Scenarios' },
-    { id:'addons',     icon:'✨', label:'Add-ons' },
+    { id:'general',        icon:'⚙️',  label:'General' },
+    { id:'mcodes',         icon:'📋', label:'M-Code Pricing' },
+    { id:'hotel',          icon:'🏨', label:'Hotel Pricing' },
+    { id:'tiered',         icon:'🎚', label:'Tiered Modifiers' },
+    { id:'packs',          icon:'📦', label:'Packs' },
+    { id:'techniques',     icon:'🤲', label:'Techniques' },
+    { id:'scenarios',      icon:'🛋', label:'Scenarios' },
+    { id:'scenario-rules', icon:'📜', label:'Scenario Rules' },
+    { id:'addons',         icon:'✨', label:'Add-ons' },
 ];
 
 function buildNav($el) {
@@ -746,6 +772,69 @@ $('#addAddon').on('click', () => $('#addons-tbody').append(`<tr>
 </tr>`));
 
 // ============================================================
+// SCENARIO RULES
+// ============================================================
+function renderScenarioRules() {
+    const limits = DATA.SCENARIO_RULES?.limits_by_duration || {};
+    $('#limit-40').val(limits['40'] || 2);
+    $('#limit-60').val(limits['60'] || 3);
+    $('#limit-75').val(limits['75'] || 3);
+    $('#limit-90').val(limits['90'] || 3);
+    $('#limit-120').val(limits['120'] || 4);
+
+    const exclusions = DATA.SCENARIO_RULES?.technique_exclusions || {};
+    const scenarioNames = {
+        'shower': 'Shower',
+        'massage-table': 'Massage Table',
+        'tatami-dry': 'Tatami (Dry)',
+        'tatami-wet': 'Wet Tatami',
+        'tantric-couch': 'Tantric Couch',
+        'tantric-chair': 'Tantric Chair',
+        'tantric-sink': 'Tantric Sink'
+    };
+
+    const $c = $('#technique-exclusions-container').empty();
+    $.each(DATA.TECHNIQUE_DATA, (tKey, t) => {
+        const excluded = exclusions[tKey] || [];
+        const sCks = Object.keys(scenarioNames).map(s => {
+            const chk = excluded.includes(s) ? 'checked' : '';
+            return `<input type="checkbox" class="pill-check exclusion-check" id="excl-${tKey}-${s}" data-technique="${tKey}" value="${s}" ${chk}>
+                    <label for="excl-${tKey}-${s}">${scenarioNames[s]}</label>`;
+        }).join('');
+
+        $c.append(`<div class="card p-4">
+            <div class="flex items-center justify-between mb-3">
+                <span class="font-semibold">${t.name} <span class="text-ego-muted text-sm">(${tKey})</span></span>
+            </div>
+            <div class="flex flex-wrap gap-1.5">${sCks}</div>
+        </div>`);
+    });
+}
+
+function collectScenarioRules() {
+    if (!DATA.SCENARIO_RULES) DATA.SCENARIO_RULES = {};
+
+    DATA.SCENARIO_RULES.limits_by_duration = {
+        '40': +$('#limit-40').val() || 2,
+        '60': +$('#limit-60').val() || 3,
+        '75': +$('#limit-75').val() || 3,
+        '90': +$('#limit-90').val() || 3,
+        '120': +$('#limit-120').val() || 4
+    };
+
+    DATA.SCENARIO_RULES.technique_exclusions = {};
+    $('#technique-exclusions-container [data-technique]').each(function() {
+        const technique = $(this).data('technique');
+        if (!DATA.SCENARIO_RULES.technique_exclusions[technique]) {
+            DATA.SCENARIO_RULES.technique_exclusions[technique] = [];
+        }
+        if (this.checked) {
+            DATA.SCENARIO_RULES.technique_exclusions[technique].push($(this).val());
+        }
+    });
+}
+
+// ============================================================
 // SAVE
 // ============================================================
 const SAVE_ICON = `<svg class="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -753,7 +842,7 @@ const SAVE_ICON = `<svg class="w-4 h-4 flex-shrink-0" fill="none" stroke="curren
 
 function doSave() {
     collectGeneral(); collectMcodes(); collectHotel(); collectTiered();
-    collectPacks(); collectTechniques(); collectScenarios(); collectAddons();
+    collectPacks(); collectTechniques(); collectScenarios(); collectScenarioRules(); collectAddons();
 
     const $btns = $('#saveBtn, #saveBtn-mobile');
     $btns.prop('disabled', true).text('Guardando…');
@@ -787,7 +876,7 @@ fetch('./data.json')
     .then(json => {
         DATA = json;
         renderGeneral(); renderMcodes(); renderHotel(); renderTiered();
-        renderPacks(); renderTechniques(); renderScenarios(); renderAddons();
+        renderPacks(); renderTechniques(); renderScenarios(); renderScenarioRules(); renderAddons();
     })
     .catch(err => {
         toast('✗ No se pudo cargar data.json: ' + err.message, false);

@@ -137,9 +137,15 @@ async function init() {
             document.querySelectorAll('.scenario-btn').forEach(btn => {
                 const scenario = btn.dataset.scenario;
                 const isAllowed = techniqueData.allowedScenarios.includes(scenario);
-                btn.classList.toggle('option-locked', !isAllowed);
-                btn.disabled = !isAllowed;
-                btn.dataset.lockReason = isAllowed ? '' : 'Not available for this technique';
+
+                // Check technique exclusions from config
+                const techniqueExclusions = DATA.SCENARIO_RULES?.technique_exclusions?.[technique] || [];
+                const isExcluded = techniqueExclusions.includes(scenario);
+
+                const finalAllowed = isAllowed && !isExcluded;
+                btn.classList.toggle('option-locked', !finalAllowed);
+                btn.disabled = !finalAllowed;
+                btn.dataset.lockReason = finalAllowed ? '' : 'Not available for this technique';
             });
     
             // 2. Update hands availability
@@ -485,8 +491,10 @@ async function init() {
             if (state.currentFlow === 'single' && state.single.technique) {
                 const parts = [];
                 parts.push(state.single.techniqueName);
-                if (state.single.scenarioName) {
-                    parts.push(state.single.scenarioName);
+                // Show all selected scenarios
+                if (state.single.selectedScenarios.length > 0) {
+                    const scenarioNames = state.single.selectedScenarios.map(s => SCENARIO_DATA[s]?.name || s);
+                    parts.push(scenarioNames.join(' + '));
                 }
                 if (state.single.hands !== null) {
                     parts.push(`${state.single.hands} manos`);
@@ -661,7 +669,13 @@ async function init() {
     
         function updateFinalSummary() {
             document.getElementById('finalTechnique').textContent = state.single.techniqueName;
-            document.getElementById('finalScenario').textContent = state.single.scenarioName;
+            // Show all selected scenarios
+            if (state.single.selectedScenarios.length > 0) {
+                const scenarioNames = state.single.selectedScenarios.map(s => SCENARIO_DATA[s]?.name || s);
+                document.getElementById('finalScenario').textContent = scenarioNames.join(' + ');
+            } else {
+                document.getElementById('finalScenario').textContent = '';
+            }
             document.getElementById('finalHands').textContent = state.single.hands !== null ? state.single.hands + ' Manos' : '';
             document.getElementById('finalDuration').textContent = state.single.duration !== null ? state.single.duration + ' min' : '';
     
@@ -1216,53 +1230,101 @@ ${branchText}
         function updateScenarioHint() {
             const hintEl = document.getElementById('scenarioHint');
             if (!hintEl) return;
-    
-            if (state.single.technique === 'circuit' || state.single.technique === 'circuit-deluxe') {
-                const minRequired = state.single.duration >= 60 ? 3 : 2;
+
+            // Get max scenarios from config based on duration
+            const maxScenarios = DATA.SCENARIO_RULES?.limits_by_duration?.[state.single.duration] || 1;
+
+            if (maxScenarios > 1) {
                 const selected = state.single.selectedScenarios.length;
-                const remaining = Math.max(0, minRequired - selected);
-    
+                const remaining = Math.max(0, maxScenarios - selected);
+
                 hintEl.classList.remove('hidden');
-                if (remaining > 0) {
-                    hintEl.textContent = `Select ${remaining} more scenario${remaining > 1 ? 's' : ''} (minimum ${minRequired})`;
+                if (remaining > 0 && selected === 0) {
+                    hintEl.textContent = `Selecciona al menos 1 escenario (máximo ${maxScenarios})`;
                     hintEl.className = 'text-ego-red text-xs mt-2';
+                } else if (remaining > 0) {
+                    hintEl.textContent = `Puedes seleccionar hasta ${remaining} más`;
+                    hintEl.className = 'text-ego-muted text-xs mt-2';
                 } else {
-                    hintEl.textContent = `${selected} scenario${selected > 1 ? 's' : ''} selected`;
+                    hintEl.textContent = `${selected} escenario${selected > 1 ? 's' : ''} seleccionado${selected > 1 ? 's' : ''}`;
                     hintEl.className = 'text-ego-gold text-xs mt-2';
                 }
             } else {
                 hintEl.classList.add('hidden');
+            }
+
+            // Update scenario section header with dynamic limit
+            const scenarioHeader = document.getElementById('scenarioHeaderLimit');
+            if (scenarioHeader && maxScenarios > 1) {
+                scenarioHeader.textContent = `Selecciona hasta ${maxScenarios} escenarios`;
+                scenarioHeader.classList.remove('hidden');
+            } else if (scenarioHeader) {
+                scenarioHeader.classList.add('hidden');
+            }
+        }
+
+        function updateScenarioContinueButton() {
+            const continueBtn = document.getElementById('scenarioContinueBtn');
+            if (!continueBtn) return;
+
+            const maxScenarios = DATA.SCENARIO_RULES?.limits_by_duration?.[state.single.duration] || 1;
+
+            if (maxScenarios > 1) {
+                // Show continue button for multi-scenario techniques
+                continueBtn.classList.remove('hidden');
+                const canContinue = state.single.selectedScenarios.length >= 1;
+                continueBtn.disabled = !canContinue;
+                continueBtn.classList.toggle('opacity-50', !canContinue);
+            } else {
+                // Hide continue button for single scenario techniques
+                continueBtn.classList.add('hidden');
             }
         }
     
         document.querySelectorAll('.scenario-btn').forEach(btn => {
             btn.addEventListener('click', () => {
                 if (btn.classList.contains('option-locked')) return;
-    
+
                 const scenario = btn.dataset.scenario;
                 const scenarioData = SCENARIO_DATA[scenario];
-    
-                // For Circuit techniques, handle multi-scenario selection
-                if (state.single.technique === 'circuit' || state.single.technique === 'circuit-deluxe') {
-                    const minRequired = state.single.duration >= 60 ? 3 : 2;
+
+                // Check technique exclusions from config
+                const techniqueExclusions = DATA.SCENARIO_RULES?.technique_exclusions?.[state.single.technique] || [];
+                if (techniqueExclusions.includes(scenario)) {
+                    alert('Este escenario no está disponible para esta técnica');
+                    return;
+                }
+
+                // Get max scenarios from config based on duration
+                const maxScenarios = DATA.SCENARIO_RULES?.limits_by_duration?.[state.single.duration] || 1;
+
+                // For multi-scenario techniques (circuit, cocktail)
+                if (maxScenarios > 1) {
                     // Toggle selection
+                    const isSelected = btn.classList.contains('selected');
+
+                    if (!isSelected && state.single.selectedScenarios.length >= maxScenarios) {
+                        alert(`Máximo ${maxScenarios} escenarios para esta duración`);
+                        return;
+                    }
+
                     btn.classList.toggle('selected');
-    
+
                     if (btn.classList.contains('selected')) {
                         state.single.selectedScenarios.push(scenario);
                     } else {
                         state.single.selectedScenarios = state.single.selectedScenarios.filter(s => s !== scenario);
                     }
-    
+
+                    // Always set scenario to first selected for compatibility
+                    if (state.single.selectedScenarios.length > 0) {
+                        state.single.scenario = state.single.selectedScenarios[0];
+                        state.single.scenarioName = SCENARIO_DATA[state.single.scenario]?.name || '';
+                    }
+
                     updateScenarioHint();
                     updateStickyFooter();
-    
-                    // Only proceed if minimum scenarios selected
-                    if (state.single.selectedScenarios.length >= minRequired) {
-                        state.single.scenario = state.single.selectedScenarios[0];
-                        state.single.scenarioName = scenarioData.name;
-                        setTimeout(() => goToStep(4), 200);
-                    }
+                    updateScenarioContinueButton();
                 } else {
                     // Single scenario selection for other techniques
                     document.querySelectorAll('.scenario-btn').forEach(b => b.classList.remove('selected'));
@@ -1274,10 +1336,18 @@ ${branchText}
 
                     updateScenarioHint();
                     updateStickyFooter();
+                    updateScenarioContinueButton();
 
                     setTimeout(() => goToStep(4), 200);
                 }
             });
+        });
+
+        // Scenario continue button
+        document.getElementById('scenarioContinueBtn')?.addEventListener('click', () => {
+            if (state.single.selectedScenarios.length >= 1) {
+                goToStep(4);
+            }
         });
 
         // Step 4: PRAECOQUIS extras

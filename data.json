@@ -114,6 +114,22 @@
     "tantric-sink":  { "name": "Tantric Sink",   "icon": "sink",   "description": "Tantric sink experience" }
   },
 
+  "SCENARIO_RULES": {
+    "limits_by_duration": {
+      "40": 2,
+      "60": 3,
+      "75": 3,
+      "90": 3,
+      "120": 4
+    },
+    "technique_exclusions": {
+      "circuit": ["tatami-wet", "tantric-sink"],
+      "cocktail": ["tatami-wet", "tantric-sink"],
+      "circuit-deluxe": [],
+      "cocktail-deluxe": []
+    }
+  },
+
   "ADDON_PRICING": {
     "double-sensitive": { "name": "Double Sensitive", "price": 25 },
     "move-to-branches": { "name": "Mobility",        "price": 25 },
