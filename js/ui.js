@@ -52,18 +52,6 @@ function updateConstraints() {
         let isLocked = !availableDurations.includes(d);
         let lockReason = isLocked ? 'Not available for this technique' : '';
 
-        // Special rules: 20min max 2 hands, 40min max 4 hands
-        if (!isLocked && hands !== null) {
-            if (hands > 2 && d === 20) {
-                isLocked = true;
-                lockReason = '20 min max 2 hands';
-            }
-            if (hands > 4 && d === 40) {
-                isLocked = true;
-                lockReason = '40 min max 4 hands';
-            }
-        }
-
         btn.classList.toggle('option-locked', isLocked);
         btn.disabled = isLocked;
         btn.dataset.lockReason = lockReason;
