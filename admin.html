@@ -221,6 +221,61 @@ tr:last-child td { border-bottom: none; }
                 </div>
             </div>
 
+            <!-- BRANCHES -->
+            <div id="section-branches" class="section space-y-5">
+                <div class="sec-head">
+                    <div><div class="sec-title">Branches</div><div class="sec-sub">Ubicaciones de spa</div></div>
+                    <button class="btn btn-ghost btn-sm" id="addBranch">+ Agregar</button>
+                </div>
+                <div class="card tbl-wrap">
+                    <table>
+                        <thead><tr><th>ID</th><th>Nombre</th><th>Label</th><th></th></tr></thead>
+                        <tbody id="branches-tbody"></tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- TECHNIQUE CATEGORIES -->
+            <div id="section-technique-cats" class="section space-y-5">
+                <div class="sec-head">
+                    <div><div class="sec-title">Technique Categories</div><div class="sec-sub">Categorías de técnicas</div></div>
+                    <button class="btn btn-ghost btn-sm" id="addTechniqueCat">+ Agregar</button>
+                </div>
+                <div class="card tbl-wrap">
+                    <table>
+                        <thead><tr><th>ID</th><th>Nombre</th><th>Label</th><th>Descripción</th><th></th></tr></thead>
+                        <tbody id="technique-cats-tbody"></tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- MEMBERSHIP -->
+            <div id="section-membership" class="section space-y-5">
+                <div class="sec-head"><div><div class="sec-title">Membership</div><div class="sec-sub">Configuración de Ego Card</div></div></div>
+                <div class="card p-5">
+                    <div><span class="lbl">Nombre</span><input type="text" id="membership-name"></div>
+                    <div class="grid grid-cols-2 gap-4 mt-4">
+                        <div><span class="lbl">Precio Primer Año $</span><input type="number" id="membership-first-year" min="0"></div>
+                        <div><span class="lbl">Precio Renovación $</span><input type="number" id="membership-renewal" min="0"></div>
+                    </div>
+                    <div class="mt-4"><span class="lbl">Descripción</span><input type="text" id="membership-description"></div>
+                </div>
+            </div>
+
+            <!-- FLOWS -->
+            <div id="section-flows" class="section space-y-5">
+                <div class="sec-head">
+                    <div><div class="sec-title">Flows</div><div class="sec-sub">Tipos de booking flow</div></div>
+                    <button class="btn btn-ghost btn-sm" id="addFlow">+ Agregar</button>
+                </div>
+                <div class="card tbl-wrap">
+                    <table>
+                        <thead><tr><th>ID</th><th>Label</th><th>Descripción</th><th>Icono</th><th>Color</th><th>Coming Soon</th><th></th></tr></thead>
+                        <tbody id="flows-tbody"></tbody>
+                    </table>
+                </div>
+            </div>
+
             <!-- M-CODES -->
             <div id="section-mcodes" class="section space-y-5">
                 <div class="sec-head">
@@ -367,6 +422,10 @@ tr:last-child td { border-bottom: none; }
 // ── Nav config ──
 const NAV_ITEMS = [
     { id:'general',        icon:'⚙️',  label:'General' },
+    { id:'branches',       icon:'📍', label:'Branches' },
+    { id:'technique-cats', icon:'📂', label:'Technique Cats' },
+    { id:'membership',     icon:'💳', label:'Membership' },
+    { id:'flows',          icon:'🚀', label:'Flows' },
     { id:'mcodes',         icon:'📋', label:'M-Code Pricing' },
     { id:'hotel',          icon:'🏨', label:'Hotel Pricing' },
     { id:'tiered',         icon:'🎚', label:'Tiered Modifiers' },
@@ -458,6 +517,135 @@ function collectGeneral() {
     bh.nightRateAfter  = $('#g-night-after').val();
     bh.nightRateBefore = $('#g-night-before').val();
 }
+
+// ============================================================
+// BRANCHES
+// ============================================================
+function renderBranches() {
+    const $b = $('#branches-tbody').empty();
+    $.each(DATA.BRANCHES, (key, b) => $b.append(`<tr>
+        <td>${inp(key,'branchKey')}</td>
+        <td>${inp(b.name,'name')}</td>
+        <td>${inp(b.label,'label')}</td>
+        <td>${delBtn()}</td>
+    </tr>`));
+}
+function collectBranches() {
+    DATA.BRANCHES = {};
+    $('#branches-tbody tr').each(function() {
+        const key = $(this).find('[name=branchKey]').val().trim();
+        if (!key) return;
+        DATA.BRANCHES[key] = {
+            name: $(this).find('[name=name]').val().trim(),
+            label: $(this).find('[name=label]').val().trim()
+        };
+    });
+}
+$('#addBranch').on('click', () => $('#branches-tbody').append(`<tr>
+    <td>${inp('new-branch','branchKey')}</td>
+    <td>${inp('New Branch','name')}</td>
+    <td>${inp('New Branch','label')}</td>
+    <td>${delBtn()}</td>
+</tr>`));
+
+// ============================================================
+// TECHNIQUE CATEGORIES
+// ============================================================
+function renderTechniqueCats() {
+    const $b = $('#technique-cats-tbody').empty();
+    $.each(DATA.TECHNIQUE_CATEGORIES, (key, c) => {
+        const techList = (c.techniques || []).join(', ');
+        $b.append(`<tr>
+            <td>${inp(key,'catKey')}</td>
+            <td>${inp(c.name,'name')}</td>
+            <td>${inp(c.label,'label')}</td>
+            <td>${inp(c.description,'description')}</td>
+            <td>${delBtn()}</td>
+        </tr>`);
+    });
+}
+function collectTechniqueCats() {
+    DATA.TECHNIQUE_CATEGORIES = {};
+    $('#technique-cats-tbody tr').each(function() {
+        const key = $(this).find('[name=catKey]').val().trim();
+        if (!key) return;
+        DATA.TECHNIQUE_CATEGORIES[key] = {
+            name: $(this).find('[name=name]').val().trim(),
+            label: $(this).find('[name=label]').val().trim(),
+            description: $(this).find('[name=description]').val().trim(),
+            techniques: []
+        };
+    });
+}
+$('#addTechniqueCat').on('click', () => $('#technique-cats-tbody').append(`<tr>
+    <td>${inp('NEW_CATEGORY','catKey')}</td>
+    <td>${inp('New Category','name')}</td>
+    <td>${inp('New Category','label')}</td>
+    <td>${inp('Description','description')}</td>
+    <td>${delBtn()}</td>
+</tr>`));
+
+// ============================================================
+// MEMBERSHIP
+// ============================================================
+function renderMembership() {
+    const m = DATA.EGO_MEMBERSHIP;
+    $('#membership-name').val(m.name || '');
+    $('#membership-first-year').val(m.firstYearPrice || 0);
+    $('#membership-renewal').val(m.renewalPrice || 0);
+    $('#membership-description').val(m.description || '');
+}
+function collectMembership() {
+    DATA.EGO_MEMBERSHIP = {
+        name: $('#membership-name').val().trim(),
+        firstYearPrice: +$('#membership-first-year').val() || 0,
+        renewalPrice: +$('#membership-renewal').val() || 0,
+        description: $('#membership-description').val().trim()
+    };
+}
+
+// ============================================================
+// FLOWS
+// ============================================================
+function renderFlows() {
+    const $b = $('#flows-tbody').empty();
+    $.each(DATA.FLOWS, (_, f) => {
+        const checked = f.comingSoon ? 'checked' : '';
+        $b.append(`<tr>
+            <td>${inp(f.id,'flowId')}</td>
+            <td>${inp(f.label,'label')}</td>
+            <td>${inp(f.description,'description')}</td>
+            <td>${inp(f.icon,'icon')}</td>
+            <td>${inp(f.color,'color')}</td>
+            <td><input type="checkbox" name="comingSoon" ${checked} style="width:20px;height:20px"></td>
+            <td>${delBtn()}</td>
+        </tr>`);
+    });
+}
+function collectFlows() {
+    DATA.FLOWS = [];
+    $('#flows-tbody tr').each(function() {
+        const id = $(this).find('[name=flowId]').val().trim();
+        if (!id) return;
+        DATA.FLOWS.push({
+            id: id,
+            label: $(this).find('[name=label]').val().trim(),
+            description: $(this).find('[name=description]').val().trim(),
+            icon: $(this).find('[name=icon]').val().trim(),
+            color: $(this).find('[name=color]').val().trim(),
+            comingSoon: $(this).find('[name=comingSoon]').is(':checked')
+        });
+    });
+}
+$('#addFlow').on('click', () => $('#flows-tbody').append(`<tr>
+    <td>${inp('new-flow','flowId')}</td>
+    <td>${inp('New Flow','label')}</td>
+    <td>${inp('Description','description')}</td>
+    <td>${inp('heart','icon')}</td>
+    <td>${inp('red','color')}</td>
+    <td><input type="checkbox" name="comingSoon" style="width:20px;height:20px"></td>
+    <td>${delBtn()}</td>
+</tr>`));
 
 // ============================================================
 // M-CODES
@@ -650,9 +838,18 @@ function techCard(tKey, t) {
                 <label for="cc-${tKey}-${c}">${c}</label>`;
     }).join('');
 
+    const cat = t.category || '';
+    const catOptions = [
+        {v: '', l: 'Sin categoría'},
+        {v: 'ORIENTAL_MASSAGE', l: 'Masajes Orientales'},
+        {v: 'DELUXE', l: 'Deluxe Experience'},
+        {v: 'MIX_MASSAGE', l: 'Mix Massage'}
+    ];
+    const catSelect = catOptions.map(o => `<option value="${o.v}" ${cat===o.v?'selected':''}>${o.l}</option>`).join('');
+
     return `<div class="card p-5" data-tech-key="${tKey}">
         <div class="flex items-start gap-3 mb-4">
-            <div class="flex-1 grid grid-cols-1 sm:grid-cols-3 gap-3">
+            <div class="flex-1 grid grid-cols-1 sm:grid-cols-4 gap-3">
                 <div><span class="lbl">ID</span>${inp(tKey,'techKey')}</div>
                 <div><span class="lbl">Nombre</span>${inp(t.name,'name')}</div>
                 <div><span class="lbl">Sistema</span>
@@ -660,6 +857,9 @@ function techCard(tKey, t) {
                         <option value="M11-M18" ${!tiered?'selected':''}>M11-M18</option>
                         <option value="Tiered"  ${tiered?'selected':''}>Tiered</option>
                     </select>
+                </div>
+                <div><span class="lbl">Categoría</span>
+                    <select name="category">${catSelect}</select>
                 </div>
             </div>
             <button type="button" class="del-tech del-btn mt-6 flex-shrink-0">${ICON_X}</button>
@@ -688,11 +888,13 @@ function collectTechniques() {
         const id = $(this).find('[name=techKey]').val().trim();
         if (!id) return;
         const ps = $(this).find('[name=pricingSystem]').val();
+        const cat = $(this).find('[name=category]').val();
         const obj = {
             name: $(this).find('[name=name]').val().trim(),
             pricingSystem: ps,
             allowedScenarios: $(this).find('[name=scenario]:checked').map(function(){ return this.value; }).get()
         };
+        if (cat) obj.category = cat;
         if (ps === 'M11-M18') obj.allowedCodes = $(this).find('[name=mcode]:checked').map(function(){ return this.value; }).get();
         else obj.basePrice = +$(this).find('[name=basePrice]').val() || 0;
         DATA.TECHNIQUE_DATA[id] = obj;
@@ -841,7 +1043,8 @@ const SAVE_ICON = `<svg class="w-4 h-4 flex-shrink-0" fill="none" stroke="curren
     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3m-1 4l-3 3m0 0l-3-3m3 3V4"/></svg>`;
 
 function doSave() {
-    collectGeneral(); collectMcodes(); collectHotel(); collectTiered();
+    collectGeneral(); collectBranches(); collectTechniqueCats(); collectMembership();
+    collectFlows(); collectMcodes(); collectHotel(); collectTiered();
     collectPacks(); collectTechniques(); collectScenarios(); collectScenarioRules(); collectAddons();
 
     const $btns = $('#saveBtn, #saveBtn-mobile');
@@ -875,8 +1078,9 @@ fetch('./data.json')
     .then(r => { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })
     .then(json => {
         DATA = json;
-        renderGeneral(); renderMcodes(); renderHotel(); renderTiered();
-        renderPacks(); renderTechniques(); renderScenarios(); renderScenarioRules(); renderAddons();
+        renderGeneral(); renderBranches(); renderTechniqueCats(); renderMembership(); renderFlows();
+        renderMcodes(); renderHotel(); renderTiered(); renderPacks(); renderTechniques();
+        renderScenarios(); renderScenarioRules(); renderAddons();
     })
     .catch(err => {
         toast('✗ No se pudo cargar data.json: ' + err.message, false);
