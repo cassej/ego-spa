@@ -572,6 +572,102 @@ function loadBranches() {
     });
 }
 
+/**
+ * Load techniques from data.json and group them by categories
+ */
+function loadTechniques() {
+    const container = document.getElementById('techniquesContainer');
+    if (!container) return;
+
+    let html = '';
+    let staggerIndex = 1;
+
+    // Group techniques by category
+    const techniquesByCategory = {};
+    const uncategorizedTechniques = [];
+
+    // First, categorize all techniques
+    Object.entries(TECHNIQUE_DATA).forEach(([techKey, techData]) => {
+        const category = techData.category;
+        if (category && TECHNIQUE_CATEGORIES && TECHNIQUE_CATEGORIES[category]) {
+            if (!techniquesByCategory[category]) {
+                techniquesByCategory[category] = [];
+            }
+            techniquesByCategory[category].push({ key: techKey, data: techData });
+        } else {
+            uncategorizedTechniques.push({ key: techKey, data: techData });
+        }
+    });
+
+    // Generate HTML for categorized techniques
+    Object.entries(TECHNIQUE_CATEGORIES || {}).forEach(([catKey, catData]) => {
+        if (techniquesByCategory[catKey] && techniquesByCategory[catKey].length > 0) {
+            // Add category header
+            html += `
+                <div class="col-span-2 mb-2 mt-4 fade-up stagger-${staggerIndex++}">
+                    <h3 class="text-ego-gold font-display text-lg tracking-wider">${catData.label || catData.name}</h3>
+                    ${catData.description ? `<p class="text-ego-muted text-xs mt-1">${catData.description}</p>` : ''}
+                </div>
+            `;
+
+            // Add techniques in this category
+            techniquesByCategory[catKey].forEach(({ key, data }) => {
+                html += `
+                    <button class="technique-btn option-card rounded-xl p-4 text-center fade-up stagger-${staggerIndex++}" data-technique="${key}">
+                        <h3 class="font-semibold text-lg">${data.name}</h3>
+                    </button>
+                `;
+            });
+        }
+    });
+
+    // Add uncategorized techniques if any
+    if (uncategorizedTechniques.length > 0) {
+        html += `
+            <div class="col-span-2 mb-2 mt-4 fade-up stagger-${staggerIndex++}">
+                <h3 class="text-ego-muted font-display text-sm tracking-wider">OTRAS TÉCNICAS</h3>
+            </div>
+        `;
+
+        uncategorizedTechniques.forEach(({ key, data }) => {
+            html += `
+                <button class="technique-btn option-card rounded-xl p-4 text-center fade-up stagger-${staggerIndex++}" data-technique="${key}">
+                    <h3 class="font-semibold text-lg">${data.name}</h3>
+                </button>
+            `;
+        });
+    }
+
+    container.innerHTML = html;
+}
+
+/**
+ * Load hotel techniques from data.json (simplified, no categories needed for hotel)
+ */
+function loadHotelTechniques() {
+    const container = document.getElementById('hotelTechniquesContainer');
+    if (!container) return;
+
+    let html = '';
+    let staggerIndex = 1;
+
+    // Hotel techniques - limited set (tantric, thai, nuru, lingam, circuit, cocktail)
+    const hotelTechniques = ['tantric', 'thai', 'nuru', 'lingam', 'circuit', 'cocktail'];
+
+    hotelTechniques.forEach(techKey => {
+        const techData = TECHNIQUE_DATA[techKey];
+        if (techData) {
+            html += `
+                <button class="hotel-technique-btn option-card rounded-xl p-4 text-center fade-up stagger-${staggerIndex++}" data-technique="${techKey}">
+                    <h3 class="font-semibold text-lg">${techData.name}</h3>
+                </button>
+            `;
+        }
+    });
+
+    container.innerHTML = html;
+}
+
 function loadTouristPacks() {
     const container = document.getElementById('touristPacksContainer');
     // Placeholder - tourist packs will be loaded from data.json in the future
@@ -709,7 +805,13 @@ function resetSelections() {
         handsAddon: 0,
         duration: null,
         durationAddon: 0,
-        extras: []
+        extras: [],
+        selectedScenarios: [],
+        masseuseName: '',
+        mobilityFee: 0,
+        nightRate: 0,
+        bookingDate: '',
+        bookingTime: ''
     };
     state.pack = {
         code: null,

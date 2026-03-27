@@ -109,6 +109,7 @@
     "cocktail":        { "name": "Cocktail",        "category": "MIX_MASSAGE",    "pricingSystem": "Tiered",  "basePrice": 195, "allowedScenarios": ["massage-table","tatami-dry","tantric-couch","tantric-chair"], "allowedCombinations": [ {"hands": 4, "duration": 120} ] },
     "cocktail-deluxe": { "name": "Cocktail Deluxe", "category": "MIX_MASSAGE",    "pricingSystem": "Tiered",  "basePrice": 195, "allowedScenarios": ["massage-table","tatami-dry","tantric-couch","tantric-chair"], "allowedCombinations": [ {"hands": 4, "duration": 120} ] },
     "tantric-couple": {
+      "category": "COUPLE_MASSAGE",
       "name": "Tantric Couple",
       "label": "Tantric (Couple)",
       "pricingSystem": "Tiered",
@@ -116,6 +117,7 @@
       "allowedScenarios": ["massage-table", "tatami"]
     },
     "nuru-couple": {
+      "category": "COUPLE_MASSAGE",
       "name": "Nuru Couple",
       "label": "Nuru (Couple)",
       "pricingSystem": "Tiered",
@@ -171,7 +173,7 @@
     "description": "Exclusive membership with discounts and perks"
   },
 
-  "WHATSAPP_NUMBER": "50760185879",
+  "WHATSAPP_NUMBER": "50760163651",
 
   "BUSINESS_HOURS": {
     "weekdays": { "label": "Lunes a Sábado", "open": "08:30", "close": "00:30" },

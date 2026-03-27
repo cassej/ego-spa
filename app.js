@@ -24,8 +24,10 @@ async function init() {
         TECHNIQUE_CATEGORIES = DATA.TECHNIQUE_CATEGORIES;
         EGO_MEMBERSHIP = DATA.EGO_MEMBERSHIP;
 
-        // Load branches dynamically from data.json
+        // Load branches and techniques dynamically from data.json
         loadBranches();
+        loadTechniques();
+        loadHotelTechniques();
         
         // Setup all event listeners
         setupEventListeners();

@@ -565,17 +565,26 @@ function renderTechniqueCats() {
     });
 }
 function collectTechniqueCats() {
-    DATA.TECHNIQUE_CATEGORIES = {};
+    const catData = {};
     $('#technique-cats-tbody tr').each(function() {
         const key = $(this).find('[name=catKey]').val().trim();
         if (!key) return;
-        DATA.TECHNIQUE_CATEGORIES[key] = {
+        catData[key] = {
             name: $(this).find('[name=name]').val().trim(),
             label: $(this).find('[name=label]').val().trim(),
             description: $(this).find('[name=description]').val().trim(),
             techniques: []
         };
     });
+    // Sync techniques array based on actual technique assignments
+    if (DATA.TECHNIQUE_DATA) {
+        Object.entries(DATA.TECHNIQUE_DATA).forEach(([techKey, tech]) => {
+            if (tech.category && catData[tech.category]) {
+                catData[tech.category].techniques.push(techKey);
+            }
+        });
+    }
+    DATA.TECHNIQUE_CATEGORIES = catData;
 }
 $('#addTechniqueCat').on('click', () => $('#technique-cats-tbody').append(`<tr>
     <td>${inp('NEW_CATEGORY','catKey')}</td>
@@ -839,12 +848,12 @@ function techCard(tKey, t) {
     }).join('');
 
     const cat = t.category || '';
-    const catOptions = [
-        {v: '', l: 'Sin categoría'},
-        {v: 'ORIENTAL_MASSAGE', l: 'Masajes Orientales'},
-        {v: 'DELUXE', l: 'Deluxe Experience'},
-        {v: 'MIX_MASSAGE', l: 'Mix Massage'}
-    ];
+    const catOptions = [{v: '', l: 'Sin categoría'}];
+    if (DATA.TECHNIQUE_CATEGORIES) {
+        Object.entries(DATA.TECHNIQUE_CATEGORIES).forEach(([key, c]) => {
+            catOptions.push({v: key, l: c.label || c.name});
+        });
+    }
     const catSelect = catOptions.map(o => `<option value="${o.v}" ${cat===o.v?'selected':''}>${o.l}</option>`).join('');
 
     return `<div class="card p-5" data-tech-key="${tKey}">

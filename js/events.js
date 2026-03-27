@@ -113,26 +113,27 @@ ${EGO_DISCOUNT * 100}%`);
     // SINGLE MASSAGE FLOW
     // ============================================
 
-    // Step 1: Technique
-    document.querySelectorAll('.technique-btn').forEach(btn => {
-        btn.addEventListener('click', () => {
-            document.querySelectorAll('.technique-btn').forEach(b => b.classList.remove('selected'));
-            btn.classList.add('selected');
+    // Step 1: Technique (using event delegation for dynamically loaded buttons)
+    document.getElementById('techniquesContainer').addEventListener('click', (e) => {
+        const btn = e.target.closest('.technique-btn');
+        if (!btn) return;
 
-            const techniqueKey = btn.dataset.technique;
-            state.single.technique = techniqueKey;
-            state.single.techniqueName = TECHNIQUE_DATA[techniqueKey].name;
-            state.single.pricingSystem = TECHNIQUE_DATA[techniqueKey].pricingSystem;
+        document.querySelectorAll('.technique-btn').forEach(b => b.classList.remove('selected'));
+        btn.classList.add('selected');
 
-            // Reset to technique defaults
-            resetToTechniqueDefaults(techniqueKey);
+        const techniqueKey = btn.dataset.technique;
+        state.single.technique = techniqueKey;
+        state.single.techniqueName = TECHNIQUE_DATA[techniqueKey].name;
+        state.single.pricingSystem = TECHNIQUE_DATA[techniqueKey].pricingSystem;
 
-            // Update constraints
-            updateConstraints();
-            updateStickyFooter();
+        // Reset to technique defaults
+        resetToTechniqueDefaults(techniqueKey);
 
-            setTimeout(() => goToStep(2), 200);
-        });
+        // Update constraints
+        updateConstraints();
+        updateStickyFooter();
+
+        setTimeout(() => goToStep(2), 200);
     });
 
     // Step 2: Hands selection
@@ -395,25 +396,25 @@ ${EGO_DISCOUNT * 100}%`);
     // HOTEL SERVICES FLOW
     // ============================================
 
-    // Step 1: Technique
-    document.querySelectorAll('.hotel-technique-btn').forEach(btn => {
-        btn.addEventListener('click', () => {
-            document.querySelectorAll('.hotel-technique-btn').forEach(b =>
-b.classList.remove('selected'));
-            btn.classList.add('selected');
+    // Step 1: Technique (using event delegation for dynamically loaded buttons)
+    document.getElementById('hotelTechniquesContainer').addEventListener('click', (e) => {
+        const btn = e.target.closest('.hotel-technique-btn');
+        if (!btn) return;
 
-            const technique = btn.dataset.technique;
-            const techniqueData = TECHNIQUE_DATA[technique];
+        document.querySelectorAll('.hotel-technique-btn').forEach(b => b.classList.remove('selected'));
+        btn.classList.add('selected');
 
-            state.hotel.technique = technique;
-            state.hotel.techniqueName = techniqueData.name;
-            state.hotel.pricingSystem = techniqueData.pricingSystem;
+        const technique = btn.dataset.technique;
+        const techniqueData = TECHNIQUE_DATA[technique];
 
-            // Update hotel scenario constraints
-            updateHotelConstraints();
+        state.hotel.technique = technique;
+        state.hotel.techniqueName = techniqueData.name;
+        state.hotel.pricingSystem = techniqueData.pricingSystem;
 
-            setTimeout(() => goToStep(2), 200);
-        });
+        // Update hotel scenario constraints
+        updateHotelConstraints();
+
+        setTimeout(() => goToStep(2), 200);
     });
 
     // Step 2: Hands
