@@ -823,7 +823,17 @@ $(document).on('click', '.add-size', function() {
 // TECHNIQUES
 // ============================================================
 const ALL_SCENARIOS = ['shower','massage-table','tatami-dry','tatami-wet','tantric-couch','tantric-chair','tantric-sink'];
-const ALL_CODES     = ['M11','M12','M13','M14','M15','M16','M17','M18'];
+
+// Get all available codes from M_CODE_PRICING (M-codes and P-codes)
+function getAllCodes() {
+    const codes = [];
+    if (DATA && DATA.M_CODE_PRICING) {
+        Object.keys(DATA.M_CODE_PRICING).forEach(code => {
+            codes.push(code);
+        });
+    }
+    return codes.sort();
+}
 
 function techCard(tKey, t) {
     const tiered = t.pricingSystem === 'Tiered';
@@ -843,7 +853,10 @@ function techCard(tKey, t) {
         return `<input type="checkbox" class="pill-check scenario-check" id="sc-${tKey}-${s}" name="scenario" value="${s}" ${chk}>
                 <label for="sc-${tKey}-${s}">${scenarioNames[s] || s}</label>`;
     }).join('');
-    const cCks = ALL_CODES.map(c => {
+
+    // Get all available codes dynamically from M_CODE_PRICING
+    const allCodes = getAllCodes();
+    const cCks = allCodes.map(c => {
         const chk = (t.allowedCodes||[]).includes(c) ? 'checked' : '';
         return `<input type="checkbox" class="pill-check code-check" id="cc-${tKey}-${c}" name="mcode" value="${c}" ${chk}>
                 <label for="cc-${tKey}-${c}">${c}</label>`;
