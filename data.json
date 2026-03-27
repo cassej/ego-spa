@@ -1,4 +1,32 @@
 {
+  "BRANCHES": {
+    "marbella": { "name": "Spa Marbella", "label": "Marbella" },
+    "costa-del-este": { "name": "Spa Costa del Este", "label": "Costa del Este" },
+    "san-francisco": { "name": "Spa San Francisco", "label": "San Francisco" },
+    "el-dorado": { "name": "Spa El Dorado", "label": "El Dorado" }
+  },
+
+  "TECHNIQUE_CATEGORIES": {
+    "ORIENTAL_MASSAGE": {
+      "name": "ORIENTAL MASSAGE",
+      "label": "Masajes Orientales",
+      "description": "Traditional techniques from the East",
+      "techniques": ["tantric", "thai", "nuru", "lingam"]
+    },
+    "DELUXE": {
+      "name": "DELUXE",
+      "label": "Deluxe Experience",
+      "description": "Premium massage experiences",
+      "techniques": ["imperial", "circuit", "circuit-deluxe", "cocktail", "cocktail-deluxe"]
+    },
+    "MIX_MASSAGE": {
+      "name": "MIX MASSAGE",
+      "label": "Mix Massage",
+      "description": "Unique blend techniques",
+      "techniques": ["zurzum", "miso", "flegg"]
+    }
+  },
+
   "PACK_DATA": {
     "M51": {
       "name": "MTX - 20 min",
@@ -6,7 +34,8 @@
       "sizes": {
         "S": { "sessions": 3, "price": 115, "label": "Small" },
         "M": { "sessions": 6, "price": 185, "label": "Medium" },
-        "L": { "sessions": 14, "price": 395, "label": "Large" }
+        "L": { "sessions": 14, "price": 395, "label": "Large" },
+        "U": { "sessions": -1, "price": 999, "label": "12 Month Unlimited" }
       }
     },
     "M52": {
@@ -15,7 +44,8 @@
       "sizes": {
         "S": { "sessions": 2, "price": 135, "label": "Small" },
         "M": { "sessions": 3, "price": 195, "label": "Medium" },
-        "L": { "sessions": 10, "price": 395, "label": "Large" }
+        "L": { "sessions": 10, "price": 395, "label": "Large" },
+        "U": { "sessions": -1, "price": 1199, "label": "12 Month Unlimited" }
       }
     },
     "M53": {
@@ -24,7 +54,8 @@
       "sizes": {
         "R": { "sessions": 3, "price": 295, "label": "Regular" },
         "D": { "sessions": 3, "price": 375, "label": "Double" },
-        "XL": { "sessions": 6, "price": 695, "label": "XL" }
+        "XL": { "sessions": 6, "price": 695, "label": "XL" },
+        "U": { "sessions": -1, "price": 2499, "label": "12 Month Unlimited" }
       }
     },
     "M54": {
@@ -33,7 +64,8 @@
       "sizes": {
         "R": { "sessions": 6, "price": 450, "label": "Regular" },
         "D": { "sessions": 6, "price": 570, "label": "Double" },
-        "XL": { "sessions": 14, "price": 1200, "label": "XL" }
+        "XL": { "sessions": 14, "price": 1200, "label": "XL" },
+        "U": { "sessions": -1, "price": 2999, "label": "12 Month Unlimited" }
       }
     }
   },
@@ -58,18 +90,18 @@
   },
 
   "TECHNIQUE_DATA": {
-    "tantric":         { "name": "Tantric",         "pricingSystem": "M11-M18", "allowedCodes": ["M11","M12","M13","M14","M15","M16","M17","M18"], "allowedScenarios": ["shower","massage-table","tatami-dry","tatami-wet","tantric-couch","tantric-chair","tantric-sink"] },
-    "thai":            { "name": "Thai",            "pricingSystem": "M11-M18", "allowedCodes": ["M12","M13","M14","M15","M16"], "allowedScenarios": ["tatami-dry"] },
-    "imperial":        { "name": "Imperial",        "pricingSystem": "M11-M18", "allowedCodes": ["M12","M13","M14","M15","M16"], "allowedScenarios": ["massage-table"] },
-    "zurzum":          { "name": "Zurzum",          "pricingSystem": "M11-M18", "allowedCodes": ["M12","M13","M14","M15","M16"], "allowedScenarios": ["massage-table","tatami-dry"] },
-    "miso":            { "name": "Miso",            "pricingSystem": "M11-M18", "allowedCodes": ["M12","M13","M14","M15","M16"], "allowedScenarios": ["massage-table","tatami-dry"] },
-    "nuru":            { "name": "Nuru",            "pricingSystem": "Tiered",  "basePrice": 135, "allowedScenarios": ["tatami-wet","tantric-sink"], "allowedCombinations": [ {"hands": 2, "duration": 60}, {"hands": 2, "duration": 90}, {"hands": 4, "duration": 75} ] },
-    "flegg":           { "name": "Flegg",           "pricingSystem": "Tiered",  "basePrice": 135, "allowedScenarios": ["tatami-wet","tantric-sink"], "allowedCombinations": [ {"hands": 2, "duration": 60}, {"hands": 2, "duration": 90}, {"hands": 4, "duration": 75} ] },
-    "lingam":          { "name": "Lingam",          "pricingSystem": "Tiered",  "basePrice": 135, "allowedScenarios": ["massage-table","tatami-dry"], "allowedCombinations": [ {"hands": 2, "duration": 60}, {"hands": 2, "duration": 90}, {"hands": 4, "duration": 75} ] },
-    "circuit":         { "name": "Circuit",         "pricingSystem": "Tiered",  "basePrice": 165, "allowedScenarios": ["massage-table","tatami-dry","tantric-couch","tantric-chair","tantric-sink"], "allowedCombinations": [ {"hands": 6, "duration": 60}, {"hands": 6, "duration": 90} ], "minScenarios": { "40": 2, "60": 3 } },
-    "circuit-deluxe":  { "name": "Circuit Deluxe", "pricingSystem": "Tiered",  "basePrice": 165, "allowedScenarios": ["massage-table","tatami-dry","tantric-couch","tantric-chair","tantric-sink"], "allowedCombinations": [ {"hands": 6, "duration": 60}, {"hands": 6, "duration": 90} ], "minScenarios": { "40": 2, "60": 3 } },
-    "cocktail":        { "name": "Cocktail",        "pricingSystem": "Tiered",  "basePrice": 195, "allowedScenarios": ["massage-table","tatami-dry","tantric-couch","tantric-chair","tantric-sink"], "allowedCombinations": [ {"hands": 4, "duration": 120} ] },
-    "cocktail-deluxe": { "name": "Cocktail Deluxe", "pricingSystem": "Tiered",  "basePrice": 195, "allowedScenarios": ["massage-table","tatami-dry","tantric-couch","tantric-chair","tantric-sink"], "allowedCombinations": [ {"hands": 4, "duration": 120} ] }
+    "tantric":         { "name": "Tantric",         "category": "ORIENTAL_MASSAGE", "pricingSystem": "M11-M18", "allowedCodes": ["M11","M12","M13","M14","M15","M16","M17","M18"], "allowedScenarios": ["shower","massage-table","tatami-dry","tatami-wet","tantric-couch","tantric-chair","tantric-sink"] },
+    "thai":            { "name": "Thai",            "category": "ORIENTAL_MASSAGE", "pricingSystem": "M11-M18", "allowedCodes": ["M12","M13","M14","M15","M16"], "allowedScenarios": ["tatami-dry"] },
+    "imperial":        { "name": "Imperial",        "category": "DELUXE",         "pricingSystem": "M11-M18", "allowedCodes": ["M12","M13","M14","M15","M16"], "allowedScenarios": ["massage-table"] },
+    "zurzum":          { "name": "Zurzum",          "category": "MIX_MASSAGE",    "pricingSystem": "M11-M18", "allowedCodes": ["M12","M13","M14","M15","M16"], "allowedScenarios": ["massage-table","tatami-dry"] },
+    "miso":            { "name": "Miso",            "category": "MIX_MASSAGE",    "pricingSystem": "M11-M18", "allowedCodes": ["M12","M13","M14","M15","M16"], "allowedScenarios": ["massage-table","tatami-dry"] },
+    "nuru":            { "name": "Nuru",            "category": "ORIENTAL_MASSAGE", "pricingSystem": "Tiered",  "basePrice": 135, "allowedScenarios": ["tatami-wet","tantric-sink"], "allowedCombinations": [ {"hands": 2, "duration": 60}, {"hands": 2, "duration": 90}, {"hands": 4, "duration": 75} ] },
+    "flegg":           { "name": "Flegg",           "category": "MIX_MASSAGE",    "pricingSystem": "Tiered",  "basePrice": 135, "allowedScenarios": ["tatami-wet","tantric-sink"], "allowedCombinations": [ {"hands": 2, "duration": 60}, {"hands": 2, "duration": 90}, {"hands": 4, "duration": 75} ] },
+    "lingam":          { "name": "Lingam",          "category": "ORIENTAL_MASSAGE", "pricingSystem": "Tiered",  "basePrice": 135, "allowedScenarios": ["massage-table","tatami-dry"], "allowedCombinations": [ {"hands": 2, "duration": 60}, {"hands": 2, "duration": 90}, {"hands": 4, "duration": 75} ] },
+    "circuit":         { "name": "Circuit",         "category": "DELUXE",         "pricingSystem": "Tiered",  "basePrice": 165, "allowedScenarios": ["massage-table","tatami-dry","tantric-couch","tantric-chair"], "allowedCombinations": [ {"hands": 6, "duration": 60}, {"hands": 6, "duration": 90} ], "minScenarios": { "40": 2, "60": 3 } },
+    "circuit-deluxe":  { "name": "Circuit Deluxe", "category": "DELUXE",         "pricingSystem": "Tiered",  "basePrice": 165, "allowedScenarios": ["massage-table","tatami-dry","tantric-couch","tantric-chair"], "allowedCombinations": [ {"hands": 6, "duration": 90} ], "minScenarios": { "40": 2, "60": 3 }, "fixedDuration": 90 },
+    "cocktail":        { "name": "Cocktail",        "category": "DELUXE",         "pricingSystem": "Tiered",  "basePrice": 195, "allowedScenarios": ["massage-table","tatami-dry","tantric-couch","tantric-chair"], "allowedCombinations": [ {"hands": 4, "duration": 120} ] },
+    "cocktail-deluxe": { "name": "Cocktail Deluxe", "category": "DELUXE",         "pricingSystem": "Tiered",  "basePrice": 195, "allowedScenarios": ["massage-table","tatami-dry","tantric-couch","tantric-chair"], "allowedCombinations": [ {"hands": 4, "duration": 120} ] }
   },
 
   "SCENARIO_DATA": {
@@ -95,6 +127,13 @@
   },
 
   "EGO_DISCOUNT": 0.18,
+
+  "EGO_MEMBERSHIP": {
+    "name": "Ego Card Membership",
+    "firstYearPrice": 175,
+    "renewalPrice": 75,
+    "description": "Exclusive membership with discounts and perks"
+  },
 
   "WHATSAPP_NUMBER": "50760185879",
 

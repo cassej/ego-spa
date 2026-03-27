@@ -438,3 +438,15 @@ var(--panel-light) 50%, var(--panel) 100%);
         .bg-ego-blue\/20 {
             background-color: rgba(59, 130, 246, 0.2);
         }
+
+        .text-ego-gold {
+            color: var(--gold);
+        }
+
+        .bg-ego-gold\/10 {
+            background-color: rgba(212, 175, 55, 0.1);
+        }
+
+        .border-ego-gold\/30 {
+            border-color: rgba(212, 175, 55, 0.3);
+        }

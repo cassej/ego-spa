@@ -15,6 +15,9 @@ async function init() {
     const SCENARIO_DATA = DATA.SCENARIO_DATA;
     const TIERED_MODIFIERS = DATA.TIERED_MODIFIERS;
     const WHATSAPP_NUMBER = DATA.WHATSAPP_NUMBER;
+    const BRANCHES = DATA.BRANCHES;
+    const TECHNIQUE_CATEGORIES = DATA.TECHNIQUE_CATEGORIES;
+    const EGO_MEMBERSHIP = DATA.EGO_MEMBERSHIP;
     
     // ============================================
         // STATE
@@ -23,7 +26,7 @@ async function init() {
         const state = {
             isAuth: false,
             email: '',
-            selectedBranch: null, // 'marbella', 'costa-del-este', or 'hotel-service'
+            selectedBranch: null, // 'marbella', 'costa-del-este', 'san-francisco', 'el-dorado', or 'hotel-service'
             selectedBranchName: '', // Display name for WhatsApp
             currentFlow: null, // 'single', 'packs', 'hotel', or 'jetlag'
             currentStep: 0,
@@ -55,6 +58,7 @@ async function init() {
                 pricingSystem: null,
                 scenario: null,
                 scenarioName: '',
+                scenarioPrice: 0,
                 hands: 2,
                 duration: 60,
                 extras: [],
@@ -217,65 +221,70 @@ async function init() {
          */
         function updateHotelConstraints() {
             const technique = state.hotel.technique;
-    
+
             if (!technique) return;
-    
+
             // Hotel scenario constraints
             let allowedScenarios = [];
-    
+
             if (technique === 'thai') {
                 // Thai = Tatami ONLY
-                allowedScenarios = ['tatami'];
+                allowedScenarios = ['tatami-dry'];
             } else {
                 // All other techniques = Table or Couch ONLY (NOT Tatami)
                 allowedScenarios = ['massage-table', 'tantric-couch'];
             }
-    
+
             console.log('🏨 Hotel Constraints:', { technique, allowedScenarios });
-    
-            // Update scenario availability
-            document.querySelectorAll('.hotel-scenario-btn').forEach(btn => {
-                const scenario = btn.dataset.scenario;
-                const isAllowed = allowedScenarios.includes(scenario);
-    
-                btn.classList.toggle('option-locked', !isAllowed);
-                btn.disabled = !isAllowed;
-                btn.dataset.lockReason = isAllowed ? '' : 'Not available for hotel services';
+
+            // Update scenario availability for radio button options
+            document.querySelectorAll('.hotel-scenario-option').forEach(option => {
+                const radio = option.querySelector('input[type="radio"]');
+                const scenario = radio.dataset.scenario;
+
+                // Empty scenario (Sin escenario) is always allowed
+                const isAllowed = !scenario || allowedScenarios.includes(scenario);
+
+                option.classList.toggle('option-locked', !isAllowed);
+                option.classList.toggle('disabled', !isAllowed);
+                radio.disabled = !isAllowed;
+
+                if (!isAllowed && radio.checked) {
+                    // If currently selected scenario becomes locked, uncheck it
+                    radio.checked = false;
+                    // Check the "Sin escenario" option
+                    const defaultRadio = document.querySelector('.hotel-scenario-option input[data-scenario=""]');
+                    if (defaultRadio) defaultRadio.checked = true;
+                    state.hotel.scenario = null;
+                    state.hotel.scenarioName = '';
+                    state.hotel.scenarioPrice = 0;
+                }
             });
         }
-    
-        /**
-         * Updates the sticky footer with current selection and price
-                const scenario = btn.dataset.scenario;
-                const isAllowed = allowedScenarios.includes(scenario);
-    
-                btn.classList.toggle('option-locked', !isAllowed);
-                btn.disabled = !isAllowed;
-                btn.dataset.lockReason = isAllowed ? '' : 'Not available for hotel services';
-            });
-        }
-    
+
         /**
          * Calculates night rate surcharge based on booking end time
          * Night rate applies when service ends between midnight and 6 AM
          * NOTE: Uses browser's local timezone (assumes Panama UTC-5)
          */
         function calculateNightRate() {
-            if (!state.single.bookingDate || !state.single.bookingTime) {
+            if (!state.single.bookingDate || !state.single.bookingTime || state.single.duration === null) {
                 state.single.nightRate = 0;
                 return;
             }
-    
+
             // NOTE: This uses browser's local timezone. Assumes user is in Panama (UTC-5).
             // For production, consider proper timezone handling if users book from other timezones.
             const bookingDateTime = new Date(`${state.single.bookingDate}T${state.single.bookingTime}`);
-            const endTime = new Date(bookingDateTime.getTime() + Number(state.single.duration || 0) * 60000);
-    
+            const endTime = new Date(bookingDateTime.getTime() + state.single.duration * 60000);
+
+            // Night rate applies if massage ends at midnight (00:00) or later, before 6:00 AM
             const endHour = endTime.getHours();
+            const endMinute = endTime.getMinutes();
             const isAfterMidnight = endHour >= 0 && endHour < 6;
-    
-            console.log('🌙 Night Rate Calculation:', { bookingTime: state.single.bookingTime, duration: state.single.duration, endTime: endTime.toLocaleTimeString(), endHour, isAfterMidnight });
-    
+
+            console.log('🌙 Night Rate Calculation:', { bookingTime: state.single.bookingTime, duration: state.single.duration, endTime: endTime.toLocaleTimeString(), endHour, endMinute, isAfterMidnight });
+
             state.single.nightRate = isAfterMidnight ? 25 : 0;
         }
     
@@ -387,28 +396,30 @@ async function init() {
             if (state.single.pricingSystem === 'M11-M18' && state.single.mCode) {
                 const mCodeData = M_CODE_PRICING[state.single.mCode];
                 if (mCodeData) {
-                    total = state.isAuth ? mCodeData.egoPrice : mCodeData.regularPrice;
+                    total = state.isAuth ? (mCodeData.egoPrice || 0) : (mCodeData.regularPrice || 0);
                 }
             } else if (state.single.pricingSystem === 'Tiered' && state.single.technique) {
                 // Only calculate if hands and duration are selected
                 if (state.single.hands !== null && state.single.duration !== null) {
                     const techniqueData = TECHNIQUE_DATA[state.single.technique];
-                    total = techniqueData.basePrice;
-                    total += TIERED_MODIFIERS.hands[String(state.single.hands)];
-                    total += TIERED_MODIFIERS.duration[String(state.single.duration)];
+                    if (techniqueData && techniqueData.basePrice) {
+                        total = techniqueData.basePrice || 0;
+                        total += TIERED_MODIFIERS.hands[String(state.single.hands)] || 0;
+                        total += TIERED_MODIFIERS.duration[String(state.single.duration)] || 0;
+                    }
                 }
             }
 
             // Add extras
             state.single.extras.forEach(extra => {
-                total += extra.addon;
+                total += (extra.addon || 0);
             });
 
             // Add mobility fee
-            total += state.single.mobilityFee;
+            total += (state.single.mobilityFee || 0);
 
             // Add night rate
-            total += state.single.nightRate;
+            total += (state.single.nightRate || 0);
 
             return total;
         }
@@ -422,35 +433,41 @@ async function init() {
     
         function calculatePackPrice() {
             const packData = PACK_DATA[state.pack.code];
-            let total = state.pack.basePrice;
-    
+            if (!packData) return 0;
+
+            let total = parseInt(state.pack.basePrice) || 0;
+
             if (state.pack.hands === 4) {
-                const upgradeTotal = packData.upgradeFee *
-    state.pack.sessions;
+                const upgradeFee = parseInt(packData.upgradeFee) || 0;
+                const sessions = parseInt(state.pack.sessions) || 0;
+                const upgradeTotal = upgradeFee * sessions;
                 total += upgradeTotal;
             }
-    
+
             return total;
         }
     
         function calculateHotelPrice() {
             const key = `${state.hotel.duration}-${state.hotel.hands}`;
             const pricing = HOTEL_SERVICE_PRICING[key];
-    
+
             console.log('Hotel Price Calculation:', { key, pricing, hotel: state.hotel });
-    
+
             if (!pricing) return 0;
-    
-            let total = state.isAuth ? pricing.egoPrice : pricing.regularPrice;
-    
+
+            let total = state.isAuth ? (pricing.egoPrice || 0) : (pricing.regularPrice || 0);
+
+            // Add scenario price (optional)
+            total += (state.hotel.scenarioPrice || 0);
+
             // Add extras
             state.hotel.extras.forEach(e => {
-                total += e.addon;
+                total += (e.addon || 0);
             });
-    
+
             // Add night rate (for late bookings)
-            total += state.hotel.nightRate;
-    
+            total += (state.hotel.nightRate || 0);
+
             console.log('Hotel Final Price:', total);
             return total;
         }
@@ -587,11 +604,6 @@ async function init() {
                     const techBtn = document.querySelector(`.hotel-technique-btn[data-technique="${state.hotel.technique}"]`);
                     if (techBtn) techBtn.classList.add('selected');
 
-                    if (state.hotel.scenario) {
-                        const scenarioBtn = document.querySelector(`.hotel-scenario-btn[data-scenario="${state.hotel.scenario}"]`);
-                        if (scenarioBtn) scenarioBtn.classList.add('selected');
-                    }
-
                     if (state.hotel.hands) {
                         const handsBtn = document.querySelector(`.hotel-hands-btn[data-hands="${state.hotel.hands}"]`);
                         if (handsBtn) handsBtn.classList.add('selected');
@@ -601,15 +613,27 @@ async function init() {
                         const durationBtn = document.querySelector(`.hotel-duration-btn[data-duration="${state.hotel.duration}"]`);
                         if (durationBtn) durationBtn.classList.add('selected');
                     }
+
+                    // Restore scenario radio button selection
+                    if (state.hotel.scenario !== undefined && state.hotel.scenario !== null) {
+                        const scenarioRadio = document.querySelector(`.hotel-scenario-option input[data-scenario="${state.hotel.scenario}"]`);
+                        if (scenarioRadio) {
+                            scenarioRadio.checked = true;
+                        } else {
+                            // Check the "Sin escenario" option
+                            const defaultRadio = document.querySelector('.hotel-scenario-option input[data-scenario=""]');
+                            if (defaultRadio) defaultRadio.checked = true;
+                        }
+                    }
                 }
 
-                // Update continue button state on step 3
-                if (step === 3) {
+                // Update continue button state on step 2
+                if (step === 2) {
                     updateHotelConfigContinueButton();
                 }
 
-                // Populate final summary on step 4
-                if (step === 4) {
+                // Populate final summary on step 3
+                if (step === 3) {
                     updateHotelFinalSummary();
                 }
             }
@@ -646,7 +670,13 @@ async function init() {
     
             const nightRateRow = document.getElementById('finalNightRateRow');
             nightRateRow.classList.toggle('hidden', state.single.nightRate === 0);
-    
+
+            // Update night rate disclaimer visibility
+            const nightRateDisclaimer = document.getElementById('nightRateDisclaimer');
+            if (nightRateDisclaimer) {
+                nightRateDisclaimer.classList.toggle('hidden', state.single.nightRate === 0);
+            }
+
             document.getElementById('finalDate').textContent = state.single.bookingDate || '';
             document.getElementById('finalTime').textContent = state.single.bookingTime || '';
     
@@ -915,6 +945,8 @@ ${branchText}
                 const branchNames = {
                     'marbella': 'Spa Marbella',
                     'costa-del-este': 'Spa Costa del Este',
+                    'san-francisco': 'Spa San Francisco',
+                    'el-dorado': 'Spa El Dorado',
                     'hotel-service': 'Hotel/Home Service'
                 };
 
@@ -1141,7 +1173,7 @@ ${branchText}
             check.addEventListener('change', () => {
                 const extra = {
                     name: check.parentElement.querySelector('h3').textContent,
-                    addon: parseInt(check.dataset.addon)
+                    addon: parseInt(check.dataset.addon) || 0
                 };
     
                 if (check.checked) {
@@ -1219,11 +1251,41 @@ ${branchText}
             const dateFilled = bookingDateInput.value !== '';
             const timeFilled = bookingTimeInput.value !== '';
             bookBtn.disabled = !(dateFilled && timeFilled);
-    
-            if (dateFilled && timeFilled) {
+
+            // Update night rate disclaimer visibility
+            const nightRateDisclaimer = document.getElementById('nightRateDisclaimer');
+            if (nightRateDisclaimer) {
+                const hasDuration = state.single.duration !== null;
+                const dateAndTimeFilled = dateFilled && timeFilled;
+
+                if (hasDuration && dateAndTimeFilled) {
+                    // Temporarily set booking date/time for calculation
+                    const prevDate = state.single.bookingDate;
+                    const prevTime = state.single.bookingTime;
+                    state.single.bookingDate = bookingDateInput.value;
+                    state.single.bookingTime = bookingTimeInput.value;
+
+                    calculateNightRate();
+
+                    // Restore previous values if needed
+                    if (!prevDate) state.single.bookingDate = prevDate;
+                    if (!prevTime) state.single.bookingTime = prevTime;
+
+                    // Show disclaimer if night rate applies
+                    if (state.single.nightRate > 0) {
+                        nightRateDisclaimer.classList.remove('hidden');
+                    } else {
+                        nightRateDisclaimer.classList.add('hidden');
+                    }
+                } else {
+                    nightRateDisclaimer.classList.add('hidden');
+                }
+            }
+
+            if (dateFilled && timeFilled && state.single.duration !== null) {
                 state.single.bookingDate = bookingDateInput.value;
                 state.single.bookingTime = bookingTimeInput.value;
-    
+
                 calculateNightRate();
                 updateFinalSummary();
                 updateStickyFooter();
@@ -1271,38 +1333,15 @@ ${branchText}
                 setTimeout(() => goToStep(2), 200);
             });
         });
-    
-        // Step 2: Scenario
-        document.querySelectorAll('.hotel-scenario-btn').forEach(btn => {
-            btn.addEventListener('click', () => {
-                // Prevent clicking on locked scenarios
-                if (btn.classList.contains('option-locked') || btn.disabled) {
-                    console.log('🏨 Hotel scenario locked:', btn.dataset.scenario);
-                    return;
-                }
-    
-                document.querySelectorAll('.hotel-scenario-btn').forEach(b =>
-    b.classList.remove('selected'));
-                btn.classList.add('selected');
-    
-                const scenario = btn.dataset.scenario;
-                state.hotel.scenario = scenario;
-                state.hotel.scenarioName = SCENARIO_DATA[scenario].name;
-    
-                console.log('🏨 Hotel scenario selected:', scenario);
-    
-                setTimeout(() => goToStep(3), 200);
-            });
-        });
-    
-        // Step 3: Hands
+
+        // Step 2: Hands
         document.querySelectorAll('.hotel-hands-btn').forEach(btn => {
             btn.addEventListener('click', () => {
                 document.querySelectorAll('.hotel-hands-btn').forEach(b =>
     b.classList.remove('selected'));
                 btn.classList.add('selected');
 
-                state.hotel.hands = parseInt(btn.dataset.hands);
+                state.hotel.hands = parseInt(btn.dataset.hands) || 2;
 
                 // Check if continue button should be enabled
                 updateHotelConfigContinueButton();
@@ -1322,7 +1361,7 @@ ${branchText}
     b.classList.remove('selected'));
                 btn.classList.add('selected');
 
-                state.hotel.duration = parseInt(btn.dataset.duration);
+                state.hotel.duration = parseInt(btn.dataset.duration) || 60;
 
                 // Check if continue button should be enabled
                 updateHotelConfigContinueButton();
@@ -1335,20 +1374,35 @@ ${branchText}
             });
         });
 
-        // Step 3 Continue button
+        // Step 2 Continue button
         const hotelConfigContinueBtn = document.getElementById('hotelConfigContinueBtn');
         if (hotelConfigContinueBtn) {
             hotelConfigContinueBtn.addEventListener('click', () => {
-                goToStep(4); // Go to extras
+                goToStep(3); // Go to extras
             });
         }
 
-        // Step 4: Extras
+        // Step 3: Scenario options (radio buttons)
+        document.querySelectorAll('.hotel-scenario-option').forEach(option => {
+            option.addEventListener('change', () => {
+                const radio = option.querySelector('input[type="radio"]');
+                const scenario = radio.dataset.scenario;
+                const price = parseInt(radio.dataset.price) || 0;
+
+                state.hotel.scenario = scenario || null;
+                state.hotel.scenarioName = scenario ? SCENARIO_DATA[scenario]?.name : '';
+                state.hotel.scenarioPrice = price;
+
+                updateHotelFinalSummary();
+            });
+        });
+
+        // Step 3: Extras
         document.querySelectorAll('.hotel-extra-check').forEach(check => {
             check.addEventListener('change', () => {
                 const extra = {
                     name: check.parentElement.querySelector('h3').textContent,
-                    addon: parseInt(check.dataset.addon)
+                    addon: parseInt(check.dataset.addon) || 0
                 };
     
                 if (check.checked) {
@@ -1411,8 +1465,8 @@ ${branchText}
     
                     state.pack.size = btn.dataset.size;
                     state.pack.sizeLabel = btn.dataset.label;
-                    state.pack.sessions = parseInt(btn.dataset.sessions);
-                    state.pack.basePrice = parseInt(btn.dataset.price);
+                    state.pack.sessions = parseInt(btn.dataset.sessions) || 1;
+                    state.pack.basePrice = parseInt(btn.dataset.price) || 0;
     
                     setTimeout(() => goToStep(3), 200);
                 });
@@ -1425,7 +1479,7 @@ ${branchText}
                 document.querySelectorAll('.upgrade-btn').forEach(b => b.classList.remove('selected'));
                 btn.classList.add('selected');
     
-                state.pack.hands = parseInt(btn.dataset.upgrade);
+                state.pack.hands = parseInt(btn.dataset.upgrade) || 2;
     
                 updateSummary();
             });

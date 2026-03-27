@@ -174,7 +174,43 @@ stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
                     </div>
                 </button>
 
-                <button class="branch-btn option-card rounded-2xl p-6 text-left fade-up stagger-4" data-branch="hotel-service" aria-label="Hotel/Home Service">
+                <button class="branch-btn option-card rounded-2xl p-6 text-left fade-up stagger-4" data-branch="san-francisco" aria-label="Spa San Francisco">
+                    <div class="flex items-start gap-4">
+                        <div class="w-14 h-14 rounded-xl bg-gradient-to-br from-ego-red/20 to-transparent flex items-center justify-center flex-shrink-0">
+                            <svg class="w-7 h-7 text-ego-red" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+                            </svg>
+                        </div>
+                        <div class="flex-1">
+                            <h3 class="font-display text-2xl tracking-wide mb-1">SPA SAN FRANCISCO</h3>
+                            <p class="text-ego-muted text-sm">Nueva ubicación. Experiencia premium.</p>
+                        </div>
+                        <svg class="w-6 h-6 text-ego-muted flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                        </svg>
+                    </div>
+                </button>
+
+                <button class="branch-btn option-card rounded-2xl p-6 text-left fade-up stagger-5" data-branch="el-dorado" aria-label="Spa El Dorado">
+                    <div class="flex items-start gap-4">
+                        <div class="w-14 h-14 rounded-xl bg-gradient-to-br from-ego-red/20 to-transparent flex items-center justify-center flex-shrink-0">
+                            <svg class="w-7 h-7 text-ego-red" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+                            </svg>
+                        </div>
+                        <div class="flex-1">
+                            <h3 class="font-display text-2xl tracking-wide mb-1">SPA EL DORADO</h3>
+                            <p class="text-ego-muted text-sm">Ubicación exclusiva. Servicio de lujo.</p>
+                        </div>
+                        <svg class="w-6 h-6 text-ego-muted flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                        </svg>
+                    </div>
+                </button>
+
+                <button class="branch-btn option-card rounded-2xl p-6 text-left fade-up stagger-6" data-branch="hotel-service" aria-label="Hotel/Home Service">
                     <div class="flex items-start gap-4">
                         <div class="w-14 h-14 rounded-xl bg-gradient-to-br from-ego-gold/20 to-transparent flex items-center justify-center flex-shrink-0">
                             <svg class="w-7 h-7 text-ego-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -572,6 +608,18 @@ stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
                     <div class="text-ego-muted text-xs text-center fade-up stagger-3">
                         Horario: Lun-Sáb 8:30 AM - 12:30 AM | Dom/Fest 10:00 AM - 12:30 AM
                     </div>
+
+                    <!-- Night Rate Disclaimer -->
+                    <div id="nightRateDisclaimer" class="bg-ego-gold/10 border border-ego-gold/30 rounded-lg p-3 fade-up stagger-4 hidden">
+                        <div class="flex items-start gap-2">
+                            <svg class="w-4 h-4 text-ego-gold flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/>
+                            </svg>
+                            <p class="text-ego-gold text-xs">
+                                <span class="font-semibold">🌙 Night Rate (+$25):</span> Se aplica si tu masaje termina a las 12:00 AM o después. Reserva antes para evitar este cargo.
+                            </p>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="bg-ego-zinc rounded-xl p-4 mb-4 fade-up stagger-4">
@@ -608,7 +656,10 @@ stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
                         </div>
                         <div id="finalNightRateRow" class="flex justify-between hidden">
                             <span class="text-ego-muted">🌙 Night Rate:</span>
-                            <span class="text-white">+$25</span>
+                            <div class="text-right">
+                                <span class="text-white">+$25</span>
+                                <p class="text-ego-muted text-xs">Masaje termina después de 12:00 AM</p>
+                            </div>
                         </div>
                         <div class="flex justify-between">
                             <span class="text-ego-muted">Fecha:</span>
@@ -750,14 +801,12 @@ stagger-3">
                 <div class="step-dot" data-step="2"></div>
                 <div class="w-8 h-px bg-ego-zincLight"></div>
                 <div class="step-dot" data-step="3"></div>
-                <div class="w-8 h-px bg-ego-zincLight"></div>
-                <div class="step-dot" data-step="4"></div>
             </div>
 
             <!-- Step 1: Technique -->
             <div id="hotelStep1" class="step-content">
                 <div class="text-center mb-6 fade-up">
-                    <span class="text-ego-gold text-sm font-semibold tracking-wider">PASO 1 DE 4</span>
+                    <span class="text-ego-gold text-sm font-semibold tracking-wider">PASO 1 DE 3</span>
                     <h2 class="font-display text-4xl tracking-wide mt-2">TECNICA</h2>
                     <p class="text-ego-muted text-sm mt-1">Selecciona el tipo de masaje</p>
                 </div>
@@ -789,48 +838,10 @@ stagger-3">
                 </div>
             </div>
 
-            <!-- Step 2: Scenario -->
+            <!-- Step 2: Configuration -->
             <div id="hotelStep2" class="step-content hidden">
                 <div class="text-center mb-6 fade-up">
-                    <span class="text-ego-gold text-sm font-semibold tracking-wider">PASO 2 DE 4</span>
-                    <h2 class="font-display text-4xl tracking-wide mt-2">ESCENARIO</h2>
-                    <p class="text-ego-muted text-sm mt-1">Selecciona el lugar de tu experiencia</p>
-                </div>
-
-                <div class="grid grid-cols-2 gap-3">
-                    <button class="hotel-scenario-btn option-card rounded-xl p-4 text-center fade-up stagger-1" data-scenario="massage-table">
-                        <div class="w-10 h-10 mx-auto mb-2 rounded-full bg-ego-gold/20 flex items-center justify-center">
-                            <svg class="w-5 h-5 text-ego-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
-                            </svg>
-                        </div>
-                        <h3 class="font-semibold text-base">Massage Table</h3>
-                    </button>
-
-                    <button class="hotel-scenario-btn option-card rounded-xl p-4 text-center fade-up stagger-2" data-scenario="tatami-dry">
-                        <div class="w-10 h-10 mx-auto mb-2 rounded-full bg-ego-gold/20 flex items-center justify-center">
-                            <svg class="w-5 h-5 text-ego-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM4 13a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H5a1 1 0 01-1-1v-6z"/>
-                            </svg>
-                        </div>
-                        <h3 class="font-semibold text-base">Tatami (Dry)</h3>
-                    </button>
-
-                    <button class="hotel-scenario-btn option-card rounded-xl p-4 text-center fade-up stagger-3" data-scenario="tantric-couch">
-                        <div class="w-10 h-10 mx-auto mb-2 rounded-full bg-ego-gold/20 flex items-center justify-center">
-                            <svg class="w-5 h-5 text-ego-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 12H4M20 12v6a2 2 0 01-2 2H6a2 2 0 01-2-2v-6"/>
-                            </svg>
-                        </div>
-                        <h3 class="font-semibold text-base">Tantric Couch</h3>
-                    </button>
-                </div>
-            </div>
-
-            <!-- Step 3: Configuration -->
-            <div id="hotelStep3" class="step-content hidden">
-                <div class="text-center mb-6 fade-up">
-                    <span class="text-ego-gold text-sm font-semibold tracking-wider">PASO 3 DE 4</span>
+                    <span class="text-ego-gold text-sm font-semibold tracking-wider">PASO 2 DE 3</span>
                     <h2 class="font-display text-4xl tracking-wide mt-2">CONFIGURACION</h2>
                     <p class="text-ego-muted text-sm mt-1">Elige manos y duracion</p>
                 </div>
@@ -873,14 +884,53 @@ stagger-3">
                 </button>
             </div>
 
-            <!-- Step 4: Extras & Complete -->
-            <div id="hotelStep4" class="step-content hidden">
+            <!-- Step 3: Extras & Complete -->
+            <div id="hotelStep3" class="step-content hidden">
                 <div class="text-center mb-6 fade-up">
-                    <span class="text-ego-gold text-sm font-semibold tracking-wider">PASO 4 DE 4</span>
+                    <span class="text-ego-gold text-sm font-semibold tracking-wider">PASO 3 DE 3</span>
                     <h2 class="font-display text-4xl tracking-wide mt-2">EXTRAS</h2>
                     <p class="text-ego-muted text-sm mt-1">Opcionales para tu experiencia</p>
                 </div>
 
+                <!-- Scenario Selection (with extra cost) -->
+                <div class="mb-4">
+                    <p class="text-ego-gold text-xs font-semibold uppercase tracking-wider mb-2 px-1">Escenario (Opcional)</p>
+                    <div class="grid grid-cols-2 gap-2 mb-2">
+                        <label class="hotel-scenario-option option-card rounded-xl p-3 flex items-center gap-2 cursor-pointer fade-up stagger-1">
+                            <input type="radio" name="hotel-scenario" class="custom-radio" data-scenario="" data-price="0" checked>
+                            <div class="flex-1">
+                                <h3 class="font-semibold text-sm">Sin escenario</h3>
+                                <p class="text-ego-muted text-xs">Incluido</p>
+                            </div>
+                        </label>
+
+                        <label class="hotel-scenario-option option-card rounded-xl p-3 flex items-center gap-2 cursor-pointer fade-up stagger-2">
+                            <input type="radio" name="hotel-scenario" class="custom-radio" data-scenario="massage-table" data-price="25">
+                            <div class="flex-1">
+                                <h3 class="font-semibold text-sm">Massage Table</h3>
+                                <p class="text-ego-gold text-xs">+$25</p>
+                            </div>
+                        </label>
+
+                        <label class="hotel-scenario-option option-card rounded-xl p-3 flex items-center gap-2 cursor-pointer fade-up stagger-3">
+                            <input type="radio" name="hotel-scenario" class="custom-radio" data-scenario="tatami-dry" data-price="25">
+                            <div class="flex-1">
+                                <h3 class="font-semibold text-sm">Tatami (Dry)</h3>
+                                <p class="text-ego-gold text-xs">+$25</p>
+                            </div>
+                        </label>
+
+                        <label class="hotel-scenario-option option-card rounded-xl p-3 flex items-center gap-2 cursor-pointer fade-up stagger-4">
+                            <input type="radio" name="hotel-scenario" class="custom-radio" data-scenario="tantric-couch" data-price="25">
+                            <div class="flex-1">
+                                <h3 class="font-semibold text-sm">Tantric Couch</h3>
+                                <p class="text-ego-gold text-xs">+$25</p>
+                            </div>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Other Extras -->
                 <div class="space-y-3 mb-4">
                     <label class="option-card rounded-xl p-4 flex items-center gap-4 cursor-pointer fade-up stagger-1">
                         <input type="checkbox" class="hotel-extra-check custom-radio" data-extra="sensitive" data-addon="0">
