@@ -536,9 +536,9 @@ async function init() {
             }
     
             elements.summaryDetails.textContent = details;
-    
-            // Show/hide summary
-            if (price > 0 && state.currentStep > 0) {
+
+            // Show/hide summary - only show on final step (step 6)
+            if (price > 0 && state.currentStep === 6) {
                 elements.stickySummary.classList.remove('translate-y-full');
             } else {
                 elements.stickySummary.classList.add('translate-y-full');
@@ -654,7 +654,8 @@ async function init() {
             // Update sticky footer visibility
             const stickyFooter = document.getElementById('stickyFooter');
             if (stickyFooter) {
-                if (state.currentFlow === 'single' && step >= 1 && step <= 6) {
+                // Don't show on final step (step 6)
+                if (state.currentFlow === 'single' && step >= 1 && step <= 5) {
                     stickyFooter.classList.add('visible');
                 } else {
                     stickyFooter.classList.remove('visible');
