@@ -223,7 +223,10 @@
       "hands": 8,
       "regularPrice": 350,
       "egoPrice": 300
-    }
+    },
+    "P01": { "hands": 4, "duration": 90, "regularPrice": 200, "egoPrice": 165 },
+    "P02": { "hands": 4, "duration": 90, "regularPrice": 250, "egoPrice": 200 },
+    "P03": { "hands": 8, "duration": 120, "regularPrice": 350, "egoPrice": 300 }
   },
   "HOTEL_SERVICE_PRICING": {
     "60-2": {
@@ -261,7 +264,7 @@
     "tantric": {
       "name": "Tantric",
       "category": "ORIENTAL_MASSAGE",
-      "pricingSystem": "M11-M18",
+      "pricingSystem": "CodeBased",
       "allowedCodes": [
         "M11",
         "M12",
@@ -285,7 +288,7 @@
     "thai": {
       "name": "Thai",
       "category": "ORIENTAL_MASSAGE",
-      "pricingSystem": "M11-M18",
+      "pricingSystem": "CodeBased",
       "allowedCodes": [
         "M12",
         "M13",
@@ -300,7 +303,7 @@
     "imperial": {
       "name": "Imperial",
       "category": "ORIENTAL_MASSAGE",
-      "pricingSystem": "M11-M18",
+      "pricingSystem": "CodeBased",
       "allowedCodes": [
         "M12",
         "M13",
@@ -387,7 +390,7 @@
     "zurzum": {
       "name": "Zurzum",
       "category": "MIX_MASSAGE",
-      "pricingSystem": "M11-M18",
+      "pricingSystem": "CodeBased",
       "allowedCodes": [
         "M12",
         "M13",
@@ -403,7 +406,7 @@
     "miso": {
       "name": "Miso",
       "category": "MIX_MASSAGE",
-      "pricingSystem": "M11-M18",
+      "pricingSystem": "CodeBased",
       "allowedCodes": [
         "M12",
         "M13",
@@ -496,29 +499,22 @@
       "category": "COUPLE_MASSAGE",
       "name": "Tantric Couple",
       "label": "Tantric (Couple)",
-      "pricingSystem": "Tiered",
-      "basePrice": 160,
+      "pricingSystem": "PackBased",
       "allowedScenarios": [
         "massage-table",
         "tatami"
       ],
-      "allowedCombinations": [
-        { "hands": 4, "duration": 90 },
-        { "hands": 8, "duration": 120 }
-      ]
+      "allowedCodes": ["P01", "P03"]
     },
     "nuru-couple": {
       "category": "COUPLE_MASSAGE",
       "name": "Nuru Couple",
       "label": "Nuru (Couple)",
-      "pricingSystem": "Tiered",
-      "basePrice": 200,
+      "pricingSystem": "PackBased",
       "allowedScenarios": [
         "tatami"
       ],
-      "allowedCombinations": [
-        { "hands": 4, "duration": 90 }
-      ]
+      "allowedCodes": ["P02"]
     }
   },
   "SCENARIO_DATA": {

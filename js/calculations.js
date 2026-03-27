@@ -2,7 +2,7 @@ function calculateSinglePrice() {
     let total = 0;
 
     // Base price
-    if (state.single.pricingSystem === 'M11-M18' && state.single.mCode) {
+    if (['CodeBased', 'PackBased'].includes(state.single.pricingSystem) && state.single.mCode) {
         const mCodeData = M_CODE_PRICING[state.single.mCode];
         if (mCodeData) {
             total = state.isAuth ? (mCodeData.egoPrice || 0) : (mCodeData.regularPrice || 0);

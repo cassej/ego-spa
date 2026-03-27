@@ -9,8 +9,8 @@ const state = {
     single: {
         technique: null,
         techniqueName: '',
-        pricingSystem: null, // 'M11-M18' or 'Tiered'
-        mCode: null, // Selected M-code for M11-M18 techniques
+        pricingSystem: null, // 'CodeBased', 'Tiered', or 'PackBased'
+        mCode: null, // Selected code for CodeBased/PackBased techniques
         scenario: null, // Selected scenario (massage-table, tatami, etc.)
         scenarioName: '',
         basePrice: 0,

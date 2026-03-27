@@ -827,6 +827,8 @@ const ALL_CODES     = ['M11','M12','M13','M14','M15','M16','M17','M18'];
 
 function techCard(tKey, t) {
     const tiered = t.pricingSystem === 'Tiered';
+    const codeBased = t.pricingSystem === 'CodeBased';
+    const packBased = t.pricingSystem === 'PackBased';
     const scenarioNames = {
         'shower': 'Shower',
         'massage-table': 'Massage Table',
@@ -863,8 +865,9 @@ function techCard(tKey, t) {
                 <div><span class="lbl">Nombre</span>${inp(t.name,'name')}</div>
                 <div><span class="lbl">Sistema</span>
                     <select name="pricingSystem">
-                        <option value="M11-M18" ${!tiered?'selected':''}>M11-M18</option>
-                        <option value="Tiered"  ${tiered?'selected':''}>Tiered</option>
+                        <option value="CodeBased" ${codeBased?'selected':''}>CodeBased</option>
+                        <option value="Tiered"    ${tiered?'selected':''}>Tiered</option>
+                        <option value="PackBased"  ${packBased?'selected':''}>PackBased</option>
                     </select>
                 </div>
                 <div><span class="lbl">Categoría</span>
@@ -904,19 +907,26 @@ function collectTechniques() {
             allowedScenarios: $(this).find('[name=scenario]:checked').map(function(){ return this.value; }).get()
         };
         if (cat) obj.category = cat;
-        if (ps === 'M11-M18') obj.allowedCodes = $(this).find('[name=mcode]:checked').map(function(){ return this.value; }).get();
+        if (ps === 'CodeBased' || ps === 'PackBased') obj.allowedCodes = $(this).find('[name=mcode]:checked').map(function(){ return this.value; }).get();
         else obj.basePrice = +$(this).find('[name=basePrice]').val() || 0;
         DATA.TECHNIQUE_DATA[id] = obj;
     });
 }
 $('#addTechnique').on('click', () => {
-    $('#techniques-container').append(techCard('new-'+Date.now(), { name:'', pricingSystem:'M11-M18', allowedCodes:[], allowedScenarios:[] }));
+    $('#techniques-container').append(techCard('new-'+Date.now(), { name:'', pricingSystem:'CodeBased', allowedCodes:[], allowedScenarios:[] }));
 });
 $(document).on('change', '[name=pricingSystem]', function() {
     const $c = $(this).closest('[data-tech-key]');
-    const t  = $(this).val() === 'Tiered';
-    $c.find('.tiered-base-price').toggleClass('hidden', !t);
-    $c.find('.mcode-section').toggleClass('hidden', t);
+    const ps = $(this).val();
+    const isTiered = ps === 'Tiered';
+    const isCodeBased = ps === 'CodeBased';
+    const isPackBased = ps === 'PackBased';
+
+    // Show base price only for Tiered
+    $c.find('.tiered-base-price').toggleClass('hidden', !isTiered);
+
+    // Show mcode section for CodeBased and PackBased
+    $c.find('.mcode-section').toggleClass('hidden', isTiered);
 });
 
 // ============================================================

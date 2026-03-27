@@ -1,7 +1,8 @@
 /**
- * Maps hands + duration to M-codes for M11-M18 pricing system
+ * Maps hands + duration to codes for CodeBased and PackBased pricing systems
  */
 function findMCode(hands, duration) {
+    // M-codes for CodeBased system
     if (hands === 2) {
         if (duration === 20) return 'M11';
         if (duration === 40) return 'M12';
@@ -11,9 +12,11 @@ function findMCode(hands, duration) {
     if (hands === 4) {
         if (duration === 40) return 'M15';
         if (duration === 75) return 'M16';
+        if (duration === 90) return 'P01'; // PackBased default
     }
     if (hands === 6 && duration === 60) return 'M17';
     if (hands === 8 && duration === 60) return 'M18';
+    if (hands === 8 && duration === 120) return 'P03'; // PackBased
     return null;
 }
 
@@ -26,8 +29,8 @@ function getValidCombinations(techniqueKey) {
     const techniqueData = TECHNIQUE_DATA[techniqueKey];
     if (!techniqueData) return [];
 
-    if (techniqueData.pricingSystem === 'M11-M18' && techniqueData.allowedCodes) {
-        // M11-M18 system: derive combinations from allowedCodes
+    if ((techniqueData.pricingSystem === 'CodeBased' || techniqueData.pricingSystem === 'PackBased') && techniqueData.allowedCodes) {
+        // CodeBased/PackBased system: derive combinations from allowedCodes
         return techniqueData.allowedCodes
             .map(code => M_CODE_PRICING[code])
             .filter(pricing => pricing && pricing.hands && pricing.duration)

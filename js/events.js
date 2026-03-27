@@ -162,7 +162,7 @@ ${EGO_DISCOUNT * 100}%`);
                 const newDuration = findNearestDuration(technique, h, state.single.duration);
                 if (newDuration !== null) {
                     state.single.duration = newDuration;
-                    if (state.single.pricingSystem === 'M11-M18') {
+                    if (['CodeBased', 'PackBased'].includes(state.single.pricingSystem)) {
                         state.single.mCode = findMCode(h, newDuration);
                     }
                     // Update UI for duration buttons
@@ -171,7 +171,7 @@ ${EGO_DISCOUNT * 100}%`);
                         dBtn.classList.toggle('selected', d === newDuration);
                     });
                 }
-            } else if (state.single.duration !== null && state.single.pricingSystem === 'M11-M18') {
+            } else if (state.single.duration !== null && ['CodeBased', 'PackBased'].includes(state.single.pricingSystem)) {
                 state.single.mCode = findMCode(h, state.single.duration);
             }
 
@@ -208,7 +208,7 @@ ${EGO_DISCOUNT * 100}%`);
                 const newHands = findNearestHands(technique, d, state.single.hands);
                 if (newHands !== null) {
                     state.single.hands = newHands;
-                    if (state.single.pricingSystem === 'M11-M18') {
+                    if (['CodeBased', 'PackBased'].includes(state.single.pricingSystem)) {
                         state.single.mCode = findMCode(newHands, d);
                     }
                     // Update UI for hands buttons
@@ -217,7 +217,7 @@ ${EGO_DISCOUNT * 100}%`);
                         hBtn.classList.toggle('selected', h === newHands);
                     });
                 }
-            } else if (state.single.hands !== null && state.single.pricingSystem === 'M11-M18') {
+            } else if (state.single.hands !== null && ['CodeBased', 'PackBased'].includes(state.single.pricingSystem)) {
                 state.single.mCode = findMCode(state.single.hands, d);
             }
 
