@@ -18,7 +18,10 @@ async function init() {
     const BRANCHES = DATA.BRANCHES;
     const TECHNIQUE_CATEGORIES = DATA.TECHNIQUE_CATEGORIES;
     const EGO_MEMBERSHIP = DATA.EGO_MEMBERSHIP;
-    
+
+    // Load branches dynamically from data.json
+    loadBranches();
+
     // ============================================
         // STATE
         // ============================================
@@ -372,6 +375,8 @@ async function init() {
             packsFlow: document.getElementById('packsFlow'),
             hotelFlow: document.getElementById('hotelFlow'),
             jetlagFlow: document.getElementById('jetlagFlow'),
+            touristFlow: document.getElementById('touristFlow'),
+            membershipFlow: document.getElementById('membershipFlow'),
             backBtn: document.getElementById('backBtn'),
             stickySummary: document.getElementById('stickySummary'),
             summaryLabel: document.getElementById('summaryLabel'),
@@ -737,6 +742,8 @@ async function init() {
                 elements.packsFlow.classList.add('hidden');
                 elements.hotelFlow.classList.add('hidden');
                 elements.jetlagFlow.classList.add('hidden');
+                elements.touristFlow.classList.add('hidden');
+                elements.membershipFlow.classList.add('hidden');
 
                 if (state.selectedBranch === 'hotel-service') {
                     // Hotel branch goes back to branch selection
@@ -938,40 +945,6 @@ ${branchText}
             }
         });
 
-        // Branch selection (Step 0)
-        document.querySelectorAll('.branch-btn').forEach(btn => {
-            btn.addEventListener('click', () => {
-                const branch = btn.dataset.branch;
-                const branchNames = {
-                    'marbella': 'Spa Marbella',
-                    'costa-del-este': 'Spa Costa del Este',
-                    'san-francisco': 'Spa San Francisco',
-                    'el-dorado': 'Spa El Dorado',
-                    'hotel-service': 'Hotel/Home Service'
-                };
-
-                state.selectedBranch = branch;
-                state.selectedBranchName = branchNames[branch];
-
-                // Hide branch selection
-                document.getElementById('branchSelection').classList.add('hidden');
-
-                if (branch === 'hotel-service') {
-                    // Direct to Hotel Flow
-                    state.currentFlow = 'hotel';
-                    state.currentStep = 1;
-                    elements.hotelFlow.classList.remove('hidden');
-                    elements.backBtn.classList.remove('hidden');
-                    goToStep(1);
-                } else {
-                    // Show flow selection for Spa branches
-                    document.getElementById('flowSelection').classList.remove('hidden');
-                }
-
-                updateStickyFooter();
-            });
-        });
-
         // Change branch button (return to branch selection)
         const changeBranchBtn = document.getElementById('changeBranchBtn');
         if (changeBranchBtn) {
@@ -1015,6 +988,15 @@ ${branchText}
                     console.log('Showing jetlag flow');
                     elements.jetlagFlow.classList.remove('hidden');
                     elements.backBtn.classList.remove('hidden');
+                } else if (flow === 'tourist') {
+                    console.log('Showing tourist flow');
+                    elements.touristFlow.classList.remove('hidden');
+                    elements.backBtn.classList.remove('hidden');
+                    loadTouristPacks();
+                } else if (flow === 'membership') {
+                    console.log('Showing membership flow');
+                    elements.membershipFlow.classList.remove('hidden');
+                    elements.backBtn.classList.add('hidden'); // Membership has its own back button
                 }
 
                 updateStickyFooter();
@@ -1062,9 +1044,74 @@ ${branchText}
 
                 state.single.hands = h;
 
-                // Update M-code if applicable
-                if (state.single.pricingSystem === 'M11-M18') {
-                    state.single.mCode = findMCode(h, state.single.duration);
+                const techniqueData = TECHNIQUE_DATA[state.single.technique];
+
+                // For M11-M18 techniques, auto-switch duration if needed
+                if (state.single.pricingSystem === 'M11-M18' && state.single.duration !== null) {
+                    const newMCode = findMCode(h, state.single.duration);
+                    if (!newMCode || !techniqueData.allowedCodes.includes(newMCode)) {
+                        // Current duration not available for new hands, find nearest
+                        const availableDurations = techniqueData.allowedCodes
+                            .map(code => M_CODE_PRICING[code])
+                            .filter(pricing => pricing && pricing.hands === h)
+                            .map(pricing => pricing.duration)
+                            .sort((a, b) => a - b);
+
+                        if (availableDurations.length > 0) {
+                            // Find closest duration to the previously selected one
+                            const newDuration = availableDurations.reduce((prev, curr) => {
+                                return Math.abs(curr - state.single.duration) < Math.abs(prev - state.single.duration)
+                                    ? curr
+                                    : prev;
+                            });
+
+                            // Update duration
+                            state.single.duration = newDuration;
+                            state.single.mCode = findMCode(h, newDuration);
+
+                            // Update UI for duration buttons
+                            document.querySelectorAll('.duration-btn').forEach(dBtn => {
+                                const d = parseInt(dBtn.dataset.duration);
+                                dBtn.classList.toggle('selected', d === newDuration);
+                            });
+                        } else {
+                            state.single.mCode = findMCode(h, state.single.duration);
+                        }
+                    } else {
+                        state.single.mCode = newMCode;
+                    }
+                }
+                // For Tiered techniques with allowedCombinations, auto-switch duration if needed
+                else if (techniqueData && techniqueData.allowedCombinations && state.single.duration !== null) {
+                    const hasCurrentDuration = techniqueData.allowedCombinations.some(
+                        c => c.hands === h && c.duration === state.single.duration
+                    );
+
+                    if (!hasCurrentDuration) {
+                        // Find nearest available duration for the new hands count
+                        const availableDurations = techniqueData.allowedCombinations
+                            .filter(c => c.hands === h)
+                            .map(c => c.duration)
+                            .sort((a, b) => a - b);
+
+                        if (availableDurations.length > 0) {
+                            // Find closest duration to the previously selected one
+                            const newDuration = availableDurations.reduce((prev, curr) => {
+                                return Math.abs(curr - state.single.duration) < Math.abs(prev - state.single.duration)
+                                    ? curr
+                                    : prev;
+                            });
+
+                            // Update duration
+                            state.single.duration = newDuration;
+
+                            // Update UI for duration buttons
+                            document.querySelectorAll('.duration-btn').forEach(dBtn => {
+                                const d = parseInt(dBtn.dataset.duration);
+                                dBtn.classList.toggle('selected', d === newDuration);
+                            });
+                        }
+                    }
                 }
 
                 updateConstraints();
@@ -1087,9 +1134,74 @@ ${branchText}
 
                 state.single.duration = d;
 
-                // Update M-code if applicable
-                if (state.single.pricingSystem === 'M11-M18') {
-                    state.single.mCode = findMCode(state.single.hands, d);
+                const techniqueData = TECHNIQUE_DATA[state.single.technique];
+
+                // For M11-M18 techniques, auto-switch hands if needed
+                if (state.single.pricingSystem === 'M11-M18' && state.single.hands !== null) {
+                    const newMCode = findMCode(state.single.hands, d);
+                    if (!newMCode || !techniqueData.allowedCodes.includes(newMCode)) {
+                        // Current hands not available for new duration, find nearest
+                        const availableHands = techniqueData.allowedCodes
+                            .map(code => M_CODE_PRICING[code])
+                            .filter(pricing => pricing && pricing.duration === d)
+                            .map(pricing => pricing.hands)
+                            .sort((a, b) => a - b);
+
+                        if (availableHands.length > 0) {
+                            // Find closest hands to the previously selected one
+                            const newHands = availableHands.reduce((prev, curr) => {
+                                return Math.abs(curr - state.single.hands) < Math.abs(prev - state.single.hands)
+                                    ? curr
+                                    : prev;
+                            });
+
+                            // Update hands
+                            state.single.hands = newHands;
+                            state.single.mCode = findMCode(newHands, d);
+
+                            // Update UI for hands buttons
+                            document.querySelectorAll('.hands-btn').forEach(hBtn => {
+                                const h = parseInt(hBtn.dataset.hands);
+                                hBtn.classList.toggle('selected', h === newHands);
+                            });
+                        } else {
+                            state.single.mCode = findMCode(state.single.hands, d);
+                        }
+                    } else {
+                        state.single.mCode = newMCode;
+                    }
+                }
+                // For Tiered techniques with allowedCombinations, auto-switch hands if needed
+                else if (techniqueData && techniqueData.allowedCombinations && state.single.hands !== null) {
+                    const hasCurrentHands = techniqueData.allowedCombinations.some(
+                        c => c.duration === d && c.hands === state.single.hands
+                    );
+
+                    if (!hasCurrentHands) {
+                        // Find nearest available hands for the new duration
+                        const availableHands = techniqueData.allowedCombinations
+                            .filter(c => c.duration === d)
+                            .map(c => c.hands)
+                            .sort((a, b) => a - b);
+
+                        if (availableHands.length > 0) {
+                            // Find closest hands count to the previously selected one
+                            const newHands = availableHands.reduce((prev, curr) => {
+                                return Math.abs(curr - state.single.hands) < Math.abs(prev - state.single.hands)
+                                    ? curr
+                                    : prev;
+                            });
+
+                            // Update hands
+                            state.single.hands = newHands;
+
+                            // Update UI for hands buttons
+                            document.querySelectorAll('.hands-btn').forEach(hBtn => {
+                                const h = parseInt(hBtn.dataset.hands);
+                                hBtn.classList.toggle('selected', h === newHands);
+                            });
+                        }
+                    }
                 }
 
                 updateConstraints();
@@ -1420,7 +1532,57 @@ ${branchText}
             const message = generateHotelWhatsAppMessage();
             window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${message}`, '_blank');
         });
-    
+
+        // ============================================
+        // TOURIST FLOW
+        // ============================================
+
+        function loadTouristPacks() {
+            const container = document.getElementById('touristPacksContainer');
+            // Placeholder - tourist packs will be loaded from data.json in the future
+            container.innerHTML = `
+                <div class="bg-ego-blue/10 border border-ego-blue/30 rounded-xl p-6 text-center">
+                    <p class="text-ego-blue font-semibold mb-2">Próximamente</p>
+                    <p class="text-ego-muted text-sm">Los packs turísticos estarán disponibles pronto.</p>
+                </div>
+            `;
+        }
+
+        // Tourist back button
+        document.getElementById('touristBackBtn').addEventListener('click', () => {
+            elements.touristFlow.classList.add('hidden');
+            elements.flowSelection.classList.remove('hidden');
+            elements.backBtn.classList.add('hidden');
+        });
+
+        // ============================================
+        // MEMBERSHIP FLOW
+        // ============================================
+
+        function generateMembershipWhatsAppMessage() {
+            const membership = EGO_MEMBERSHIP;
+            let message = `🎫 *NUEVA MEMBRESÍA EGO CARD*\n\n`;
+            message += `📦 *Membresía:* ${membership.name}\n`;
+            message += `💰 *Precio Primer Año:* $${membership.firstYearPrice}\n`;
+            message += `📧 *Email:* ${state.email || 'No proporcionado'}\n`;
+            message += `🏢 *Filial:* ${state.selectedBranchName || 'No seleccionada'}\n`;
+            message += `\n${membership.description}`;
+            return encodeURIComponent(message);
+        }
+
+        // Membership purchase button
+        document.getElementById('membershipPurchaseBtn').addEventListener('click', () => {
+            const message = generateMembershipWhatsAppMessage();
+            window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${message}`, '_blank');
+        });
+
+        // Membership back button
+        document.getElementById('membershipBackBtn').addEventListener('click', () => {
+            elements.membershipFlow.classList.add('hidden');
+            elements.flowSelection.classList.remove('hidden');
+            elements.backBtn.classList.remove('hidden');
+        });
+
         // ============================================
         // PACKS FLOW
         // ============================================
@@ -1491,6 +1653,91 @@ ${branchText}
             window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`, '_blank');
         });
     
+        // ============================================
+        // INITIALIZATION
+        // ============================================
+
+        function loadBranches() {
+            const container = document.getElementById('branchesContainer');
+            if (!container) return;
+
+            let html = '';
+            let staggerIndex = 2;
+
+            // Add spa branches from data.json
+            Object.entries(BRANCHES).forEach(([branchKey, branchData]) => {
+                html += `
+                    <button class="branch-btn option-card rounded-2xl p-6 text-left fade-up stagger-${staggerIndex}" data-branch="${branchKey}" aria-label="${branchData.name}">
+                        <div class="flex items-start gap-4">
+                            <div class="w-14 h-14 rounded-xl bg-gradient-to-br from-ego-red/20 to-transparent flex items-center justify-center flex-shrink-0">
+                                <svg class="w-7 h-7 text-ego-red" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+                                </svg>
+                            </div>
+                            <div class="flex-1">
+                                <h3 class="font-display text-2xl tracking-wide mb-1">${branchData.name.toUpperCase()}</h3>
+                                <p class="text-ego-muted text-sm">Experiencia premium en ${branchData.label}</p>
+                            </div>
+                            <svg class="w-6 h-6 text-ego-muted flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                            </svg>
+                        </div>
+                    </button>
+                `;
+                staggerIndex++;
+            });
+
+            // Add hotel service option (hardcoded as it's a special service type)
+            html += `
+                <button class="branch-btn option-card rounded-2xl p-6 text-left fade-up stagger-${staggerIndex}" data-branch="hotel-service" aria-label="Hotel/Home Service">
+                    <div class="flex items-start gap-4">
+                        <div class="w-14 h-14 rounded-xl bg-gradient-to-br from-ego-gold/20 to-transparent flex items-center justify-center flex-shrink-0">
+                            <svg class="w-7 h-7 text-ego-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/>
+                            </svg>
+                        </div>
+                        <div class="flex-1">
+                            <h3 class="font-display text-2xl tracking-wide mb-1">HOTEL / HOME SERVICE</h3>
+                            <p class="text-ego-muted text-sm">Servicio a tu habitación o domicilio. 24/7.</p>
+                        </div>
+                        <svg class="w-6 h-6 text-ego-muted flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                        </svg>
+                    </div>
+                </button>
+            `;
+
+            container.innerHTML = html;
+
+            // Attach event listeners to dynamically created branch buttons
+            document.querySelectorAll('.branch-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const branch = btn.dataset.branch;
+                    state.selectedBranch = branch;
+                    state.selectedBranchName = branch === 'hotel-service'
+                        ? 'Hotel / Home Service'
+                        : BRANCHES[branch]?.name || branch;
+
+                    document.getElementById('branchSelection').classList.add('hidden');
+
+                    if (branch === 'hotel-service') {
+                        // Direct to Hotel Flow
+                        state.currentFlow = 'hotel';
+                        state.currentStep = 1;
+                        elements.hotelFlow.classList.remove('hidden');
+                        elements.backBtn.classList.remove('hidden');
+                        goToStep(1);
+                    } else {
+                        // Show flow selection for Spa branches
+                        document.getElementById('flowSelection').classList.remove('hidden');
+                    }
+
+                    updateStickyFooter();
+                });
+            });
+        }
+
         // ============================================
         // INITIALIZATION
         // ============================================
