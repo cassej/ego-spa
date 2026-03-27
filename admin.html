@@ -279,7 +279,7 @@ tr:last-child td { border-bottom: none; }
             <!-- M-CODES -->
             <div id="section-mcodes" class="section space-y-5">
                 <div class="sec-head">
-                    <div><div class="sec-title">M-Code Pricing</div><div class="sec-sub">Técnicas M11–M18</div></div>
+                    <div><div class="sec-title">M-Code Pricing</div><div class="sec-sub">Códigos M y P para técnicas</div></div>
                     <button class="btn btn-ghost btn-sm" id="addMcode">+ Agregar</button>
                 </div>
                 <div class="card tbl-wrap">
@@ -661,8 +661,8 @@ $('#addFlow').on('click', () => $('#flows-tbody').append(`<tr>
 // ============================================================
 function renderMcodes() {
     const $b = $('#mcode-tbody').empty();
-    $.each(DATA.M_CODE_PRICING, (_, r) => $b.append(`<tr>
-        <td>${inp(r.code,'code')}</td>
+    $.each(DATA.M_CODE_PRICING, (codeKey, r) => $b.append(`<tr>
+        <td>${inp(r.code || codeKey,'code')}</td>
         <td>${num(r.duration,'duration')}</td>
         <td>${num(r.hands,'hands')}</td>
         <td>${num(r.regularPrice,'regularPrice')}</td>
