@@ -11,19 +11,19 @@
       "name": "ORIENTAL MASSAGE",
       "label": "Masajes Orientales",
       "description": "Traditional techniques from the East",
-      "techniques": ["tantric", "thai", "nuru", "lingam"]
+      "techniques": ["tantric", "thai", "imperial"]
     },
     "DELUXE": {
       "name": "DELUXE",
       "label": "Deluxe Experience",
       "description": "Premium massage experiences",
-      "techniques": ["imperial", "circuit", "circuit-deluxe", "cocktail", "cocktail-deluxe"]
+      "techniques": ["lingam", "nuru", "flegg"]
     },
     "MIX_MASSAGE": {
       "name": "MIX MASSAGE",
       "label": "Mix Massage",
       "description": "Unique blend techniques",
-      "techniques": ["zurzum", "miso", "flegg"]
+      "techniques": ["miso", "zurzum", "circuit", "circuit-deluxe", "cocktail", "cocktail-deluxe"]
     }
   },
 
@@ -92,16 +92,16 @@
   "TECHNIQUE_DATA": {
     "tantric":         { "name": "Tantric",         "category": "ORIENTAL_MASSAGE", "pricingSystem": "M11-M18", "allowedCodes": ["M11","M12","M13","M14","M15","M16","M17","M18"], "allowedScenarios": ["shower","massage-table","tatami-dry","tatami-wet","tantric-couch","tantric-chair","tantric-sink"] },
     "thai":            { "name": "Thai",            "category": "ORIENTAL_MASSAGE", "pricingSystem": "M11-M18", "allowedCodes": ["M12","M13","M14","M15","M16"], "allowedScenarios": ["tatami-dry"] },
-    "imperial":        { "name": "Imperial",        "category": "DELUXE",         "pricingSystem": "M11-M18", "allowedCodes": ["M12","M13","M14","M15","M16"], "allowedScenarios": ["massage-table"] },
+    "imperial":        { "name": "Imperial",        "category": "ORIENTAL_MASSAGE", "pricingSystem": "M11-M18", "allowedCodes": ["M12","M13","M14","M15","M16"], "allowedScenarios": ["massage-table"] },
+    "nuru":            { "name": "Nuru",            "category": "DELUXE",         "pricingSystem": "Tiered",  "basePrice": 135, "allowedScenarios": ["tatami-wet","tantric-sink"], "allowedCombinations": [ {"hands": 2, "duration": 60}, {"hands": 2, "duration": 90}, {"hands": 4, "duration": 75} ] },
+    "flegg":           { "name": "Flegg",           "category": "DELUXE",         "pricingSystem": "Tiered",  "basePrice": 135, "allowedScenarios": ["tatami-wet","tantric-sink"], "allowedCombinations": [ {"hands": 2, "duration": 60}, {"hands": 2, "duration": 90}, {"hands": 4, "duration": 75} ] },
+    "lingam":          { "name": "Lingam",          "category": "DELUXE",         "pricingSystem": "Tiered",  "basePrice": 135, "allowedScenarios": ["massage-table","tatami-dry"], "allowedCombinations": [ {"hands": 2, "duration": 60}, {"hands": 2, "duration": 90}, {"hands": 4, "duration": 75} ] },
     "zurzum":          { "name": "Zurzum",          "category": "MIX_MASSAGE",    "pricingSystem": "M11-M18", "allowedCodes": ["M12","M13","M14","M15","M16"], "allowedScenarios": ["massage-table","tatami-dry"] },
     "miso":            { "name": "Miso",            "category": "MIX_MASSAGE",    "pricingSystem": "M11-M18", "allowedCodes": ["M12","M13","M14","M15","M16"], "allowedScenarios": ["massage-table","tatami-dry"] },
-    "nuru":            { "name": "Nuru",            "category": "ORIENTAL_MASSAGE", "pricingSystem": "Tiered",  "basePrice": 135, "allowedScenarios": ["tatami-wet","tantric-sink"], "allowedCombinations": [ {"hands": 2, "duration": 60}, {"hands": 2, "duration": 90}, {"hands": 4, "duration": 75} ] },
-    "flegg":           { "name": "Flegg",           "category": "MIX_MASSAGE",    "pricingSystem": "Tiered",  "basePrice": 135, "allowedScenarios": ["tatami-wet","tantric-sink"], "allowedCombinations": [ {"hands": 2, "duration": 60}, {"hands": 2, "duration": 90}, {"hands": 4, "duration": 75} ] },
-    "lingam":          { "name": "Lingam",          "category": "ORIENTAL_MASSAGE", "pricingSystem": "Tiered",  "basePrice": 135, "allowedScenarios": ["massage-table","tatami-dry"], "allowedCombinations": [ {"hands": 2, "duration": 60}, {"hands": 2, "duration": 90}, {"hands": 4, "duration": 75} ] },
-    "circuit":         { "name": "Circuit",         "category": "DELUXE",         "pricingSystem": "Tiered",  "basePrice": 165, "allowedScenarios": ["massage-table","tatami-dry","tantric-couch","tantric-chair"], "allowedCombinations": [ {"hands": 6, "duration": 60}, {"hands": 6, "duration": 90} ], "minScenarios": { "40": 2, "60": 3 } },
-    "circuit-deluxe":  { "name": "Circuit Deluxe", "category": "DELUXE",         "pricingSystem": "Tiered",  "basePrice": 165, "allowedScenarios": ["massage-table","tatami-dry","tantric-couch","tantric-chair"], "allowedCombinations": [ {"hands": 6, "duration": 90} ], "minScenarios": { "40": 2, "60": 3 }, "fixedDuration": 90 },
-    "cocktail":        { "name": "Cocktail",        "category": "DELUXE",         "pricingSystem": "Tiered",  "basePrice": 195, "allowedScenarios": ["massage-table","tatami-dry","tantric-couch","tantric-chair"], "allowedCombinations": [ {"hands": 4, "duration": 120} ] },
-    "cocktail-deluxe": { "name": "Cocktail Deluxe", "category": "DELUXE",         "pricingSystem": "Tiered",  "basePrice": 195, "allowedScenarios": ["massage-table","tatami-dry","tantric-couch","tantric-chair"], "allowedCombinations": [ {"hands": 4, "duration": 120} ] }
+    "circuit":         { "name": "Circuit",         "category": "MIX_MASSAGE",    "pricingSystem": "Tiered",  "basePrice": 165, "allowedScenarios": ["massage-table","tatami-dry","tantric-couch","tantric-chair"], "allowedCombinations": [ {"hands": 6, "duration": 60}, {"hands": 6, "duration": 90} ] },
+    "circuit-deluxe":  { "name": "Circuit Deluxe", "category": "MIX_MASSAGE",    "pricingSystem": "Tiered",  "basePrice": 165, "allowedScenarios": ["massage-table","tatami-dry","tantric-couch","tantric-chair"], "allowedCombinations": [ {"hands": 6, "duration": 90} ] },
+    "cocktail":        { "name": "Cocktail",        "category": "MIX_MASSAGE",    "pricingSystem": "Tiered",  "basePrice": 195, "allowedScenarios": ["massage-table","tatami-dry","tantric-couch","tantric-chair"], "allowedCombinations": [ {"hands": 4, "duration": 120} ] },
+    "cocktail-deluxe": { "name": "Cocktail Deluxe", "category": "MIX_MASSAGE",    "pricingSystem": "Tiered",  "basePrice": 195, "allowedScenarios": ["massage-table","tatami-dry","tantric-couch","tantric-chair"], "allowedCombinations": [ {"hands": 4, "duration": 120} ] }
   },
 
   "SCENARIO_DATA": {

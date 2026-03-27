@@ -181,7 +181,7 @@ async function init() {
                 const d = parseInt(btn.dataset.duration);
                 let isLocked = false;
                 let lockReason = '';
-    
+
                 if (hands > 2 && d === 20) {
                     isLocked = true;
                     lockReason = '20 min max 2 hands';
@@ -190,7 +190,7 @@ async function init() {
                     isLocked = true;
                     lockReason = '40 min max 4 hands';
                 }
-    
+
                 if (techniqueData.pricingSystem === 'M11-M18') {
                     const mCode = findMCode(hands, d);
                     if (!mCode || !techniqueData.allowedCodes.includes(mCode)) {
@@ -210,7 +210,7 @@ async function init() {
                         lockReason = 'Not available for this technique';
                     }
                 }
-    
+
                 btn.classList.toggle('option-locked', isLocked);
                 btn.disabled = isLocked;
                 btn.dataset.lockReason = lockReason;
