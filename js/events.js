@@ -242,8 +242,8 @@ ${EGO_DISCOUNT * 100}%`);
                 return;
             }
 
-            // Get max scenarios from config based on duration
-            const maxScenarios = DATA.SCENARIO_RULES?.limits_by_duration?.[state.single.duration] || 1;
+            // Get max scenarios from config based on duration (couple override)
+            const maxScenarios = getMaxScenarios(state.single.technique, state.single.duration);
 
             // For multi-scenario techniques (circuit, cocktail)
             if (maxScenarios > 1) {

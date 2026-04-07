@@ -502,7 +502,9 @@
       "pricingSystem": "PackBased",
       "allowedScenarios": [
         "massage-table",
-        "tatami"
+        "tatami-dry",
+        "tantric-couch",
+        "tantric-chair"
       ],
       "allowedCodes": ["P01", "P03"]
     },
@@ -512,7 +514,8 @@
       "label": "Nuru (Couple)",
       "pricingSystem": "PackBased",
       "allowedScenarios": [
-        "tatami"
+        "tatami-wet",
+        "tantric-sink"
       ],
       "allowedCodes": ["P02"]
     }

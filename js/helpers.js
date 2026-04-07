@@ -238,6 +238,11 @@ function generateHotelWhatsAppMessage() {
     return message;
 }
 
+function getMaxScenarios(technique, duration) {
+    if (technique?.includes('-couple')) return 1;
+    return DATA.SCENARIO_RULES?.limits_by_duration?.[duration] || 1;
+}
+
 function generateMembershipWhatsAppMessage() {
     const membership = EGO_MEMBERSHIP;
     let message = `🎫 *NUEVA MEMBRESÍA EGO CARD*\n\n`;

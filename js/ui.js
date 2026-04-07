@@ -409,7 +409,9 @@ function updateHotelFinalSummary() {
         // Calculate regular price for comparison
         const key = `${state.hotel.duration}-${state.hotel.hands}`;
         let regularPrice = HOTEL_SERVICE_PRICING[key].regularPrice;
+        regularPrice += (state.hotel.scenarioPrice || 0);
         state.hotel.extras.forEach(e => { regularPrice += e.addon; });
+        regularPrice += (state.hotel.nightRate || 0);
 
         const savings = regularPrice - price;
         finalSavings.textContent = `Ahorras $${savings} con Ego Card`;
@@ -441,8 +443,9 @@ function updateScenarioHint() {
     const hintEl = document.getElementById('scenarioHint');
     if (!hintEl) return;
 
-    // Get max scenarios from config based on duration
-    const maxScenarios = DATA.SCENARIO_RULES?.limits_by_duration?.[state.single.duration] || 1;
+    // Get max scenarios from config based on duration (couple override)
+    const isCouple = state.single.technique?.includes('-couple');
+    const maxScenarios = getMaxScenarios(state.single.technique, state.single.duration);
 
     if (maxScenarios > 1) {
         const selected = state.single.selectedScenarios.length;
@@ -465,11 +468,16 @@ function updateScenarioHint() {
 
     // Update scenario section header with dynamic limit
     const scenarioHeader = document.getElementById('scenarioHeaderLimit');
-    if (scenarioHeader && maxScenarios > 1) {
-        scenarioHeader.textContent = `Selecciona hasta ${maxScenarios} escenarios`;
-        scenarioHeader.classList.remove('hidden');
-    } else if (scenarioHeader) {
-        scenarioHeader.classList.add('hidden');
+    if (scenarioHeader) {
+        if (isCouple) {
+            scenarioHeader.textContent = 'Escenarios disponibles para parejas';
+            scenarioHeader.classList.remove('hidden');
+        } else if (maxScenarios > 1) {
+            scenarioHeader.textContent = `Selecciona hasta ${maxScenarios} escenarios`;
+            scenarioHeader.classList.remove('hidden');
+        } else {
+            scenarioHeader.classList.add('hidden');
+        }
     }
 }
 
@@ -477,7 +485,7 @@ function updateScenarioContinueButton() {
     const continueBtn = document.getElementById('scenarioContinueBtn');
     if (!continueBtn) return;
 
-    const maxScenarios = DATA.SCENARIO_RULES?.limits_by_duration?.[state.single.duration] || 1;
+    const maxScenarios = getMaxScenarios(state.single.technique, state.single.duration);
 
     if (maxScenarios > 1) {
         // Show continue button for multi-scenario techniques
