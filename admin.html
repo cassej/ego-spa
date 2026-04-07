@@ -871,6 +871,14 @@ function techCard(tKey, t) {
     }
     const catSelect = catOptions.map(o => `<option value="${o.v}" ${cat===o.v?'selected':''}>${o.l}</option>`).join('');
 
+    // allowedCombinations for Tiered techniques
+    const combos = (t.allowedCombinations || []);
+    const comboRows = combos.map((c, i) => `<tr>
+        <td>${num(c.hands,'comboHands')}</td>
+        <td>${num(c.duration,'comboDuration')}</td>
+        <td>${delBtn()}</td>
+    </tr>`).join('');
+
     return `<div class="card p-5" data-tech-key="${tKey}">
         <div class="flex items-start gap-3 mb-4">
             <div class="flex-1 grid grid-cols-1 sm:grid-cols-4 gap-3">
@@ -901,6 +909,16 @@ function techCard(tKey, t) {
             <span class="lbl" style="margin-bottom:8px">M-Codes permitidos</span>
             <div class="flex flex-wrap gap-1.5">${cCks}</div>
         </div>
+        <div class="tiered-combos ${tiered?'':'hidden'}">
+            <span class="lbl" style="margin-bottom:8px">Combinaciones (manos / duración)</span>
+            <div class="tbl-wrap">
+                <table>
+                    <thead><tr><th>Manos</th><th>Duración</th><th></th></tr></thead>
+                    <tbody class="combos-tbody">${comboRows}</tbody>
+                </table>
+            </div>
+            <button type="button" class="btn btn-ghost btn-sm mt-2 add-combo">+ Combinación</button>
+        </div>
     </div>`;
 }
 function renderTechniques() {
@@ -920,8 +938,18 @@ function collectTechniques() {
             allowedScenarios: $(this).find('[name=scenario]:checked').map(function(){ return this.value; }).get()
         };
         if (cat) obj.category = cat;
-        if (ps === 'CodeBased' || ps === 'PackBased') obj.allowedCodes = $(this).find('[name=mcode]:checked').map(function(){ return this.value; }).get();
-        else obj.basePrice = +$(this).find('[name=basePrice]').val() || 0;
+        if (ps === 'CodeBased' || ps === 'PackBased') {
+            obj.allowedCodes = $(this).find('[name=mcode]:checked').map(function(){ return this.value; }).get();
+        } else {
+            obj.basePrice = +$(this).find('[name=basePrice]').val() || 0;
+            const combos = [];
+            $(this).find('.combos-tbody tr').each(function() {
+                const h = +$(this).find('[name=comboHands]').val();
+                const d = +$(this).find('[name=comboDuration]').val();
+                if (h && d) combos.push({ hands: h, duration: d });
+            });
+            if (combos.length) obj.allowedCombinations = combos;
+        }
         DATA.TECHNIQUE_DATA[id] = obj;
     });
 }
@@ -932,14 +960,22 @@ $(document).on('change', '[name=pricingSystem]', function() {
     const $c = $(this).closest('[data-tech-key]');
     const ps = $(this).val();
     const isTiered = ps === 'Tiered';
-    const isCodeBased = ps === 'CodeBased';
-    const isPackBased = ps === 'PackBased';
 
     // Show base price only for Tiered
     $c.find('.tiered-base-price').toggleClass('hidden', !isTiered);
 
     // Show mcode section for CodeBased and PackBased
     $c.find('.mcode-section').toggleClass('hidden', isTiered);
+
+    // Show combos section only for Tiered
+    $c.find('.tiered-combos').toggleClass('hidden', !isTiered);
+});
+$(document).on('click', '.add-combo', function() {
+    $(this).prev('.tbl-wrap').find('.combos-tbody').append(`<tr>
+        <td>${num(2,'comboHands')}</td>
+        <td>${num(60,'comboDuration')}</td>
+        <td>${delBtn()}</td>
+    </tr>`);
 });
 
 // ============================================================

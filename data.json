@@ -1,19 +1,19 @@
 {
   "BRANCHES": {
     "marbella": {
-      "name": "Spa Marbella",
+      "name": "Marbella",
       "label": "Marbella"
     },
     "costa-del-este": {
-      "name": "Spa Costa del Este",
+      "name": "Costa del Este",
       "label": "Costa del Este"
     },
     "san-francisco": {
-      "name": "Spa San Francisco",
+      "name": "San Francisco",
       "label": "San Francisco"
     },
     "el-dorado": {
-      "name": "Spa El Dorado",
+      "name": "El Dorado",
       "label": "El Dorado"
     }
   },
@@ -33,9 +33,9 @@
       "label": "Deluxe Experience",
       "description": "Premium massage experiences",
       "techniques": [
-        "lingam",
         "nuru",
-        "flegg"
+        "flegg",
+        "lingam"
       ]
     },
     "MIX_MASSAGE": {
@@ -43,8 +43,8 @@
       "label": "Mix Massage",
       "description": "Unique blend techniques",
       "techniques": [
-        "miso",
         "zurzum",
+        "miso",
         "circuit",
         "circuit-deluxe",
         "cocktail",
@@ -82,7 +82,7 @@
           "label": "Large"
         },
         "U": {
-          "sessions": -1,
+          "sessions": 362,
           "price": 999,
           "label": "12 Month Unlimited"
         }
@@ -108,7 +108,7 @@
           "label": "Large"
         },
         "U": {
-          "sessions": -1,
+          "sessions": 362,
           "price": 1199,
           "label": "12 Month Unlimited"
         }
@@ -134,7 +134,7 @@
           "label": "XL"
         },
         "U": {
-          "sessions": -1,
+          "sessions": 362,
           "price": 2499,
           "label": "12 Month Unlimited"
         }
@@ -160,7 +160,7 @@
           "label": "XL"
         },
         "U": {
-          "sessions": -1,
+          "sessions": 362,
           "price": 2999,
           "label": "12 Month Unlimited"
         }
@@ -224,9 +224,9 @@
       "regularPrice": 350,
       "egoPrice": 300
     },
-    "P01": { "hands": 4, "duration": 90, "regularPrice": 200, "egoPrice": 165 },
-    "P02": { "hands": 4, "duration": 90, "regularPrice": 250, "egoPrice": 200 },
-    "P03": { "hands": 8, "duration": 120, "regularPrice": 350, "egoPrice": 300 }
+    "P01": { "code": "P01", "hands": 4, "duration": 75, "regularPrice": 200, "egoPrice": 165 },
+    "P02": { "code": "P02", "hands": 4, "duration": 90, "regularPrice": 250, "egoPrice": 200 },
+    "P03": { "code": "P03", "hands": 8, "duration": 120, "regularPrice": 350, "egoPrice": 300 }
   },
   "HOTEL_SERVICE_PRICING": {
     "60-2": {
@@ -498,7 +498,6 @@
     "tantric-couple": {
       "category": "COUPLE_MASSAGE",
       "name": "Tantric Couple",
-      "label": "Tantric (Couple)",
       "pricingSystem": "PackBased",
       "allowedScenarios": [
         "massage-table",
@@ -511,7 +510,6 @@
     "nuru-couple": {
       "category": "COUPLE_MASSAGE",
       "name": "Nuru Couple",
-      "label": "Nuru (Couple)",
       "pricingSystem": "PackBased",
       "allowedScenarios": [
         "tatami-wet",
@@ -566,16 +564,26 @@
       "120": 4
     },
     "technique_exclusions": {
+      "tantric": [],
+      "thai": [],
+      "imperial": [],
+      "nuru": [],
+      "flegg": [],
+      "lingam": [],
+      "zurzum": [],
+      "miso": [],
       "circuit": [
         "tatami-wet",
         "tantric-sink"
       ],
+      "circuit-deluxe": [],
       "cocktail": [
         "tatami-wet",
         "tantric-sink"
       ],
-      "circuit-deluxe": [],
-      "cocktail-deluxe": []
+      "cocktail-deluxe": [],
+      "tantric-couple": [],
+      "nuru-couple": []
     }
   },
   "ADDON_PRICING": {
@@ -619,7 +627,7 @@
     "renewalPrice": 75,
     "description": "Exclusive membership with discounts and perks"
   },
-  "WHATSAPP_NUMBER": "50760163651",
+  "WHATSAPP_NUMBER": "50760188579",
   "BUSINESS_HOURS": {
     "weekdays": {
       "label": "Lunes a Sábado",
@@ -641,21 +649,24 @@
       "label": "MASAJES INDIVIDUALES",
       "description": "Una visita unica. Escoge tecnica, manos y duracion.",
       "icon": "heart",
-      "color": "red"
+      "color": "red",
+      "comingSoon": false
     },
     {
       "id": "packs",
       "label": "PACKS & CONTRATOS",
       "description": "Paquetes pre-pagados M51-M54. Multiples sesiones.",
       "icon": "package",
-      "color": "red"
+      "color": "red",
+      "comingSoon": false
     },
     {
       "id": "hotel",
       "label": "HOTEL SERVICES",
       "description": "Servicio a tu habitacion. Disponible 24/7.",
       "icon": "hotel",
-      "color": "gold"
+      "color": "gold",
+      "comingSoon": false
     },
     {
       "id": "jetlag",
