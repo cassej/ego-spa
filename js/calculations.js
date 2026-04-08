@@ -117,5 +117,5 @@ function calculateNightRate() {
 
     console.log('🌙 Night Rate Calculation:', { bookingTime: state.single.bookingTime, duration: state.single.duration, endTime: endTime.toLocaleTimeString(), endMinutes, afterMinutes, beforeMinutes, applies });
 
-    state.single.nightRate = applies ? 25 : 0;
+    state.single.nightRate = applies ? (ADDON_PRICING['night-rate']?.price || 0) : 0;
 }

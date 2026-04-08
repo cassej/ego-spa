@@ -686,8 +686,8 @@ function loadHotelTechniques() {
     let html = '';
     let staggerIndex = 1;
 
-    // Hotel techniques - limited set (tantric, thai, nuru, lingam, circuit, cocktail)
-    const hotelTechniques = ['tantric', 'thai', 'nuru', 'lingam', 'circuit', 'cocktail'];
+    // Hotel techniques - from config
+    const hotelTechniques = HOTEL_TECHNIQUES || ['tantric', 'thai', 'nuru', 'lingam', 'circuit', 'cocktail'];
 
     hotelTechniques.forEach(techKey => {
         const techData = TECHNIQUE_DATA[techKey];

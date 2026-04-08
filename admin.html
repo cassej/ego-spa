@@ -206,6 +206,12 @@ tr:last-child td { border-bottom: none; }
                     </div>
                 </div>
                 <div class="card p-5">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div><span class="lbl">Hotel Scenario Price ($)</span><input type="number" id="g-hotel-scenario-price" min="0"></div>
+                        <div><span class="lbl">Hotel Techniques (comma-separated)</span><input type="text" id="g-hotel-techniques" placeholder="tantric,thai,nuru,lingam,circuit,cocktail"></div>
+                    </div>
+                </div>
+                <div class="card p-5">
                     <span class="lbl" style="margin-bottom:14px">Horarios</span>
                     <div class="grid grid-cols-2 sm:grid-cols-3 gap-4">
                         <div><span class="lbl">Semana Label</span><input type="text" id="g-wd-label"></div>
@@ -523,6 +529,8 @@ function delBtn(cls='del-row') {
 function renderGeneral() {
     $('#g-whatsapp').val(DATA.WHATSAPP_NUMBER);
     $('#g-discount').val(Math.round(DATA.EGO_DISCOUNT * 100));
+    $('#g-hotel-scenario-price').val(DATA.HOTEL_SCENARIO_PRICE || 0);
+    $('#g-hotel-techniques').val((DATA.HOTEL_TECHNIQUES || []).join(','));
     const bh = DATA.BUSINESS_HOURS;
     $('#g-wd-label').val(bh.weekdays.label || '');
     $('#g-wd-label-en').val(bh.weekdays.label_en || '');
@@ -539,6 +547,9 @@ function renderGeneral() {
 function collectGeneral() {
     DATA.WHATSAPP_NUMBER = $('#g-whatsapp').val().trim();
     DATA.EGO_DISCOUNT    = parseFloat($('#g-discount').val()) / 100;
+    DATA.HOTEL_SCENARIO_PRICE = parseInt($('#g-hotel-scenario-price').val()) || 0;
+    const techniquesRaw = $('#g-hotel-techniques').val().trim();
+    DATA.HOTEL_TECHNIQUES = techniquesRaw ? techniquesRaw.split(',').map(s => s.trim()).filter(Boolean) : [];
     const bh = DATA.BUSINESS_HOURS;
     bh.weekdays.label     = $('#g-wd-label').val().trim();
     const wdLabelEn = $('#g-wd-label-en').val().trim();

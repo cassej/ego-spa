@@ -307,7 +307,7 @@ function setupEventListeners() {
         check.addEventListener('change', () => {
             const extra = {
                 name: check.parentElement.querySelector('h3').textContent,
-                addon: parseInt(check.dataset.addon) || 0
+                addon: ADDON_PRICING[check.dataset.extra]?.price ?? 0
             };
 
             if (check.checked) {
@@ -365,7 +365,7 @@ function setupEventListeners() {
 
     // Mobility toggle
     document.getElementById('mobilityToggle').addEventListener('change', (e) => {
-        state.single.mobilityFee = e.target.checked ? 25 : 0;
+        state.single.mobilityFee = e.target.checked ? (ADDON_PRICING['move-to-branches']?.price || 0) : 0;
         updateStickyFooter();
     });
 
@@ -481,7 +481,7 @@ b.classList.remove('selected'));
         option.addEventListener('change', () => {
             const radio = option.querySelector('input[type="radio"]');
             const scenario = radio.dataset.scenario;
-            const price = parseInt(radio.dataset.price) || 0;
+            const price = HOTEL_SCENARIO_PRICE || 0;
 
             state.hotel.scenario = scenario || null;
             state.hotel.scenarioName = scenario ? td('SCENARIO_DATA', scenario, 'name') : '';
@@ -496,7 +496,7 @@ b.classList.remove('selected'));
         check.addEventListener('change', () => {
             const extra = {
                 name: check.parentElement.querySelector('h3').textContent,
-                addon: parseInt(check.dataset.addon) || 0
+                addon: ADDON_PRICING[check.dataset.extra]?.price ?? 0
             };
 
             if (check.checked) {

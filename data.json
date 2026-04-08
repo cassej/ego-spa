@@ -635,6 +635,8 @@
     "description": "Membresía exclusiva con descuentos y beneficios",
     "description_en": "Exclusive membership with discounts and perks"
   },
+  "HOTEL_SCENARIO_PRICE": 25,
+  "HOTEL_TECHNIQUES": ["tantric", "thai", "nuru", "lingam", "circuit", "cocktail"],
   "WHATSAPP_NUMBER": "50760188579",
   "BUSINESS_HOURS": {
     "weekdays": {
