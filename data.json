@@ -81,24 +81,24 @@
         "S": {
           "sessions": 3,
           "price": 115,
-          "label": "Pequeño",
-          "label_en": "Small"
+          "label": "Pequeño 30 dias",
+          "label_en": "Small 30 days"
         },
         "M": {
           "sessions": 6,
           "price": 185,
-          "label": "Mediano",
-          "label_en": "Medium"
+          "label": "Mediano 3 meses",
+          "label_en": "Medium 3 months"
         },
         "L": {
           "sessions": 14,
           "price": 395,
-          "label": "Grande",
-          "label_en": "Large"
+          "label": "Grande 6 meses",
+          "label_en": "Large 6 months"
         },
         "U": {
           "sessions": 362,
-          "price": 999,
+          "price": 1995,
           "label": "12 Meses Ilimitado",
           "label_en": "12 Month Unlimited"
         }
@@ -111,24 +111,24 @@
         "S": {
           "sessions": 2,
           "price": 135,
-          "label": "Pequeño",
-          "label_en": "Small"
+          "label": "Pequeño 30 dias",
+          "label_en": "Small 30 days"
         },
         "M": {
           "sessions": 3,
           "price": 195,
-          "label": "Mediano",
-          "label_en": "Medium"
+          "label": "Mediano 3 meses",
+          "label_en": "Medium 3 months"
         },
         "L": {
           "sessions": 10,
           "price": 395,
-          "label": "Grande",
-          "label_en": "Large"
+          "label": "Grande 6 meses",
+          "label_en": "Large 6 months"
         },
         "U": {
           "sessions": 362,
-          "price": 1199,
+          "price": 2595,
           "label": "12 Meses Ilimitado",
           "label_en": "12 Month Unlimited"
         }
@@ -141,24 +141,24 @@
         "R": {
           "sessions": 3,
           "price": 295,
-          "label": "Regular",
-          "label_en": "Regular"
+          "label": "Regular 3 meses",
+          "label_en": "Regular 3 months"
         },
         "D": {
           "sessions": 3,
           "price": 375,
-          "label": "Doble",
-          "label_en": "Double"
+          "label": "Deluxe 5 meses",
+          "label_en": "Deluxe 5 months"
         },
         "XL": {
           "sessions": 6,
           "price": 695,
-          "label": "XL",
-          "label_en": "XL"
+          "label": "1 año XL",
+          "label_en": "1 year XL"
         },
         "U": {
           "sessions": 362,
-          "price": 2499,
+          "price": 3995,
           "label": "12 Meses Ilimitado",
           "label_en": "12 Month Unlimited"
         }
@@ -171,24 +171,24 @@
         "R": {
           "sessions": 6,
           "price": 450,
-          "label": "Regular",
-          "label_en": "Regular"
+          "label": "Regular 6 meses",
+          "label_en": "Regular 6 months"
         },
         "D": {
           "sessions": 6,
           "price": 570,
-          "label": "Doble",
-          "label_en": "Double"
+          "label": "Deluxe 6 meses",
+          "label_en": "Deluxe 6 months"
         },
         "XL": {
           "sessions": 14,
           "price": 1200,
-          "label": "XL",
-          "label_en": "XL"
+          "label": "1 año XL",
+          "label_en": "1 year XL"
         },
         "U": {
           "sessions": 362,
-          "price": 2999,
+          "price": 2995,
           "label": "12 Meses Ilimitado",
           "label_en": "12 Month Unlimited"
         }
@@ -254,45 +254,53 @@
     },
     "P01": { "code": "P01", "hands": 4, "duration": 75, "regularPrice": 200, "egoPrice": 165 },
     "P02": { "code": "P02", "hands": 4, "duration": 90, "regularPrice": 250, "egoPrice": 200 },
-    "P03": { "code": "P03", "hands": 8, "duration": 120, "regularPrice": 350, "egoPrice": 300 }
+    "P03": { "code": "P03", "hands": 8, "duration": 120, "regularPrice": 350, "egoPrice": 300 },
+    "M21": { "code": "M21", "duration": 60, "hands": 2, "regularPrice": 135, "egoPrice": 105 },
+    "M22": { "code": "M22", "duration": 90, "hands": 2, "regularPrice": 175, "egoPrice": 145 },
+    "M23": { "code": "M23", "duration": 75, "hands": 4, "regularPrice": 175, "egoPrice": 145 },
+    "M31": { "code": "M31", "duration": 60, "hands": 6, "regularPrice": 135, "egoPrice": 105 },
+    "M32": { "code": "M32", "duration": 90, "hands": 6, "regularPrice": 175, "egoPrice": 145 },
+    "M33": { "code": "M33", "duration": 90, "hands": 6, "regularPrice": 200, "egoPrice": 175 },
+    "M34": { "code": "M34", "duration": 120, "hands": 4, "regularPrice": 225, "egoPrice": 200 },
+    "M35": { "code": "M35", "duration": 120, "hands": 4, "regularPrice": 250, "egoPrice": 225 }
   },
   "HOTEL_SERVICE_PRICING": {
-    "60-2": {
-      "duration": 60,
+    "75-2": {
+      "duration": 75,
       "hands": 2,
-      "regularPrice": 150,
-      "egoPrice": 135
+      "regularPrice": 165,
+      "egoPrice": 165
     },
     "90-2": {
       "duration": 90,
       "hands": 2,
-      "regularPrice": 200,
-      "egoPrice": 180
-    },
-    "120-2": {
-      "duration": 120,
-      "hands": 2,
-      "regularPrice": 250,
-      "egoPrice": 225
-    },
-    "60-4": {
-      "duration": 60,
-      "hands": 4,
-      "regularPrice": 250,
+      "regularPrice": 225,
       "egoPrice": 225
     },
     "90-4": {
       "duration": 90,
       "hands": 4,
-      "regularPrice": 350,
-      "egoPrice": 315
+      "regularPrice": 275,
+      "egoPrice": 275
+    },
+    "60-6": {
+      "duration": 60,
+      "hands": 6,
+      "regularPrice": 325,
+      "egoPrice": 325
+    },
+    "60-8": {
+      "duration": 60,
+      "hands": 8,
+      "regularPrice": 385,
+      "egoPrice": 385
     }
   },
   "TECHNIQUE_DATA": {
     "tantric": {
       "name": "Tantric",
-      "description": "Masaje tántrico con energía sensual y relajación profunda",
-      "description_en": "Tantric massage with sensual energy and deep relaxation",
+      "description": "Despierta tus sentidos con flujo de energía consciente",
+      "description_en": "Awaken your senses with conscious energy flow",
       "category": "ORIENTAL_MASSAGE",
       "pricingSystem": "CodeBased",
       "allowedCodes": [
@@ -317,8 +325,8 @@
     },
     "thai": {
       "name": "Thai",
-      "description": "Técnica tailandesa tradicional con estiramientos y compresión",
-      "description_en": "Traditional Thai technique with stretching and compression",
+      "description": "Estiramientos profundos y presión ancestral tailandesa",
+      "description_en": "Deep stretches and ancestral Thai pressure",
       "category": "ORIENTAL_MASSAGE",
       "pricingSystem": "CodeBased",
       "allowedCodes": [
@@ -334,8 +342,8 @@
     },
     "imperial": {
       "name": "Imperial",
-      "description": "Masaje imperial japonés de lujo con aceites aromáticos",
-      "description_en": "Luxury Japanese imperial massage with aromatic oils",
+      "description": "Ritual japonés de lujo con aceites premium",
+      "description_en": "Luxury Japanese ritual with premium oils",
       "category": "ORIENTAL_MASSAGE",
       "pricingSystem": "CodeBased",
       "allowedCodes": [
@@ -351,8 +359,8 @@
     },
     "nuru": {
       "name": "Nuru",
-      "description": "Masaje japonés con gel Nuru deslizante y corporal",
-      "description_en": "Japanese massage with slippery Nuru gel, full body contact",
+      "description": "Deslizamiento corporal total con gel Nuru japonés",
+      "description_en": "Full body glide with Japanese Nuru gel",
       "category": "DELUXE",
       "pricingSystem": "Tiered",
       "basePrice": 135,
@@ -377,8 +385,8 @@
     },
     "flegg": {
       "name": "Flegg",
-      "description": "Experiencia Flegg con plumas y estimulación sensorial única",
-      "description_en": "Flegg experience with feathers and unique sensory stimulation",
+      "description": "Estimulación sensorial intensa con técnicas de plumas",
+      "description_en": "Intense sensory stimulation with feather techniques",
       "category": "DELUXE",
       "pricingSystem": "Tiered",
       "basePrice": 135,
@@ -403,8 +411,8 @@
     },
     "lingam": {
       "name": "Lingam",
-      "description": "Masaje Lingam con técnica tántrica de energía vital",
-      "description_en": "Lingam massage with tantric vital energy technique",
+      "description": "Canalización de energía vital a través del tacto tántrico",
+      "description_en": "Channeling vital energy through tantric touch",
       "category": "DELUXE",
       "pricingSystem": "Tiered",
       "basePrice": 135,
@@ -429,8 +437,8 @@
     },
     "zurzum": {
       "name": "Zurzum",
-      "description": "Mezcla exclusiva de técnicas orientales y occidentales",
-      "description_en": "Exclusive blend of Eastern and Western techniques",
+      "description": "Fusión osada de técnicas orientales y occidentales",
+      "description_en": "Bold fusion of Eastern and Western techniques",
       "category": "MIX_MASSAGE",
       "pricingSystem": "CodeBased",
       "allowedCodes": [
@@ -447,8 +455,8 @@
     },
     "miso": {
       "name": "Miso",
-      "description": "Fusión de técnicas suaves con aceites calientes aromáticos",
-      "description_en": "Fusion of gentle techniques with warm aromatic oils",
+      "description": "Tacto suave con aceites calientes aromáticos",
+      "description_en": "Gentle touch with warm aromatic oils",
       "category": "MIX_MASSAGE",
       "pricingSystem": "CodeBased",
       "allowedCodes": [
@@ -465,8 +473,8 @@
     },
     "circuit": {
       "name": "Circuit",
-      "description": "Circuito rotativo con múltiples escenarios y técnicas",
-      "description_en": "Rotating circuit with multiple scenarios and techniques",
+      "description": "Recorre varios escenarios en una sola experiencia",
+      "description_en": "Travel through multiple scenarios in one experience",
       "category": "MIX_MASSAGE",
       "pricingSystem": "Tiered",
       "basePrice": 165,
@@ -489,8 +497,8 @@
     },
     "circuit-deluxe": {
       "name": "Circuit Deluxe",
-      "description": "Circuito premium con escenarios exclusivos y duración extendida",
-      "description_en": "Premium circuit with exclusive scenarios and extended duration",
+      "description": "Circuito premium con escenarios VIP y duración extendida",
+      "description_en": "Premium circuit with VIP scenarios and extended duration",
       "category": "MIX_MASSAGE",
       "pricingSystem": "Tiered",
       "basePrice": 165,
@@ -509,8 +517,8 @@
     },
     "cocktail": {
       "name": "Cocktail",
-      "description": "Cóctel de técnicas variadas en una sesión completa de 120 min",
-      "description_en": "Cocktail of varied techniques in a full 120 min session",
+      "description": "Mezcla de técnicas en una sesión épica de 120 min",
+      "description_en": "A blend of techniques in an epic 120 min session",
       "category": "MIX_MASSAGE",
       "pricingSystem": "Tiered",
       "basePrice": 195,
@@ -529,8 +537,8 @@
     },
     "cocktail-deluxe": {
       "name": "Cocktail Deluxe",
-      "description": "Edición deluxe del cóctel con escenario VIP y atención premium",
-      "description_en": "Deluxe edition cocktail with VIP scenario and premium attention",
+      "description": "Nuestro cóctel más exclusivo con atención VIP",
+      "description_en": "Our most exclusive cocktail with VIP attention",
       "category": "MIX_MASSAGE",
       "pricingSystem": "Tiered",
       "basePrice": 195,
@@ -550,8 +558,8 @@
     "tantric-couple": {
       "category": "COUPLE_MASSAGE",
       "name": "Tantric Couple",
-      "description": "Experiencia tántrica compartida para parejas con conexión sensual",
-      "description_en": "Shared tantric experience for couples with sensual connection",
+      "description": "Conexión sensual compartida para dos con energía tántrica",
+      "description_en": "Shared sensual connection for two with tantric energy",
       "pricingSystem": "PackBased",
       "allowedScenarios": [
         "massage-table",
@@ -564,8 +572,8 @@
     "nuru-couple": {
       "category": "COUPLE_MASSAGE",
       "name": "Nuru Couple",
-      "description": "Masaje Nuru para parejas con gel deslizante y intimidad compartida",
-      "description_en": "Nuru couples massage with slippery gel and shared intimacy",
+      "description": "Gel Nuru deslizante para una intimidad compartida única",
+      "description_en": "Slippery Nuru gel for a unique shared intimacy",
       "pricingSystem": "PackBased",
       "allowedScenarios": [
         "tatami-wet",
@@ -718,7 +726,7 @@
       "close": "00:30"
     },
     "lastAppointment": "00:00",
-    "nightRateAfter": "00:00",
+    "nightRateAfter": "23:00",
     "nightRateBefore": "06:00"
   },
   "FLOWS": [
@@ -774,7 +782,7 @@
       "auth.emailPlaceholder": "tu@email.com",
       "auth.submitBtn": "DESBLOQUEAR PRECIOS",
       "auth.savings": "Ahorra hasta 20% en todos los servicios",
-      "auth.activeAlert": "Sesion activa: {email}\nDescuento Ego Card: {discount}%",
+      "auth.activeAlert": "Sesion activa: {email}Descuento Ego Card: {discount}%",
       "branch.title": "RESERVA TU EXPERIENCIA",
       "branch.subtitle": "Selecciona la ubicacion",
       "branch.premiumExp": "Experiencia premium en",
@@ -943,7 +951,7 @@
       "auth.emailPlaceholder": "your@email.com",
       "auth.submitBtn": "UNLOCK PRICES",
       "auth.savings": "Save up to 20% on all services",
-      "auth.activeAlert": "Active session: {email}\nEgo Card Discount: {discount}%",
+      "auth.activeAlert": "Active session: {email}Ego Card Discount: {discount}%",
       "branch.title": "BOOK YOUR EXPERIENCE",
       "branch.subtitle": "Select a location",
       "branch.premiumExp": "Premium experience at",
