@@ -99,16 +99,23 @@ function calculateNightRate() {
     }
 
     // NOTE: This uses browser's local timezone. Assumes user is in Panama (UTC-5).
-    // For production, consider proper timezone handling if users book from other timezones.
     const bookingDateTime = new Date(`${state.single.bookingDate}T${state.single.bookingTime}`);
     const endTime = new Date(bookingDateTime.getTime() + state.single.duration * 60000);
 
-    // Night rate applies if massage ends at midnight (00:00) or later, before 6:00 AM
-    const endHour = endTime.getHours();
-    const endMinute = endTime.getMinutes();
-    const isAfterMidnight = endHour >= 0 && endHour < 6;
+    // Use configured night rate window (e.g. 23:00 – 06:00)
+    const afterParts = (BUSINESS_HOURS.nightRateAfter || '23:00').split(':');
+    const beforeParts = (BUSINESS_HOURS.nightRateBefore || '06:00').split(':');
+    const afterMinutes = (+afterParts[0]) * 60 + (+afterParts[1]);
+    const beforeMinutes = (+beforeParts[0]) * 60 + (+beforeParts[1]);
 
-    console.log('🌙 Night Rate Calculation:', { bookingTime: state.single.bookingTime, duration: state.single.duration, endTime: endTime.toLocaleTimeString(), endHour, endMinute, isAfterMidnight });
+    const endMinutes = endTime.getHours() * 60 + endTime.getMinutes();
 
-    state.single.nightRate = isAfterMidnight ? 25 : 0;
+    // Night rate applies if end time falls in [after, 24:00) or [00:00, before)
+    const isAfterThreshold = endMinutes >= afterMinutes;
+    const isBeforeThreshold = endMinutes < beforeMinutes;
+    const applies = isAfterThreshold || isBeforeThreshold;
+
+    console.log('🌙 Night Rate Calculation:', { bookingTime: state.single.bookingTime, duration: state.single.duration, endTime: endTime.toLocaleTimeString(), endMinutes, afterMinutes, beforeMinutes, applies });
+
+    state.single.nightRate = applies ? 25 : 0;
 }
