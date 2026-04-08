@@ -195,13 +195,15 @@ ${branchText}
             message += `\n📧 Ego Card: ${state.email}`;
         }
     } else if (state.currentFlow === 'packs') {
-        const price = state.isAuth ? Math.round(calculatePackPrice() * (1 - EGO_DISCOUNT)) : calculatePackPrice();
+        const packData = PACK_DATA[state.pack.code];
+        const price = calculatePackPrice();
 
         message = `🔥 ${t('whatsapp.newBookingPack')}
 ${branchText}
     📦 ${t('whatsapp.pack')}: ${state.pack.code} - ${state.pack.name}
     📏 ${t('whatsapp.size')}: ${state.pack.sizeLabel} (${state.pack.sessions} ${t('footer.sessions')})
     👆 ${t('whatsapp.hands')}: ${state.pack.hands}
+    📅 Validez: ${packData?.validity || '-'}
     💰 ${t('whatsapp.total')}: $${price}`;
 
         if (state.isAuth) {

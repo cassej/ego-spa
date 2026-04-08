@@ -194,9 +194,32 @@ function updateSummary() {
     }
 
     if (state.isAuth && price > 0) {
-        regularPrice = price;
-        price = Math.round(price * (1 - EGO_DISCOUNT));
-        const savings = regularPrice - price;
+        // For packs with fixed egoPrice, calculatePackPrice() already returns the ego price
+        const packSize = state.pack.size && PACK_DATA[state.pack.code]?.sizes?.[state.pack.size];
+        const hasFixedEgoPrice = state.currentFlow === 'packs' && packSize && packSize.egoPrice > 0;
+
+        if (hasFixedEgoPrice) {
+            regularPrice = parseInt(state.pack.basePrice) || 0;
+            // price already is egoPrice from calculatePackPrice()
+            if (state.pack.hands === 4) {
+                const upgradeFee = parseInt(PACK_DATA[state.pack.code].upgradeFee) || 0;
+                regularPrice += upgradeFee * (parseInt(state.pack.sessions) || 0);
+            }
+            const savings = regularPrice - price;
+            elements.summarySavings.textContent = `💥 ${t('summary.savingsProminent', { amount: formatPrice(savings) })}`;
+            elements.summarySavings.classList.remove('hidden');
+            elements.summarySavings.classList.add('savings-prominent');
+            elements.summaryPrice.textContent = formatPrice(price);
+        } else {
+            regularPrice = price;
+            price = Math.round(price * (1 - EGO_DISCOUNT));
+            const savings = regularPrice - price;
+
+            elements.summarySavings.textContent = `💥 ${t('summary.savingsProminent', { amount: formatPrice(savings) })}`;
+            elements.summarySavings.classList.remove('hidden');
+            elements.summarySavings.classList.add('savings-prominent');
+            elements.summaryPrice.textContent = formatPrice(price);
+        }
 
         elements.summarySavings.textContent = `💥 ${t('summary.savingsProminent', { amount: formatPrice(savings) })}`;
         elements.summarySavings.classList.remove('hidden');
@@ -830,6 +853,7 @@ function resetSelections() {
     state.pack = {
         code: null,
         name: '',
+        validity: '',
         size: null,
         sizeLabel: '',
         sessions: 0,

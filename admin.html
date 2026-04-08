@@ -823,6 +823,7 @@ function packCard(packKey, pack) {
         <td>${inp(sv.label_en||'','label_en')}</td>
         <td>${num(sv.sessions,'sessions')}</td>
         <td>${num(sv.price,'price')}</td>
+        <td>${num(sv.egoPrice || 0,'egoPrice')}</td>
         <td>${delBtn()}</td>
     </tr>`).join('');
 
@@ -830,6 +831,7 @@ function packCard(packKey, pack) {
         <div class="flex flex-wrap items-center gap-3 mb-5">
             <span class="badge badge-red font-display">${packKey}</span>
             <input type="text" name="packName" value="${pack.name}" style="flex:1;min-width:140px">
+            <input type="text" name="validity" value="${pack.validity || ''}" placeholder="3 meses" style="width:100px">
             <div class="flex items-center gap-2 flex-shrink-0">
                 <span class="lbl" style="margin:0;white-space:nowrap">Upgrade $</span>
                 <input type="number" name="upgradeFee" value="${pack.upgradeFee}" class="num-input">
@@ -838,7 +840,7 @@ function packCard(packKey, pack) {
         </div>
         <div class="tbl-wrap">
             <table>
-                <thead><tr><th>Key</th><th>Label</th><th>Label (EN)</th><th>Sesiones</th><th>Precio $</th><th></th></tr></thead>
+                <thead><tr><th>Key</th><th>Label</th><th>Label (EN)</th><th>Sesiones</th><th>Precio $</th><th>Precio Ego $</th><th></th></tr></thead>
                 <tbody class="sizes-tbody">${sizesHtml}</tbody>
             </table>
         </div>
@@ -861,12 +863,14 @@ function collectPacks() {
                 label:    $(this).find('[name=label]').val().trim(),
                 ...(labelEn ? { label_en: labelEn } : {}),
                 sessions: +$(this).find('[name=sessions]').val(),
-                price:    +$(this).find('[name=price]').val()
+                price:    +$(this).find('[name=price]').val(),
+                egoPrice: +$(this).find('[name=egoPrice]').val()
             };
         });
         DATA.PACK_DATA[packKey] = {
             name:       $(this).find('[name=packName]').val().trim(),
             upgradeFee: +$(this).find('[name=upgradeFee]').val(),
+            validity:   $(this).find('[name=validity]').val().trim(),
             sizes
         };
     });
@@ -882,6 +886,7 @@ $(document).on('click', '.add-size', function() {
         <td>${inp('Small','label_en')}</td>
         <td>${num(3,'sessions')}</td>
         <td>${num(100,'price')}</td>
+        <td>${num(0,'egoPrice')}</td>
         <td>${delBtn()}</td>
     </tr>`);
 });

@@ -547,6 +547,7 @@ b.classList.remove('selected'));
 
             state.pack.code = btn.dataset.pack;
             state.pack.name = PACK_DATA[btn.dataset.pack].name;
+            state.pack.validity = PACK_DATA[btn.dataset.pack].validity || '';
 
             // Populate size options
             populateSizeOptions();
@@ -577,5 +578,14 @@ b.classList.remove('selected'));
     document.addEventListener('DOMContentLoaded', () => {
         // Ensure everything is properly initialized
         console.log('Ego Spa Booking Widget initialized');
+
+        // Populate pack validity text from PACK_DATA
+        document.querySelectorAll('.pack-btn').forEach(btn => {
+            const packData = PACK_DATA[btn.dataset.pack];
+            if (packData && packData.validity) {
+                const desc = btn.querySelector('.text-ego-muted');
+                if (desc) desc.textContent = packData.validity;
+            }
+        });
     });
 }

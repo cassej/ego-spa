@@ -43,6 +43,7 @@ const state = {
     pack: {
         code: null,
         name: '',
+        validity: '',
         size: null,
         sizeLabel: '',
         sessions: 0,

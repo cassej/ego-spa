@@ -77,121 +77,45 @@
     "M51": {
       "name": "MTX - 20 min",
       "upgradeFee": 30,
+      "validity": "",
       "sizes": {
-        "S": {
-          "sessions": 3,
-          "price": 115,
-          "label": "Pequeño 30 dias",
-          "label_en": "Small 30 days"
-        },
-        "M": {
-          "sessions": 6,
-          "price": 185,
-          "label": "Mediano 3 meses",
-          "label_en": "Medium 3 months"
-        },
-        "L": {
-          "sessions": 14,
-          "price": 395,
-          "label": "Grande 6 meses",
-          "label_en": "Large 6 months"
-        },
-        "U": {
-          "sessions": 362,
-          "price": 1995,
-          "label": "12 Meses Ilimitado",
-          "label_en": "12 Month Unlimited"
-        }
+        "S": { "sessions": 3, "price": 115, "egoPrice": 0, "label": "Pequeño 30 dias", "label_en": "Small 30 days" },
+        "M": { "sessions": 6, "price": 185, "egoPrice": 0, "label": "Mediano 3 meses", "label_en": "Medium 3 months" },
+        "L": { "sessions": 14, "price": 395, "egoPrice": 0, "label": "Grande 6 meses", "label_en": "Large 6 months" },
+        "U": { "sessions": 362, "price": 1995, "egoPrice": 0, "label": "12 Meses Ilimitado", "label_en": "12 Month Unlimited" }
       }
     },
     "M52": {
       "name": "Baby - 40 min",
       "upgradeFee": 30,
+      "validity": "",
       "sizes": {
-        "S": {
-          "sessions": 2,
-          "price": 135,
-          "label": "Pequeño 30 dias",
-          "label_en": "Small 30 days"
-        },
-        "M": {
-          "sessions": 3,
-          "price": 195,
-          "label": "Mediano 3 meses",
-          "label_en": "Medium 3 months"
-        },
-        "L": {
-          "sessions": 10,
-          "price": 395,
-          "label": "Grande 6 meses",
-          "label_en": "Large 6 months"
-        },
-        "U": {
-          "sessions": 362,
-          "price": 2595,
-          "label": "12 Meses Ilimitado",
-          "label_en": "12 Month Unlimited"
-        }
+        "S": { "sessions": 2, "price": 135, "egoPrice": 0, "label": "Pequeño 30 dias", "label_en": "Small 30 days" },
+        "M": { "sessions": 3, "price": 195, "egoPrice": 0, "label": "Mediano 3 meses", "label_en": "Medium 3 months" },
+        "L": { "sessions": 10, "price": 395, "egoPrice": 0, "label": "Grande 6 meses", "label_en": "Large 6 months" },
+        "U": { "sessions": 362, "price": 2595, "egoPrice": 0, "label": "12 Meses Ilimitado", "label_en": "12 Month Unlimited" }
       }
     },
     "M53": {
       "name": "3x4 - 90 min",
       "upgradeFee": 50,
+      "validity": "",
       "sizes": {
-        "R": {
-          "sessions": 3,
-          "price": 295,
-          "label": "Regular 3 meses",
-          "label_en": "Regular 3 months"
-        },
-        "D": {
-          "sessions": 3,
-          "price": 375,
-          "label": "Deluxe 5 meses",
-          "label_en": "Deluxe 5 months"
-        },
-        "XL": {
-          "sessions": 6,
-          "price": 695,
-          "label": "1 año XL",
-          "label_en": "1 year XL"
-        },
-        "U": {
-          "sessions": 362,
-          "price": 3995,
-          "label": "12 Meses Ilimitado",
-          "label_en": "12 Month Unlimited"
-        }
+        "R": { "sessions": 3, "price": 295, "egoPrice": 0, "label": "Regular 3 meses", "label_en": "Regular 3 months" },
+        "D": { "sessions": 3, "price": 375, "egoPrice": 0, "label": "Deluxe 5 meses", "label_en": "Deluxe 5 months" },
+        "XL": { "sessions": 6, "price": 695, "egoPrice": 0, "label": "1 año XL", "label_en": "1 year XL" },
+        "U": { "sessions": 362, "price": 3995, "egoPrice": 0, "label": "12 Meses Ilimitado", "label_en": "12 Month Unlimited" }
       }
     },
     "M54": {
       "name": "6x6 - 60 min",
       "upgradeFee": 50,
+      "validity": "",
       "sizes": {
-        "R": {
-          "sessions": 6,
-          "price": 450,
-          "label": "Regular 6 meses",
-          "label_en": "Regular 6 months"
-        },
-        "D": {
-          "sessions": 6,
-          "price": 570,
-          "label": "Deluxe 6 meses",
-          "label_en": "Deluxe 6 months"
-        },
-        "XL": {
-          "sessions": 14,
-          "price": 1200,
-          "label": "1 año XL",
-          "label_en": "1 year XL"
-        },
-        "U": {
-          "sessions": 362,
-          "price": 2995,
-          "label": "12 Meses Ilimitado",
-          "label_en": "12 Month Unlimited"
-        }
+        "R": { "sessions": 6, "price": 450, "egoPrice": 0, "label": "Regular 6 meses", "label_en": "Regular 6 months" },
+        "D": { "sessions": 6, "price": 570, "egoPrice": 0, "label": "Deluxe 6 meses", "label_en": "Deluxe 6 months" },
+        "XL": { "sessions": 14, "price": 1200, "egoPrice": 0, "label": "1 año XL", "label_en": "1 year XL" },
+        "U": { "sessions": 362, "price": 2995, "egoPrice": 0, "label": "12 Meses Ilimitado", "label_en": "12 Month Unlimited" }
       }
     }
   },

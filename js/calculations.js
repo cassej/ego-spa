@@ -44,13 +44,19 @@ function calculatePackPrice() {
     const packData = PACK_DATA[state.pack.code];
     if (!packData) return 0;
 
-    let total = parseInt(state.pack.basePrice) || 0;
+    const sizeData = packData.sizes[state.pack.size];
+    if (!sizeData) return 0;
 
+    // If Ego Card auth and size has fixed egoPrice > 0, use it; otherwise regular price
+    let total = (state.isAuth && sizeData.egoPrice > 0)
+        ? sizeData.egoPrice
+        : (parseInt(state.pack.basePrice) || 0);
+
+    // Upgrade fee for 4 hands
     if (state.pack.hands === 4) {
         const upgradeFee = parseInt(packData.upgradeFee) || 0;
         const sessions = parseInt(state.pack.sessions) || 0;
-        const upgradeTotal = upgradeFee * sessions;
-        total += upgradeTotal;
+        total += upgradeFee * sessions;
     }
 
     return total;
