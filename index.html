@@ -51,21 +51,26 @@ justify-between">
             <div class="fade-up">
                 <h1 class="font-display text-2xl tracking-wider 
 text-white">EGO SPA & BARBA</h1>
-                <p class="text-xs text-ego-muted tracking-widest 
-uppercase">Panama</p>
+                <p class="text-xs text-ego-muted tracking-widest
+uppercase" data-i18n="header.subtitle">Panama</p>
             </div>
-            <button id="authBtn" class="fade-up stagger-1 flex 
-items-center gap-2 px-3 py-2 rounded-lg bg-ego-zinc hover:bg-ego-zincLight 
+            <div class="flex items-center gap-2">
+                <button id="langToggleBtn" onclick="toggleLanguage()" class="fade-up stagger-1 px-2 py-1 rounded text-xs font-bold bg-ego-zinc hover:bg-ego-zincLight transition-colors" aria-label="Toggle language">
+                    <span id="langToggleText">EN</span>
+                </button>
+                <button id="authBtn" class="fade-up stagger-1 flex
+items-center gap-2 px-3 py-2 rounded-lg bg-ego-zinc hover:bg-ego-zincLight
 transition-colors" aria-label="Autenticacion Ego Card">
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" 
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor"
 viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" 
-stroke-width="2" d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 
-17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 
+                        <path stroke-linecap="round" stroke-linejoin="round"
+stroke-width="2" d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11
+17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121
 9z"/>
-                </svg>
-                <span id="authLabel" class="text-sm">Ego Card</span>
-            </button>
+                    </svg>
+                    <span id="authLabel" class="text-sm" data-i18n="header.authBtn">Ego Card</span>
+                </button>
+            </div>
         </div>
     </header>
 
@@ -86,33 +91,34 @@ stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6
 12l5.714-2.143L13 3z"/>
                     </svg>
                 </div>
-                <h2 class="font-display text-3xl tracking-wide mb-2">EGO 
+                <h2 class="font-display text-3xl tracking-wide mb-2" data-i18n="auth.title">EGO
 CARD</h2>
-                <p class="text-ego-muted text-sm">Accede a tarifas 
+                <p class="text-ego-muted text-sm" data-i18n="auth.subtitle">Accede a tarifas
 exclusivas con tu correo</p>
             </div>
 
             <form id="authForm" class="space-y-4">
                 <div>
-                    <label for="emailInput" class="block text-sm 
-text-ego-muted mb-2">Correo electronico</label>
+                    <label for="emailInput" class="block text-sm
+text-ego-muted mb-2" data-i18n="auth.emailLabel">Correo electronico</label>
                     <input
                             type="email"
                             id="emailInput"
                             placeholder="tu@email.com"
+                            data-i18n-placeholder="auth.emailPlaceholder"
                             class="w-full px-4 py-3 bg-ego-black border 
 border-white/10 rounded-lg text-white placeholder-ego-muted 
 focus:border-ego-red transition-colors"
                             required
                     >
                 </div>
-                <button type="submit" class="btn-primary w-full py-3 
-rounded-lg font-semibold text-white uppercase tracking-wider">
+                <button type="submit" class="btn-primary w-full py-3
+rounded-lg font-semibold text-white uppercase tracking-wider" data-i18n="auth.submitBtn">
                     Desbloquear Precios
                 </button>
             </form>
 
-            <p class="text-xs text-ego-muted text-center mt-4">
+            <p class="text-xs text-ego-muted text-center mt-4" data-i18n="auth.savings">
                 Ahorra hasta 20% en todos los servicios
             </p>
 
@@ -133,8 +139,8 @@ stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
         <!-- Branch Selection (Step 0) -->
         <section id="branchSelection" class="space-y-6">
             <div class="text-center fade-up stagger-1">
-                <h2 class="font-display text-4xl md:text-5xl tracking-wide mb-2">RESERVA TU EXPERIENCIA</h2>
-                <p class="text-ego-muted">Selecciona la ubicación</p>
+                <h2 class="font-display text-4xl md:text-5xl tracking-wide mb-2" data-i18n="branch.title">RESERVA TU EXPERIENCIA</h2>
+                <p class="text-ego-muted" data-i18n="branch.subtitle">Selecciona la ubicación</p>
             </div>
 
             <div id="branchesContainer" class="grid gap-4 mt-8">
@@ -145,8 +151,8 @@ stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
         <!-- Flow Selection (after Branch Selection) -->
         <section id="flowSelection" class="space-y-6 hidden">
             <div class="text-center fade-up stagger-1">
-                <h2 class="font-display text-4xl md:text-5xl tracking-wide mb-2">TIPO DE SERVICIO</h2>
-                <p class="text-ego-muted">Selecciona el tipo de servicio</p>
+                <h2 class="font-display text-4xl md:text-5xl tracking-wide mb-2" data-i18n="flow.title">TIPO DE SERVICIO</h2>
+                <p class="text-ego-muted" data-i18n="flow.subtitle">Selecciona el tipo de servicio</p>
             </div>
 
             <div class="grid gap-4 mt-8">
@@ -222,7 +228,7 @@ stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
             </div>
 
             <!-- Change Branch Button -->
-            <button id="changeBranchBtn" class="w-full py-3 rounded-xl text-ego-muted hover:text-white transition-colors text-sm fade-up stagger-4">
+            <button id="changeBranchBtn" class="w-full py-3 rounded-xl text-ego-muted hover:text-white transition-colors text-sm fade-up stagger-4" data-i18n="flow.changeBranch">
                 ← Cambiar ubicación
             </button>
         </section>
@@ -247,9 +253,9 @@ stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
             <!-- Step 1: Technique -->
             <div id="singleStep1" class="step-content">
                 <div class="text-center mb-6 fade-up">
-                    <span class="text-ego-red text-sm font-semibold tracking-wider">PASO 1 DE 6</span>
-                    <h2 class="font-display text-4xl tracking-wide mt-2">TECNICA</h2>
-                    <p class="text-ego-muted text-sm mt-1">Selecciona el tipo de masaje</p>
+                    <span class="text-ego-red text-sm font-semibold tracking-wider" data-i18n="steps.step1of6">PASO 1 DE 6</span>
+                    <h2 class="font-display text-4xl tracking-wide mt-2" data-i18n="single.step1Title">TECNICA</h2>
+                    <p class="text-ego-muted text-sm mt-1" data-i18n="single.step1Desc">Selecciona el tipo de masaje</p>
                 </div>
 
                 <div id="techniquesContainer" class="grid grid-cols-2 gap-3">
@@ -260,14 +266,14 @@ stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
             <!-- Step 2: Hands & Duration -->
             <div id="singleStep2" class="step-content hidden">
                 <div class="text-center mb-6 fade-up">
-                    <span class="text-ego-red text-sm font-semibold tracking-wider">PASO 2 DE 6</span>
-                    <h2 class="font-display text-4xl tracking-wide mt-2">MANOS Y DURACIÓN</h2>
-                    <p class="text-ego-muted text-sm mt-1">Configura tu masaje</p>
+                    <span class="text-ego-red text-sm font-semibold tracking-wider" data-i18n="steps.step2of6">PASO 2 DE 6</span>
+                    <h2 class="font-display text-4xl tracking-wide mt-2" data-i18n="single.step2Title">MANOS Y DURACIÓN</h2>
+                    <p class="text-ego-muted text-sm mt-1" data-i18n="single.step2Desc">Configura tu masaje</p>
                 </div>
 
                 <!-- Hands -->
                 <div class="mb-6">
-                    <p class="text-ego-muted text-xs mb-3 uppercase tracking-wider">Número de manos</p>
+                    <p class="text-ego-muted text-xs mb-3 uppercase tracking-wider" data-i18n="single.handsLabel">Número de manos</p>
                     <div class="grid grid-cols-4 gap-3">
                         <button class="hands-btn option-card rounded-xl p-4 text-center fade-up stagger-1" data-hands="2">
                             <div class="font-display text-3xl text-white">2</div>
@@ -293,7 +299,7 @@ stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
 
                 <!-- Duration -->
                 <div class="mb-6">
-                    <p class="text-ego-muted text-xs mb-3 uppercase tracking-wider">Duración del masaje</p>
+                    <p class="text-ego-muted text-xs mb-3 uppercase tracking-wider" data-i18n="single.durationLabel">Duración del masaje</p>
                     <div class="grid grid-cols-3 gap-3">
                         <button class="duration-btn option-card rounded-xl p-4 text-center fade-up stagger-1" data-duration="20">
                             <div class="font-display text-3xl text-white">20</div>
@@ -328,7 +334,7 @@ stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
                 </div>
 
                 <!-- Continue button -->
-                <button id="singleConfigContinueBtn" class="btn-primary w-full py-3 rounded-lg font-semibold text-white uppercase tracking-wider fade-up" disabled>
+                <button id="singleConfigContinueBtn" class="btn-primary w-full py-3 rounded-lg font-semibold text-white uppercase tracking-wider fade-up" disabled data-i18n="single.continue">
                     Continuar
                 </button>
             </div>
@@ -336,9 +342,9 @@ stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
             <!-- Step 4: Scenarios -->
             <div id="singleStep3" class="step-content hidden">
                 <div class="text-center mb-6 fade-up">
-                    <span class="text-ego-red text-sm font-semibold tracking-wider">PASO 3 DE 6</span>
-                    <h2 class="font-display text-4xl tracking-wide mt-2">ESCENARIOS</h2>
-                    <p class="text-ego-muted text-sm mt-1">Elige tu experiencia</p>
+                    <span class="text-ego-red text-sm font-semibold tracking-wider" data-i18n="steps.step3of6">PASO 3 DE 6</span>
+                    <h2 class="font-display text-4xl tracking-wide mt-2" data-i18n="single.step3Title">ESCENARIOS</h2>
+                    <p class="text-ego-muted text-sm mt-1" data-i18n="single.step3Desc">Elige tu experiencia</p>
                     <p id="scenarioHeaderLimit" class="text-ego-gold text-xs mt-1 hidden"></p>
                     <p id="scenarioHint" class="text-ego-gold text-xs mt-2 hidden"></p>
                 </div>
@@ -422,7 +428,7 @@ stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
                     </button>
                 </div>
 
-                <button id="scenarioContinueBtn" class="btn btn-primary w-full py-4 rounded-xl font-semibold text-white uppercase tracking-wider fade-up hidden">
+                <button id="scenarioContinueBtn" class="btn btn-primary w-full py-4 rounded-xl font-semibold text-white uppercase tracking-wider fade-up hidden" data-i18n="single.continue">
                     Continuar
                 </button>
             </div>
@@ -430,25 +436,25 @@ stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
             <!-- Step 5: PRAECOQUIS -->
             <div id="singleStep4" class="step-content hidden">
                 <div class="text-center mb-6 fade-up">
-                    <span class="text-ego-red text-sm font-semibold tracking-wider">PASO 4 DE 6</span>
-                    <h2 class="font-display text-4xl tracking-wide mt-2">PRAECOQUIS</h2>
-                    <p class="text-ego-muted text-sm mt-1">Opciones adicionales</p>
+                    <span class="text-ego-red text-sm font-semibold tracking-wider" data-i18n="steps.step4of6">PASO 4 DE 6</span>
+                    <h2 class="font-display text-4xl tracking-wide mt-2" data-i18n="single.step4Title">PRAECOQUIS</h2>
+                    <p class="text-ego-muted text-sm mt-1" data-i18n="single.step4Desc">Opciones adicionales</p>
                 </div>
 
                 <div class="space-y-3">
                     <label class="option-card rounded-xl p-4 flex items-center gap-4 cursor-pointer fade-up stagger-1">
                         <input type="checkbox" class="extra-check custom-radio" data-extra="sensitive" data-addon="0" checked>
                         <div class="flex-1">
-                            <h3 class="font-semibold">Sensitive</h3>
-                            <p class="text-ego-muted text-sm">Incluido</p>
+                            <h3 class="font-semibold" data-i18n="extras.sensitive">Sensitive</h3>
+                            <p class="text-ego-muted text-sm" data-i18n="extras.included">Incluido</p>
                         </div>
                     </label>
 
                     <label class="option-card rounded-xl p-4 flex items-center gap-4 cursor-pointer fade-up stagger-2">
                         <input type="checkbox" class="extra-check custom-radio" data-extra="double-sensitive" data-addon="25">
                         <div class="flex-1">
-                            <h3 class="font-semibold">Double Sensitive</h3>
-                            <p class="text-ego-muted text-sm">Experiencia dual intensificada</p>
+                            <h3 class="font-semibold" data-i18n="extras.doubleSensitive">Double Sensitive</h3>
+                            <p class="text-ego-muted text-sm" data-i18n="extras.doubleSensitiveDesc">Experiencia dual intensificada</p>
                         </div>
                     </label>
                 </div>
@@ -458,32 +464,32 @@ stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
             <!-- Step 6: Logistics -->
             <div id="singleStep5" class="step-content hidden">
                 <div class="text-center mb-6 fade-up">
-                    <span class="text-ego-red text-sm font-semibold tracking-wider">PASO 5 DE 6</span>
-                    <h2 class="font-display text-4xl tracking-wide mt-2">LOGÍSTICA</h2>
-                    <p class="text-ego-muted text-sm mt-1">Masseuse y traslados</p>
+                    <span class="text-ego-red text-sm font-semibold tracking-wider" data-i18n="steps.step5of6">PASO 5 DE 6</span>
+                    <h2 class="font-display text-4xl tracking-wide mt-2" data-i18n="single.step5Title">LOGÍSTICA</h2>
+                    <p class="text-ego-muted text-sm mt-1" data-i18n="single.step5Desc">Masseuse y traslados</p>
                 </div>
 
                 <div class="space-y-4">
                     <div class="option-card rounded-xl p-4 fade-up stagger-1">
                         <label class="flex items-center gap-3 mb-3">
                             <input type="radio" name="masseuse-pref" value="no-pref" checked class="custom-radio">
-                            <span class="font-semibold">Sin preferencia</span>
+                            <span class="font-semibold" data-i18n="single.noPreference">Sin preferencia</span>
                         </label>
                     </div>
 
                     <div class="option-card rounded-xl p-4 fade-up stagger-2">
                         <label class="flex items-center gap-3 mb-3">
                             <input type="radio" name="masseuse-pref" value="specific" class="custom-radio">
-                            <span class="font-semibold">Masseuse específica</span>
+                            <span class="font-semibold" data-i18n="single.specificMasseuse">Masseuse específica</span>
                         </label>
-                        <input type="text" id="masseuseName" class="masseuse-input w-full bg-ego-zinc rounded-lg p-3 text-white placeholder-ego-muted" placeholder="Nombre de la masseuse" disabled>
+                        <input type="text" id="masseuseName" class="masseuse-input w-full bg-ego-zinc rounded-lg p-3 text-white placeholder-ego-muted" placeholder="Nombre de la masseuse" data-i18n-placeholder="single.masseusePlaceholder" disabled>
                     </div>
 
                     <div class="option-card rounded-xl p-4 fade-up stagger-3">
                         <label class="flex items-center justify-between">
                             <div>
-                                <h3 class="font-semibold">Transfer from another branch</h3>
-                                <p class="text-ego-muted text-sm">Traslado de masseuse</p>
+                                <h3 class="font-semibold" data-i18n="single.transferTitle">Transfer from another branch</h3>
+                                <p class="text-ego-muted text-sm" data-i18n="single.transferDesc">Traslado de masseuse</p>
                             </div>
                             <label class="relative inline-flex items-center cursor-pointer">
                                 <input type="checkbox" id="mobilityToggle" class="sr-only peer" disabled>
@@ -498,27 +504,27 @@ stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
             <!-- Step 7: Date & Time + Final Summary -->
             <div id="singleStep6" class="step-content hidden">
                 <div class="text-center mb-6 fade-up">
-                    <span class="text-ego-red text-sm font-semibold tracking-wider">PASO 6 DE 6</span>
-                    <h2 class="font-display text-4xl tracking-wide mt-2">FECHA Y HORA</h2>
-                    <p class="text-ego-muted text-sm mt-1">Confirma tu reserva</p>
+                    <span class="text-ego-red text-sm font-semibold tracking-wider" data-i18n="steps.step6of6">PASO 6 DE 6</span>
+                    <h2 class="font-display text-4xl tracking-wide mt-2" data-i18n="single.step6Title">FECHA Y HORA</h2>
+                    <p class="text-ego-muted text-sm mt-1" data-i18n="single.step6Desc">Confirma tu reserva</p>
                 </div>
 
                 <div class="space-y-4 mb-6">
                     <div class="option-card rounded-xl p-4 fade-up stagger-1">
                         <label class="block">
-                            <span class="text-ego-muted text-sm">Fecha</span>
+                            <span class="text-ego-muted text-sm" data-i18n="single.date">Fecha</span>
                             <input type="date" id="bookingDate" class="w-full mt-2 bg-ego-zinc rounded-lg p-3 text-white">
                         </label>
                     </div>
 
                     <div class="option-card rounded-xl p-4 fade-up stagger-2">
                         <label class="block">
-                            <span class="text-ego-muted text-sm">Hora</span>
+                            <span class="text-ego-muted text-sm" data-i18n="single.time">Hora</span>
                             <input type="time" id="bookingTime" class="w-full mt-2 bg-ego-zinc rounded-lg p-3 text-white">
                         </label>
                     </div>
 
-                    <div class="text-ego-muted text-xs text-center fade-up stagger-3">
+                    <div class="text-ego-muted text-xs text-center fade-up stagger-3" data-i18n="single.scheduleNote">
                         Horario: Lun-Sáb 8:30 AM - 12:30 AM | Dom/Fest 10:00 AM - 12:30 AM
                     </div>
 
@@ -536,61 +542,61 @@ stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
                 </div>
 
                 <div class="bg-ego-zinc rounded-xl p-4 mb-4 fade-up stagger-4">
-                    <h3 class="font-display text-xl text-ego-gold mb-3 text-center">RESUMEN</h3>
+                    <h3 class="font-display text-xl text-ego-gold mb-3 text-center" data-i18n="single.summaryTitle">RESUMEN</h3>
 
                     <div class="space-y-2 text-sm">
                         <div class="flex justify-between">
-                            <span class="text-ego-muted">Técnica:</span>
+                            <span class="text-ego-muted" data-i18n="summary.technique">Técnica:</span>
                             <span id="finalTechnique" class="text-white"></span>
                         </div>
                         <div class="flex justify-between">
-                            <span class="text-ego-muted">Escenario:</span>
+                            <span class="text-ego-muted" data-i18n="summary.scenario">Escenario:</span>
                             <span id="finalScenario" class="text-white"></span>
                         </div>
                         <div class="flex justify-between">
-                            <span class="text-ego-muted">Manos:</span>
+                            <span class="text-ego-muted" data-i18n="summary.hands">Manos:</span>
                             <span id="finalHands" class="text-white"></span>
                         </div>
                         <div class="flex justify-between">
-                            <span class="text-ego-muted">Duración:</span>
+                            <span class="text-ego-muted" data-i18n="summary.duration">Duración:</span>
                             <span id="finalDuration" class="text-white"></span>
                         </div>
                         <div class="flex justify-between">
-                            <span class="text-ego-muted">PRAECOQUIS:</span>
+                            <span class="text-ego-muted" data-i18n="summary.extras">PRAECOQUIS:</span>
                             <span id="finalExtras" class="text-white"></span>
                         </div>
                         <div class="flex justify-between">
-                            <span class="text-ego-muted">Masseuse:</span>
+                            <span class="text-ego-muted" data-i18n="summary.masseuse">Masseuse:</span>
                             <span id="finalMasseuse" class="text-white"></span>
                         </div>
                         <div id="finalMobilityRow" class="flex justify-between hidden">
-                            <span class="text-ego-muted">Traslado:</span>
+                            <span class="text-ego-muted" data-i18n="summary.mobility">Traslado:</span>
                             <span class="text-white">+$25</span>
                         </div>
                         <div id="finalNightRateRow" class="flex justify-between hidden">
-                            <span class="text-ego-muted">🌙 Night Rate:</span>
+                            <span class="text-ego-muted" data-i18n="summary.nightRate">Night Rate (+$25):</span>
                             <div class="text-right">
                                 <span class="text-white">+$25</span>
-                                <p class="text-ego-muted text-xs">Masaje termina después de 12:00 AM</p>
+                                <p class="text-ego-muted text-xs" data-i18n="summary.nightRateNote">Masaje termina después de 12:00 AM</p>
                             </div>
                         </div>
                         <div class="flex justify-between">
-                            <span class="text-ego-muted">Fecha:</span>
+                            <span class="text-ego-muted" data-i18n="summary.date">Fecha:</span>
                             <span id="finalDate" class="text-white"></span>
                         </div>
                         <div class="flex justify-between">
-                            <span class="text-ego-muted">Hora:</span>
+                            <span class="text-ego-muted" data-i18n="summary.time">Hora:</span>
                             <span id="finalTime" class="text-white"></span>
                         </div>
                         <div class="border-t border-ego-zincLight my-2"></div>
                         <div class="flex justify-between items-center">
-                            <span class="font-semibold text-white">TOTAL:</span>
+                            <span class="font-semibold text-white" data-i18n="summary.total">TOTAL:</span>
                             <span id="finalPrice" class="font-display text-3xl text-ego-red"></span>
                         </div>
                     </div>
                 </div>
 
-                <button id="singleBookBtn" class="btn-primary w-full py-4 rounded-xl font-semibold text-white uppercase tracking-wider fade-up stagger-5" disabled>
+                <button id="singleBookBtn" class="btn-primary w-full py-4 rounded-xl font-semibold text-white uppercase tracking-wider fade-up stagger-5" disabled data-i18n="single.bookWhatsApp">
                     Reservar por WhatsApp
                 </button>
             </div>
@@ -611,11 +617,11 @@ fade-up">
             <!-- Step 1: Pack Selection -->
             <div id="packStep1" class="step-content">
                 <div class="text-center mb-6 fade-up">
-                    <span class="text-ego-red text-sm font-semibold 
-tracking-wider">PASO 1 DE 3</span>
-                    <h2 class="font-display text-4xl tracking-wide 
-mt-2">SELECCIONA PACK</h2>
-                    <p class="text-ego-muted text-sm mt-1">Paquetes 
+                    <span class="text-ego-red text-sm font-semibold
+tracking-wider" data-i18n="steps.step1of3">PASO 1 DE 3</span>
+                    <h2 class="font-display text-4xl tracking-wide
+mt-2" data-i18n="packs.step1Title">SELECCIONA PACK</h2>
+                    <p class="text-ego-muted text-sm mt-1" data-i18n="packs.step1Desc">Paquetes
 pre-pagados</p>
                 </div>
 
@@ -657,11 +663,11 @@ pre-pagados</p>
             <!-- Step 2: Size Selection -->
             <div id="packStep2" class="step-content hidden">
                 <div class="text-center mb-6 fade-up">
-                    <span class="text-ego-red text-sm font-semibold 
-tracking-wider">PASO 2 DE 3</span>
-                    <h2 class="font-display text-4xl tracking-wide 
-mt-2">TAMAÑO</h2>
-                    <p class="text-ego-muted text-sm mt-1">Cantidad de 
+                    <span class="text-ego-red text-sm font-semibold
+tracking-wider" data-i18n="steps.step2of3">PASO 2 DE 3</span>
+                    <h2 class="font-display text-4xl tracking-wide
+mt-2" data-i18n="packs.step2Title">TAMAÑO</h2>
+                    <p class="text-ego-muted text-sm mt-1" data-i18n="packs.step2Desc">Cantidad de
 sesiones incluidas</p>
                 </div>
 
@@ -673,33 +679,33 @@ sesiones incluidas</p>
             <!-- Step 3: Upgrade -->
             <div id="packStep3" class="step-content hidden">
                 <div class="text-center mb-6 fade-up">
-                    <span class="text-ego-red text-sm font-semibold 
-tracking-wider">PASO 3 DE 3</span>
-                    <h2 class="font-display text-4xl tracking-wide 
-mt-2">UPGRADE</h2>
-                    <p class="text-ego-muted text-sm mt-1">Mejora tu pack 
+                    <span class="text-ego-red text-sm font-semibold
+tracking-wider" data-i18n="steps.step3of3">PASO 3 DE 3</span>
+                    <h2 class="font-display text-4xl tracking-wide
+mt-2" data-i18n="packs.step3Title">UPGRADE</h2>
+                    <p class="text-ego-muted text-sm mt-1" data-i18n="packs.step3Desc">Mejora tu pack
 a 4 manos</p>
                 </div>
 
                 <div class="space-y-3">
                     <button class="upgrade-btn option-card rounded-xl p-4 text-left fade-up stagger-1 selected" data-upgrade="2">
                         <div>
-                            <h3 class="font-semibold text-lg">2 Manos</h3>
-                            <p class="text-ego-muted text-sm">Estandar</p>
+                            <h3 class="font-semibold text-lg" data-i18n="packs.standard">2 Manos</h3>
+                            <p class="text-ego-muted text-sm" data-i18n="packs.standardDesc">Estandar</p>
                         </div>
                     </button>
 
                     <button class="upgrade-btn option-card rounded-xl p-4 text-left fade-up stagger-2" data-upgrade="4">
                         <div>
-                            <h3 class="font-semibold text-lg">4 Manos</h3>
-                            <p class="text-ego-muted text-sm">Experiencia premium</p>
+                            <h3 class="font-semibold text-lg" data-i18n="packs.premium">4 Manos</h3>
+                            <p class="text-ego-muted text-sm" data-i18n="packs.premiumDesc">Experiencia premium</p>
                         </div>
                     </button>
                 </div>
 
-                <button id="packBookBtn" class="btn-primary w-full py-4 
-rounded-xl font-semibold text-white uppercase tracking-wider mt-6 fade-up 
-stagger-3">
+                <button id="packBookBtn" class="btn-primary w-full py-4
+rounded-xl font-semibold text-white uppercase tracking-wider mt-6 fade-up
+stagger-3" data-i18n="packs.bookNow">
                     Reservar Ahora
                 </button>
             </div>
@@ -719,9 +725,9 @@ stagger-3">
             <!-- Step 1: Technique -->
             <div id="hotelStep1" class="step-content">
                 <div class="text-center mb-6 fade-up">
-                    <span class="text-ego-gold text-sm font-semibold tracking-wider">PASO 1 DE 3</span>
-                    <h2 class="font-display text-4xl tracking-wide mt-2">TECNICA</h2>
-                    <p class="text-ego-muted text-sm mt-1">Selecciona el tipo de masaje</p>
+                    <span class="text-ego-gold text-sm font-semibold tracking-wider" data-i18n="steps.step1of3">PASO 1 DE 3</span>
+                    <h2 class="font-display text-4xl tracking-wide mt-2" data-i18n="hotel.step1Title">TECNICA</h2>
+                    <p class="text-ego-muted text-sm mt-1" data-i18n="hotel.step1Desc">Selecciona el tipo de masaje</p>
                 </div>
 
                 <div id="hotelTechniquesContainer" class="grid grid-cols-2 gap-3">
@@ -732,9 +738,9 @@ stagger-3">
             <!-- Step 2: Configuration -->
             <div id="hotelStep2" class="step-content hidden">
                 <div class="text-center mb-6 fade-up">
-                    <span class="text-ego-gold text-sm font-semibold tracking-wider">PASO 2 DE 3</span>
-                    <h2 class="font-display text-4xl tracking-wide mt-2">CONFIGURACION</h2>
-                    <p class="text-ego-muted text-sm mt-1">Elige manos y duracion</p>
+                    <span class="text-ego-gold text-sm font-semibold tracking-wider" data-i18n="steps.step2of3">PASO 2 DE 3</span>
+                    <h2 class="font-display text-4xl tracking-wide mt-2" data-i18n="hotel.step2Title">CONFIGURACION</h2>
+                    <p class="text-ego-muted text-sm mt-1" data-i18n="hotel.step2Desc">Elige manos y duracion</p>
                 </div>
 
                 <!-- Hands -->
@@ -770,7 +776,7 @@ stagger-3">
                 </div>
 
                 <!-- Continue button -->
-                <button id="hotelConfigContinueBtn" class="btn-primary w-full py-3 rounded-lg font-semibold text-white uppercase tracking-wider mt-6 fade-up" disabled>
+                <button id="hotelConfigContinueBtn" class="btn-primary w-full py-3 rounded-lg font-semibold text-white uppercase tracking-wider mt-6 fade-up" disabled data-i18n="single.continue">
                     Continuar
                 </button>
             </div>
@@ -778,20 +784,20 @@ stagger-3">
             <!-- Step 3: Extras & Complete -->
             <div id="hotelStep3" class="step-content hidden">
                 <div class="text-center mb-6 fade-up">
-                    <span class="text-ego-gold text-sm font-semibold tracking-wider">PASO 3 DE 3</span>
-                    <h2 class="font-display text-4xl tracking-wide mt-2">EXTRAS</h2>
-                    <p class="text-ego-muted text-sm mt-1">Opcionales para tu experiencia</p>
+                    <span class="text-ego-gold text-sm font-semibold tracking-wider" data-i18n="steps.step3of3">PASO 3 DE 3</span>
+                    <h2 class="font-display text-4xl tracking-wide mt-2" data-i18n="hotel.step3Title">EXTRAS</h2>
+                    <p class="text-ego-muted text-sm mt-1" data-i18n="hotel.step3Desc">Opcionales para tu experiencia</p>
                 </div>
 
                 <!-- Scenario Selection (with extra cost) -->
                 <div class="mb-4">
-                    <p class="text-ego-gold text-xs font-semibold uppercase tracking-wider mb-2 px-1">Escenario (Opcional)</p>
+                    <p class="text-ego-gold text-xs font-semibold uppercase tracking-wider mb-2 px-1" data-i18n="hotel.scenarioOptional">Escenario (Opcional)</p>
                     <div class="grid grid-cols-2 gap-2 mb-2">
                         <label class="hotel-scenario-option option-card rounded-xl p-3 flex items-center gap-2 cursor-pointer fade-up stagger-1">
                             <input type="radio" name="hotel-scenario" class="custom-radio" data-scenario="" data-price="0" checked>
                             <div class="flex-1">
-                                <h3 class="font-semibold text-sm">Sin escenario</h3>
-                                <p class="text-ego-muted text-xs">Incluido</p>
+                                <h3 class="font-semibold text-sm" data-i18n="hotel.noScenario">Sin escenario</h3>
+                                <p class="text-ego-muted text-xs" data-i18n="extras.included">Incluido</p>
                             </div>
                         </label>
 
@@ -826,24 +832,24 @@ stagger-3">
                     <label class="option-card rounded-xl p-4 flex items-center gap-4 cursor-pointer fade-up stagger-1">
                         <input type="checkbox" class="hotel-extra-check custom-radio" data-extra="sensitive" data-addon="0">
                         <div class="flex-1">
-                            <h3 class="font-semibold">Sensitive</h3>
-                            <p class="text-ego-muted text-sm">Incluido</p>
+                            <h3 class="font-semibold" data-i18n="extras.sensitive">Sensitive</h3>
+                            <p class="text-ego-muted text-sm" data-i18n="extras.included">Incluido</p>
                         </div>
                     </label>
 
                     <label class="option-card rounded-xl p-4 flex items-center gap-4 cursor-pointer fade-up stagger-2">
                         <input type="checkbox" class="hotel-extra-check custom-radio" data-extra="double-sensitive" data-addon="25">
                         <div class="flex-1">
-                            <h3 class="font-semibold">Double Sensitive</h3>
-                            <p class="text-ego-muted text-sm">Experiencia dual intensificada</p>
+                            <h3 class="font-semibold" data-i18n="extras.doubleSensitive">Double Sensitive</h3>
+                            <p class="text-ego-muted text-sm" data-i18n="extras.doubleSensitiveDesc">Experiencia dual intensificada</p>
                         </div>
                     </label>
 
                     <label class="option-card rounded-xl p-4 flex items-center gap-4 cursor-pointer fade-up stagger-3">
                         <input type="checkbox" class="hotel-extra-check custom-radio" data-extra="night-rate" data-addon="25">
                         <div class="flex-1">
-                            <h3 class="font-semibold">Night Rate</h3>
-                            <p class="text-ego-muted text-sm">Despues de 12:00 AM</p>
+                            <h3 class="font-semibold" data-i18n="extras.nightRate">Night Rate</h3>
+                            <p class="text-ego-muted text-sm" data-i18n="extras.nightRateDesc">Despues de 12:00 AM</p>
                         </div>
                     </label>
                 </div>
@@ -860,7 +866,7 @@ stagger-3">
                     </div>
                 </div>
 
-                <button id="hotelBookBtn" class="btn-primary w-full py-4 rounded-xl font-semibold text-white uppercase tracking-wider fade-up stagger-4">
+                <button id="hotelBookBtn" class="btn-primary w-full py-4 rounded-xl font-semibold text-white uppercase tracking-wider fade-up stagger-4" data-i18n="hotel.bookWhatsApp">
                     Reservar por WhatsApp
                 </button>
             </div>
@@ -874,14 +880,14 @@ stagger-3">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"/>
                     </svg>
                 </div>
-                <h2 class="font-display text-4xl tracking-wide mb-2">JETLAGAWAY</h2>
-                <p class="text-ego-muted">Recuperacion especial para viajeros</p>
+                <h2 class="font-display text-4xl tracking-wide mb-2" data-i18n="jetlag.title">JETLAGAWAY</h2>
+                <p class="text-ego-muted" data-i18n="jetlag.subtitle">Recuperacion especial para viajeros</p>
             </div>
 
             <div class="bg-ego-zinc rounded-2xl p-6 text-center">
-                <p class="text-ego-muted mb-4">Pronto disponible. Tratamientos especializados para combatir el jet lag.</p>
+                <p class="text-ego-muted mb-4" data-i18n="jetlag.description">Pronto disponible. Tratamientos especializados para combatir el jet lag.</p>
                 <div class="inline-block px-6 py-3 rounded-xl bg-ego-gold/10 border border-ego-gold/30">
-                    <p class="text-ego-gold font-semibold">PROXIMAMENTE</p>
+                    <p class="text-ego-gold font-semibold" data-i18n="jetlag.comingSoon">PROXIMAMENTE</p>
                 </div>
             </div>
         </section>
@@ -896,15 +902,15 @@ stagger-3">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M3 12h18" />
                     </svg>
                 </div>
-                <h2 class="font-display text-4xl tracking-wide mb-2">PACKS TURISTAS</h2>
-                <p class="text-ego-muted">Paquetes especiales diseñados para viajeros. ¡Descubre Panamá como un local!</p>
+                <h2 class="font-display text-4xl tracking-wide mb-2" data-i18n="tourist.title">PACKS TURISTAS</h2>
+                <p class="text-ego-muted" data-i18n="tourist.subtitle">Paquetes especiales diseñados para viajeros. ¡Descubre Panamá como un local!</p>
             </div>
 
             <div id="touristPacksContainer" class="space-y-4">
                 <!-- Tourist packs will be dynamically loaded from data.json -->
             </div>
 
-            <button id="touristBackBtn" class="text-ego-blue text-sm font-semibold hover:underline mb-4">
+            <button id="touristBackBtn" class="text-ego-blue text-sm font-semibold hover:underline mb-4" data-i18n="common.back">
                 ← Volver
             </button>
         </section>
@@ -917,38 +923,38 @@ stagger-3">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 8.25h19.5M2.25 9h19.5m-16.5 5.25h6m-6 2.25h3m-3.75 3h15a2.25 2.25 0 002.25-2.25V6.75A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25v10.5A2.25 2.25 0 004.5 19.5z" />
                     </svg>
                 </div>
-                <h2 class="font-display text-4xl tracking-wide mb-2">EGO CARD MEMBERSHIP</h2>
-                <p class="text-ego-muted">Únete al club exclusivo de Ego Spa</p>
+                <h2 class="font-display text-4xl tracking-wide mb-2" data-i18n="membership.title">EGO CARD MEMBERSHIP</h2>
+                <p class="text-ego-muted" data-i18n="membership.subtitle">Únete al club exclusivo de Ego Spa</p>
             </div>
 
             <div class="bg-ego-gold/10 border border-ego-gold/30 rounded-2xl p-6 mb-6">
                 <div class="text-center">
-                    <h3 class="font-display text-2xl text-ego-gold mb-4">MEMBRESÍA ANUAL</h3>
-                    <p class="text-ego-muted mb-4">Acceso exclusivo a beneficios y descuentos</p>
+                    <h3 class="font-display text-2xl text-ego-gold mb-4" data-i18n="membership.annualTitle">MEMBRESÍA ANUAL</h3>
+                    <p class="text-ego-muted mb-4" data-i18n="membership.annualDesc">Acceso exclusivo a beneficios y descuentos</p>
 
                     <div class="bg-ego-zinc rounded-xl p-4 mb-4">
                         <p class="text-white text-2xl font-display mb-2">$175</p>
-                        <p class="text-ego-muted text-sm">Primer año</p>
+                        <p class="text-ego-muted text-sm" data-i18n="membership.firstYear">Primer año</p>
                     </div>
 
-                    <p class="text-ego-muted text-sm mb-4">Renovación anual: <span class="text-ego-gold font-semibold">$75</span></p>
+                    <p class="text-ego-muted text-sm mb-4"><span data-i18n="membership.renewal">Renovación anual:</span> <span class="text-ego-gold font-semibold">$75</span></p>
 
                     <div class="text-left text-sm text-ego-muted space-y-2">
-                        <p>✓ 18% descuento en todos los servicios</p>
-                        <p>✓ Acceso prioritario a reservas</p>
-                        <p>✓ Promociones exclusivas para miembros</p>
-                        <p>✓ Servicio al cliente preferente</p>
+                        <p data-i18n="membership.benefit1">✓ 18% descuento en todos los servicios</p>
+                        <p data-i18n="membership.benefit2">✓ Acceso prioritario a reservas</p>
+                        <p data-i18n="membership.benefit3">✓ Promociones exclusivas para miembros</p>
+                        <p data-i18n="membership.benefit4">✓ Servicio al cliente preferente</p>
                     </div>
                 </div>
             </div>
 
             <div class="space-y-4">
-                <button id="membershipPurchaseBtn" class="btn-primary w-full py-4 rounded-xl font-semibold text-white uppercase tracking-wider">
+                <button id="membershipPurchaseBtn" class="btn-primary w-full py-4 rounded-xl font-semibold text-white uppercase tracking-wider" data-i18n="membership.purchaseBtn">
                     Comprar Membresía
                 </button>
             </div>
 
-            <button id="membershipBackBtn" class="text-ego-gold text-sm font-semibold hover:underline mb-4">
+            <button id="membershipBackBtn" class="text-ego-gold text-sm font-semibold hover:underline mb-4" data-i18n="common.back">
                 ← Volver
             </button>
         </section>
@@ -962,8 +968,8 @@ duration-300">
         <div class="max-w-lg mx-auto px-4 py-4">
             <div class="flex items-center justify-between">
                 <div>
-                    <p id="summaryLabel" class="text-ego-muted text-xs 
-uppercase tracking-wider">Tu seleccion</p>
+                    <p id="summaryLabel" class="text-ego-muted text-xs
+uppercase tracking-wider" data-i18n="summary.yourSelection">Tu seleccion</p>
                     <p id="summaryDetails" class="font-display text-xl 
 tracking-wide"></p>
                 </div>
@@ -1003,25 +1009,25 @@ stroke-width="2" d="M15 19l-7-7 7-7"/>
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
                     </svg>
                 </div>
-                <h2 class="font-display text-3xl tracking-wide mb-2">HORARIOS</h2>
+                <h2 class="font-display text-3xl tracking-wide mb-2" data-i18n="common.hours">HORARIOS</h2>
             </div>
 
             <div class="space-y-4">
                 <div class="bg-ego-black rounded-xl p-4">
-                    <p class="text-ego-red text-sm font-semibold mb-2">LUNES A SABADO</p>
+                    <p class="text-ego-red text-sm font-semibold mb-2" data-i18n="hours.weekdays">LUNES A SABADO</p>
                     <p class="text-white">08:30 a.m. - 12:30 a.m.</p>
                 </div>
                 <div class="bg-ego-black rounded-xl p-4">
-                    <p class="text-ego-red text-sm font-semibold mb-2">DOMINGOS Y FERIADOS</p>
+                    <p class="text-ego-red text-sm font-semibold mb-2" data-i18n="hours.weekends">DOMINGOS Y FERIADOS</p>
                     <p class="text-white">10:00 a.m. - 12:30 a.m.</p>
                 </div>
                 <div class="bg-ego-gold/10 rounded-xl p-4 border border-ego-gold/30">
-                    <p class="text-ego-gold text-sm">Citas hasta 12:00 a.m.</p>
-                    <p class="text-ego-gold text-sm">Puertas abiertas hasta 12:30 a.m.</p>
+                    <p class="text-ego-gold text-sm" data-i18n="hours.lastAppt">Citas hasta 12:00 a.m.</p>
+                    <p class="text-ego-gold text-sm" data-i18n="hours.doorsOpen">Puertas abiertas hasta 12:30 a.m.</p>
                 </div>
             </div>
 
-            <button id="closeHoursModal" class="w-full mt-6 py-3 rounded-lg bg-ego-red hover:bg-ego-redDark font-semibold text-white uppercase tracking-wider transition-colors">
+            <button id="closeHoursModal" class="w-full mt-6 py-3 rounded-lg bg-ego-red hover:bg-ego-redDark font-semibold text-white uppercase tracking-wider transition-colors" data-i18n="common.understood">
                 Entendido
             </button>
         </div>
@@ -1030,6 +1036,7 @@ stroke-width="2" d="M15 19l-7-7 7-7"/>
 </div>
 
     <!-- Core Scripts -->
+    <script src="js/i18n.js" defer></script>
     <script src="js/state.js" defer></script>
     <script src="js/helpers.js" defer></script>
     <script src="js/calculations.js" defer></script>

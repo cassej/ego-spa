@@ -208,8 +208,14 @@ tr:last-child td { border-bottom: none; }
                 <div class="card p-5">
                     <span class="lbl" style="margin-bottom:14px">Horarios</span>
                     <div class="grid grid-cols-2 sm:grid-cols-3 gap-4">
+                        <div><span class="lbl">Semana Label</span><input type="text" id="g-wd-label"></div>
+                        <div><span class="lbl">Weekday Label (EN)</span><input type="text" id="g-wd-label-en"></div>
+                        <div class="hidden sm:block"></div>
                         <div><span class="lbl">Semana · Abre</span><input type="time" id="g-wd-open"></div>
                         <div><span class="lbl">Semana · Cierra</span><input type="time" id="g-wd-close"></div>
+                        <div class="hidden sm:block"></div>
+                        <div><span class="lbl">Finde Label</span><input type="text" id="g-we-label"></div>
+                        <div><span class="lbl">Weekend Label (EN)</span><input type="text" id="g-we-label-en"></div>
                         <div class="hidden sm:block"></div>
                         <div><span class="lbl">Finde · Abre</span><input type="time" id="g-we-open"></div>
                         <div><span class="lbl">Finde · Cierra</span><input type="time" id="g-we-close"></div>
@@ -229,7 +235,7 @@ tr:last-child td { border-bottom: none; }
                 </div>
                 <div class="card tbl-wrap">
                     <table>
-                        <thead><tr><th>ID</th><th>Nombre</th><th>Label</th><th></th></tr></thead>
+                        <thead><tr><th>ID</th><th>Nombre</th><th>Label</th><th>Label (EN)</th><th></th></tr></thead>
                         <tbody id="branches-tbody"></tbody>
                     </table>
                 </div>
@@ -243,7 +249,7 @@ tr:last-child td { border-bottom: none; }
                 </div>
                 <div class="card tbl-wrap">
                     <table>
-                        <thead><tr><th>ID</th><th>Nombre</th><th>Label</th><th>Descripción</th><th></th></tr></thead>
+                        <thead><tr><th>ID</th><th>Nombre</th><th>Label</th><th>Label (EN)</th><th>Descripción</th><th>Desc (EN)</th><th></th></tr></thead>
                         <tbody id="technique-cats-tbody"></tbody>
                     </table>
                 </div>
@@ -253,12 +259,18 @@ tr:last-child td { border-bottom: none; }
             <div id="section-membership" class="section space-y-5">
                 <div class="sec-head"><div><div class="sec-title">Membership</div><div class="sec-sub">Configuración de Ego Card</div></div></div>
                 <div class="card p-5">
-                    <div><span class="lbl">Nombre</span><input type="text" id="membership-name"></div>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div><span class="lbl">Nombre</span><input type="text" id="membership-name"></div>
+                        <div><span class="lbl">Name (EN)</span><input type="text" id="membership-name-en"></div>
+                    </div>
                     <div class="grid grid-cols-2 gap-4 mt-4">
                         <div><span class="lbl">Precio Primer Año $</span><input type="number" id="membership-first-year" min="0"></div>
                         <div><span class="lbl">Precio Renovación $</span><input type="number" id="membership-renewal" min="0"></div>
                     </div>
-                    <div class="mt-4"><span class="lbl">Descripción</span><input type="text" id="membership-description"></div>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-4">
+                        <div><span class="lbl">Descripción</span><input type="text" id="membership-description"></div>
+                        <div><span class="lbl">Description (EN)</span><input type="text" id="membership-description-en"></div>
+                    </div>
                 </div>
             </div>
 
@@ -270,7 +282,7 @@ tr:last-child td { border-bottom: none; }
                 </div>
                 <div class="card tbl-wrap">
                     <table>
-                        <thead><tr><th>ID</th><th>Label</th><th>Descripción</th><th>Icono</th><th>Color</th><th>Coming Soon</th><th></th></tr></thead>
+                        <thead><tr><th>ID</th><th>Label</th><th>Label (EN)</th><th>Descripción</th><th>Desc (EN)</th><th>Icono</th><th>Color</th><th>Coming Soon</th><th></th></tr></thead>
                         <tbody id="flows-tbody"></tbody>
                     </table>
                 </div>
@@ -357,7 +369,7 @@ tr:last-child td { border-bottom: none; }
                 </div>
                 <div class="card tbl-wrap">
                     <table>
-                        <thead><tr><th>ID</th><th>Nombre</th><th>Descripción</th><th>Icono</th><th></th></tr></thead>
+                        <thead><tr><th>ID</th><th>Nombre</th><th>Name (EN)</th><th>Descripción</th><th>Desc (EN)</th><th>Icono</th><th></th></tr></thead>
                         <tbody id="scenarios-tbody"></tbody>
                     </table>
                 </div>
@@ -371,7 +383,7 @@ tr:last-child td { border-bottom: none; }
                 </div>
                 <div class="card tbl-wrap">
                     <table>
-                        <thead><tr><th>ID</th><th>Nombre</th><th>Precio $</th><th></th></tr></thead>
+                        <thead><tr><th>ID</th><th>Nombre</th><th>Name (EN)</th><th>Precio $</th><th></th></tr></thead>
                         <tbody id="addons-tbody"></tbody>
                     </table>
                 </div>
@@ -399,6 +411,20 @@ tr:last-child td { border-bottom: none; }
                 <div class="card p-5">
                     <div class="sec-title text-xl mb-4">Exclusiones por Técnica</div>
                     <div id="technique-exclusions-container" class="space-y-3"></div>
+                </div>
+            </div>
+
+            <!-- TRANSLATIONS -->
+            <div id="section-translations" class="section space-y-5">
+                <div class="sec-head">
+                    <div><div class="sec-title">Translations</div><div class="sec-sub">UI strings (ES / EN)</div></div>
+                    <button class="btn btn-ghost btn-sm" id="addTranslation">+ Translation</button>
+                </div>
+                <div class="card tbl-wrap">
+                    <table>
+                        <thead><tr><th>Key</th><th>ES</th><th>EN</th><th></th></tr></thead>
+                        <tbody id="translations-tbody"></tbody>
+                    </table>
                 </div>
             </div>
 
@@ -434,6 +460,7 @@ const NAV_ITEMS = [
     { id:'scenarios',      icon:'🛋', label:'Scenarios' },
     { id:'scenario-rules', icon:'📜', label:'Scenario Rules' },
     { id:'addons',         icon:'✨', label:'Add-ons' },
+    { id:'translations',   icon:'🌐', label:'Translations' },
 ];
 
 function buildNav($el) {
@@ -497,8 +524,12 @@ function renderGeneral() {
     $('#g-whatsapp').val(DATA.WHATSAPP_NUMBER);
     $('#g-discount').val(Math.round(DATA.EGO_DISCOUNT * 100));
     const bh = DATA.BUSINESS_HOURS;
+    $('#g-wd-label').val(bh.weekdays.label || '');
+    $('#g-wd-label-en').val(bh.weekdays.label_en || '');
     $('#g-wd-open').val(bh.weekdays.open);
     $('#g-wd-close').val(bh.weekdays.close);
+    $('#g-we-label').val(bh.weekends.label || '');
+    $('#g-we-label-en').val(bh.weekends.label_en || '');
     $('#g-we-open').val(bh.weekends.open);
     $('#g-we-close').val(bh.weekends.close);
     $('#g-last-appt').val(bh.lastAppointment);
@@ -509,8 +540,14 @@ function collectGeneral() {
     DATA.WHATSAPP_NUMBER = $('#g-whatsapp').val().trim();
     DATA.EGO_DISCOUNT    = parseFloat($('#g-discount').val()) / 100;
     const bh = DATA.BUSINESS_HOURS;
+    bh.weekdays.label     = $('#g-wd-label').val().trim();
+    const wdLabelEn = $('#g-wd-label-en').val().trim();
+    if (wdLabelEn) bh.weekdays.label_en = wdLabelEn;
     bh.weekdays.open   = $('#g-wd-open').val();
     bh.weekdays.close  = $('#g-wd-close').val();
+    bh.weekends.label     = $('#g-we-label').val().trim();
+    const weLabelEn = $('#g-we-label-en').val().trim();
+    if (weLabelEn) bh.weekends.label_en = weLabelEn;
     bh.weekends.open   = $('#g-we-open').val();
     bh.weekends.close  = $('#g-we-close').val();
     bh.lastAppointment = $('#g-last-appt').val();
@@ -527,6 +564,7 @@ function renderBranches() {
         <td>${inp(key,'branchKey')}</td>
         <td>${inp(b.name,'name')}</td>
         <td>${inp(b.label,'label')}</td>
+        <td>${inp(b.label_en||'','label_en')}</td>
         <td>${delBtn()}</td>
     </tr>`));
 }
@@ -535,9 +573,11 @@ function collectBranches() {
     $('#branches-tbody tr').each(function() {
         const key = $(this).find('[name=branchKey]').val().trim();
         if (!key) return;
+        const labelEn = $(this).find('[name=label_en]').val().trim();
         DATA.BRANCHES[key] = {
             name: $(this).find('[name=name]').val().trim(),
-            label: $(this).find('[name=label]').val().trim()
+            label: $(this).find('[name=label]').val().trim(),
+            ...(labelEn ? { label_en: labelEn } : {})
         };
     });
 }
@@ -545,6 +585,7 @@ $('#addBranch').on('click', () => $('#branches-tbody').append(`<tr>
     <td>${inp('new-branch','branchKey')}</td>
     <td>${inp('New Branch','name')}</td>
     <td>${inp('New Branch','label')}</td>
+    <td>${inp('New Branch','label_en')}</td>
     <td>${delBtn()}</td>
 </tr>`));
 
@@ -559,7 +600,9 @@ function renderTechniqueCats() {
             <td>${inp(key,'catKey')}</td>
             <td>${inp(c.name,'name')}</td>
             <td>${inp(c.label,'label')}</td>
+            <td>${inp(c.label_en||'','label_en')}</td>
             <td>${inp(c.description,'description')}</td>
+            <td>${inp(c.description_en||'','description_en')}</td>
             <td>${delBtn()}</td>
         </tr>`);
     });
@@ -569,10 +612,14 @@ function collectTechniqueCats() {
     $('#technique-cats-tbody tr').each(function() {
         const key = $(this).find('[name=catKey]').val().trim();
         if (!key) return;
+        const labelEn = $(this).find('[name=label_en]').val().trim();
+        const descEn = $(this).find('[name=description_en]').val().trim();
         catData[key] = {
             name: $(this).find('[name=name]').val().trim(),
             label: $(this).find('[name=label]').val().trim(),
+            ...(labelEn ? { label_en: labelEn } : {}),
             description: $(this).find('[name=description]').val().trim(),
+            ...(descEn ? { description_en: descEn } : {}),
             techniques: []
         };
     });
@@ -590,7 +637,9 @@ $('#addTechniqueCat').on('click', () => $('#technique-cats-tbody').append(`<tr>
     <td>${inp('NEW_CATEGORY','catKey')}</td>
     <td>${inp('New Category','name')}</td>
     <td>${inp('New Category','label')}</td>
+    <td>${inp('New Category','label_en')}</td>
     <td>${inp('Description','description')}</td>
+    <td>${inp('Description','description_en')}</td>
     <td>${delBtn()}</td>
 </tr>`));
 
@@ -600,16 +649,22 @@ $('#addTechniqueCat').on('click', () => $('#technique-cats-tbody').append(`<tr>
 function renderMembership() {
     const m = DATA.EGO_MEMBERSHIP;
     $('#membership-name').val(m.name || '');
+    $('#membership-name-en').val(m.name_en || '');
     $('#membership-first-year').val(m.firstYearPrice || 0);
     $('#membership-renewal').val(m.renewalPrice || 0);
     $('#membership-description').val(m.description || '');
+    $('#membership-description-en').val(m.description_en || '');
 }
 function collectMembership() {
+    const nameEn = $('#membership-name-en').val().trim();
+    const descEn = $('#membership-description-en').val().trim();
     DATA.EGO_MEMBERSHIP = {
         name: $('#membership-name').val().trim(),
+        ...(nameEn ? { name_en: nameEn } : {}),
         firstYearPrice: +$('#membership-first-year').val() || 0,
         renewalPrice: +$('#membership-renewal').val() || 0,
-        description: $('#membership-description').val().trim()
+        description: $('#membership-description').val().trim(),
+        ...(descEn ? { description_en: descEn } : {})
     };
 }
 
@@ -623,7 +678,9 @@ function renderFlows() {
         $b.append(`<tr>
             <td>${inp(f.id,'flowId')}</td>
             <td>${inp(f.label,'label')}</td>
+            <td>${inp(f.label_en||'','label_en')}</td>
             <td>${inp(f.description,'description')}</td>
+            <td>${inp(f.description_en||'','description_en')}</td>
             <td>${inp(f.icon,'icon')}</td>
             <td>${inp(f.color,'color')}</td>
             <td><input type="checkbox" name="comingSoon" ${checked} style="width:20px;height:20px"></td>
@@ -636,10 +693,14 @@ function collectFlows() {
     $('#flows-tbody tr').each(function() {
         const id = $(this).find('[name=flowId]').val().trim();
         if (!id) return;
+        const labelEn = $(this).find('[name=label_en]').val().trim();
+        const descEn = $(this).find('[name=description_en]').val().trim();
         DATA.FLOWS.push({
             id: id,
             label: $(this).find('[name=label]').val().trim(),
+            ...(labelEn ? { label_en: labelEn } : {}),
             description: $(this).find('[name=description]').val().trim(),
+            ...(descEn ? { description_en: descEn } : {}),
             icon: $(this).find('[name=icon]').val().trim(),
             color: $(this).find('[name=color]').val().trim(),
             comingSoon: $(this).find('[name=comingSoon]').is(':checked')
@@ -649,7 +710,9 @@ function collectFlows() {
 $('#addFlow').on('click', () => $('#flows-tbody').append(`<tr>
     <td>${inp('new-flow','flowId')}</td>
     <td>${inp('New Flow','label')}</td>
+    <td>${inp('New Flow','label_en')}</td>
     <td>${inp('Description','description')}</td>
+    <td>${inp('Description','description_en')}</td>
     <td>${inp('heart','icon')}</td>
     <td>${inp('red','color')}</td>
     <td><input type="checkbox" name="comingSoon" style="width:20px;height:20px"></td>
@@ -757,6 +820,7 @@ function packCard(packKey, pack) {
     const sizesHtml = Object.entries(pack.sizes).map(([sk, sv]) => `<tr>
         <td>${inp(sk,'sizeKey')}</td>
         <td>${inp(sv.label,'label')}</td>
+        <td>${inp(sv.label_en||'','label_en')}</td>
         <td>${num(sv.sessions,'sessions')}</td>
         <td>${num(sv.price,'price')}</td>
         <td>${delBtn()}</td>
@@ -774,7 +838,7 @@ function packCard(packKey, pack) {
         </div>
         <div class="tbl-wrap">
             <table>
-                <thead><tr><th>Key</th><th>Label</th><th>Sesiones</th><th>Precio $</th><th></th></tr></thead>
+                <thead><tr><th>Key</th><th>Label</th><th>Label (EN)</th><th>Sesiones</th><th>Precio $</th><th></th></tr></thead>
                 <tbody class="sizes-tbody">${sizesHtml}</tbody>
             </table>
         </div>
@@ -792,8 +856,10 @@ function collectPacks() {
         const sizes = {};
         $(this).find('.sizes-tbody tr').each(function() {
             const sk = $(this).find('[name=sizeKey]').val().trim();
+            const labelEn = $(this).find('[name=label_en]').val().trim();
             if (sk) sizes[sk] = {
                 label:    $(this).find('[name=label]').val().trim(),
+                ...(labelEn ? { label_en: labelEn } : {}),
                 sessions: +$(this).find('[name=sessions]').val(),
                 price:    +$(this).find('[name=price]').val()
             };
@@ -813,6 +879,7 @@ $(document).on('click', '.add-size', function() {
     $(this).prev('.tbl-wrap').find('.sizes-tbody').append(`<tr>
         <td>${inp('S','sizeKey')}</td>
         <td>${inp('Small','label')}</td>
+        <td>${inp('Small','label_en')}</td>
         <td>${num(3,'sessions')}</td>
         <td>${num(100,'price')}</td>
         <td>${delBtn()}</td>
@@ -884,6 +951,7 @@ function techCard(tKey, t) {
             <div class="flex-1 grid grid-cols-1 sm:grid-cols-4 gap-3">
                 <div><span class="lbl">ID</span>${inp(tKey,'techKey')}</div>
                 <div><span class="lbl">Nombre</span>${inp(t.name,'name')}</div>
+                <div><span class="lbl">Name (EN)</span>${inp(t.name_en||'','name_en')}</div>
                 <div><span class="lbl">Sistema</span>
                     <select name="pricingSystem">
                         <option value="CodeBased" ${codeBased?'selected':''}>CodeBased</option>
@@ -934,7 +1002,10 @@ function collectTechniques() {
         const cat = $(this).find('[name=category]').val();
         const obj = {
             name: $(this).find('[name=name]').val().trim(),
-            pricingSystem: ps,
+            pricingSystem: ps
+        };
+        const nameEn = $(this).find('[name=name_en]').val().trim();
+        if (nameEn) obj.name_en = nameEn;
             allowedScenarios: $(this).find('[name=scenario]:checked').map(function(){ return this.value; }).get()
         };
         if (cat) obj.category = cat;
@@ -986,7 +1057,9 @@ function renderScenarios() {
     $.each(DATA.SCENARIO_DATA, (key, s) => $b.append(`<tr>
         <td>${inp(key,'id')}</td>
         <td>${inp(s.name,'name')}</td>
+        <td>${inp(s.name_en||'','name_en')}</td>
         <td>${inp(s.description,'description')}</td>
+        <td>${inp(s.description_en||'','description_en')}</td>
         <td>${inp(s.icon,'icon')}</td>
         <td>${delBtn()}</td>
     </tr>`));
@@ -996,9 +1069,13 @@ function collectScenarios() {
     $('#scenarios-tbody tr').each(function() {
         const id = $(this).find('[name=id]').val().trim();
         if (!id) return;
+        const nameEn = $(this).find('[name=name_en]').val().trim();
+        const descEn = $(this).find('[name=description_en]').val().trim();
         DATA.SCENARIO_DATA[id] = {
             name: $(this).find('[name=name]').val().trim(),
+            ...(nameEn ? { name_en: nameEn } : {}),
             description: $(this).find('[name=description]').val().trim(),
+            ...(descEn ? { description_en: descEn } : {}),
             icon: $(this).find('[name=icon]').val().trim()
         };
     });
@@ -1006,7 +1083,9 @@ function collectScenarios() {
 $('#addScenario').on('click', () => $('#scenarios-tbody').append(`<tr>
     <td>${inp('new-scenario','id')}</td>
     <td>${inp('Nuevo','name')}</td>
+    <td>${inp('New','name_en')}</td>
     <td>${inp('Descripción','description')}</td>
+    <td>${inp('Description','description_en')}</td>
     <td>${inp('default','icon')}</td>
     <td>${delBtn()}</td>
 </tr>`));
@@ -1019,6 +1098,7 @@ function renderAddons() {
     $.each(DATA.ADDON_PRICING, (key, a) => $b.append(`<tr>
         <td>${inp(key,'id')}</td>
         <td>${inp(a.name,'name')}</td>
+        <td>${inp(a.name_en||'','name_en')}</td>
         <td>${num(a.price,'price')}</td>
         <td>${delBtn()}</td>
     </tr>`));
@@ -1028,8 +1108,10 @@ function collectAddons() {
     $('#addons-tbody tr').each(function() {
         const id = $(this).find('[name=id]').val().trim();
         if (!id) return;
+        const nameEn = $(this).find('[name=name_en]').val().trim();
         DATA.ADDON_PRICING[id] = {
             name:  $(this).find('[name=name]').val().trim(),
+            ...(nameEn ? { name_en: nameEn } : {}),
             price: +$(this).find('[name=price]').val() || 0
         };
     });
@@ -1037,6 +1119,7 @@ function collectAddons() {
 $('#addAddon').on('click', () => $('#addons-tbody').append(`<tr>
     <td>${inp('new-addon','id')}</td>
     <td>${inp('Nuevo Add-on','name')}</td>
+    <td>${inp('New Add-on','name_en')}</td>
     <td>${num(0,'price')}</td>
     <td>${delBtn()}</td>
 </tr>`));
@@ -1105,6 +1188,39 @@ function collectScenarioRules() {
 }
 
 // ============================================================
+// TRANSLATIONS
+// ============================================================
+function renderTranslations() {
+    const $b = $('#translations-tbody').empty();
+    const es = DATA.TRANSLATIONS?.es || {};
+    const en = DATA.TRANSLATIONS?.en || {};
+    const keys = Object.keys(es);
+    keys.forEach(key => {
+        $b.append(`<tr>
+            <td>${inp(key, 'tKey')}</td>
+            <td><input type="text" name="tEs" value="${(es[key]||'').replace(/"/g,'&quot;')}"></td>
+            <td><input type="text" name="tEn" value="${(en[key]||'').replace(/"/g,'&quot;')}"></td>
+            <td>${delBtn()}</td>
+        </tr>`);
+    });
+}
+function collectTranslations() {
+    DATA.TRANSLATIONS = { es: {}, en: {} };
+    $('#translations-tbody tr').each(function() {
+        const key = $(this).find('[name=tKey]').val().trim();
+        if (!key) return;
+        DATA.TRANSLATIONS.es[key] = $(this).find('[name=tEs]').val().trim();
+        DATA.TRANSLATIONS.en[key] = $(this).find('[name=tEn]').val().trim();
+    });
+}
+$('#addTranslation').on('click', () => $('#translations-tbody').append(`<tr>
+    <td>${inp('new.key','tKey')}</td>
+    <td><input type="text" name="tEs" value=""></td>
+    <td><input type="text" name="tEn" value=""></td>
+    <td>${delBtn()}</td>
+</tr>`));
+
+// ============================================================
 // SAVE
 // ============================================================
 const SAVE_ICON = `<svg class="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -1114,6 +1230,7 @@ function doSave() {
     collectGeneral(); collectBranches(); collectTechniqueCats(); collectMembership();
     collectFlows(); collectMcodes(); collectHotel(); collectTiered();
     collectPacks(); collectTechniques(); collectScenarios(); collectScenarioRules(); collectAddons();
+    collectTranslations();
 
     const $btns = $('#saveBtn, #saveBtn-mobile');
     $btns.prop('disabled', true).text('Guardando…');
@@ -1148,7 +1265,7 @@ fetch('./data.json')
         DATA = json;
         renderGeneral(); renderBranches(); renderTechniqueCats(); renderMembership(); renderFlows();
         renderMcodes(); renderHotel(); renderTiered(); renderPacks(); renderTechniques();
-        renderScenarios(); renderScenarioRules(); renderAddons();
+        renderScenarios(); renderScenarioRules(); renderAddons(); renderTranslations();
     })
     .catch(err => {
         toast('✗ No se pudo cargar data.json: ' + err.message, false);

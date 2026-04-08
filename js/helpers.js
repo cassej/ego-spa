@@ -157,39 +157,39 @@ function generateWhatsAppMessage() {
     let message = '';
 
     // Add Branch info
-    const branchText = state.selectedBranchName ? `\n🏢 UBICACIÓN: ${state.selectedBranchName}` : '';
+    const branchText = state.selectedBranchName ? `\n🏢 ${t('whatsapp.location')}: ${state.selectedBranchName}` : '';
 
     if (state.currentFlow === 'single') {
-        const extras = state.single.extras.map(e => e.name).join(', ') || 'Sensitive';
-        const masseuse = state.single.masseuseName || 'Sin preferencia';
-        const mobility = state.single.mobilityFee > 0 ? 'Sí (+$25)' : 'No';
-        const nightRateText = state.single.nightRate > 0 ? '\n🌙 Incluye Night Rate (+$25)' : '';
-        const egoCardText = state.isAuth ? '\n💳 Ego Card aplicado' : '';
+        const extras = state.single.extras.map(e => e.name).join(', ') || t('whatsapp.sensitive');
+        const masseuse = state.single.masseuseName || t('whatsapp.noPreference');
+        const mobility = state.single.mobilityFee > 0 ? t('whatsapp.yes') : t('whatsapp.no');
+        const nightRateText = state.single.nightRate > 0 ? `\n🌙 ${t('whatsapp.nightRate')}` : '';
+        const egoCardText = state.isAuth ? `\n💳 ${t('whatsapp.egoCard')}` : '';
 
         let scenarios = state.single.scenarioName;
         if (state.single.technique === 'circuit' || state.single.technique === 'circuit-deluxe') {
-            scenarios = state.single.selectedScenarios.map(s => SCENARIO_DATA[s].name).join(', ');
+            scenarios = state.single.selectedScenarios.map(s => td('SCENARIO_DATA', s, 'name')).join(', ');
         }
 
         const total = calculateSinglePrice();
         const discountedTotal = state.isAuth ? Math.round(total * (1 - EGO_DISCOUNT)) : total;
         const finalPrice = state.isAuth ? discountedTotal : total;
 
-        message = `🔥 NUEVA RESERVA - SINGLE MASSAGE
+        message = `🔥 ${t('whatsapp.newBookingSingle')}
 ${branchText}
-    📋 TÉCNICA: ${state.single.techniqueName}
-    🛋️ ESCENARIO: ${scenarios}
-    👆 MANOS: ${state.single.hands}
-    ⏱️ DURACIÓN: ${state.single.duration} min
+    📋 ${t('whatsapp.technique')}: ${state.single.techniqueName}
+    🛋️ ${t('whatsapp.scenario')}: ${scenarios}
+    👆 ${t('whatsapp.hands')}: ${state.single.hands}
+    ⏱️ ${t('whatsapp.duration')}: ${state.single.duration} min
 
-    ✨ PRAECOQUIS: ${extras}
-    👩‍🦰 MASAJISTA: ${masseuse}
-    🚚 TRASLADO: ${mobility}
+    ✨ ${t('whatsapp.extras')}: ${extras}
+    👩‍🦰 ${t('whatsapp.masseuse')}: ${masseuse}
+    🚚 ${t('whatsapp.mobility')}: ${mobility}
 
-    📅 FECHA: ${state.single.bookingDate}
-    🕕 HORA: ${state.single.bookingTime}
+    📅 ${t('whatsapp.date')}: ${state.single.bookingDate}
+    🕕 ${t('whatsapp.time')}: ${state.single.bookingTime}
 
-    💰 PRECIO FINAL: $${finalPrice}${nightRateText}${egoCardText}`;
+    💰 ${t('whatsapp.finalPrice')}: $${finalPrice}${nightRateText}${egoCardText}`;
 
         if (state.isAuth) {
             message += `\n📧 Ego Card: ${state.email}`;
@@ -197,12 +197,12 @@ ${branchText}
     } else if (state.currentFlow === 'packs') {
         const price = state.isAuth ? Math.round(calculatePackPrice() * (1 - EGO_DISCOUNT)) : calculatePackPrice();
 
-        message = `🔥 NUEVA RESERVA - PACK
+        message = `🔥 ${t('whatsapp.newBookingPack')}
 ${branchText}
-    📦 PAQUETE: ${state.pack.code} - ${state.pack.name}
-    📏 TAMAÑO: ${state.pack.sizeLabel} (${state.pack.sessions} sesiones)
-    👆 MANOS: ${state.pack.hands}
-    💰 TOTAL: $${price}`;
+    📦 ${t('whatsapp.pack')}: ${state.pack.code} - ${state.pack.name}
+    📏 ${t('whatsapp.size')}: ${state.pack.sizeLabel} (${state.pack.sessions} ${t('footer.sessions')})
+    👆 ${t('whatsapp.hands')}: ${state.pack.hands}
+    💰 ${t('whatsapp.total')}: $${price}`;
 
         if (state.isAuth) {
             message += `\n📧 Ego Card: ${state.email}`;
@@ -211,17 +211,17 @@ ${branchText}
         const price = calculateHotelPrice();
         const finalPrice = state.isAuth ? Math.round(price * (1 - EGO_DISCOUNT)) : price;
 
-        message = `🔥 NUEVA RESERVA - HOTEL/HOME SERVICE
+        message = `🔥 ${t('whatsapp.newBookingHotel')}
 ${branchText}
-    📋 TÉCNICA: ${state.hotel.techniqueName}
-    🛋️ ESCENARIO: ${state.hotel.scenarioName}
-    👆 MANOS: ${state.hotel.hands}
-    ⏱️ DURACIÓN: ${state.hotel.duration} min
+    📋 ${t('whatsapp.technique')}: ${state.hotel.techniqueName}
+    🛋️ ${t('whatsapp.scenario')}: ${state.hotel.scenarioName}
+    👆 ${t('whatsapp.hands')}: ${state.hotel.hands}
+    ⏱️ ${t('whatsapp.duration')}: ${state.hotel.duration} min
 
-    📅 FECHA: ${state.hotel.bookingDate}
-    🕕 HORA: ${state.hotel.bookingTime}
+    📅 ${t('whatsapp.date')}: ${state.hotel.bookingDate}
+    🕕 ${t('whatsapp.time')}: ${state.hotel.bookingTime}
 
-    💰 PRECIO FINAL: $${finalPrice}`;
+    💰 ${t('whatsapp.finalPrice')}: $${finalPrice}`;
 
         if (state.isAuth) {
             message += `\n📧 Ego Card: ${state.email}`;
@@ -245,11 +245,11 @@ function getMaxScenarios(technique, duration) {
 
 function generateMembershipWhatsAppMessage() {
     const membership = EGO_MEMBERSHIP;
-    let message = `🎫 *NUEVA MEMBRESÍA EGO CARD*\n\n`;
-    message += `📦 *Membresía:* ${membership.name}\n`;
-    message += `💰 *Precio Primer Año:* $${membership.firstYearPrice}\n`;
-    message += `📧 *Email:* ${state.email || 'No proporcionado'}\n`;
-    message += `🏢 *Filial:* ${state.selectedBranchName || 'No seleccionada'}\n`;
+    let message = `🎫 *${t('whatsapp.newMembership')}*\n\n`;
+    message += `📦 *${t('whatsapp.membership')}:* ${membership.name}\n`;
+    message += `💰 *${t('whatsapp.priceFirstYear')}:* $${membership.firstYearPrice}\n`;
+    message += `📧 *${t('whatsapp.email')}:* ${state.email || 'No proporcionado'}\n`;
+    message += `🏢 *${t('whatsapp.branch')}:* ${state.selectedBranchName || 'No seleccionada'}\n`;
     message += `\n${membership.description}`;
     return encodeURIComponent(message);
 }

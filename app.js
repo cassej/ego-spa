@@ -24,11 +24,18 @@ async function init() {
         TECHNIQUE_CATEGORIES = DATA.TECHNIQUE_CATEGORIES;
         EGO_MEMBERSHIP = DATA.EGO_MEMBERSHIP;
 
+        // Initialize i18n
+        currentLang = detectLanguage();
+        document.documentElement.lang = currentLang;
+
         // Load branches and techniques dynamically from data.json
         loadBranches();
         loadTechniques();
         loadHotelTechniques();
-        
+
+        // Apply initial language to static HTML
+        applyLanguage();
+
         // Setup all event listeners
         setupEventListeners();
         

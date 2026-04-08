@@ -136,14 +136,14 @@ function updateStickyFooter() {
         price = calculateTotalPrice();
     } else if (state.currentFlow === 'packs' && state.pack.code) {
         if (content) content += ' | ';
-        content += `${state.pack.code} - ${state.pack.sizeLabel} (${state.pack.sessions} sesiones)`;
+        content += `${state.pack.code} - ${state.pack.sizeLabel} (${state.pack.sessions} ${t('footer.sessions')})`;
         price = calculatePackPrice();
     } else if (state.currentFlow === 'hotel' && state.hotel.technique) {
         if (content) content += ' | ';
         content += `${state.hotel.techniqueName} | ${state.hotel.hands} Hands | ${state.hotel.duration}m`;
         price = calculateHotelPrice();
     } else if (!state.currentFlow) {
-        content = content || 'Select a branch to begin';
+        content = content || t('footer.default');
     }
 
     footer.querySelector('.footer-content').textContent = content;
@@ -170,7 +170,7 @@ function updateSummary() {
             parts.push(scenarioNames.join(' + '));
         }
         if (state.single.hands !== null) {
-            parts.push(`${state.single.hands} manos`);
+            parts.push(`${state.single.hands} ${t('summary.hands').replace(':','')}`);
         }
         if (state.single.duration !== null) {
             parts.push(`${state.single.duration}m`);
@@ -187,7 +187,7 @@ function updateSummary() {
         if (state.pack.size) {
             parts.push(state.pack.sizeLabel);
         }
-        parts.push(`${state.pack.hands} manos`);
+        parts.push(`${state.pack.hands} ${t('summary.hands').replace(':','')}`);
         details = parts.join(' · ');
         price = calculatePackPrice();
         regularPrice = price;
@@ -198,7 +198,7 @@ function updateSummary() {
         price = Math.round(price * (1 - EGO_DISCOUNT));
         const savings = regularPrice - price;
 
-        elements.summarySavings.textContent = `💥 AHORRAS ${formatPrice(savings)} CON EGO CARD`;
+        elements.summarySavings.textContent = `💥 ${t('summary.savingsProminent', { amount: formatPrice(savings) })}`;
         elements.summarySavings.classList.remove('hidden');
         elements.summarySavings.classList.add('savings-prominent');
         elements.summaryPrice.textContent = formatPrice(price);
@@ -350,13 +350,13 @@ function updateFinalSummary() {
     } else {
         document.getElementById('finalScenario').textContent = '';
     }
-    document.getElementById('finalHands').textContent = state.single.hands !== null ? state.single.hands + ' Manos' : '';
+    document.getElementById('finalHands').textContent = state.single.hands !== null ? state.single.hands + ' ' + t('single.handsUnit') : '';
     document.getElementById('finalDuration').textContent = state.single.duration !== null ? state.single.duration + ' min' : '';
 
-    const extrasText = state.single.extras.map(e => e.name).join(', ') || 'Sensitive';
+    const extrasText = state.single.extras.map(e => e.name).join(', ') || t('extras.sensitive');
     document.getElementById('finalExtras').textContent = extrasText;
 
-    document.getElementById('finalMasseuse').textContent = state.single.masseuseName || 'Sin preferencia';
+    document.getElementById('finalMasseuse').textContent = state.single.masseuseName || t('whatsapp.noPreference');
 
     const mobilityRow = document.getElementById('finalMobilityRow');
     mobilityRow.classList.toggle('hidden', state.single.mobilityFee === 0);
@@ -388,17 +388,22 @@ function updateHotelFinalSummary() {
     const finalSavings = document.getElementById('hotelFinalSavings');
 
     finalTechnique.textContent = state.hotel.techniqueName || 'Masaje';
+    // Use translated scenario name
+    if (state.hotel.scenarioName) {
+        const scenarioName = state.hotel.scenario ? td('SCENARIO_DATA', state.hotel.scenario, 'name') : state.hotel.scenarioName;
+        finalScenario.textContent = scenarioName;
+    }
 
     if (state.hotel.scenarioName) {
         finalScenario.textContent = state.hotel.scenarioName;
     }
 
-    finalConfig.textContent = `${state.hotel.hands} Manos · ${state.hotel.duration} min`;
+    finalConfig.textContent = `${state.hotel.hands} ${t('single.handsUnit')} · ${state.hotel.duration} min`;
 
     if (state.hotel.extras.length > 0) {
         finalExtras.textContent = state.hotel.extras.map(e => e.name).join(', ');
     } else {
-        finalExtras.textContent = 'Sin extras';
+        finalExtras.textContent = t('summary.noExtras');
     }
 
     const price = calculateHotelPrice();
@@ -414,7 +419,7 @@ function updateHotelFinalSummary() {
         regularPrice += (state.hotel.nightRate || 0);
 
         const savings = regularPrice - price;
-        finalSavings.textContent = `Ahorras $${savings} con Ego Card`;
+        finalSavings.textContent = t('summary.savings', { amount: `$${savings}` });
         finalSavings.classList.remove('hidden');
     } else {
         finalSavings.classList.add('hidden');
@@ -453,13 +458,13 @@ function updateScenarioHint() {
 
         hintEl.classList.remove('hidden');
         if (remaining > 0 && selected === 0) {
-            hintEl.textContent = `Selecciona al menos 1 escenario (máximo ${maxScenarios})`;
+            hintEl.textContent = t('scenarios.selectAtLeast', { max: maxScenarios });
             hintEl.className = 'text-ego-red text-xs mt-2';
         } else if (remaining > 0) {
-            hintEl.textContent = `Puedes seleccionar hasta ${remaining} más`;
+            hintEl.textContent = t('scenarios.selectUpTo', { count: remaining });
             hintEl.className = 'text-ego-muted text-xs mt-2';
         } else {
-            hintEl.textContent = `${selected} escenario${selected > 1 ? 's' : ''} seleccionado${selected > 1 ? 's' : ''}`;
+            hintEl.textContent = selected === 1 ? t('scenarios.selected', { n: selected }) : t('scenarios.selectedPlural', { n: selected });
             hintEl.className = 'text-ego-gold text-xs mt-2';
         }
     } else {
@@ -470,10 +475,10 @@ function updateScenarioHint() {
     const scenarioHeader = document.getElementById('scenarioHeaderLimit');
     if (scenarioHeader) {
         if (isCouple) {
-            scenarioHeader.textContent = 'Escenarios disponibles para parejas';
+            scenarioHeader.textContent = t('scenarios.coupleHeader');
             scenarioHeader.classList.remove('hidden');
         } else if (maxScenarios > 1) {
-            scenarioHeader.textContent = `Selecciona hasta ${maxScenarios} escenarios`;
+            scenarioHeader.textContent = t('scenarios.selectUpToMax', { max: maxScenarios });
             scenarioHeader.classList.remove('hidden');
         } else {
             scenarioHeader.classList.add('hidden');
@@ -508,6 +513,7 @@ function loadBranches() {
 
     // Add spa branches from data.json
     Object.entries(BRANCHES).forEach(([branchKey, branchData]) => {
+        const branchLabel = td('BRANCHES', branchKey, 'label');
         html += `
             <button class="branch-btn option-card rounded-2xl p-6 text-left fade-up stagger-${staggerIndex}" data-branch="${branchKey}" aria-label="${branchData.name}">
                 <div class="flex items-start gap-4">
@@ -519,7 +525,7 @@ function loadBranches() {
                     </div>
                     <div class="flex-1">
                         <h3 class="font-display text-2xl tracking-wide mb-1">${branchData.name.toUpperCase()}</h3>
-                        <p class="text-ego-muted text-sm">Experiencia premium en ${branchData.label}</p>
+                        <p class="text-ego-muted text-sm">${t('branch.premiumExp')} ${branchLabel}</p>
                     </div>
                     <svg class="w-6 h-6 text-ego-muted flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
@@ -540,8 +546,8 @@ function loadBranches() {
                     </svg>
                 </div>
                 <div class="flex-1">
-                    <h3 class="font-display text-2xl tracking-wide mb-1">HOTEL / HOME SERVICE</h3>
-                    <p class="text-ego-muted text-sm">Servicio a tu habitación o domicilio. 24/7.</p>
+                    <h3 class="font-display text-2xl tracking-wide mb-1">${t('branch.hotelLabel')}</h3>
+                    <p class="text-ego-muted text-sm">${t('branch.hotelDesc')}</p>
                 </div>
                 <svg class="w-6 h-6 text-ego-muted flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
@@ -613,8 +619,8 @@ function loadTechniques() {
             // Add category header
             html += `
                 <div class="col-span-2 mb-2 mt-4 fade-up stagger-${staggerIndex++}">
-                    <h3 class="text-ego-gold font-display text-lg tracking-wider">${catData.label || catData.name}</h3>
-                    ${catData.description ? `<p class="text-ego-muted text-xs mt-1">${catData.description}</p>` : ''}
+                    <h3 class="text-ego-gold font-display text-lg tracking-wider">${td('TECHNIQUE_CATEGORIES', catKey, 'label')}</h3>
+                    ${catData.description ? `<p class="text-ego-muted text-xs mt-1">${td('TECHNIQUE_CATEGORIES', catKey, 'description')}</p>` : ''}
                 </div>
             `;
 
@@ -681,8 +687,8 @@ function loadTouristPacks() {
     // Placeholder - tourist packs will be loaded from data.json in the future
     container.innerHTML = `
         <div class="bg-ego-blue/10 border border-ego-blue/30 rounded-xl p-6 text-center">
-            <p class="text-ego-blue font-semibold mb-2">Próximamente</p>
-            <p class="text-ego-muted text-sm">Los packs turísticos estarán disponibles pronto.</p>
+            <p class="text-ego-blue font-semibold mb-2">${t('tourist.comingSoon')}</p>
+            <p class="text-ego-muted text-sm">${t('tourist.comingSoonDesc')}</p>
         </div>
     `;
 }
@@ -700,7 +706,7 @@ function populateSizeOptions() {
         btn.dataset.label = sizeData.label;
         btn.innerHTML = `
       <p class="font-display text-3xl text-ego-red">${sizeData.sessions}</p>
-      <p class="text-sm mt-1">SESIONES</p>
+      <p class="text-sm mt-1">${t('packs.sessions')}</p>
       <p class="text-xs text-ego-muted mt-1">${sizeData.label}</p>
     `;
         elements.sizeOptions.appendChild(btn);

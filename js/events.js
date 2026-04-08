@@ -3,8 +3,7 @@ function setupEventListeners() {
     elements.authBtn.addEventListener('click', () => {
         if (state.isAuth) {
             // Show auth status
-            alert(`Sesion activa: ${state.email}\nDescuento Ego Card: 
-${EGO_DISCOUNT * 100}%`);
+            alert(t('auth.activeAlert', { email: state.email, discount: EGO_DISCOUNT * 100 }));
         } else {
             elements.authModal.classList.remove('hidden');
             elements.authModal.classList.add('flex');
@@ -39,7 +38,7 @@ ${EGO_DISCOUNT * 100}%`);
             state.isAuth = true;
             state.email = email;
 
-            elements.authLabel.textContent = 'Activo';
+            elements.authLabel.textContent = t('header.authActive');
             elements.authBtn.classList.add('auth-badge');
             elements.authModal.classList.add('hidden');
             elements.authModal.classList.remove('flex');
@@ -238,7 +237,7 @@ ${EGO_DISCOUNT * 100}%`);
             // Check technique exclusions from config
             const techniqueExclusions = DATA.SCENARIO_RULES?.technique_exclusions?.[state.single.technique] || [];
             if (techniqueExclusions.includes(scenario)) {
-                alert('Este escenario no está disponible para esta técnica');
+                alert(t('scenarios.notAvailable'));
                 return;
             }
 
@@ -251,7 +250,7 @@ ${EGO_DISCOUNT * 100}%`);
                 const isSelected = btn.classList.contains('selected');
 
                 if (!isSelected && state.single.selectedScenarios.length >= maxScenarios) {
-                    alert(`Máximo ${maxScenarios} escenarios para esta duración`);
+                    alert(t('scenarios.maxReached', { max: maxScenarios }));
                     return;
                 }
 
@@ -319,7 +318,7 @@ ${EGO_DISCOUNT * 100}%`);
     // Add continue button to Step 4
     const praecoquisContinueBtn = document.createElement('button');
     praecoquisContinueBtn.className = 'btn-primary w-full py-4 rounded-xl font-semibold text-white uppercase tracking-wider mt-4';
-    praecoquisContinueBtn.textContent = 'Continuar';
+    praecoquisContinueBtn.textContent = t('single.continue');
     praecoquisContinueBtn.addEventListener('click', () => goToStep(5));
     document.getElementById('singleStep4').querySelector('.space-y-3').appendChild(praecoquisContinueBtn);
 
@@ -367,7 +366,7 @@ ${EGO_DISCOUNT * 100}%`);
     // Add continue button to Step 5
     const logisticsContinueBtn = document.createElement('button');
     logisticsContinueBtn.className = 'btn-primary w-full py-4 rounded-xl font-semibold text-white uppercase tracking-wider mt-4';
-    logisticsContinueBtn.textContent = 'Continuar';
+    logisticsContinueBtn.textContent = t('single.continue');
     logisticsContinueBtn.addEventListener('click', () => goToStep(6));
     document.getElementById('singleStep5').querySelector('.space-y-4').appendChild(logisticsContinueBtn);
 
