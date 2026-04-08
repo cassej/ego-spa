@@ -1002,12 +1002,11 @@ function collectTechniques() {
         const cat = $(this).find('[name=category]').val();
         const obj = {
             name: $(this).find('[name=name]').val().trim(),
-            pricingSystem: ps
+            pricingSystem: ps,
+            allowedScenarios: $(this).find('[name=scenario]:checked').map(function(){ return this.value; }).get()
         };
         const nameEn = $(this).find('[name=name_en]').val().trim();
         if (nameEn) obj.name_en = nameEn;
-            allowedScenarios: $(this).find('[name=scenario]:checked').map(function(){ return this.value; }).get()
-        };
         if (cat) obj.category = cat;
         if (ps === 'CodeBased' || ps === 'PackBased') {
             obj.allowedCodes = $(this).find('[name=mcode]:checked').map(function(){ return this.value; }).get();
