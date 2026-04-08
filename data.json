@@ -291,6 +291,8 @@
   "TECHNIQUE_DATA": {
     "tantric": {
       "name": "Tantric",
+      "description": "Masaje tántrico con energía sensual y relajación profunda",
+      "description_en": "Tantric massage with sensual energy and deep relaxation",
       "category": "ORIENTAL_MASSAGE",
       "pricingSystem": "CodeBased",
       "allowedCodes": [
@@ -315,6 +317,8 @@
     },
     "thai": {
       "name": "Thai",
+      "description": "Técnica tailandesa tradicional con estiramientos y compresión",
+      "description_en": "Traditional Thai technique with stretching and compression",
       "category": "ORIENTAL_MASSAGE",
       "pricingSystem": "CodeBased",
       "allowedCodes": [
@@ -330,6 +334,8 @@
     },
     "imperial": {
       "name": "Imperial",
+      "description": "Masaje imperial japonés de lujo con aceites aromáticos",
+      "description_en": "Luxury Japanese imperial massage with aromatic oils",
       "category": "ORIENTAL_MASSAGE",
       "pricingSystem": "CodeBased",
       "allowedCodes": [
@@ -345,6 +351,8 @@
     },
     "nuru": {
       "name": "Nuru",
+      "description": "Masaje japonés con gel Nuru deslizante y corporal",
+      "description_en": "Japanese massage with slippery Nuru gel, full body contact",
       "category": "DELUXE",
       "pricingSystem": "Tiered",
       "basePrice": 135,
@@ -369,6 +377,8 @@
     },
     "flegg": {
       "name": "Flegg",
+      "description": "Experiencia Flegg con plumas y estimulación sensorial única",
+      "description_en": "Flegg experience with feathers and unique sensory stimulation",
       "category": "DELUXE",
       "pricingSystem": "Tiered",
       "basePrice": 135,
@@ -393,6 +403,8 @@
     },
     "lingam": {
       "name": "Lingam",
+      "description": "Masaje Lingam con técnica tántrica de energía vital",
+      "description_en": "Lingam massage with tantric vital energy technique",
       "category": "DELUXE",
       "pricingSystem": "Tiered",
       "basePrice": 135,
@@ -417,6 +429,8 @@
     },
     "zurzum": {
       "name": "Zurzum",
+      "description": "Mezcla exclusiva de técnicas orientales y occidentales",
+      "description_en": "Exclusive blend of Eastern and Western techniques",
       "category": "MIX_MASSAGE",
       "pricingSystem": "CodeBased",
       "allowedCodes": [
@@ -433,6 +447,8 @@
     },
     "miso": {
       "name": "Miso",
+      "description": "Fusión de técnicas suaves con aceites calientes aromáticos",
+      "description_en": "Fusion of gentle techniques with warm aromatic oils",
       "category": "MIX_MASSAGE",
       "pricingSystem": "CodeBased",
       "allowedCodes": [
@@ -449,6 +465,8 @@
     },
     "circuit": {
       "name": "Circuit",
+      "description": "Circuito rotativo con múltiples escenarios y técnicas",
+      "description_en": "Rotating circuit with multiple scenarios and techniques",
       "category": "MIX_MASSAGE",
       "pricingSystem": "Tiered",
       "basePrice": 165,
@@ -471,6 +489,8 @@
     },
     "circuit-deluxe": {
       "name": "Circuit Deluxe",
+      "description": "Circuito premium con escenarios exclusivos y duración extendida",
+      "description_en": "Premium circuit with exclusive scenarios and extended duration",
       "category": "MIX_MASSAGE",
       "pricingSystem": "Tiered",
       "basePrice": 165,
@@ -489,6 +509,8 @@
     },
     "cocktail": {
       "name": "Cocktail",
+      "description": "Cóctel de técnicas variadas en una sesión completa de 120 min",
+      "description_en": "Cocktail of varied techniques in a full 120 min session",
       "category": "MIX_MASSAGE",
       "pricingSystem": "Tiered",
       "basePrice": 195,
@@ -507,6 +529,8 @@
     },
     "cocktail-deluxe": {
       "name": "Cocktail Deluxe",
+      "description": "Edición deluxe del cóctel con escenario VIP y atención premium",
+      "description_en": "Deluxe edition cocktail with VIP scenario and premium attention",
       "category": "MIX_MASSAGE",
       "pricingSystem": "Tiered",
       "basePrice": 195,
@@ -526,6 +550,8 @@
     "tantric-couple": {
       "category": "COUPLE_MASSAGE",
       "name": "Tantric Couple",
+      "description": "Experiencia tántrica compartida para parejas con conexión sensual",
+      "description_en": "Shared tantric experience for couples with sensual connection",
       "pricingSystem": "PackBased",
       "allowedScenarios": [
         "massage-table",
@@ -538,6 +564,8 @@
     "nuru-couple": {
       "category": "COUPLE_MASSAGE",
       "name": "Nuru Couple",
+      "description": "Masaje Nuru para parejas con gel deslizante y intimidad compartida",
+      "description_en": "Nuru couples massage with slippery gel and shared intimacy",
       "pricingSystem": "PackBased",
       "allowedScenarios": [
         "tatami-wet",

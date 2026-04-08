@@ -965,6 +965,10 @@ function techCard(tKey, t) {
             </div>
             <button type="button" class="del-tech del-btn mt-6 flex-shrink-0">${ICON_X}</button>
         </div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 mt-2 mb-4">
+            <div><span class="lbl">Descripción</span>${inp(t.description||'','description')}</div>
+            <div><span class="lbl">Description (EN)</span>${inp(t.description_en||'','description_en')}</div>
+        </div>
         <div class="tiered-base-price mb-4 ${tiered?'':'hidden'}">
             <span class="lbl">Base Price $</span>
             <input type="number" name="basePrice" value="${t.basePrice||0}" class="num-input">
@@ -1007,6 +1011,10 @@ function collectTechniques() {
         };
         const nameEn = $(this).find('[name=name_en]').val().trim();
         if (nameEn) obj.name_en = nameEn;
+        const desc = $(this).find('[name=description]').val().trim();
+        if (desc) obj.description = desc;
+        const descEn = $(this).find('[name=description_en]').val().trim();
+        if (descEn) obj.description_en = descEn;
         if (cat) obj.category = cat;
         if (ps === 'CodeBased' || ps === 'PackBased') {
             obj.allowedCodes = $(this).find('[name=mcode]:checked').map(function(){ return this.value; }).get();

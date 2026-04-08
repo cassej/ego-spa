@@ -117,10 +117,18 @@ function setupEventListeners() {
         const btn = e.target.closest('.technique-btn');
         if (!btn) return;
 
+        const techniqueKey = btn.dataset.technique;
+
+        // If clicking the already-selected technique → advance
+        if (btn.classList.contains('selected')) {
+            setTimeout(() => goToStep(2), 200);
+            return;
+        }
+
+        // First tap: select and show description
         document.querySelectorAll('.technique-btn').forEach(b => b.classList.remove('selected'));
         btn.classList.add('selected');
 
-        const techniqueKey = btn.dataset.technique;
         state.single.technique = techniqueKey;
         state.single.techniqueName = td('TECHNIQUE_DATA', techniqueKey, 'name');
         state.single.pricingSystem = TECHNIQUE_DATA[techniqueKey].pricingSystem;
@@ -131,8 +139,6 @@ function setupEventListeners() {
         // Update constraints
         updateConstraints();
         updateStickyFooter();
-
-        setTimeout(() => goToStep(2), 200);
     });
 
     // Step 2: Hands selection
@@ -400,10 +406,18 @@ function setupEventListeners() {
         const btn = e.target.closest('.hotel-technique-btn');
         if (!btn) return;
 
+        const technique = btn.dataset.technique;
+
+        // If clicking the already-selected technique → advance
+        if (btn.classList.contains('selected')) {
+            setTimeout(() => goToStep(2), 200);
+            return;
+        }
+
+        // First tap: select and show description
         document.querySelectorAll('.hotel-technique-btn').forEach(b => b.classList.remove('selected'));
         btn.classList.add('selected');
 
-        const technique = btn.dataset.technique;
         const techniqueData = TECHNIQUE_DATA[technique];
 
         state.hotel.technique = technique;
@@ -412,8 +426,6 @@ function setupEventListeners() {
 
         // Update hotel scenario constraints
         updateHotelConstraints();
-
-        setTimeout(() => goToStep(2), 200);
     });
 
     // Step 2: Hands

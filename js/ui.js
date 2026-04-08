@@ -620,9 +620,11 @@ function loadTechniques() {
 
             // Add techniques in this category
             techniquesByCategory[catKey].forEach(({ key, data }) => {
+                const desc = td('TECHNIQUE_DATA', key, 'description') || '';
                 html += `
                     <button class="technique-btn option-card rounded-xl p-4 text-center fade-up stagger-${staggerIndex++}" data-technique="${key}">
                         <h3 class="font-semibold text-lg">${data.name}</h3>
+                        <p class="technique-desc text-ego-muted text-xs mt-1 opacity-0 max-h-0 overflow-hidden transition-all duration-300">${desc}</p>
                     </button>
                 `;
             });
@@ -638,9 +640,11 @@ function loadTechniques() {
         `;
 
         uncategorizedTechniques.forEach(({ key, data }) => {
+            const desc = td('TECHNIQUE_DATA', key, 'description') || '';
             html += `
                 <button class="technique-btn option-card rounded-xl p-4 text-center fade-up stagger-${staggerIndex++}" data-technique="${key}">
                     <h3 class="font-semibold text-lg">${data.name}</h3>
+                    <p class="technique-desc text-ego-muted text-xs mt-1 opacity-0 max-h-0 overflow-hidden transition-all duration-300">${desc}</p>
                 </button>
             `;
         });
@@ -665,9 +669,11 @@ function loadHotelTechniques() {
     hotelTechniques.forEach(techKey => {
         const techData = TECHNIQUE_DATA[techKey];
         if (techData) {
+            const desc = td('TECHNIQUE_DATA', techKey, 'description') || '';
             html += `
                 <button class="hotel-technique-btn option-card rounded-xl p-4 text-center fade-up stagger-${staggerIndex++}" data-technique="${techKey}">
                     <h3 class="font-semibold text-lg">${techData.name}</h3>
+                    <p class="technique-desc text-ego-muted text-xs mt-1 opacity-0 max-h-0 overflow-hidden transition-all duration-300">${desc}</p>
                 </button>
             `;
         }

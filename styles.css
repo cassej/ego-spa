@@ -380,6 +380,22 @@ var(--panel-light) 50%, var(--panel) 100%);
             opacity: 0.2;
         }
 
+        /* Technique description reveal */
+        .technique-btn .technique-desc,
+        .hotel-technique-btn .technique-desc {
+            opacity: 0;
+            max-height: 0;
+            margin-top: 0;
+            transition: all 0.3s ease;
+        }
+
+        .technique-btn.selected .technique-desc,
+        .hotel-technique-btn.selected .technique-desc {
+            opacity: 1;
+            max-height: 60px;
+            margin-top: 4px;
+        }
+
         /* Sticky footer for night rate notification */
         .sticky-footer {
             position: fixed;
