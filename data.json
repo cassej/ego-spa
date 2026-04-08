@@ -26,7 +26,7 @@
       "name": "ORIENTAL MASSAGE",
       "label": "Masajes Orientales",
       "label_en": "Oriental Massage",
-      "description": "Traditional techniques from the East",
+      "description": "Técnicas tradicionales del Oriente",
       "description_en": "Traditional techniques from the East",
       "techniques": [
         "tantric",
@@ -36,9 +36,9 @@
     },
     "DELUXE": {
       "name": "DELUXE",
-      "label": "Deluxe Experience",
+      "label": "Experiencia Deluxe",
       "label_en": "Deluxe Experience",
-      "description": "Premium massage experiences",
+      "description": "Experiencias de masaje premium",
       "description_en": "Premium massage experiences",
       "techniques": [
         "nuru",
@@ -48,9 +48,9 @@
     },
     "MIX_MASSAGE": {
       "name": "MIX MASSAGE",
-      "label": "Mix Massage",
+      "label": "Masaje Mixto",
       "label_en": "Mix Massage",
-      "description": "Unique blend techniques",
+      "description": "Técnicas de mezcla únicas",
       "description_en": "Unique blend techniques",
       "techniques": [
         "zurzum",
@@ -63,9 +63,9 @@
     },
     "COUPLE_MASSAGE": {
       "name": "COUPLE MASSAGE",
-      "label": "Couple Massage",
+      "label": "Masaje en Pareja",
       "label_en": "Couple Massage",
-      "description": "Special experience for two",
+      "description": "Experiencia especial para dos",
       "description_en": "Special experience for two",
       "techniques": [
         "tantric-couple",
@@ -81,22 +81,26 @@
         "S": {
           "sessions": 3,
           "price": 115,
-          "label": "Small"
+          "label": "Pequeño",
+          "label_en": "Small"
         },
         "M": {
           "sessions": 6,
           "price": 185,
-          "label": "Medium"
+          "label": "Mediano",
+          "label_en": "Medium"
         },
         "L": {
           "sessions": 14,
           "price": 395,
-          "label": "Large"
+          "label": "Grande",
+          "label_en": "Large"
         },
         "U": {
           "sessions": 362,
           "price": 999,
-          "label": "12 Month Unlimited"
+          "label": "12 Meses Ilimitado",
+          "label_en": "12 Month Unlimited"
         }
       }
     },
@@ -107,22 +111,26 @@
         "S": {
           "sessions": 2,
           "price": 135,
-          "label": "Small"
+          "label": "Pequeño",
+          "label_en": "Small"
         },
         "M": {
           "sessions": 3,
           "price": 195,
-          "label": "Medium"
+          "label": "Mediano",
+          "label_en": "Medium"
         },
         "L": {
           "sessions": 10,
           "price": 395,
-          "label": "Large"
+          "label": "Grande",
+          "label_en": "Large"
         },
         "U": {
           "sessions": 362,
           "price": 1199,
-          "label": "12 Month Unlimited"
+          "label": "12 Meses Ilimitado",
+          "label_en": "12 Month Unlimited"
         }
       }
     },
@@ -133,22 +141,26 @@
         "R": {
           "sessions": 3,
           "price": 295,
-          "label": "Regular"
+          "label": "Regular",
+          "label_en": "Regular"
         },
         "D": {
           "sessions": 3,
           "price": 375,
-          "label": "Double"
+          "label": "Doble",
+          "label_en": "Double"
         },
         "XL": {
           "sessions": 6,
           "price": 695,
-          "label": "XL"
+          "label": "XL",
+          "label_en": "XL"
         },
         "U": {
           "sessions": 362,
           "price": 2499,
-          "label": "12 Month Unlimited"
+          "label": "12 Meses Ilimitado",
+          "label_en": "12 Month Unlimited"
         }
       }
     },
@@ -159,22 +171,26 @@
         "R": {
           "sessions": 6,
           "price": 450,
-          "label": "Regular"
+          "label": "Regular",
+          "label_en": "Regular"
         },
         "D": {
           "sessions": 6,
           "price": 570,
-          "label": "Double"
+          "label": "Doble",
+          "label_en": "Double"
         },
         "XL": {
           "sessions": 14,
           "price": 1200,
-          "label": "XL"
+          "label": "XL",
+          "label_en": "XL"
         },
         "U": {
           "sessions": 362,
           "price": 2999,
-          "label": "12 Month Unlimited"
+          "label": "12 Meses Ilimitado",
+          "label_en": "12 Month Unlimited"
         }
       }
     }
@@ -532,52 +548,52 @@
   },
   "SCENARIO_DATA": {
     "shower": {
-      "name": "Shower",
+      "name": "Ducha",
       "name_en": "Shower",
       "icon": "shower",
-      "description": "Shower experience",
+      "description": "Experiencia de ducha",
       "description_en": "Shower experience"
     },
     "massage-table": {
-      "name": "Massage Table",
+      "name": "Camilla de Masaje",
       "name_en": "Massage Table",
       "icon": "table",
-      "description": "Traditional massage table",
+      "description": "Camilla de masaje tradicional",
       "description_en": "Traditional massage table"
     },
     "tatami-dry": {
-      "name": "Tatami (Dry)",
+      "name": "Tatami (Seco)",
       "name_en": "Tatami (Dry)",
       "icon": "mat",
-      "description": "Japanese tatami - dry experience",
+      "description": "Tatami japonés — experiencia seca",
       "description_en": "Japanese tatami - dry experience"
     },
     "tatami-wet": {
-      "name": "Wet Tatami",
+      "name": "Tatami Mojado",
       "name_en": "Wet Tatami",
       "icon": "water",
-      "description": "Japanese tatami - wet experience with gel/oil",
+      "description": "Tatami japonés — experiencia húmeda con gel/aceite",
       "description_en": "Japanese tatami - wet experience with gel/oil"
     },
     "tantric-couch": {
-      "name": "Tantric Couch",
+      "name": "Sofá Tântrico",
       "name_en": "Tantric Couch",
       "icon": "couch",
-      "description": "Specialized tantric couch",
+      "description": "Sofá tántrico especializado",
       "description_en": "Specialized tantric couch"
     },
     "tantric-chair": {
-      "name": "Tantric Chair",
+      "name": "Silla Tântrica",
       "name_en": "Tantric Chair",
       "icon": "chair",
-      "description": "Specialized tantric chair",
+      "description": "Silla tántrica especializada",
       "description_en": "Specialized tantric chair"
     },
     "tantric-sink": {
-      "name": "Tantric Sink",
+      "name": "Fuente Tântrica",
       "name_en": "Tantric Sink",
       "icon": "sink",
-      "description": "Tantric sink experience",
+      "description": "Experiencia de fuente tántrica",
       "description_en": "Tantric sink experience"
     }
   },
@@ -619,12 +635,12 @@
       "price": 25
     },
     "move-to-branches": {
-      "name": "Mobility",
+      "name": "Traslado",
       "name_en": "Mobility",
       "price": 25
     },
     "night-rate": {
-      "name": "Night Rate",
+      "name": "Tarifa Nocturna",
       "name_en": "Night Rate",
       "price": 25
     },
@@ -652,11 +668,11 @@
   },
   "EGO_DISCOUNT": 0.18,
   "EGO_MEMBERSHIP": {
-    "name": "Ego Card Membership",
+    "name": "Membresía Ego Card",
     "name_en": "Ego Card Membership",
     "firstYearPrice": 175,
     "renewalPrice": 75,
-    "description": "Exclusive membership with discounts and perks",
+    "description": "Membresía exclusiva con descuentos y beneficios",
     "description_en": "Exclusive membership with discounts and perks"
   },
   "WHATSAPP_NUMBER": "50760188579",
@@ -768,7 +784,7 @@
       "single.noPreference": "Sin preferencia",
       "single.specificMasseuse": "Masseuse especifica",
       "single.masseusePlaceholder": "Nombre de la masseuse",
-      "single.transferTitle": "Transfer from another branch",
+      "single.transferTitle": "Traslado desde otra filial",
       "single.transferDesc": "Traslado de masseuse",
       "single.date": "Fecha",
       "single.time": "Hora",
@@ -776,12 +792,12 @@
       "single.nightRateDisclaimer": "Se aplica si tu masaje termina a las 12:00 AM o despues. Reserva antes para evitar este cargo.",
       "single.summaryTitle": "RESUMEN",
       "single.bookWhatsApp": "Reservar por WhatsApp",
-      "extras.sensitive": "Sensitive",
+      "extras.sensitive": "Sensible",
       "extras.included": "Incluido",
-      "extras.doubleSensitive": "Double Sensitive",
+      "extras.doubleSensitive": "Doble Sensible",
       "extras.doubleSensitiveDesc": "Experiencia dual intensificada",
-      "extras.nightRate": "Night Rate",
-      "extras.nightRateDesc": "Despues de 12:00 AM",
+      "extras.nightRate": "Tarifa Nocturna",
+      "extras.nightRateDesc": "Después de 12:00 AM",
       "scenarios.selectAtLeast": "Selecciona al menos 1 escenario (maximo {max})",
       "scenarios.selectUpTo": "Puedes seleccionar hasta {count} mas",
       "scenarios.selected": "{n} escenario seleccionado",
@@ -800,14 +816,14 @@
       "summary.date": "Fecha:",
       "summary.time": "Hora:",
       "summary.total": "TOTAL:",
-      "summary.nightRate": "Night Rate (+$25):",
-      "summary.nightRateNote": "Masaje termina despues de 12:00 AM",
+      "summary.nightRate": "Tarifa Nocturna (+$25):",
+      "summary.nightRateNote": "Masaje termina después de 12:00 AM",
       "summary.savings": "Ahorras {amount} con Ego Card",
       "summary.savingsProminent": "AHORRAS {amount} CON EGO CARD",
       "summary.noExtras": "Sin extras",
       "summary.yourSelection": "Tu seleccion",
       "footer.default": "Selecciona una ubicacion para comenzar",
-      "footer.nightRate": "Night Rate",
+      "footer.nightRate": "Tarifa Nocturna",
       "footer.sessions": "sesiones",
       "packs.step1Title": "SELECCIONA PACK",
       "packs.step1Desc": "Paquetes pre-pagados",
@@ -872,7 +888,7 @@
       "whatsapp.date": "FECHA",
       "whatsapp.time": "HORA",
       "whatsapp.finalPrice": "PRECIO FINAL",
-      "whatsapp.nightRate": "Incluye Night Rate (+$25)",
+      "whatsapp.nightRate": "Incluye Tarifa Nocturna (+$25)",
       "whatsapp.egoCard": "Ego Card aplicado",
       "whatsapp.yes": "Si (+$25)",
       "whatsapp.no": "No",

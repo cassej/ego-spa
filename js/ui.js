@@ -166,7 +166,7 @@ function updateSummary() {
         parts.push(state.single.techniqueName);
         // Show all selected scenarios
         if (state.single.selectedScenarios.length > 0) {
-            const scenarioNames = state.single.selectedScenarios.map(s => SCENARIO_DATA[s]?.name || s);
+            const scenarioNames = state.single.selectedScenarios.map(s => td('SCENARIO_DATA', s, 'name') || s);
             parts.push(scenarioNames.join(' + '));
         }
         if (state.single.hands !== null) {
@@ -345,7 +345,7 @@ function updateFinalSummary() {
     document.getElementById('finalTechnique').textContent = state.single.techniqueName;
     // Show all selected scenarios
     if (state.single.selectedScenarios.length > 0) {
-        const scenarioNames = state.single.selectedScenarios.map(s => SCENARIO_DATA[s]?.name || s);
+        const scenarioNames = state.single.selectedScenarios.map(s => td('SCENARIO_DATA', s, 'name') || s);
         document.getElementById('finalScenario').textContent = scenarioNames.join(' + ');
     } else {
         document.getElementById('finalScenario').textContent = '';
@@ -388,14 +388,8 @@ function updateHotelFinalSummary() {
     const finalSavings = document.getElementById('hotelFinalSavings');
 
     finalTechnique.textContent = state.hotel.techniqueName || 'Masaje';
-    // Use translated scenario name
     if (state.hotel.scenarioName) {
-        const scenarioName = state.hotel.scenario ? td('SCENARIO_DATA', state.hotel.scenario, 'name') : state.hotel.scenarioName;
-        finalScenario.textContent = scenarioName;
-    }
-
-    if (state.hotel.scenarioName) {
-        finalScenario.textContent = state.hotel.scenarioName;
+        finalScenario.textContent = state.hotel.scenario ? td('SCENARIO_DATA', state.hotel.scenario, 'name') : state.hotel.scenarioName;
     }
 
     finalConfig.textContent = `${state.hotel.hands} ${t('single.handsUnit')} · ${state.hotel.duration} min`;

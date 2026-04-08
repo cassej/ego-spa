@@ -122,7 +122,7 @@ function setupEventListeners() {
 
         const techniqueKey = btn.dataset.technique;
         state.single.technique = techniqueKey;
-        state.single.techniqueName = TECHNIQUE_DATA[techniqueKey].name;
+        state.single.techniqueName = td('TECHNIQUE_DATA', techniqueKey, 'name');
         state.single.pricingSystem = TECHNIQUE_DATA[techniqueKey].pricingSystem;
 
         // Reset to technique defaults
@@ -265,7 +265,7 @@ function setupEventListeners() {
                 // Always set scenario to first selected for compatibility
                 if (state.single.selectedScenarios.length > 0) {
                     state.single.scenario = state.single.selectedScenarios[0];
-                    state.single.scenarioName = SCENARIO_DATA[state.single.scenario]?.name || '';
+                    state.single.scenarioName = td('SCENARIO_DATA', state.single.scenario, 'name') || '';
                 }
 
                 updateScenarioHint();
@@ -277,7 +277,7 @@ function setupEventListeners() {
                 btn.classList.add('selected');
 
                 state.single.scenario = scenario;
-                state.single.scenarioName = scenarioData.name;
+                state.single.scenarioName = td('SCENARIO_DATA', scenario, 'name');
                 state.single.selectedScenarios = [scenario];
 
                 updateScenarioHint();
@@ -407,7 +407,7 @@ function setupEventListeners() {
         const techniqueData = TECHNIQUE_DATA[technique];
 
         state.hotel.technique = technique;
-        state.hotel.techniqueName = techniqueData.name;
+        state.hotel.techniqueName = td('TECHNIQUE_DATA', technique, 'name');
         state.hotel.pricingSystem = techniqueData.pricingSystem;
 
         // Update hotel scenario constraints
@@ -472,7 +472,7 @@ b.classList.remove('selected'));
             const price = parseInt(radio.dataset.price) || 0;
 
             state.hotel.scenario = scenario || null;
-            state.hotel.scenarioName = scenario ? SCENARIO_DATA[scenario]?.name : '';
+            state.hotel.scenarioName = scenario ? td('SCENARIO_DATA', scenario, 'name') : '';
             state.hotel.scenarioPrice = price;
 
             updateHotelFinalSummary();
