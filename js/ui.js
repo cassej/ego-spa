@@ -542,7 +542,7 @@ function loadBranches() {
                     </div>
                     <div class="flex-1">
                         <h3 class="font-display text-2xl tracking-wide mb-1">${branchData.name.toUpperCase()}</h3>
-                        <p class="text-ego-muted text-sm">${td('BRANCHES', branchKey, 'description')} ${branchLabel}</p>
+                        <p class="text-ego-muted text-sm">${td('BRANCHES', branchKey, 'description')}</p>
                     </div>
                     <svg class="w-6 h-6 text-ego-muted flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
