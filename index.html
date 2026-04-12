@@ -358,7 +358,7 @@ stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M12 11c-2 0-4 1-4 3v6h8v-6c0-2-2-3-4-3z" />
                             </svg>
                         </div>
-                        <h3 class="font-semibold text-sm">Shower</h3>
+                        <h3 class="font-semibold text-sm" data-scenario-key="shower">Shower</h3>
                     </button>
 
                     <button class="scenario-btn option-card rounded-xl p-4 text-center fade-up stagger-2" data-scenario="massage-table" id="scenario-massage-table">
@@ -367,7 +367,7 @@ stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M3 10h18v4H3zM5 14v4M19 14v4M9 14v2M15 14v2M7 10V8a2 2 0 012-2h6a2 2 0 012 2v2" />
                             </svg>
                         </div>
-                        <h3 class="font-semibold text-sm">Massage Table</h3>
+                        <h3 class="font-semibold text-sm" data-scenario-key="massage-table">Massage Table</h3>
                     </button>
                 </div>
 
@@ -380,7 +380,7 @@ stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
                                 <path stroke-linecap="round" d="M7 6v12M12 6v12M17 6v12M3 10h18M3 14h18" />
                             </svg>
                         </div>
-                        <h3 class="font-semibold text-sm">Tatami (Dry)</h3>
+                        <h3 class="font-semibold text-sm" data-scenario-key="tatami-dry">Tatami (Dry)</h3>
                     </button>
 
                     <button class="scenario-btn option-card rounded-xl p-4 text-center fade-up stagger-4" data-scenario="tatami-wet" id="scenario-tatami-wet">
@@ -390,7 +390,7 @@ stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
                                 <path stroke-linecap="round" d="M7 8v10M17 8v10M12 3c0 1.5-1 2.5-1 2.5s2 1 2 2.5a1 1 0 01-2 0M8 4c0 1-.5 1.5-.5 1.5s1 .5 1 1.5a.5.5 0 01-1 0" />
                             </svg>
                         </div>
-                        <h3 class="font-semibold text-sm">Wet Tatami</h3>
+                        <h3 class="font-semibold text-sm" data-scenario-key="tatami-wet">Wet Tatami</h3>
                     </button>
                 </div>
 
@@ -405,7 +405,7 @@ stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
                                 <path stroke-linecap="round" d="M20 15.5v4" />
                             </svg>
                         </div>
-                        <h3 class="font-semibold text-sm">Tantric Couch</h3>
+                        <h3 class="font-semibold text-sm" data-scenario-key="tantric-couch">Tantric Couch</h3>
                     </button>
 
                     <button class="scenario-btn option-card rounded-xl p-4 text-center fade-up stagger-6" data-scenario="tantric-chair" id="scenario-tantric-chair">
@@ -414,7 +414,7 @@ stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M7 19h10M9 19v-5l-2-4V5a2 2 0 012-2h6a2 2 0 012 2v6l-2 4v4" />
                             </svg>
                         </div>
-                        <h3 class="font-semibold text-sm">Tantric Chair</h3>
+                        <h3 class="font-semibold text-sm" data-scenario-key="tantric-chair">Tantric Chair</h3>
                     </button>
 
                     <button class="scenario-btn option-card rounded-xl p-4 text-center fade-up stagger-7" data-scenario="tantric-sink" id="scenario-tantric-sink">
@@ -424,7 +424,7 @@ stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
                                 <path stroke-linecap="round" d="M12 18v3m-4 0h8" />
                             </svg>
                         </div>
-                        <h3 class="font-semibold text-sm">Tantric Sink</h3>
+                        <h3 class="font-semibold text-sm" data-scenario-key="tantric-sink">Tantric Sink</h3>
                     </button>
                 </div>
 
@@ -804,24 +804,24 @@ stagger-3" data-i18n="packs.bookNow">
                         <label class="hotel-scenario-option option-card rounded-xl p-3 flex items-center gap-2 cursor-pointer fade-up stagger-2">
                             <input type="radio" name="hotel-scenario" class="custom-radio" data-scenario="massage-table" data-price="25">
                             <div class="flex-1">
-                                <h3 class="font-semibold text-sm">Massage Table</h3>
-                                <p class="text-ego-gold text-xs">+$25</p>
+                                <h3 class="font-semibold text-sm" data-scenario-key="massage-table">Massage Table</h3>
+                                <p class="text-ego-gold text-xs hotel-scenario-price-display">+$25</p>
                             </div>
                         </label>
 
                         <label class="hotel-scenario-option option-card rounded-xl p-3 flex items-center gap-2 cursor-pointer fade-up stagger-3">
                             <input type="radio" name="hotel-scenario" class="custom-radio" data-scenario="tatami-dry" data-price="25">
                             <div class="flex-1">
-                                <h3 class="font-semibold text-sm">Tatami (Dry)</h3>
-                                <p class="text-ego-gold text-xs">+$25</p>
+                                <h3 class="font-semibold text-sm" data-scenario-key="tatami-dry">Tatami (Dry)</h3>
+                                <p class="text-ego-gold text-xs hotel-scenario-price-display">+$25</p>
                             </div>
                         </label>
 
                         <label class="hotel-scenario-option option-card rounded-xl p-3 flex items-center gap-2 cursor-pointer fade-up stagger-4">
                             <input type="radio" name="hotel-scenario" class="custom-radio" data-scenario="tantric-couch" data-price="25">
                             <div class="flex-1">
-                                <h3 class="font-semibold text-sm">Tantric Couch</h3>
-                                <p class="text-ego-gold text-xs">+$25</p>
+                                <h3 class="font-semibold text-sm" data-scenario-key="tantric-couch">Tantric Couch</h3>
+                                <p class="text-ego-gold text-xs hotel-scenario-price-display">+$25</p>
                             </div>
                         </label>
                     </div>

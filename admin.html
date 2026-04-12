@@ -89,6 +89,14 @@ tr:last-child td { border-bottom: none; }
 .scenario-check:checked + label { border-color: #ef4444; color: #ef4444; background: rgba(239,68,68,.1); }
 .code-check:checked     + label { border-color: #d4af37; color: #d4af37; background: rgba(212,175,55,.1); }
 
+/* Pill chip (inline label+checkbox) */
+.pill-chip { cursor: pointer; display: inline-flex; align-items: center;
+    padding: 5px 12px; border-radius: 20px; font-size: 12px; font-weight: 600;
+    border: 1px solid #27272a; color: #71717a; transition: all .2s;
+    min-height: 32px; user-select: none; }
+.pill-chip input { display: none; }
+.pill-chip:has(input:checked) { border-color: #ef4444; color: #ef4444; background: rgba(239,68,68,.1); }
+
 /* Sections */
 .section { display: none; }
 .section.active { display: block; }
@@ -206,12 +214,6 @@ tr:last-child td { border-bottom: none; }
                     </div>
                 </div>
                 <div class="card p-5">
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                        <div><span class="lbl">Hotel Scenario Price ($)</span><input type="number" id="g-hotel-scenario-price" min="0"></div>
-                        <div><span class="lbl">Hotel Techniques (comma-separated)</span><input type="text" id="g-hotel-techniques" placeholder="tantric,thai,nuru,lingam,circuit,cocktail"></div>
-                    </div>
-                </div>
-                <div class="card p-5">
                     <span class="lbl" style="margin-bottom:14px">Horarios</span>
                     <div class="grid grid-cols-2 sm:grid-cols-3 gap-4">
                         <div><span class="lbl">Semana Label</span><input type="text" id="g-wd-label"></div>
@@ -241,7 +243,7 @@ tr:last-child td { border-bottom: none; }
                 </div>
                 <div class="card tbl-wrap">
                     <table>
-                        <thead><tr><th>ID</th><th>Nombre</th><th>Label</th><th>Label (EN)</th><th></th></tr></thead>
+                        <thead><tr><th>ID</th><th>Nombre</th><th>Label</th><th>Label (EN)</th><th>Descripción</th><th>Desc (EN)</th><th></th></tr></thead>
                         <tbody id="branches-tbody"></tbody>
                     </table>
                 </div>
@@ -313,6 +315,14 @@ tr:last-child td { border-bottom: none; }
                 <div class="sec-head">
                     <div><div class="sec-title">Hotel Pricing</div><div class="sec-sub">Servicios a domicilio</div></div>
                     <button class="btn btn-ghost btn-sm" id="addHotel">+ Agregar</button>
+                </div>
+                <div class="card p-5">
+                    <span class="lbl">Hotel Scenario Price ($)</span>
+                    <input type="number" id="h-scenario-price" min="0">
+                </div>
+                <div class="card p-5">
+                    <span class="lbl" style="margin-bottom:14px">Hotel Techniques</span>
+                    <div id="hotel-techniques-grid" class="flex flex-wrap gap-2"></div>
                 </div>
                 <div class="card tbl-wrap">
                     <table>
@@ -529,8 +539,6 @@ function delBtn(cls='del-row') {
 function renderGeneral() {
     $('#g-whatsapp').val(DATA.WHATSAPP_NUMBER);
     $('#g-discount').val(Math.round(DATA.EGO_DISCOUNT * 100));
-    $('#g-hotel-scenario-price').val(DATA.HOTEL_SCENARIO_PRICE || 0);
-    $('#g-hotel-techniques').val((DATA.HOTEL_TECHNIQUES || []).join(','));
     const bh = DATA.BUSINESS_HOURS;
     $('#g-wd-label').val(bh.weekdays.label || '');
     $('#g-wd-label-en').val(bh.weekdays.label_en || '');
@@ -547,9 +555,6 @@ function renderGeneral() {
 function collectGeneral() {
     DATA.WHATSAPP_NUMBER = $('#g-whatsapp').val().trim();
     DATA.EGO_DISCOUNT    = parseFloat($('#g-discount').val()) / 100;
-    DATA.HOTEL_SCENARIO_PRICE = parseInt($('#g-hotel-scenario-price').val()) || 0;
-    const techniquesRaw = $('#g-hotel-techniques').val().trim();
-    DATA.HOTEL_TECHNIQUES = techniquesRaw ? techniquesRaw.split(',').map(s => s.trim()).filter(Boolean) : [];
     const bh = DATA.BUSINESS_HOURS;
     bh.weekdays.label     = $('#g-wd-label').val().trim();
     const wdLabelEn = $('#g-wd-label-en').val().trim();
@@ -576,6 +581,8 @@ function renderBranches() {
         <td>${inp(b.name,'name')}</td>
         <td>${inp(b.label,'label')}</td>
         <td>${inp(b.label_en||'','label_en')}</td>
+        <td>${inp(b.description||'','description')}</td>
+        <td>${inp(b.description_en||'','description_en')}</td>
         <td>${delBtn()}</td>
     </tr>`));
 }
@@ -585,10 +592,13 @@ function collectBranches() {
         const key = $(this).find('[name=branchKey]').val().trim();
         if (!key) return;
         const labelEn = $(this).find('[name=label_en]').val().trim();
+        const descEn = $(this).find('[name=description_en]').val().trim();
         DATA.BRANCHES[key] = {
             name: $(this).find('[name=name]').val().trim(),
             label: $(this).find('[name=label]').val().trim(),
-            ...(labelEn ? { label_en: labelEn } : {})
+            ...(labelEn ? { label_en: labelEn } : {}),
+            description: $(this).find('[name=description]').val().trim(),
+            ...(descEn ? { description_en: descEn } : {})
         };
     });
 }
@@ -597,6 +607,8 @@ $('#addBranch').on('click', () => $('#branches-tbody').append(`<tr>
     <td>${inp('New Branch','name')}</td>
     <td>${inp('New Branch','label')}</td>
     <td>${inp('New Branch','label_en')}</td>
+    <td>${inp('Experiencia premium en','description')}</td>
+    <td>${inp('Premium experience at','description_en')}</td>
     <td>${delBtn()}</td>
 </tr>`));
 
@@ -769,6 +781,13 @@ $('#addMcode').on('click', () => $('#mcode-tbody').append(`<tr>
 // HOTEL
 // ============================================================
 function renderHotel() {
+    $('#h-scenario-price').val(DATA.HOTEL_SCENARIO_PRICE || 0);
+    const $grid = $('#hotel-techniques-grid').empty();
+    const active = DATA.HOTEL_TECHNIQUES || [];
+    $.each(DATA.TECHNIQUE_DATA, (_, tech) => {
+        const checked = active.includes(tech.id) ? 'checked' : '';
+        $grid.append(`<label class="pill-chip"><input type="checkbox" name="hotel-tech" value="${tech.id}" ${checked}><span>${tech.name}</span></label>`);
+    });
     const $b = $('#hotel-tbody').empty();
     $.each(DATA.HOTEL_SERVICE_PRICING, (_, r) => $b.append(`<tr>
         <td>${num(r.duration,'duration')}</td>
@@ -779,6 +798,8 @@ function renderHotel() {
     </tr>`));
 }
 function collectHotel() {
+    DATA.HOTEL_SCENARIO_PRICE = parseInt($('#h-scenario-price').val()) || 0;
+    DATA.HOTEL_TECHNIQUES = $('#hotel-techniques-grid input[name=hotel-tech]:checked').map(function() { return this.value; }).get();
     DATA.HOTEL_SERVICE_PRICING = {};
     $('#hotel-tbody tr').each(function() {
         const d = +$(this).find('[name=duration]').val();
@@ -1254,6 +1275,14 @@ function doSave() {
     collectFlows(); collectMcodes(); collectHotel(); collectTiered();
     collectPacks(); collectTechniques(); collectScenarios(); collectScenarioRules(); collectAddons();
     collectTranslations();
+
+    // Safety defaults for hotel fields
+    if (!DATA.HOTEL_TECHNIQUES || DATA.HOTEL_TECHNIQUES.length === 0) {
+        DATA.HOTEL_TECHNIQUES = ["tantric", "thai", "nuru", "lingam", "circuit", "cocktail"];
+    }
+    if (!DATA.HOTEL_SCENARIO_PRICE) {
+        DATA.HOTEL_SCENARIO_PRICE = 25;
+    }
 
     const $btns = $('#saveBtn, #saveBtn-mobile');
     $btns.prop('disabled', true).text('Guardando…');

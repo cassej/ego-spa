@@ -59,6 +59,7 @@ function applyLanguage() {
 
 function refreshAllUI() {
     applyLanguage();
+    translateScenarioButtons();
     // Re-render dynamic content
     if (typeof loadBranches === 'function') loadBranches();
     if (typeof loadTechniques === 'function') loadTechniques();
@@ -69,4 +70,11 @@ function refreshAllUI() {
     if (typeof updateFinalSummary === 'function') updateFinalSummary();
     if (typeof updateHotelFinalSummary === 'function') updateHotelFinalSummary();
     if (typeof updateSummary === 'function') updateSummary();
+}
+
+function translateScenarioButtons() {
+    document.querySelectorAll('[data-scenario-key]').forEach(el => {
+        const key = el.getAttribute('data-scenario-key');
+        el.textContent = td('SCENARIO_DATA', key, 'name');
+    });
 }

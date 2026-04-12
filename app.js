@@ -40,6 +40,9 @@ async function init() {
         // Apply initial language to static HTML
         applyLanguage();
 
+        // Update hotel scenario prices from data
+        updateHotelScenarioPrices();
+
         // Setup all event listeners
         setupEventListeners();
         
@@ -51,3 +54,15 @@ async function init() {
 
 // Start the application
 init();
+
+function updateHotelScenarioPrices() {
+    const price = DATA.HOTEL_SCENARIO_PRICE || 25;
+    document.querySelectorAll('input[name="hotel-scenario"][data-price]').forEach(input => {
+        if (input.dataset.scenario) {
+            input.dataset.price = price;
+        }
+    });
+    document.querySelectorAll('.hotel-scenario-price-display').forEach(el => {
+        el.textContent = '+$' + price;
+    });
+}
