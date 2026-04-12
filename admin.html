@@ -784,9 +784,9 @@ function renderHotel() {
     $('#h-scenario-price').val(DATA.HOTEL_SCENARIO_PRICE || 0);
     const $grid = $('#hotel-techniques-grid').empty();
     const active = DATA.HOTEL_TECHNIQUES || [];
-    $.each(DATA.TECHNIQUE_DATA, (_, tech) => {
-        const checked = active.includes(tech.id) ? 'checked' : '';
-        $grid.append(`<label class="pill-chip"><input type="checkbox" name="hotel-tech" value="${tech.id}" ${checked}><span>${tech.name}</span></label>`);
+    $.each(DATA.TECHNIQUE_DATA, (key, tech) => {
+        const checked = active.includes(key) ? 'checked' : '';
+        $grid.append(`<label class="pill-chip"><input type="checkbox" name="hotel-tech" value="${key}" ${checked}><span>${tech.name}</span></label>`);
     });
     const $b = $('#hotel-tbody').empty();
     $.each(DATA.HOTEL_SERVICE_PRICING, (_, r) => $b.append(`<tr>
