@@ -337,16 +337,6 @@ function goToStep(step) {
             const techBtn = document.querySelector(`.hotel-technique-btn[data-technique="${state.hotel.technique}"]`);
             if (techBtn) techBtn.classList.add('selected');
 
-            if (state.hotel.hands) {
-                const handsBtn = document.querySelector(`.hotel-hands-btn[data-hands="${state.hotel.hands}"]`);
-                //if (handsBtn) handsBtn.classList.add('selected');
-            }
-
-            if (state.hotel.duration) {
-                const durationBtn = document.querySelector(`.hotel-duration-btn[data-duration="${state.hotel.duration}"]`);
-               //if (durationBtn) durationBtn.classList.add('selected');
-            }
-
             // Restore scenario radio button selection
             if (state.hotel.scenario !== undefined && state.hotel.scenario !== null) {
                 const scenarioRadio = document.querySelector(`.hotel-scenario-option input[data-scenario="${state.hotel.scenario}"]`);
@@ -507,8 +497,9 @@ function updateHotelConfigContinueButton() {
     const continueBtn = document.getElementById('hotelConfigContinueBtn');
     if (!continueBtn) return;
 
-    // Enable button only when both hands and duration are selected
+    // Show button only when both hands and duration are selected
     const bothSelected = state.hotel.hands !== null && state.hotel.duration !== null;
+    continueBtn.classList.toggle('hidden', !bothSelected);
     continueBtn.disabled = !bothSelected;
 }
 
@@ -958,8 +949,8 @@ function resetSelections() {
         scenario: null,
         scenarioName: '',
         scenarioPrice: 0,
-        hands: 2,
-        duration: 60,
+        hands: null,
+        duration: null,
         extras: [],
         nightRate: 0,
         bookingDate: '',
