@@ -36,6 +36,7 @@ async function init() {
         loadBranches();
         loadTechniques();
         loadHotelTechniques();
+        loadHotelConfig();
 
         // Apply initial language to static HTML
         applyLanguage();

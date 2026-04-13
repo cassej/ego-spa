@@ -428,47 +428,47 @@ function setupEventListeners() {
         updateHotelConstraints();
     });
 
-    // Step 2: Hands
-    document.querySelectorAll('.hotel-hands-btn').forEach(btn => {
-        btn.addEventListener('click', () => {
-            document.querySelectorAll('.hotel-hands-btn').forEach(b =>
-b.classList.remove('selected'));
-            btn.classList.add('selected');
+    // Step 2: Hands (event delegation for dynamically generated buttons)
+    document.getElementById('hotelHandsContainer').addEventListener('click', (e) => {
+        const btn = e.target.closest('.hotel-hands-btn');
+        if (!btn || btn.classList.contains('opacity-30')) return;
 
-            state.hotel.hands = parseInt(btn.dataset.hands) || 2;
+        document.querySelectorAll('.hotel-hands-btn').forEach(b => b.classList.remove('selected'));
+        btn.classList.add('selected');
 
-            // Update valid duration combos based on selected hands
-            updateHotelValidCombos();
+        state.hotel.hands = parseInt(btn.dataset.hands) || 2;
 
-            // Check if continue button should be enabled
-            updateHotelConfigContinueButton();
+        // Update valid duration combos based on selected hands
+        updateHotelValidCombos();
 
-            // If on step 4 and duration is selected, update price
-            const durationBtn = document.querySelector(`.hotel-duration-btn[data-duration="${state.hotel.duration}"]`);
-            if (state.currentStep === 4 && durationBtn && durationBtn.classList.contains('selected')) {
-                updateHotelFinalSummary();
-            }
-        });
+        // Check if continue button should be enabled
+        updateHotelConfigContinueButton();
+
+        // If on step 4 and duration is selected, update price
+        const durationBtn = document.querySelector(`.hotel-duration-btn[data-duration="${state.hotel.duration}"]`);
+        if (state.currentStep === 4 && durationBtn && durationBtn.classList.contains('selected')) {
+            updateHotelFinalSummary();
+        }
     });
 
-    // Step 3: Duration
-    document.querySelectorAll('.hotel-duration-btn').forEach(btn => {
-        btn.addEventListener('click', () => {
-            document.querySelectorAll('.hotel-duration-btn').forEach(b =>
-b.classList.remove('selected'));
-            btn.classList.add('selected');
+    // Step 3: Duration (event delegation for dynamically generated buttons)
+    document.getElementById('hotelDurationContainer').addEventListener('click', (e) => {
+        const btn = e.target.closest('.hotel-duration-btn');
+        if (!btn || btn.classList.contains('opacity-30')) return;
 
-            state.hotel.duration = parseInt(btn.dataset.duration) || 60;
+        document.querySelectorAll('.hotel-duration-btn').forEach(b => b.classList.remove('selected'));
+        btn.classList.add('selected');
 
-            // Check if continue button should be enabled
-            updateHotelConfigContinueButton();
+        state.hotel.duration = parseInt(btn.dataset.duration) || 60;
 
-            // If on step 4 and hands is selected, update price
-            const handsBtn = document.querySelector(`.hotel-hands-btn[data-hands="${state.hotel.hands}"]`);
-            if (state.currentStep === 4 && handsBtn && handsBtn.classList.contains('selected')) {
-                updateHotelFinalSummary();
-            }
-        });
+        // Check if continue button should be enabled
+        updateHotelConfigContinueButton();
+
+        // If on step 4 and hands is selected, update price
+        const handsBtn = document.querySelector(`.hotel-hands-btn[data-hands="${state.hotel.hands}"]`);
+        if (state.currentStep === 4 && handsBtn && handsBtn.classList.contains('selected')) {
+            updateHotelFinalSummary();
+        }
     });
 
     // Step 2 Continue button

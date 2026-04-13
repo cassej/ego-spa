@@ -756,6 +756,45 @@ function loadHotelTechniques() {
     container.innerHTML = html;
 }
 
+/**
+ * Load hotel hands and duration options dynamically from HOTEL_SERVICE_PRICING
+ */
+function loadHotelConfig() {
+    const handsContainer = document.getElementById('hotelHandsContainer');
+    const durationContainer = document.getElementById('hotelDurationContainer');
+    if (!handsContainer || !durationContainer) return;
+
+    // Extract unique hands values and unique duration values from pricing data
+    const handsSet = new Set();
+    const durationSet = new Set();
+    Object.values(HOTEL_SERVICE_PRICING).forEach(item => {
+        handsSet.add(item.hands);
+        durationSet.add(item.duration);
+    });
+
+    const handsValues = [...handsSet].sort((a, b) => a - b);
+    const durationValues = [...durationSet].sort((a, b) => a - b);
+
+    let handsHtml = '';
+    handsValues.forEach((h, i) => {
+        handsHtml += `
+            <button class="hotel-hands-btn option-card rounded-xl p-3 text-center fade-up stagger-${i + 1}" data-hands="${h}">
+                <p class="font-display text-2xl text-ego-gold">${h}</p>
+            </button>`;
+    });
+    handsContainer.innerHTML = handsHtml;
+
+    let durHtml = '';
+    durationValues.forEach((d, i) => {
+        durHtml += `
+            <button class="hotel-duration-btn option-card rounded-xl p-3 text-center fade-up stagger-${i + 1}" data-duration="${d}">
+                <p class="font-display text-xl text-ego-gold">${d}</p>
+                <p class="text-xs text-ego-muted">min</p>
+            </button>`;
+    });
+    durationContainer.innerHTML = durHtml;
+}
+
 function loadTouristPacks() {
     const container = document.getElementById('touristPacksContainer');
     // Placeholder - tourist packs will be loaded from data.json in the future
