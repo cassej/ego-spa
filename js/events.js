@@ -596,8 +596,7 @@ function updateHotelValidCombos() {
         const dur = btn.dataset.duration;
         const key = `${dur}-${state.hotel.hands}`;
         const valid = !!HOTEL_SERVICE_PRICING[key];
-        btn.classList.toggle('opacity-30', !valid);
-        btn.classList.toggle('pointer-events-none', !valid);
+        btn.classList.toggle('disabled', !valid);
         if (!valid && btn.classList.contains('selected')) {
             btn.classList.remove('selected');
             state.hotel.duration = null;
