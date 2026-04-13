@@ -89,33 +89,29 @@ function calculateHotelPrice() {
 
 /**
  * Calculates night rate surcharge based on booking end time
- * Night rate applies when service ends between midnight and 6 AM
+ * Night rate applies when service ends at or after the configured threshold
  * NOTE: Uses browser's local timezone (assumes Panama UTC-5)
  */
-function calculateNightRate() {
-    if (!state.single.bookingDate || !state.single.bookingTime || state.single.duration === null) {
-        state.single.nightRate = 0;
+function calculateNightRate(bookingState) {
+    if (!bookingState.bookingDate || !bookingState.bookingTime || bookingState.duration === null) {
+        bookingState.nightRate = 0;
         return;
     }
 
     // NOTE: This uses browser's local timezone. Assumes user is in Panama (UTC-5).
-    const bookingDateTime = new Date(`${state.single.bookingDate}T${state.single.bookingTime}`);
-    const endTime = new Date(bookingDateTime.getTime() + state.single.duration * 60000);
+    const bookingDateTime = new Date(`${bookingState.bookingDate}T${bookingState.bookingTime}`);
+    const endTime = new Date(bookingDateTime.getTime() + bookingState.duration * 60000);
 
-    // Use configured night rate window (e.g. 23:00 – 06:00)
+    // Use configured night rate threshold (e.g. 23:00)
     const afterParts = (BUSINESS_HOURS.nightRateAfter || '23:00').split(':');
-    const beforeParts = (BUSINESS_HOURS.nightRateBefore || '06:00').split(':');
     const afterMinutes = (+afterParts[0]) * 60 + (+afterParts[1]);
-    const beforeMinutes = (+beforeParts[0]) * 60 + (+beforeParts[1]);
 
     const endMinutes = endTime.getHours() * 60 + endTime.getMinutes();
 
-    // Night rate applies if end time falls in [after, 24:00) or [00:00, before)
-    const isAfterThreshold = endMinutes >= afterMinutes;
-    const isBeforeThreshold = endMinutes < beforeMinutes;
-    const applies = isAfterThreshold || isBeforeThreshold;
+    // Night rate applies if end time is at or after the threshold
+    const applies = endMinutes >= afterMinutes;
 
-    console.log('🌙 Night Rate Calculation:', { bookingTime: state.single.bookingTime, duration: state.single.duration, endTime: endTime.toLocaleTimeString(), endMinutes, afterMinutes, beforeMinutes, applies });
+    console.log('🌙 Night Rate Calculation:', { bookingTime: bookingState.bookingTime, duration: bookingState.duration, endTime: endTime.toLocaleTimeString(), endMinutes, afterMinutes, applies });
 
-    state.single.nightRate = applies ? (ADDON_PRICING['night-rate']?.price || 0) : 0;
+    bookingState.nightRate = applies ? (ADDON_PRICING['night-rate']?.price || 0) : 0;
 }

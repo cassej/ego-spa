@@ -70,6 +70,7 @@ function refreshAllUI() {
     if (typeof updateFinalSummary === 'function') updateFinalSummary();
     if (typeof updateHotelFinalSummary === 'function') updateHotelFinalSummary();
     if (typeof updateSummary === 'function') updateSummary();
+    if (typeof updateNightRateDisclaimers === 'function') updateNightRateDisclaimers();
 }
 
 function translateScenarioButtons() {

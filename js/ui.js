@@ -69,6 +69,9 @@ function updateHotelConstraints() {
 
     if (!technique) return;
 
+    // Update hands constraints based on technique
+    updateHotelHandsConstraints();
+
     // Hotel scenario constraints
     let allowedScenarios = [];
     const isNuru = technique === 'nuru';
@@ -337,6 +340,21 @@ function goToStep(step) {
             const techBtn = document.querySelector(`.hotel-technique-btn[data-technique="${state.hotel.technique}"]`);
             if (techBtn) techBtn.classList.add('selected');
 
+            // Restore hands constraints for this technique
+            updateHotelHandsConstraints();
+
+            // Restore hands selection
+            if (state.hotel.hands !== null) {
+                const handsBtn = document.querySelector(`.hotel-hands-btn[data-hands="${state.hotel.hands}"]`);
+                if (handsBtn) handsBtn.classList.add('selected');
+            }
+
+            // Restore duration selection
+            if (state.hotel.duration !== null) {
+                const durBtn = document.querySelector(`.hotel-duration-btn[data-duration="${state.hotel.duration}"]`);
+                if (durBtn) durBtn.classList.add('selected');
+            }
+
             // Restore scenario radio button selection
             if (state.hotel.scenario !== undefined && state.hotel.scenario !== null) {
                 const scenarioRadio = document.querySelector(`.hotel-scenario-option input[data-scenario="${state.hotel.scenario}"]`);
@@ -417,6 +435,8 @@ function updateFinalSummary() {
 
     const total = calculateSinglePrice();
     document.getElementById('finalPrice').textContent = `$${total}`;
+
+    updateNightRateDisclaimers();
 }
 
 function updateHotelFinalSummary() {
@@ -501,6 +521,91 @@ function updateHotelConfigContinueButton() {
     const bothSelected = state.hotel.hands !== null && state.hotel.duration !== null;
     continueBtn.classList.toggle('hidden', !bothSelected);
     continueBtn.disabled = !bothSelected;
+}
+
+/**
+ * Updates hotel hands button constraints based on selected technique
+ * Uses HOTEL_TECHNIQUE_HANDS config to determine allowed hands per technique
+ */
+function updateHotelHandsConstraints() {
+    const allowedHands = HOTEL_TECHNIQUE_HANDS?.[state.hotel.technique];
+    if (!allowedHands) return;
+
+    document.querySelectorAll('.hotel-hands-btn').forEach(btn => {
+        const h = parseInt(btn.dataset.hands);
+        const valid = allowedHands.includes(h);
+        btn.classList.toggle('opacity-30', !valid);
+        btn.classList.toggle('pointer-events-none', !valid);
+        if (!valid && btn.classList.contains('selected')) {
+            btn.classList.remove('selected');
+            state.hotel.hands = null;
+        }
+    });
+
+    if (typeof updateHotelValidCombos === 'function') updateHotelValidCombos();
+}
+
+/**
+ * Checks hotel date/time completeness and calculates night rate automatically
+ */
+function checkHotelDateTimeComplete() {
+    const hotelDateInput = document.getElementById('hotelDate');
+    const hotelTimeInput = document.getElementById('hotelTime');
+
+    if (!hotelDateInput || !hotelTimeInput) return;
+
+    const dateFilled = hotelDateInput.value !== '';
+    const timeFilled = hotelTimeInput.value !== '';
+
+    if (dateFilled && timeFilled && state.hotel.duration !== null) {
+        state.hotel.bookingDate = hotelDateInput.value;
+        state.hotel.bookingTime = hotelTimeInput.value;
+
+        calculateNightRate(state.hotel);
+        updateHotelFinalSummary();
+        updateStickyFooter();
+    }
+
+    // Update night rate disclaimer visibility
+    const disclaimer = document.getElementById('hotelNightRateDisclaimer');
+    if (disclaimer) {
+        if (state.hotel.nightRate > 0) {
+            disclaimer.classList.remove('hidden');
+        } else {
+            disclaimer.classList.add('hidden');
+        }
+    }
+
+    updateNightRateDisclaimers();
+}
+
+/**
+ * Updates all night rate disclaimer text with dynamic time and price values
+ * Called after night rate calculation and on language change
+ */
+function updateNightRateDisclaimers() {
+    const nightTime = formatTime12h(BUSINESS_HOURS.nightRateAfter || '23:00');
+    const nightPrice = ADDON_PRICING['night-rate']?.price || 0;
+
+    // Single flow disclaimer
+    const singleDisclaimerText = document.getElementById('nightRateDisclaimerText');
+    if (singleDisclaimerText) {
+        singleDisclaimerText.innerHTML = `<span class="font-semibold">🌙 ${t('summary.nightRate', { price: nightPrice })}</span> ${t('single.nightRateDisclaimer', { time: nightTime, price: nightPrice })}`;
+    }
+
+    // Hotel flow disclaimer
+    const hotelDisclaimerText = document.getElementById('hotelNightRateDisclaimerText');
+    if (hotelDisclaimerText) {
+        hotelDisclaimerText.innerHTML = `<span class="font-semibold">🌙 ${t('summary.nightRate', { price: nightPrice })}</span> ${t('single.nightRateDisclaimer', { time: nightTime, price: nightPrice })}`;
+    }
+
+    // Single flow final summary night rate row
+    const nightRateLabel = document.getElementById('finalNightRateLabel');
+    const nightRatePriceEl = document.getElementById('finalNightRatePrice');
+    const nightRateNoteEl = document.getElementById('finalNightRateNote');
+    if (nightRateLabel) nightRateLabel.textContent = t('summary.nightRate', { price: nightPrice });
+    if (nightRatePriceEl) nightRatePriceEl.textContent = `+$${nightPrice}`;
+    if (nightRateNoteEl) nightRateNoteEl.textContent = t('summary.nightRateNote', { time: nightTime });
 }
 
 function updateScenarioHint() {
@@ -851,7 +956,7 @@ function checkDateTimeComplete() {
             state.single.bookingDate = bookingDateInput.value;
             state.single.bookingTime = bookingTimeInput.value;
 
-            calculateNightRate();
+            calculateNightRate(state.single);
 
             // Restore previous values if needed
             if (!prevDate) state.single.bookingDate = prevDate;
@@ -872,10 +977,12 @@ function checkDateTimeComplete() {
         state.single.bookingDate = bookingDateInput.value;
         state.single.bookingTime = bookingTimeInput.value;
 
-        calculateNightRate();
+        calculateNightRate(state.single);
         updateFinalSummary();
         updateStickyFooter();
     }
+
+    updateNightRateDisclaimers();
 }
 
 function goBack() {

@@ -534,9 +534,7 @@ stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
                             <svg class="w-4 h-4 text-ego-gold flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/>
                             </svg>
-                            <p class="text-ego-gold text-xs">
-                                <span class="font-semibold">🌙 Night Rate (+$25):</span> Se aplica si tu masaje termina a las 12:00 AM o después. Reserva antes para evitar este cargo.
-                            </p>
+                            <p id="nightRateDisclaimerText" class="text-ego-gold text-xs"></p>
                         </div>
                     </div>
                 </div>
@@ -574,10 +572,10 @@ stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
                             <span class="text-white">+$25</span>
                         </div>
                         <div id="finalNightRateRow" class="flex justify-between hidden">
-                            <span class="text-ego-muted" data-i18n="summary.nightRate">Night Rate (+$25):</span>
+                            <span id="finalNightRateLabel" class="text-ego-muted"></span>
                             <div class="text-right">
-                                <span class="text-white">+$25</span>
-                                <p class="text-ego-muted text-xs" data-i18n="summary.nightRateNote">Masaje termina después de 12:00 AM</p>
+                                <span id="finalNightRatePrice" class="text-white"></span>
+                                <p id="finalNightRateNote" class="text-ego-muted text-xs"></p>
                             </div>
                         </div>
                         <div class="flex justify-between">
@@ -820,13 +818,6 @@ stagger-3" data-i18n="packs.bookNow">
                         </div>
                     </label>
 
-                    <label class="option-card rounded-xl p-4 flex items-center gap-4 cursor-pointer fade-up stagger-3">
-                        <input type="checkbox" class="hotel-extra-check custom-radio" data-extra="night-rate" data-addon="25">
-                        <div class="flex-1">
-                            <h3 class="font-semibold" data-i18n="extras.nightRate">Night Rate</h3>
-                            <p class="text-ego-muted text-sm" data-i18n="extras.nightRateDesc">Despues de 12:00 AM</p>
-                        </div>
-                    </label>
                 </div>
 
                 <!-- Final Summary -->
@@ -871,6 +862,16 @@ stagger-3" data-i18n="packs.bookNow">
 
                     <div class="text-ego-muted text-xs text-center fade-up stagger-3" data-i18n="single.scheduleNote">
                         Horario: Lun-Sáb 8:30 AM - 12:30 AM | Dom/Fest 10:00 AM - 12:30 AM
+                    </div>
+
+                    <!-- Hotel Night Rate Disclaimer -->
+                    <div id="hotelNightRateDisclaimer" class="bg-ego-gold/10 border border-ego-gold/30 rounded-lg p-3 fade-up stagger-3 hidden">
+                        <div class="flex items-start gap-2">
+                            <svg class="w-4 h-4 text-ego-gold flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/>
+                            </svg>
+                            <p id="hotelNightRateDisclaimerText" class="text-ego-gold text-xs"></p>
+                        </div>
                     </div>
                 </div>
 

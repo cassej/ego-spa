@@ -523,8 +523,8 @@ function setupEventListeners() {
     // Hotel date/time inputs
     const hotelDateInput = document.getElementById('hotelDate');
     const hotelTimeInput = document.getElementById('hotelTime');
-    if (hotelDateInput) hotelDateInput.addEventListener('change', () => { state.hotel.bookingDate = hotelDateInput.value; });
-    if (hotelTimeInput) hotelTimeInput.addEventListener('change', () => { state.hotel.bookingTime = hotelTimeInput.value; });
+    if (hotelDateInput) hotelDateInput.addEventListener('change', () => { state.hotel.bookingDate = hotelDateInput.value; checkHotelDateTimeComplete(); });
+    if (hotelTimeInput) hotelTimeInput.addEventListener('change', () => { state.hotel.bookingTime = hotelTimeInput.value; checkHotelDateTimeComplete(); });
 
     // Book hotel service
     document.getElementById('hotelBookBtn').addEventListener('click', () => {

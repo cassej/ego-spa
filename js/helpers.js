@@ -153,6 +153,13 @@ function formatPrice(price) {
     return `$${price}`;
 }
 
+function formatTime12h(time24) {
+    const [h, m] = time24.split(':').map(Number);
+    const period = h >= 12 ? 'PM' : 'AM';
+    const h12 = h % 12 || 12;
+    return `${h12}:${String(m).padStart(2, '0')} ${period}`;
+}
+
 function generateWhatsAppMessage() {
     let message = '';
 
@@ -163,7 +170,7 @@ function generateWhatsAppMessage() {
         const extras = state.single.extras.map(e => e.name).join(', ') || t('whatsapp.sensitive');
         const masseuse = state.single.masseuseName || t('whatsapp.noPreference');
         const mobility = state.single.mobilityFee > 0 ? t('whatsapp.yes') : t('whatsapp.no');
-        const nightRateText = state.single.nightRate > 0 ? `\n🌙 ${t('whatsapp.nightRate')}` : '';
+        const nightRateText = state.single.nightRate > 0 ? `\n🌙 ${t('whatsapp.nightRate', { price: state.single.nightRate })}` : '';
         const egoCardText = state.isAuth ? `\n💳 ${t('whatsapp.egoCard')}` : '';
 
         let scenarios = state.single.scenarioName;
@@ -212,6 +219,8 @@ ${branchText}
     } else if (state.currentFlow === 'hotel') {
         const price = calculateHotelPrice();
         const finalPrice = state.isAuth ? Math.round(price * (1 - EGO_DISCOUNT)) : price;
+        const hotelNightRateText = state.hotel.nightRate > 0 ? `\n🌙 ${t('whatsapp.nightRate', { price: state.hotel.nightRate })}` : '';
+        const egoCardText = state.isAuth ? `\n💳 ${t('whatsapp.egoCard')}` : '';
 
         message = `🔥 ${t('whatsapp.newBookingHotel')}
 ${branchText}
@@ -223,7 +232,7 @@ ${branchText}
     📅 ${t('whatsapp.date')}: ${state.hotel.bookingDate}
     🕕 ${t('whatsapp.time')}: ${state.hotel.bookingTime}
 
-    💰 ${t('whatsapp.finalPrice')}: $${finalPrice}`;
+    💰 ${t('whatsapp.finalPrice')}: $${finalPrice}${hotelNightRateText}${egoCardText}`;
 
         if (state.isAuth) {
             message += `\n📧 Ego Card: ${state.email}`;
