@@ -60,8 +60,9 @@ function updateConstraints() {
 
 /**
  * Updates hotel scenario constraints based on selected technique
- * Hotel + Thai = Tatami ONLY
- * Hotel + All other techniques = Table or Couch ONLY (NOT Tatami)
+ * Hotel + Nuru = Tatami Dry ONLY (no "Sin escenario", auto-select, locked)
+ * Hotel + Thai = Tatami Dry ONLY
+ * Hotel + All other techniques = Sin escenario + Massage Table + Tatami Dry
  */
 function updateHotelConstraints() {
     const technique = state.hotel.technique;
@@ -70,40 +71,63 @@ function updateHotelConstraints() {
 
     // Hotel scenario constraints
     let allowedScenarios = [];
+    const isNuru = technique === 'nuru';
 
-    if (technique === 'thai') {
-        // Thai = Tatami ONLY
+    if (isNuru) {
+        // Nuru = Tatami Dry ONLY
+        allowedScenarios = ['tatami-dry'];
+    } else if (technique === 'thai') {
+        // Thai = Tatami Dry ONLY
         allowedScenarios = ['tatami-dry'];
     } else {
-        // All other techniques = Table or Couch ONLY (NOT Tatami)
-        allowedScenarios = ['massage-table', 'tantric-couch'];
+        // All other techniques = Table + Tatami Dry (no Tantric Couch)
+        allowedScenarios = ['massage-table', 'tatami-dry'];
     }
 
-    console.log('🏨 Hotel Constraints:', { technique, allowedScenarios });
+    console.log('🏨 Hotel Constraints:', { technique, allowedScenarios, isNuru });
 
     // Update scenario availability for radio button options
     document.querySelectorAll('.hotel-scenario-option').forEach(option => {
         const radio = option.querySelector('input[type="radio"]');
         const scenario = radio.dataset.scenario;
 
-        // Empty scenario (Sin escenario) is always allowed
-        const isAllowed = !scenario || allowedScenarios.includes(scenario);
+        // For nuru: "Sin escenario" (empty scenario) is NOT allowed
+        // For all others: "Sin escenario" is always allowed
+        const isEmptyScenario = !scenario;
+        const isScenarioAllowed = allowedScenarios.includes(scenario);
+        const isAllowed = isNuru ? isScenarioAllowed : (isEmptyScenario || isScenarioAllowed);
 
         option.classList.toggle('option-locked', !isAllowed);
         option.classList.toggle('disabled', !isAllowed);
+        option.style.display = isAllowed ? '' : 'none';
         radio.disabled = !isAllowed;
 
         if (!isAllowed && radio.checked) {
-            // If currently selected scenario becomes locked, uncheck it
             radio.checked = false;
-            // Check the "Sin escenario" option
+        }
+    });
+
+    // For nuru: auto-select tatami-dry and lock it
+    if (isNuru) {
+        const tatamiRadio = document.querySelector('.hotel-scenario-option input[data-scenario="tatami-dry"]');
+        if (tatamiRadio) {
+            tatamiRadio.checked = true;
+            tatamiRadio.disabled = true; // Lock it
+        }
+        state.hotel.scenario = 'tatami-dry';
+        state.hotel.scenarioName = td('SCENARIO_DATA', 'tatami-dry', 'name');
+        state.hotel.scenarioPrice = HOTEL_SCENARIO_PRICE;
+    } else {
+        // For non-nuru: if no scenario is currently checked, check "Sin escenario"
+        const anyChecked = document.querySelector('.hotel-scenario-option input[name="hotel-scenario"]:checked');
+        if (!anyChecked) {
             const defaultRadio = document.querySelector('.hotel-scenario-option input[data-scenario=""]');
             if (defaultRadio) defaultRadio.checked = true;
             state.hotel.scenario = null;
             state.hotel.scenarioName = '';
             state.hotel.scenarioPrice = 0;
         }
-    });
+    }
 }
 
 /**
@@ -345,6 +369,11 @@ function goToStep(step) {
         if (step === 3) {
             updateHotelFinalSummary();
         }
+
+        // Populate final summary on step 4
+        if (step === 4) {
+            updateHotelFinalSummary();
+        }
     }
 
     // Update sticky footer visibility
@@ -410,36 +439,58 @@ function updateHotelFinalSummary() {
     const finalPrice = document.getElementById('hotelFinalPrice');
     const finalSavings = document.getElementById('hotelFinalSavings');
 
-    finalTechnique.textContent = state.hotel.techniqueName || 'Masaje';
-    if (state.hotel.scenarioName) {
-        finalScenario.textContent = state.hotel.scenario ? td('SCENARIO_DATA', state.hotel.scenario, 'name') : state.hotel.scenarioName;
-    }
+    // Step 4 summary elements
+    const s4Technique = document.getElementById('hotelFinalTechniqueStep4');
+    const s4Scenario = document.getElementById('hotelFinalScenarioStep4');
+    const s4Config = document.getElementById('hotelFinalConfigStep4');
+    const s4Extras = document.getElementById('hotelFinalExtrasStep4');
+    const s4Price = document.getElementById('hotelFinalPriceStep4');
+    const s4Savings = document.getElementById('hotelFinalSavingsStep4');
 
-    finalConfig.textContent = `${state.hotel.hands} ${t('single.handsUnit')} · ${state.hotel.duration} min`;
+    const techniqueText = state.hotel.techniqueName || 'Masaje';
+    const scenarioText = state.hotel.scenario ? td('SCENARIO_DATA', state.hotel.scenario, 'name') : state.hotel.scenarioName;
+    const configText = `${state.hotel.hands} ${t('single.handsUnit')} · ${state.hotel.duration} min`;
+    const extrasText = state.hotel.extras.length > 0 ? state.hotel.extras.map(e => e.name).join(', ') : t('summary.noExtras');
 
-    if (state.hotel.extras.length > 0) {
-        finalExtras.textContent = state.hotel.extras.map(e => e.name).join(', ');
-    } else {
-        finalExtras.textContent = t('summary.noExtras');
-    }
+    // Update step 3 summary
+    if (finalTechnique) finalTechnique.textContent = techniqueText;
+    if (finalScenario) finalScenario.textContent = scenarioText || '';
+    if (finalConfig) finalConfig.textContent = configText;
+    if (finalExtras) finalExtras.textContent = extrasText;
+
+    // Update step 4 summary
+    if (s4Technique) s4Technique.textContent = techniqueText;
+    if (s4Scenario) s4Scenario.textContent = scenarioText || '';
+    if (s4Config) s4Config.textContent = configText;
+    if (s4Extras) s4Extras.textContent = extrasText;
 
     const price = calculateHotelPrice();
     console.log('Hotel price calculated:', price);
-    finalPrice.textContent = `$${price}`;
+    if (finalPrice) finalPrice.textContent = `$${price}`;
+    if (s4Price) s4Price.textContent = `$${price}`;
 
     if (state.isAuth) {
         // Calculate regular price for comparison
         const key = `${state.hotel.duration}-${state.hotel.hands}`;
-        let regularPrice = HOTEL_SERVICE_PRICING[key].regularPrice;
+        let regularPrice = HOTEL_SERVICE_PRICING[key]?.regularPrice || 0;
         regularPrice += (state.hotel.scenarioPrice || 0);
         state.hotel.extras.forEach(e => { regularPrice += e.addon; });
         regularPrice += (state.hotel.nightRate || 0);
 
         const savings = regularPrice - price;
-        finalSavings.textContent = t('summary.savings', { amount: `$${savings}` });
-        finalSavings.classList.remove('hidden');
+        const savingsText = t('summary.savings', { amount: `$${savings}` });
+
+        if (finalSavings) {
+            finalSavings.textContent = savingsText;
+            finalSavings.classList.remove('hidden');
+        }
+        if (s4Savings) {
+            s4Savings.textContent = savingsText;
+            s4Savings.classList.remove('hidden');
+        }
     } else {
-        finalSavings.classList.add('hidden');
+        if (finalSavings) finalSavings.classList.add('hidden');
+        if (s4Savings) s4Savings.classList.add('hidden');
     }
 }
 
@@ -864,11 +915,16 @@ function resetSelections() {
     state.hotel = {
         technique: null,
         techniqueName: '',
+        pricingSystem: null,
         scenario: null,
         scenarioName: '',
+        scenarioPrice: 0,
         hands: 2,
         duration: 60,
-        extras: []
+        extras: [],
+        nightRate: 0,
+        bookingDate: '',
+        bookingTime: ''
     };
 
     // Remove selected class from all buttons

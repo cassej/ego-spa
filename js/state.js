@@ -37,7 +37,9 @@ const state = {
         hands: 2,
         duration: 60,
         extras: [],
-        nightRate: 0
+        nightRate: 0,
+        bookingDate: '',
+        bookingTime: ''
     },
     // Pack state
     pack: {

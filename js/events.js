@@ -437,6 +437,9 @@ b.classList.remove('selected'));
 
             state.hotel.hands = parseInt(btn.dataset.hands) || 2;
 
+            // Update valid duration combos based on selected hands
+            updateHotelValidCombos();
+
             // Check if continue button should be enabled
             updateHotelConfigContinueButton();
 
@@ -509,6 +512,20 @@ b.classList.remove('selected'));
         });
     });
 
+    // Step 3 Continue button (go to step 4)
+    const hotelStep3ContinueBtn = document.getElementById('hotelStep3ContinueBtn');
+    if (hotelStep3ContinueBtn) {
+        hotelStep3ContinueBtn.addEventListener('click', () => {
+            goToStep(4);
+        });
+    }
+
+    // Hotel date/time inputs
+    const hotelDateInput = document.getElementById('hotelDate');
+    const hotelTimeInput = document.getElementById('hotelTime');
+    if (hotelDateInput) hotelDateInput.addEventListener('change', () => { state.hotel.bookingDate = hotelDateInput.value; });
+    if (hotelTimeInput) hotelTimeInput.addEventListener('change', () => { state.hotel.bookingTime = hotelTimeInput.value; });
+
     // Book hotel service
     document.getElementById('hotelBookBtn').addEventListener('click', () => {
         const message = generateHotelWhatsAppMessage();
@@ -573,6 +590,20 @@ b.classList.remove('selected'));
         const message = generateWhatsAppMessage();
         window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`, '_blank');
     });
+
+function updateHotelValidCombos() {
+    document.querySelectorAll('.hotel-duration-btn').forEach(btn => {
+        const dur = btn.dataset.duration;
+        const key = `${dur}-${state.hotel.hands}`;
+        const valid = !!HOTEL_SERVICE_PRICING[key];
+        btn.classList.toggle('opacity-30', !valid);
+        btn.classList.toggle('pointer-events-none', !valid);
+        if (!valid && btn.classList.contains('selected')) {
+            btn.classList.remove('selected');
+            state.hotel.duration = null;
+        }
+    });
+}
 
     // Set initial state
     document.addEventListener('DOMContentLoaded', () => {

@@ -784,7 +784,7 @@ stagger-3" data-i18n="packs.bookNow">
             <!-- Step 3: Extras & Complete -->
             <div id="hotelStep3" class="step-content hidden">
                 <div class="text-center mb-6 fade-up">
-                    <span class="text-ego-gold text-sm font-semibold tracking-wider" data-i18n="steps.step3of3">PASO 3 DE 3</span>
+                    <span class="text-ego-gold text-sm font-semibold tracking-wider" data-i18n="steps.step3of4">PASO 3 DE 4</span>
                     <h2 class="font-display text-4xl tracking-wide mt-2" data-i18n="hotel.step3Title">EXTRAS</h2>
                     <p class="text-ego-muted text-sm mt-1" data-i18n="hotel.step3Desc">Opcionales para tu experiencia</p>
                 </div>
@@ -817,13 +817,6 @@ stagger-3" data-i18n="packs.bookNow">
                             </div>
                         </label>
 
-                        <label class="hotel-scenario-option option-card rounded-xl p-3 flex items-center gap-2 cursor-pointer fade-up stagger-4">
-                            <input type="radio" name="hotel-scenario" class="custom-radio" data-scenario="tantric-couch" data-price="25">
-                            <div class="flex-1">
-                                <h3 class="font-semibold text-sm" data-scenario-key="tantric-couch">Tantric Couch</h3>
-                                <p class="text-ego-gold text-xs hotel-scenario-price-display">+$25</p>
-                            </div>
-                        </label>
                     </div>
                 </div>
 
@@ -866,7 +859,52 @@ stagger-3" data-i18n="packs.bookNow">
                     </div>
                 </div>
 
-                <button id="hotelBookBtn" class="btn-primary w-full py-4 rounded-xl font-semibold text-white uppercase tracking-wider fade-up stagger-4" data-i18n="hotel.bookWhatsApp">
+                <button id="hotelStep3ContinueBtn" class="btn-primary w-full py-4 rounded-xl font-semibold text-white uppercase tracking-wider fade-up stagger-4" data-i18n="single.continue">
+                    Continuar
+                </button>
+            </div>
+
+            <!-- Step 4: Date & Time -->
+            <div id="hotelStep4" class="step-content hidden">
+                <div class="text-center mb-6 fade-up">
+                    <span class="text-ego-gold text-sm font-semibold tracking-wider" data-i18n="steps.step4of4">PASO 4 DE 4</span>
+                    <h2 class="font-display text-4xl tracking-wide mt-2" data-i18n="hotel.step4Title">FECHA Y HORA</h2>
+                    <p class="text-ego-muted text-sm mt-1" data-i18n="hotel.step4Desc">Confirma tu reserva</p>
+                </div>
+
+                <div class="space-y-4 mb-6">
+                    <div class="option-card rounded-xl p-4 fade-up stagger-1">
+                        <label class="block">
+                            <span class="text-ego-muted text-sm" data-i18n="single.date">Fecha</span>
+                            <input type="date" id="hotelDate" class="w-full mt-2 bg-ego-zinc rounded-lg p-3 text-white">
+                        </label>
+                    </div>
+
+                    <div class="option-card rounded-xl p-4 fade-up stagger-2">
+                        <label class="block">
+                            <span class="text-ego-muted text-sm" data-i18n="single.time">Hora</span>
+                            <input type="time" id="hotelTime" class="w-full mt-2 bg-ego-zinc rounded-lg p-3 text-white">
+                        </label>
+                    </div>
+
+                    <div class="text-ego-muted text-xs text-center fade-up stagger-3" data-i18n="single.scheduleNote">
+                        Horario: Lun-Sáb 8:30 AM - 12:30 AM | Dom/Fest 10:00 AM - 12:30 AM
+                    </div>
+                </div>
+
+                <!-- Final Summary in Step 4 -->
+                <div class="bg-ego-zinc rounded-xl p-4 mb-4 fade-up stagger-4">
+                    <div class="text-center">
+                        <p id="hotelFinalTechniqueStep4" class="font-display text-xl text-white"></p>
+                        <p id="hotelFinalScenarioStep4" class="text-ego-gold text-sm mt-1"></p>
+                        <p id="hotelFinalConfigStep4" class="text-ego-muted text-sm mt-2"></p>
+                        <p id="hotelFinalExtrasStep4" class="text-ego-muted text-xs mt-1"></p>
+                        <p id="hotelFinalPriceStep4" class="font-display text-3xl text-ego-gold mt-4"></p>
+                        <p id="hotelFinalSavingsStep4" class="text-sm text-ego-gold savings-pulse hidden"></p>
+                    </div>
+                </div>
+
+                <button id="hotelBookBtn" class="btn-primary w-full py-4 rounded-xl font-semibold text-white uppercase tracking-wider fade-up stagger-5" data-i18n="hotel.bookWhatsApp">
                     Reservar por WhatsApp
                 </button>
             </div>
