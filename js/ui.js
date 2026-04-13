@@ -339,12 +339,12 @@ function goToStep(step) {
 
             if (state.hotel.hands) {
                 const handsBtn = document.querySelector(`.hotel-hands-btn[data-hands="${state.hotel.hands}"]`);
-                if (handsBtn) handsBtn.classList.add('selected');
+                //if (handsBtn) handsBtn.classList.add('selected');
             }
 
             if (state.hotel.duration) {
                 const durationBtn = document.querySelector(`.hotel-duration-btn[data-duration="${state.hotel.duration}"]`);
-                if (durationBtn) durationBtn.classList.add('selected');
+               //if (durationBtn) durationBtn.classList.add('selected');
             }
 
             // Restore scenario radio button selection
