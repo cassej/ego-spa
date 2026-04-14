@@ -119,7 +119,6 @@ function updateHotelConstraints() {
         }
         state.hotel.scenario = 'tatami-dry';
         state.hotel.scenarioName = td('SCENARIO_DATA', 'tatami-dry', 'name');
-        state.hotel.scenarioPrice = HOTEL_SCENARIO_PRICE;
     } else {
         // For non-nuru: if no scenario is currently checked, check "Sin escenario"
         const anyChecked = document.querySelector('.hotel-scenario-option input[name="hotel-scenario"]:checked');
@@ -128,7 +127,6 @@ function updateHotelConstraints() {
             if (defaultRadio) defaultRadio.checked = true;
             state.hotel.scenario = null;
             state.hotel.scenarioName = '';
-            state.hotel.scenarioPrice = 0;
         }
     }
 }
@@ -483,7 +481,6 @@ function updateHotelFinalSummary() {
         // Calculate regular price for comparison
         const key = `${state.hotel.duration}-${state.hotel.hands}`;
         let regularPrice = HOTEL_SERVICE_PRICING[key]?.regularPrice || 0;
-        regularPrice += (state.hotel.scenarioPrice || 0);
         state.hotel.extras.forEach(e => { regularPrice += e.addon; });
         regularPrice += (state.hotel.nightRate || 0);
 
@@ -1055,7 +1052,6 @@ function resetSelections() {
         pricingSystem: null,
         scenario: null,
         scenarioName: '',
-        scenarioPrice: 0,
         hands: null,
         duration: null,
         extras: [],

@@ -488,7 +488,6 @@ function setupEventListeners() {
 
             state.hotel.scenario = scenario || null;
             state.hotel.scenarioName = scenario ? td('SCENARIO_DATA', scenario, 'name') : '';
-            state.hotel.scenarioPrice = price;
 
             updateHotelFinalSummary();
         });

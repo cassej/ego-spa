@@ -72,9 +72,6 @@ function calculateHotelPrice() {
 
     let total = state.isAuth ? (pricing.egoPrice || 0) : (pricing.regularPrice || 0);
 
-    // Add scenario price (optional)
-    total += (state.hotel.scenarioPrice || 0);
-
     // Add extras
     state.hotel.extras.forEach(e => {
         total += (e.addon || 0);
