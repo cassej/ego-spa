@@ -4,29 +4,29 @@
       "name": "Marbella",
       "label": "Marbella",
       "label_en": "Marbella",
-      "description": "Experiencia premium en",
-      "description_en": "Premium experience at"
+      "description": "18 km Aeropuerto Internacional de Tocumen · 6 km Casco Viejo · 9 km Panama Canal",
+      "description_en": "18 km Tocumen International Airport  · 6 km Casco Viejo · 9 km Panama Canal"
     },
     "costa-del-este": {
       "name": "Costa del Este",
       "label": "Costa del Este",
       "label_en": "Costa del Este",
-      "description": "Experiencia premium en",
-      "description_en": "Premium experience at"
+      "description": "11 km Aeropuerto Internacional de Tocumen · 17 km Casco Viejo · 21 km Panama Canal",
+      "description_en": "11 km Tocumen International Airport  · 17 km Casco Viejo · 21 km Panama Canal"
     },
     "san-francisco": {
       "name": "San Francisco",
       "label": "San Francisco",
       "label_en": "San Francisco",
-      "description": "Experiencia premium en",
-      "description_en": "Premium experience at"
+      "description": "14 km Aeropuerto Internacional de Tocumen · 8 km Casco Viejo · 11 km Panama Canal",
+      "description_en": "14 km Tocumen International Airport  · 8 km Casco Viejo · 11 km Panama Canal"
     },
     "el-dorado": {
       "name": "El Dorado",
       "label": "El Dorado",
       "label_en": "El Dorado",
-      "description": "Experiencia premium en",
-      "description_en": "Premium experience at"
+      "description": "24 km Aeropuerto Internacional de Tocumen · 8 km Casco Viejo · 8 km Panama Canal",
+      "description_en": "24 km Tocumen International Airport  · 8 km Casco Viejo · 8 km Panama Canal"
     }
   },
   "TECHNIQUE_CATEGORIES": {
@@ -629,17 +629,17 @@
       "price": 25
     },
     "move-to-branches": {
-      "name": "Traslado",
-      "name_en": "Mobility",
+      "name": "Traslado Masajista entre Sucursales",
+      "name_en": "Massage Therapist Transfer Between Branches",
       "price": 25
     },
     "night-rate": {
-      "name": "Tarifa Nocturna",
-      "name_en": "Night Rate",
+      "name": "Tarifa nocturna (11:00 p.m. en adelante)",
+      "name_en": "Late Night Rate (After 11 PM)",
       "price": 25
     },
     "sensitive": {
-      "name": "Sensitive",
+      "name": "Sensitivo",
       "name_en": "Sensitive",
       "price": 0
     }
@@ -916,7 +916,7 @@
       "whatsapp.yes": "Si (+$25)",
       "whatsapp.no": "No",
       "whatsapp.noPreference": "Sin preferencia",
-      "whatsapp.sensitive": "Sensitive",
+      "whatsapp.sensitive": "Sensitivo",
       "whatsapp.newBookingPack": "NUEVA RESERVA - PACK",
       "whatsapp.pack": "PAQUETE",
       "whatsapp.size": "TAMANO",
@@ -1106,7 +1106,7 @@
       "whatsapp.yes": "Yes (+$25)",
       "whatsapp.no": "No",
       "whatsapp.noPreference": "No preference",
-      "whatsapp.sensitive": "Sensitive",
+      "whatsapp.sensitive": "Sensitivo",
       "whatsapp.newBookingPack": "NEW BOOKING - PACK",
       "whatsapp.pack": "PACKAGE",
       "whatsapp.size": "SIZE",
