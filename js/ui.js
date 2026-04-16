@@ -24,7 +24,7 @@ function updateConstraints() {
         const finalAllowed = isAllowed && !isExcluded;
         btn.classList.toggle('option-locked', !finalAllowed);
         btn.disabled = !finalAllowed;
-        btn.dataset.lockReason = finalAllowed ? '' : 'Not available for this technique';
+        btn.dataset.lockReason = finalAllowed ? '' : t('common.lockReason');
     });
 
     // 2. Update hands availability
@@ -37,7 +37,7 @@ function updateConstraints() {
         const isLocked = !availableHands.includes(h);
         btn.classList.toggle('option-locked', isLocked);
         btn.disabled = isLocked;
-        btn.dataset.lockReason = isLocked ? 'Not available for this technique' : '';
+        btn.dataset.lockReason = isLocked ? t('common.lockReason') : '';
     });
 
     // 3. Update duration availability
@@ -50,7 +50,7 @@ function updateConstraints() {
     document.querySelectorAll('.duration-btn').forEach(btn => {
         const d = parseInt(btn.dataset.duration);
         let isLocked = !availableDurations.includes(d);
-        let lockReason = isLocked ? 'Not available for this technique' : '';
+        let lockReason = isLocked ? t('common.lockReason') : '';
 
         btn.classList.toggle('option-locked', isLocked);
         btn.disabled = isLocked;
@@ -153,7 +153,7 @@ function updateStickyFooter() {
         const duration = state.single.duration;
 
         const parts = [techniqueName];
-        if (hands !== null) parts.push(`${hands} Hands`);
+        if (hands !== null) parts.push(`${hands} ${t('common.hands')}`);
         if (duration !== null) parts.push(`${duration}m`);
 
         if (content) content += ' | ';
@@ -165,7 +165,7 @@ function updateStickyFooter() {
         price = calculatePackPrice();
     } else if (state.currentFlow === 'hotel' && state.hotel.technique) {
         if (content) content += ' | ';
-        content += `${state.hotel.techniqueName} | ${state.hotel.hands} Hands | ${state.hotel.duration}m`;
+        content += `${state.hotel.techniqueName} | ${state.hotel.hands} ${t('common.hands')} | ${state.hotel.duration}${t('common.min')}`;
         price = calculateHotelPrice();
     } else if (!state.currentFlow) {
         content = content || t('footer.default');
@@ -201,7 +201,7 @@ function updateSummary() {
             parts.push(`${state.single.duration}m`);
         }
         if (state.single.extras.length > 0) {
-            parts.push(`+${state.single.extras.length} extras`);
+            parts.push(t('common.extrasCount', { count: state.single.extras.length }));
         }
         details = parts.join(' · ');
         price = calculateSinglePrice();
@@ -409,7 +409,7 @@ function updateFinalSummary() {
         document.getElementById('finalScenario').textContent = '';
     }
     document.getElementById('finalHands').textContent = state.single.hands !== null ? state.single.hands + ' ' + t('single.handsUnit') : '';
-    document.getElementById('finalDuration').textContent = state.single.duration !== null ? state.single.duration + ' min' : '';
+    document.getElementById('finalDuration').textContent = state.single.duration !== null ? state.single.duration + ' ' + t('common.min') : '';
 
     const extrasText = state.single.extras.map(e => e.name).join(', ') || t('extras.sensitive');
     document.getElementById('finalExtras').textContent = extrasText;
@@ -455,9 +455,9 @@ function updateHotelFinalSummary() {
     const s4Price = document.getElementById('hotelFinalPriceStep4');
     const s4Savings = document.getElementById('hotelFinalSavingsStep4');
 
-    const techniqueText = state.hotel.techniqueName || 'Masaje';
+    const techniqueText = state.hotel.techniqueName || t('common.defaultMassage');
     const scenarioText = state.hotel.scenario ? td('SCENARIO_DATA', state.hotel.scenario, 'name') : state.hotel.scenarioName;
-    const configText = `${state.hotel.hands} ${t('single.handsUnit')} · ${state.hotel.duration} min`;
+    const configText = `${state.hotel.hands} ${t('single.handsUnit')} · ${state.hotel.duration} ${t('common.min')}`;
     const extrasText = state.hotel.extras.length > 0 ? state.hotel.extras.map(e => e.name).join(', ') : t('summary.noExtras');
 
     // Update step 3 summary
@@ -531,8 +531,7 @@ function updateHotelHandsConstraints() {
     document.querySelectorAll('.hotel-hands-btn').forEach(btn => {
         const h = parseInt(btn.dataset.hands);
         const valid = allowedHands.includes(h);
-        btn.classList.toggle('opacity-30', !valid);
-        btn.classList.toggle('pointer-events-none', !valid);
+        btn.classList.toggle('disabled', !valid);
         if (!valid && btn.classList.contains('selected')) {
             btn.classList.remove('selected');
             state.hotel.hands = null;

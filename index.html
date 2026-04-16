@@ -55,12 +55,12 @@ text-white">EGO SPA & BARBA</h1>
 uppercase" data-i18n="header.subtitle">Panama</p>
             </div>
             <div class="flex items-center gap-2">
-                <button id="langToggleBtn" onclick="toggleLanguage()" class="fade-up stagger-1 px-2 py-1 rounded text-xs font-bold bg-ego-zinc hover:bg-ego-zincLight transition-colors" aria-label="Toggle language">
+                <button id="langToggleBtn" onclick="toggleLanguage()" class="fade-up stagger-1 px-2 py-1 rounded text-xs font-bold bg-ego-zinc hover:bg-ego-zincLight transition-colors" aria-label="Cambiar idioma" data-i18n-aria="aria.toggleLang">
                     <span id="langToggleText">EN</span>
                 </button>
                 <button id="authBtn" class="fade-up stagger-1 flex
 items-center gap-2 px-3 py-2 rounded-lg bg-ego-zinc hover:bg-ego-zincLight
-transition-colors" aria-label="Autenticacion Ego Card">
+transition-colors" aria-label="Autenticacion Ego Card" data-i18n-aria="aria.auth">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor"
 viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round"
@@ -123,7 +123,7 @@ rounded-lg font-semibold text-white uppercase tracking-wider" data-i18n="auth.su
             </p>
 
             <button id="closeAuthModal" class="absolute top-4 right-4 
-text-ego-muted hover:text-white transition-colors" aria-label="Cerrar">
+text-ego-muted hover:text-white transition-colors" aria-label="Cerrar" data-i18n-aria="aria.close">
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" 
 viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" 
@@ -156,7 +156,7 @@ stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
             </div>
 
             <div class="grid gap-4 mt-8">
-                <button class="flow-btn option-card rounded-2xl p-6 text-left fade-up stagger-2" data-flow="single" aria-label="Masajes individuales">
+                <button class="flow-btn option-card rounded-2xl p-6 text-left fade-up stagger-2" data-flow="single" aria-label="Masajes individuales" data-i18n-aria="aria.single">
                     <div class="flex items-start gap-4">
                         <div class="w-14 h-14 rounded-xl bg-gradient-to-br from-ego-red/20 to-transparent flex items-center justify-center flex-shrink-0">
                             <svg class="w-7 h-7 text-ego-red" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -173,7 +173,7 @@ stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
                     </div>
                 </button>
 
-                <button class="flow-btn option-card rounded-2xl p-6 text-left fade-up stagger-3" data-flow="packs" aria-label="Paquetes y contratos">
+                <button class="flow-btn option-card rounded-2xl p-6 text-left fade-up stagger-3" data-flow="packs" aria-label="Paquetes y contratos" data-i18n-aria="aria.packs">
                     <div class="flex items-start gap-4">
                         <div class="w-14 h-14 rounded-xl bg-gradient-to-br from-ego-red/20 to-transparent flex items-center justify-center flex-shrink-0">
                             <svg class="w-7 h-7 text-ego-red" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -190,7 +190,7 @@ stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
                     </div>
                 </button>
 
-                <button class="flow-btn option-card rounded-2xl p-6 text-left fade-up stagger-4" data-flow="tourist" aria-label="Special Packs for Tourists">
+                <button class="flow-btn option-card rounded-2xl p-6 text-left fade-up stagger-4" data-flow="tourist" aria-label="Special Packs for Tourists" data-i18n-aria="aria.tourist">
                     <div class="flex items-start gap-4">
                         <div class="w-14 h-14 rounded-xl bg-gradient-to-br from-ego-blue/20 to-transparent flex items-center justify-center flex-shrink-0">
                             <svg class="w-7 h-7 text-ego-gold" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
@@ -209,7 +209,7 @@ stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
                     </div>
                 </button>
 
-                <button class="flow-btn option-card rounded-2xl p-6 text-left fade-up stagger-5" data-flow="membership" aria-label="Ego Card Membership">
+                <button class="flow-btn option-card rounded-2xl p-6 text-left fade-up stagger-5" data-flow="membership" aria-label="Ego Card Membership" data-i18n-aria="aria.membership">
                     <div class="flex items-start gap-4">
                         <div class="w-14 h-14 rounded-xl bg-gradient-to-br from-ego-gold/20 to-transparent flex items-center justify-center flex-shrink-0">
                             <svg class="w-7 h-7 text-ego-gold" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
@@ -1004,7 +1004,7 @@ text-ego-red"></p>
     <!-- Back Button -->
     <button id="backBtn" class="fixed top-24 left-4 z-30 p-2 rounded-full
 bg-ego-zinc hover:bg-ego-zincLight transition-colors hidden"
-aria-label="Volver">
+aria-label="Volver" data-i18n-aria="aria.back">
         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0
 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round"
@@ -1013,7 +1013,7 @@ stroke-width="2" d="M15 19l-7-7 7-7"/>
     </button>
 
     <!-- Hours Info Button -->
-    <button id="hoursBtn" class="fixed top-24 right-4 z-30 p-2 rounded-full bg-ego-zinc hover:bg-ego-zincLight transition-colors" aria-label="Horarios">
+    <button id="hoursBtn" class="fixed top-24 right-4 z-30 p-2 rounded-full bg-ego-zinc hover:bg-ego-zincLight transition-colors" aria-label="Horarios" data-i18n-aria="aria.hours">
         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
         </svg>

@@ -53,6 +53,9 @@ function applyLanguage() {
     document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
         el.placeholder = t(el.getAttribute('data-i18n-placeholder'));
     });
+    document.querySelectorAll('[data-i18n-aria]').forEach(el => {
+        el.setAttribute('aria-label', t(el.getAttribute('data-i18n-aria')));
+    });
     const toggle = document.getElementById('langToggleText');
     if (toggle) toggle.textContent = currentLang === 'es' ? 'EN' : 'ES';
 }

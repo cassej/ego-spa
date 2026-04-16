@@ -187,7 +187,7 @@ ${branchText}
     📋 ${t('whatsapp.technique')}: ${state.single.techniqueName}
     🛋️ ${t('whatsapp.scenario')}: ${scenarios}
     👆 ${t('whatsapp.hands')}: ${state.single.hands}
-    ⏱️ ${t('whatsapp.duration')}: ${state.single.duration} min
+    ⏱️ ${t('whatsapp.duration')}: ${state.single.duration} ${t('common.min')}
 
     ✨ ${t('whatsapp.extras')}: ${extras}
     👩‍🦰 ${t('whatsapp.masseuse')}: ${masseuse}
@@ -210,7 +210,7 @@ ${branchText}
     📦 ${t('whatsapp.pack')}: ${state.pack.code} - ${state.pack.name}
     📏 ${t('whatsapp.size')}: ${state.pack.sizeLabel} (${state.pack.sessions} ${t('footer.sessions')})
     👆 ${t('whatsapp.hands')}: ${state.pack.hands}
-    📅 Validez: ${packData?.validity || '-'}
+    📅 ${t('whatsapp.validity')}: ${packData?.validity || '-'}
     💰 ${t('whatsapp.total')}: $${price}`;
 
         if (state.isAuth) {
@@ -227,7 +227,7 @@ ${branchText}
     📋 ${t('whatsapp.technique')}: ${state.hotel.techniqueName}
     🛋️ ${t('whatsapp.scenario')}: ${state.hotel.scenarioName}
     👆 ${t('whatsapp.hands')}: ${state.hotel.hands}
-    ⏱️ ${t('whatsapp.duration')}: ${state.hotel.duration} min
+    ⏱️ ${t('whatsapp.duration')}: ${state.hotel.duration} ${t('common.min')}
 
     📅 ${t('whatsapp.date')}: ${state.hotel.bookingDate}
     🕕 ${t('whatsapp.time')}: ${state.hotel.bookingTime}
@@ -259,8 +259,8 @@ function generateMembershipWhatsAppMessage() {
     let message = `🎫 *${t('whatsapp.newMembership')}*\n\n`;
     message += `📦 *${t('whatsapp.membership')}:* ${membership.name}\n`;
     message += `💰 *${t('whatsapp.priceFirstYear')}:* $${membership.firstYearPrice}\n`;
-    message += `📧 *${t('whatsapp.email')}:* ${state.email || 'No proporcionado'}\n`;
-    message += `🏢 *${t('whatsapp.branch')}:* ${state.selectedBranchName || 'No seleccionada'}\n`;
+    message += `📧 *${t('whatsapp.email')}:* ${state.email || t('common.notProvided')}\n`;
+    message += `🏢 *${t('whatsapp.branch')}:* ${state.selectedBranchName || t('common.notSelected')}\n`;
     message += `\n${membership.description}`;
     return encodeURIComponent(message);
 }
