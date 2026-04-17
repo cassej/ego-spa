@@ -444,6 +444,19 @@ tr:last-child td { border-bottom: none; }
                 </div>
             </div>
 
+            <!-- DISCLAIMER -->
+            <div id="section-disclaimer" class="section space-y-5">
+                <div class="sec-head"><div><div class="sec-title">Disclaimer</div><div class="sec-sub">Terms modal on widget load</div></div></div>
+                <div class="card p-5">
+                    <div class="flex items-center gap-3 mb-4">
+                        <input type="checkbox" id="g-terms-enabled">
+                        <span class="lbl" style="margin:0">Mostrar disclaimer al iniciar</span>
+                    </div>
+                    <span class="lbl">Contenido (HTML permitido)</span>
+                    <textarea id="g-terms-content" rows="6" style="width:100%;background:#09090b;border:1px solid rgba(255,255,255,0.1);border-radius:0.5rem;padding:0.75rem;color:#fff;font-size:0.875rem;resize:vertical"></textarea>
+                </div>
+            </div>
+
         </div>
     </main>
 </div>
@@ -477,6 +490,7 @@ const NAV_ITEMS = [
     { id:'scenario-rules', icon:'📜', label:'Scenario Rules' },
     { id:'addons',         icon:'✨', label:'Add-ons' },
     { id:'translations',   icon:'🌐', label:'Translations' },
+    { id:'disclaimer',     icon:'📄', label:'Disclaimer' },
 ];
 
 function buildNav($el) {
@@ -569,6 +583,17 @@ function collectGeneral() {
     bh.lastAppointment = $('#g-last-appt').val();
     bh.nightRateAfter  = $('#g-night-after').val();
     bh.nightRateBefore = $('#g-night-before').val();
+}
+function renderDisclaimer() {
+    const t = DATA.TERMS_MODAL || {};
+    $('#g-terms-enabled').prop('checked', !!t.enabled);
+    $('#g-terms-content').val(t.content || '');
+}
+function collectDisclaimer() {
+    DATA.TERMS_MODAL = {
+        enabled: $('#g-terms-enabled').is(':checked'),
+        content: $('#g-terms-content').val().trim()
+    };
 }
 
 // ============================================================
@@ -1289,7 +1314,7 @@ function doSave() {
     collectGeneral(); collectBranches(); collectTechniqueCats(); collectMembership();
     collectFlows(); collectMcodes(); collectHotel(); collectTiered();
     collectPacks(); collectTechniques(); collectScenarios(); collectScenarioRules(); collectAddons();
-    collectTranslations();
+    collectTranslations(); collectDisclaimer();
 
     // Safety defaults for hotel fields
     if (!DATA.HOTEL_TECHNIQUES || DATA.HOTEL_TECHNIQUES.length === 0) {
@@ -1332,7 +1357,7 @@ fetch('./data.json')
         DATA = json;
         renderGeneral(); renderBranches(); renderTechniqueCats(); renderMembership(); renderFlows();
         renderMcodes(); renderHotel(); renderTiered(); renderPacks(); renderTechniques();
-        renderScenarios(); renderScenarioRules(); renderAddons(); renderTranslations();
+        renderScenarios(); renderScenarioRules(); renderAddons(); renderTranslations(); renderDisclaimer();
     })
     .catch(err => {
         toast('✗ No se pudo cargar data.json: ' + err.message, false);

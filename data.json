@@ -1130,5 +1130,9 @@
       "whatsapp.email": "Email",
       "whatsapp.branch": "Branch"
     }
+  },
+  "TERMS_MODAL": {
+    "enabled": true,
+    "content": "Bienvenido a Ego Spa. Al continuar, aceptas nuestros términos y condiciones de servicio."
   }
 }

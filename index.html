@@ -1028,9 +1028,25 @@ stroke-width="2" d="M15 19l-7-7 7-7"/>
         </div>
     </div>
 
-</div>
+    <!-- Terms/Disclaimer Modal -->
+    <div id="termsModal" class="fixed inset-0 z-[100] hidden items-center justify-center p-4 modal-backdrop">
+        <div class="w-full max-w-md bg-ego-zinc rounded-2xl p-6 border border-white/10 fade-up">
+            <div class="text-center mb-6">
+                <div class="w-16 h-16 mx-auto mb-4 rounded-full bg-gradient-to-br from-ego-gold/80 to-ego-gold/40 flex items-center justify-center">
+                    <svg class="w-8 h-8 text-ego-black" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                    </svg>
+                </div>
+                <h2 class="font-display text-3xl tracking-wide mb-2" style="color:var(--gold)">AVISO IMPORTANTE</h2>
+            </div>
+            <div id="termsContent" class="text-ego-muted text-sm leading-relaxed mb-6 max-h-60 overflow-y-auto"></div>
+            <button id="closeTermsModal" class="w-full py-3 rounded-lg bg-ego-gold text-ego-black font-semibold uppercase tracking-wider hover:brightness-110 transition-all">
+                Aceptar
+            </button>
+        </div>
+    </div>
 
-    <!-- Core Scripts -->
+</div>
     <script src="js/i18n.js" defer></script>
     <script src="js/state.js" defer></script>
     <script src="js/helpers.js" defer></script>

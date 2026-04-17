@@ -30,6 +30,22 @@ function setupEventListeners() {
         hoursModal.classList.remove('flex');
     });
 
+    // Terms/Disclaimer modal — show on init if enabled
+    const termsModal = document.getElementById('termsModal');
+    const closeTermsModal = document.getElementById('closeTermsModal');
+    const termsContent = document.getElementById('termsContent');
+
+    if (DATA.TERMS_MODAL && DATA.TERMS_MODAL.enabled && DATA.TERMS_MODAL.content) {
+        termsContent.innerHTML = DATA.TERMS_MODAL.content;
+        termsModal.classList.remove('hidden');
+        termsModal.classList.add('flex');
+    }
+
+    closeTermsModal.addEventListener('click', () => {
+        termsModal.classList.add('hidden');
+        termsModal.classList.remove('flex');
+    });
+
     elements.authForm.addEventListener('submit', (e) => {
         e.preventDefault();
         const email = elements.emailInput.value.trim();
