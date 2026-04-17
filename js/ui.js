@@ -60,7 +60,7 @@ function updateConstraints() {
 
 /**
  * Updates hotel scenario constraints based on selected technique
- * Hotel + Nuru = Tatami Dry ONLY (no "Sin escenario", auto-select, locked)
+ * Hotel + Nuru = Tatami Wet ONLY (no "Sin escenario", auto-select, locked)
  * Hotel + Thai = Tatami Dry ONLY
  * Hotel + All other techniques = Sin escenario + Massage Table + Tatami Dry
  */
@@ -77,14 +77,14 @@ function updateHotelConstraints() {
     const isNuru = technique === 'nuru';
 
     if (isNuru) {
-        // Nuru = Tatami Dry ONLY
-        allowedScenarios = ['tatami-dry'];
+        // Nuru = Tatami Wet ONLY
+        allowedScenarios = ['tatami-wet'];
     } else if (technique === 'thai') {
-        // Thai = Tatami Dry ONLY
-        allowedScenarios = ['tatami-dry'];
+        // Thai = Tatami Wet ONLY
+        allowedScenarios = ['tatami-wet'];
     } else {
-        // All other techniques = Table + Tatami Dry (no Tantric Couch)
-        allowedScenarios = ['massage-table', 'tatami-dry'];
+        // All other techniques = Table + Tatami Wet (no Tantric Couch)
+        allowedScenarios = ['massage-table', 'tatami-wet'];
     }
 
     console.log('🏨 Hotel Constraints:', { technique, allowedScenarios, isNuru });
@@ -110,15 +110,15 @@ function updateHotelConstraints() {
         }
     });
 
-    // For nuru: auto-select tatami-dry and lock it
+    // For nuru: auto-select tatami-wet and lock it
     if (isNuru) {
-        const tatamiRadio = document.querySelector('.hotel-scenario-option input[data-scenario="tatami-dry"]');
+        const tatamiRadio = document.querySelector('.hotel-scenario-option input[data-scenario="tatami-wet"]');
         if (tatamiRadio) {
             tatamiRadio.checked = true;
             tatamiRadio.disabled = true; // Lock it
         }
-        state.hotel.scenario = 'tatami-dry';
-        state.hotel.scenarioName = td('SCENARIO_DATA', 'tatami-dry', 'name');
+        state.hotel.scenario = 'tatami-wet';
+        state.hotel.scenarioName = td('SCENARIO_DATA', 'tatami-wet', 'name');
         state.hotel.scenarioPrice = HOTEL_SCENARIO_PRICE || 0;
     } else {
         // For non-nuru: if no scenario is currently checked, check "Sin escenario"
