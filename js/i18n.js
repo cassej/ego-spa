@@ -67,6 +67,7 @@ function refreshAllUI() {
     if (typeof loadBranches === 'function') loadBranches();
     if (typeof loadTechniques === 'function') loadTechniques();
     if (typeof loadHotelTechniques === 'function') loadHotelTechniques();
+    if (typeof loadPacks === 'function') loadPacks();
     if (typeof updateStickyFooter === 'function') updateStickyFooter();
     if (typeof updateScenarioHint === 'function') updateScenarioHint();
     // Re-render summaries if visible

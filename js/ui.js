@@ -921,6 +921,38 @@ function loadTouristPacks() {
     `;
 }
 
+function loadPacks() {
+    const container = document.getElementById('packsContainer');
+    if (!container) return;
+    container.innerHTML = '';
+
+    Object.entries(PACK_DATA).forEach(([code, packData], index) => {
+        const btn = document.createElement('button');
+        btn.className = `pack-btn option-card w-full rounded-xl p-4 text-left fade-up stagger-${index + 1}`;
+        btn.dataset.pack = code;
+        btn.innerHTML = `
+            <div>
+                <p class="text-ego-red text-xs font-bold tracking-wider">${code}</p>
+                <h3 class="font-semibold text-lg mt-1">${td('PACK_DATA', code, 'name')}</h3>
+                <p class="text-ego-muted text-xs">${td('PACK_DATA', code, 'description')}</p>
+            </div>
+        `;
+        container.appendChild(btn);
+
+        btn.addEventListener('click', () => {
+            document.querySelectorAll('.pack-btn').forEach(b => b.classList.remove('selected'));
+            btn.classList.add('selected');
+
+            state.pack.code = code;
+            state.pack.name = packData.name;
+            state.pack.validity = packData.validity || '';
+
+            populateSizeOptions();
+            setTimeout(() => goToStep(2), 200);
+        });
+    });
+}
+
 function populateSizeOptions() {
     const packData = PACK_DATA[state.pack.code];
     elements.sizeOptions.innerHTML = '';

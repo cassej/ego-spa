@@ -84,6 +84,9 @@
   "PACK_DATA": {
     "M51": {
       "name": "MTX - 20 min",
+      "name_en": "MTX - 20 min",
+      "description": "Sesiones express de 20 minutos",
+      "description_en": "20 minute express sessions",
       "upgradeFee": 30,
       "validity": "",
       "sizes": {
@@ -95,6 +98,9 @@
     },
     "M52": {
       "name": "Baby - 40 min",
+      "name_en": "Baby - 40 min",
+      "description": "Sesiones de 40 minutos",
+      "description_en": "40 minute sessions",
       "upgradeFee": 30,
       "validity": "",
       "sizes": {
@@ -106,6 +112,9 @@
     },
     "M53": {
       "name": "3x4 - 90 min",
+      "name_en": "3x4 - 90 min",
+      "description": "Sesiones premium de 90 minutos",
+      "description_en": "90 minute premium sessions",
       "upgradeFee": 50,
       "validity": "",
       "sizes": {
@@ -117,6 +126,9 @@
     },
     "M54": {
       "name": "6x6 - 60 min",
+      "name_en": "6x6 - 60 min",
+      "description": "Sesiones de 60 minutos",
+      "description_en": "60 minute sessions",
       "upgradeFee": 50,
       "validity": "",
       "sizes": {
