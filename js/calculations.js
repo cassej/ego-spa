@@ -77,6 +77,9 @@ function calculateHotelPrice() {
         total += (e.addon || 0);
     });
 
+    // Add scenario price
+    total += (state.hotel.scenarioPrice || 0);
+
     // Add night rate (for late bookings)
     total += (state.hotel.nightRate || 0);
 

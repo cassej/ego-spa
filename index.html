@@ -801,7 +801,7 @@ stagger-3" data-i18n="packs.bookNow">
                 <!-- Other Extras -->
                 <div class="space-y-3 mb-4">
                     <label class="option-card rounded-xl p-4 flex items-center gap-4 cursor-pointer fade-up stagger-1">
-                        <input type="checkbox" class="hotel-extra-check custom-radio" data-extra="sensitive" data-addon="0">
+                        <input type="checkbox" class="hotel-extra-check custom-radio" data-extra="sensitive" data-addon="0" checked>
                         <div class="flex-1">
                             <h3 class="font-semibold" data-i18n="extras.sensitive">Sensitive</h3>
                             <p class="text-ego-muted text-sm" data-i18n="extras.included">Incluido</p>
@@ -825,6 +825,10 @@ stagger-3" data-i18n="packs.bookNow">
                         <p id="hotelFinalScenario" class="text-ego-gold text-sm mt-1"></p>
                         <p id="hotelFinalConfig" class="text-ego-muted text-sm mt-2"></p>
                         <p id="hotelFinalExtras" class="text-ego-muted text-xs mt-1"></p>
+                        <p id="hotelFinalNightRateRow" class="text-ego-gold text-xs mt-1 hidden">
+                            🌙 <span id="hotelFinalNightRateLabel"></span>
+                            <span id="hotelFinalNightRatePrice" class="font-semibold"></span>
+                        </p>
                         <p id="hotelFinalPrice" class="font-display text-3xl text-ego-gold mt-4"></p>
                         <p id="hotelFinalSavings" class="text-sm text-ego-gold savings-pulse hidden"></p>
                     </div>
@@ -880,6 +884,10 @@ stagger-3" data-i18n="packs.bookNow">
                         <p id="hotelFinalScenarioStep4" class="text-ego-gold text-sm mt-1"></p>
                         <p id="hotelFinalConfigStep4" class="text-ego-muted text-sm mt-2"></p>
                         <p id="hotelFinalExtrasStep4" class="text-ego-muted text-xs mt-1"></p>
+                        <p id="hotelFinalNightRateRowStep4" class="text-ego-gold text-xs mt-1 hidden">
+                            🌙 <span id="hotelFinalNightRateLabelStep4"></span>
+                            <span id="hotelFinalNightRatePriceStep4" class="font-semibold"></span>
+                        </p>
                         <p id="hotelFinalPriceStep4" class="font-display text-3xl text-ego-gold mt-4"></p>
                         <p id="hotelFinalSavingsStep4" class="text-sm text-ego-gold savings-pulse hidden"></p>
                     </div>

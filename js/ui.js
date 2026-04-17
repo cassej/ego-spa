@@ -119,6 +119,7 @@ function updateHotelConstraints() {
         }
         state.hotel.scenario = 'tatami-dry';
         state.hotel.scenarioName = td('SCENARIO_DATA', 'tatami-dry', 'name');
+        state.hotel.scenarioPrice = HOTEL_SCENARIO_PRICE || 0;
     } else {
         // For non-nuru: if no scenario is currently checked, check "Sin escenario"
         const anyChecked = document.querySelector('.hotel-scenario-option input[name="hotel-scenario"]:checked');
@@ -127,6 +128,7 @@ function updateHotelConstraints() {
             if (defaultRadio) defaultRadio.checked = true;
             state.hotel.scenario = null;
             state.hotel.scenarioName = '';
+            state.hotel.scenarioPrice = 0;
         }
     }
 }
@@ -472,6 +474,26 @@ function updateHotelFinalSummary() {
     if (s4Config) s4Config.textContent = configText;
     if (s4Extras) s4Extras.textContent = extrasText;
 
+    // Night rate rows
+    const nightPrice = ADDON_PRICING['night-rate']?.price || 0;
+    const hasNightRate = state.hotel.nightRate > 0;
+
+    // Step 3 night rate
+    const nightRateRow = document.getElementById('hotelFinalNightRateRow');
+    if (nightRateRow) nightRateRow.classList.toggle('hidden', !hasNightRate);
+    const nightRateLabel = document.getElementById('hotelFinalNightRateLabel');
+    if (nightRateLabel) nightRateLabel.textContent = t('summary.nightRate', { price: nightPrice });
+    const nightRatePrice = document.getElementById('hotelFinalNightRatePrice');
+    if (nightRatePrice) nightRatePrice.textContent = `+$${nightPrice}`;
+
+    // Step 4 night rate
+    const nightRateRowS4 = document.getElementById('hotelFinalNightRateRowStep4');
+    if (nightRateRowS4) nightRateRowS4.classList.toggle('hidden', !hasNightRate);
+    const nightRateLabelS4 = document.getElementById('hotelFinalNightRateLabelStep4');
+    if (nightRateLabelS4) nightRateLabelS4.textContent = t('summary.nightRate', { price: nightPrice });
+    const nightRatePriceS4 = document.getElementById('hotelFinalNightRatePriceStep4');
+    if (nightRatePriceS4) nightRatePriceS4.textContent = `+$${nightPrice}`;
+
     const price = calculateHotelPrice();
     console.log('Hotel price calculated:', price);
     if (finalPrice) finalPrice.textContent = `$${price}`;
@@ -483,6 +505,7 @@ function updateHotelFinalSummary() {
         let regularPrice = HOTEL_SERVICE_PRICING[key]?.regularPrice || 0;
         state.hotel.extras.forEach(e => { regularPrice += e.addon; });
         regularPrice += (state.hotel.nightRate || 0);
+        regularPrice += (state.hotel.scenarioPrice || 0);
 
         const savings = regularPrice - price;
         const savingsText = t('summary.savings', { amount: `$${savings}` });

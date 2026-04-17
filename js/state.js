@@ -33,6 +33,7 @@ const state = {
         pricingSystem: null,
         scenario: null,
         scenarioName: '',
+        scenarioPrice: 0,
         hands: null,
         duration: null,
         extras: [],

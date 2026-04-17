@@ -302,18 +302,51 @@ function setupEventListeners() {
         }
     });
 
-    // Step 4: PRAECOQUIS extras
+    // Step 4: PRAECOQUIS extras (mutual exclusion: Sensitive default)
     document.querySelectorAll('.extra-check').forEach(check => {
         check.addEventListener('change', () => {
+            const extraKey = check.dataset.extra;
             const extra = {
                 name: check.parentElement.querySelector('h3').textContent,
-                addon: ADDON_PRICING[check.dataset.extra]?.price ?? 0
+                addon: ADDON_PRICING[extraKey]?.price ?? 0
             };
 
-            if (check.checked) {
-                state.single.extras.push(extra);
-            } else {
-                state.single.extras = state.single.extras.filter(e => e.name !== extra.name);
+            if (extraKey === 'sensitive') {
+                // Sensitive: can't be unchecked — force it back on
+                if (!check.checked) {
+                    check.checked = true;
+                    return;
+                }
+                // Uncheck Double Sensitive, remove it from state
+                const doubleCheck = document.querySelector('.extra-check[data-extra="double-sensitive"]');
+                if (doubleCheck) doubleCheck.checked = false;
+                state.single.extras = state.single.extras.filter(e => e.name !== document.querySelector('.extra-check[data-extra="double-sensitive"]')?.parentElement?.querySelector('h3')?.textContent);
+                // Add Sensitive if not already present
+                if (!state.single.extras.some(e => e.name === extra.name)) {
+                    state.single.extras.push(extra);
+                }
+            } else if (extraKey === 'double-sensitive') {
+                if (check.checked) {
+                    // Uncheck Sensitive, remove it
+                    const sensitiveCheck = document.querySelector('.extra-check[data-extra="sensitive"]');
+                    if (sensitiveCheck) sensitiveCheck.checked = false;
+                    state.single.extras = state.single.extras.filter(e => e.name !== sensitiveCheck?.parentElement?.querySelector('h3')?.textContent);
+                    state.single.extras.push(extra);
+                } else {
+                    // Unchecked Double Sensitive → auto-check Sensitive back
+                    state.single.extras = state.single.extras.filter(e => e.name !== extra.name);
+                    const sensitiveCheck = document.querySelector('.extra-check[data-extra="sensitive"]');
+                    if (sensitiveCheck) {
+                        sensitiveCheck.checked = true;
+                        const sensitiveExtra = {
+                            name: sensitiveCheck.parentElement.querySelector('h3').textContent,
+                            addon: ADDON_PRICING['sensitive']?.price ?? 0
+                        };
+                        if (!state.single.extras.some(e => e.name === sensitiveExtra.name)) {
+                            state.single.extras.push(sensitiveExtra);
+                        }
+                    }
+                }
             }
 
             updateStickyFooter();
@@ -488,23 +521,56 @@ function setupEventListeners() {
 
             state.hotel.scenario = scenario || null;
             state.hotel.scenarioName = scenario ? td('SCENARIO_DATA', scenario, 'name') : '';
+            state.hotel.scenarioPrice = scenario ? (HOTEL_SCENARIO_PRICE || 0) : 0;
 
             updateHotelFinalSummary();
         });
     });
 
-    // Step 3: Extras
+    // Step 3: Extras (mutual exclusion: Sensitive default)
     document.querySelectorAll('.hotel-extra-check').forEach(check => {
         check.addEventListener('change', () => {
+            const extraKey = check.dataset.extra;
             const extra = {
                 name: check.parentElement.querySelector('h3').textContent,
-                addon: ADDON_PRICING[check.dataset.extra]?.price ?? 0
+                addon: ADDON_PRICING[extraKey]?.price ?? 0
             };
 
-            if (check.checked) {
-                state.hotel.extras.push(extra);
-            } else {
-                state.hotel.extras = state.hotel.extras.filter(e => e.name !== extra.name);
+            if (extraKey === 'sensitive') {
+                // Sensitive: can't be unchecked — force it back on
+                if (!check.checked) {
+                    check.checked = true;
+                    return;
+                }
+                // Uncheck Double Sensitive, remove it from state
+                const doubleCheck = document.querySelector('.hotel-extra-check[data-extra="double-sensitive"]');
+                if (doubleCheck) doubleCheck.checked = false;
+                state.hotel.extras = state.hotel.extras.filter(e => e.name !== document.querySelector('.hotel-extra-check[data-extra="double-sensitive"]')?.parentElement?.querySelector('h3')?.textContent);
+                if (!state.hotel.extras.some(e => e.name === extra.name)) {
+                    state.hotel.extras.push(extra);
+                }
+            } else if (extraKey === 'double-sensitive') {
+                if (check.checked) {
+                    // Uncheck Sensitive, remove it
+                    const sensitiveCheck = document.querySelector('.hotel-extra-check[data-extra="sensitive"]');
+                    if (sensitiveCheck) sensitiveCheck.checked = false;
+                    state.hotel.extras = state.hotel.extras.filter(e => e.name !== sensitiveCheck?.parentElement?.querySelector('h3')?.textContent);
+                    state.hotel.extras.push(extra);
+                } else {
+                    // Unchecked Double Sensitive → auto-check Sensitive back
+                    state.hotel.extras = state.hotel.extras.filter(e => e.name !== extra.name);
+                    const sensitiveCheck = document.querySelector('.hotel-extra-check[data-extra="sensitive"]');
+                    if (sensitiveCheck) {
+                        sensitiveCheck.checked = true;
+                        const sensitiveExtra = {
+                            name: sensitiveCheck.parentElement.querySelector('h3').textContent,
+                            addon: ADDON_PRICING['sensitive']?.price ?? 0
+                        };
+                        if (!state.hotel.extras.some(e => e.name === sensitiveExtra.name)) {
+                            state.hotel.extras.push(sensitiveExtra);
+                        }
+                    }
+                }
             }
 
             updateHotelFinalSummary();

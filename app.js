@@ -41,6 +41,7 @@ async function init() {
 
         // Apply initial language to static HTML
         applyLanguage();
+        translateScenarioButtons();
 
         // Setup all event listeners
         setupEventListeners();
