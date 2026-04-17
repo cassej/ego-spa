@@ -654,7 +654,7 @@ function setupEventListeners() {
     // Book pack
     document.getElementById('packBookBtn').addEventListener('click', () => {
         const message = generateWhatsAppMessage();
-        window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`, '_blank');
+        window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${message}`, '_blank');
     });
 
 function updateHotelValidCombos() {
