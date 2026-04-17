@@ -83,59 +83,155 @@
   },
   "PACK_DATA": {
     "M51": {
-      "name": "MTX - 20 min",
+      "name": "MTX - Masajes Xpress 20 min",
       "name_en": "MTX - 20 min",
       "description": "Sesiones express de 20 minutos",
       "description_en": "20 minute express sessions",
       "upgradeFee": 30,
       "validity": "",
       "sizes": {
-        "S": { "sessions": 3, "price": 115, "egoPrice": 0, "label": "Small 30 dias", "label_en": "Small 30 days" },
-        "M": { "sessions": 6, "price": 185, "egoPrice": 0, "label": "Médium 3 meses", "label_en": "Medium 3 months" },
-        "L": { "sessions": 14, "price": 395, "egoPrice": 0, "label": "Large 6 meses", "label_en": "Large 6 months" },
-        "U": { "sessions": 362, "price": 1995, "egoPrice": 0, "label": "Ilimitado 12 Meses", "label_en": "12 Month Unlimited" }
+        "S": {
+          "sessions": 3,
+          "price": 115,
+          "egoPrice": 0,
+          "label": "Small 30 dias",
+          "label_en": "Small 30 days"
+        },
+        "M": {
+          "sessions": 6,
+          "price": 185,
+          "egoPrice": 0,
+          "label": "Médium 3 meses",
+          "label_en": "Medium 3 months"
+        },
+        "L": {
+          "sessions": 14,
+          "price": 395,
+          "egoPrice": 0,
+          "label": "Large 6 meses",
+          "label_en": "Large 6 months"
+        },
+        "U": {
+          "sessions": 362,
+          "price": 1995,
+          "egoPrice": 0,
+          "label": "Ilimitado 12 Meses",
+          "label_en": "12 Month Unlimited"
+        }
       }
     },
     "M52": {
-      "name": "Baby - 40 min",
+      "name": "Baby - Masajes 40 min",
       "name_en": "Baby - 40 min",
       "description": "Sesiones de 40 minutos",
       "description_en": "40 minute sessions",
       "upgradeFee": 30,
       "validity": "",
       "sizes": {
-        "S": { "sessions": 2, "price": 135, "egoPrice": 0, "label": "Small 30 dias", "label_en": "Small 30 days" },
-        "M": { "sessions": 3, "price": 195, "egoPrice": 0, "label": "Médium 3 meses", "label_en": "Medium 3 months" },
-        "L": { "sessions": 10, "price": 395, "egoPrice": 0, "label": "Large 6 meses", "label_en": "Large 6 months" },
-        "U": { "sessions": 362, "price": 2595, "egoPrice": 0, "label": "Ilimitado 12 Meses", "label_en": "12 Month Unlimited" }
+        "S": {
+          "sessions": 2,
+          "price": 135,
+          "egoPrice": 0,
+          "label": "Small 30 dias",
+          "label_en": "Small 30 days"
+        },
+        "M": {
+          "sessions": 3,
+          "price": 195,
+          "egoPrice": 0,
+          "label": "Médium 3 meses",
+          "label_en": "Medium 3 months"
+        },
+        "L": {
+          "sessions": 10,
+          "price": 395,
+          "egoPrice": 0,
+          "label": "Large 6 meses",
+          "label_en": "Large 6 months"
+        },
+        "U": {
+          "sessions": 362,
+          "price": 2595,
+          "egoPrice": 0,
+          "label": "Ilimitado 12 Meses",
+          "label_en": "12 Month Unlimited"
+        }
       }
     },
     "M53": {
-      "name": "3x4 - 90 min",
+      "name": "3x4 - Masajes 90 min",
       "name_en": "3x4 - 90 min",
       "description": "Sesiones premium de 90 minutos",
       "description_en": "90 minute premium sessions",
       "upgradeFee": 50,
       "validity": "",
       "sizes": {
-        "R": { "sessions": 3, "price": 295, "egoPrice": 0, "label": "Regular 3 meses", "label_en": "Regular 3 months" },
-        "D": { "sessions": 3, "price": 375, "egoPrice": 0, "label": "Deluxe 5 meses", "label_en": "Deluxe 5 months" },
-        "XL": { "sessions": 6, "price": 695, "egoPrice": 0, "label": "XL 1 año", "label_en": "1 year XL" },
-        "U": { "sessions": 362, "price": 3995, "egoPrice": 0, "label": "Ilimitado 12 Meses", "label_en": "12 Month Unlimited" }
+        "R": {
+          "sessions": 3,
+          "price": 295,
+          "egoPrice": 0,
+          "label": "Regular 3 meses",
+          "label_en": "Regular 3 months"
+        },
+        "D": {
+          "sessions": 3,
+          "price": 375,
+          "egoPrice": 0,
+          "label": "Deluxe 5 meses",
+          "label_en": "Deluxe 5 months"
+        },
+        "XL": {
+          "sessions": 6,
+          "price": 695,
+          "egoPrice": 0,
+          "label": "XL 1 año",
+          "label_en": "1 year XL"
+        },
+        "U": {
+          "sessions": 362,
+          "price": 3995,
+          "egoPrice": 0,
+          "label": "Ilimitado 12 Meses",
+          "label_en": "12 Month Unlimited"
+        }
       }
     },
     "M54": {
-      "name": "6x6 - 60 min",
+      "name": "6x6 - Masajes 60 min",
       "name_en": "6x6 - 60 min",
       "description": "Sesiones de 60 minutos",
       "description_en": "60 minute sessions",
       "upgradeFee": 50,
       "validity": "",
       "sizes": {
-        "R": { "sessions": 6, "price": 450, "egoPrice": 0, "label": "Regular 6 meses", "label_en": "Regular 6 months" },
-        "D": { "sessions": 6, "price": 570, "egoPrice": 0, "label": "Deluxe 6 meses", "label_en": "Deluxe 6 months" },
-        "XL": { "sessions": 14, "price": 1200, "egoPrice": 0, "label": "XL 1 año", "label_en": "1 year XL" },
-        "U": { "sessions": 362, "price": 2995, "egoPrice": 0, "label": "Ilimitado 12 Meses", "label_en": "12 Month Unlimited" }
+        "R": {
+          "sessions": 6,
+          "price": 450,
+          "egoPrice": 0,
+          "label": "Regular 6 meses",
+          "label_en": "Regular 6 months"
+        },
+        "D": {
+          "sessions": 6,
+          "price": 570,
+          "egoPrice": 0,
+          "label": "Deluxe 6 meses",
+          "label_en": "Deluxe 6 months"
+        },
+        "XL": {
+          "sessions": 14,
+          "price": 1200,
+          "egoPrice": 0,
+          "label": "XL 1 año",
+          "label_en": "1 year XL"
+        },
+        "U": {
+          "sessions": 362,
+          "price": 2995,
+          "egoPrice": 0,
+          "label": "Ilimitado 12 Meses",
+          "label_en": "12 Month Unlimited"
+        }
       }
     }
   },
@@ -196,17 +292,83 @@
       "regularPrice": 350,
       "egoPrice": 300
     },
-    "P01": { "code": "P01", "hands": 4, "duration": 75, "regularPrice": 200, "egoPrice": 165 },
-    "P02": { "code": "P02", "hands": 4, "duration": 90, "regularPrice": 250, "egoPrice": 200 },
-    "P03": { "code": "P03", "hands": 8, "duration": 120, "regularPrice": 350, "egoPrice": 300 },
-    "M21": { "code": "M21", "duration": 60, "hands": 2, "regularPrice": 135, "egoPrice": 105 },
-    "M22": { "code": "M22", "duration": 90, "hands": 2, "regularPrice": 175, "egoPrice": 145 },
-    "M23": { "code": "M23", "duration": 75, "hands": 4, "regularPrice": 175, "egoPrice": 145 },
-    "M31": { "code": "M31", "duration": 60, "hands": 6, "regularPrice": 135, "egoPrice": 105 },
-    "M32": { "code": "M32", "duration": 90, "hands": 6, "regularPrice": 175, "egoPrice": 145 },
-    "M33": { "code": "M33", "duration": 90, "hands": 6, "regularPrice": 200, "egoPrice": 175 },
-    "M34": { "code": "M34", "duration": 120, "hands": 4, "regularPrice": 225, "egoPrice": 200 },
-    "M35": { "code": "M35", "duration": 120, "hands": 4, "regularPrice": 250, "egoPrice": 225 }
+    "P01": {
+      "code": "P01",
+      "hands": 4,
+      "duration": 75,
+      "regularPrice": 200,
+      "egoPrice": 165
+    },
+    "P02": {
+      "code": "P02",
+      "hands": 4,
+      "duration": 90,
+      "regularPrice": 250,
+      "egoPrice": 200
+    },
+    "P03": {
+      "code": "P03",
+      "hands": 8,
+      "duration": 120,
+      "regularPrice": 350,
+      "egoPrice": 300
+    },
+    "M21": {
+      "code": "M21",
+      "duration": 60,
+      "hands": 2,
+      "regularPrice": 135,
+      "egoPrice": 105
+    },
+    "M22": {
+      "code": "M22",
+      "duration": 90,
+      "hands": 2,
+      "regularPrice": 175,
+      "egoPrice": 145
+    },
+    "M23": {
+      "code": "M23",
+      "duration": 75,
+      "hands": 4,
+      "regularPrice": 175,
+      "egoPrice": 145
+    },
+    "M31": {
+      "code": "M31",
+      "duration": 60,
+      "hands": 6,
+      "regularPrice": 135,
+      "egoPrice": 105
+    },
+    "M32": {
+      "code": "M32",
+      "duration": 90,
+      "hands": 6,
+      "regularPrice": 175,
+      "egoPrice": 145
+    },
+    "M33": {
+      "code": "M33",
+      "duration": 90,
+      "hands": 6,
+      "regularPrice": 200,
+      "egoPrice": 175
+    },
+    "M34": {
+      "code": "M34",
+      "duration": 120,
+      "hands": 4,
+      "regularPrice": 225,
+      "egoPrice": 200
+    },
+    "M35": {
+      "code": "M35",
+      "duration": 120,
+      "hands": 4,
+      "regularPrice": 250,
+      "egoPrice": 225
+    }
   },
   "HOTEL_SERVICE_PRICING": {
     "75-2": {
@@ -530,7 +692,10 @@
         "tantric-couch",
         "tantric-chair"
       ],
-      "allowedCodes": ["P01", "P03"]
+      "allowedCodes": [
+        "P01",
+        "P03"
+      ]
     },
     "nuru-couple": {
       "category": "COUPLE_MASSAGE",
@@ -547,7 +712,9 @@
         "tantric-chair",
         "tantric-sink"
       ],
-      "allowedCodes": ["P02"]
+      "allowedCodes": [
+        "P02"
+      ]
     }
   },
   "SCENARIO_DATA": {
@@ -566,35 +733,35 @@
       "description_en": "Traditional massage table"
     },
     "tatami-dry": {
-      "name": "Tatami (Seco)",
-      "name_en": "Tatami (Dry)",
+      "name": "Tatami Seco",
+      "name_en": "Dry Tatami",
       "icon": "mat",
       "description": "Tatami japonés — experiencia seca",
       "description_en": "Japanese tatami - dry experience"
     },
     "tatami-wet": {
-      "name": "Tatami Mojado",
+      "name": "Tatami Hummed",
       "name_en": "Wet Tatami",
       "icon": "water",
       "description": "Tatami japonés — experiencia húmeda con gel/aceite",
       "description_en": "Japanese tatami - wet experience with gel/oil"
     },
     "tantric-couch": {
-      "name": "Sofá Tântrico",
+      "name": "Divan Tântrico",
       "name_en": "Tantric Couch",
       "icon": "couch",
       "description": "Sofá tántrico especializado",
       "description_en": "Specialized tantric couch"
     },
     "tantric-chair": {
-      "name": "Silla Tântrica",
+      "name": "Butaca Tântrica",
       "name_en": "Tantric Chair",
       "icon": "chair",
       "description": "Silla tántrica especializada",
       "description_en": "Specialized tantric chair"
     },
     "tantric-sink": {
-      "name": "Fuente Tântrica",
+      "name": "Pileta Tântrica",
       "name_en": "Tantric Sink",
       "icon": "sink",
       "description": "Experiencia de fuente tántrica",
@@ -682,12 +849,31 @@
     "description_en": "Exclusive membership with discounts and perks"
   },
   "HOTEL_SCENARIO_PRICE": 25,
-  "HOTEL_TECHNIQUES": ["tantric", "thai", "nuru", "lingam"],
+  "HOTEL_TECHNIQUES": [
+    "tantric",
+    "thai",
+    "nuru",
+    "lingam"
+  ],
   "HOTEL_TECHNIQUE_HANDS": {
-    "tantric": [2, 4, 6, 8],
-    "thai": [2, 4],
-    "nuru": [2, 4],
-    "lingam": [2, 4]
+    "tantric": [
+      2,
+      4,
+      6,
+      8
+    ],
+    "thai": [
+      2,
+      4
+    ],
+    "nuru": [
+      2,
+      4
+    ],
+    "lingam": [
+      2,
+      4
+    ]
   },
   "WHATSAPP_NUMBER": "50760188579",
   "BUSINESS_HOURS": {
@@ -791,27 +977,27 @@
       "single.continue": "Continuar",
       "single.step3Title": "ESCENARIOS",
       "single.step3Desc": "Elige tu experiencia",
-      "single.step4Title": "PRAECOQUIS",
+      "single.step4Title": "PRAECOQUIS (SENSITIVO)",
       "single.step4Desc": "Opciones adicionales",
-      "single.step5Title": "LOGISTICA",
-      "single.step5Desc": "Masseuse y traslados",
+      "single.step5Title": "MASAJISTA",
+      "single.step5Desc": "Elige y solicita traslado",
       "single.step6Title": "FECHA Y HORA",
       "single.step6Desc": "Confirma tu reserva",
-      "single.noPreference": "Sin preferencia",
-      "single.specificMasseuse": "Masseuse especifica",
-      "single.masseusePlaceholder": "Nombre de la masseuse",
-      "single.transferTitle": "Traslado desde otra filial",
-      "single.transferDesc": "Traslado de masseuse",
+      "single.noPreference": "Masajista disponible",
+      "single.specificMasseuse": "Elijo mi masajista ✅",
+      "single.masseusePlaceholder": "Nombre de la masajista",
+      "single.transferTitle": "👉 Si no está, trasladar",
+      "single.transferDesc": "Traslado de masajista",
       "single.date": "Fecha",
       "single.time": "Hora",
       "single.scheduleNote": "Horario: Lun-Sab 8:30 AM - 12:30 AM | Dom/Fest 10:00 AM - 12:30 AM",
       "single.nightRateDisclaimer": "Se aplica si tu masaje termina a las {time} o despues. Reserva antes para evitar este cargo.",
       "single.summaryTitle": "RESUMEN",
       "single.bookWhatsApp": "Reservar por WhatsApp",
-      "extras.sensitive": "Sensible",
-      "extras.included": "Incluido",
-      "extras.doubleSensitive": "Doble Sensible",
-      "extras.doubleSensitiveDesc": "Experiencia dual intensificada",
+      "extras.sensitive": "SENSITIVO",
+      "extras.included": "Standard",
+      "extras.doubleSensitive": "DOBLE SENSITIVO",
+      "extras.doubleSensitiveDesc": "Doble placer sensitivo",
       "extras.nightRate": "Tarifa Nocturna",
       "extras.nightRateDesc": "Después de {time}",
       "scenarios.selectAtLeast": "Selecciona al menos 1 escenario (maximo {max})",
@@ -981,27 +1167,27 @@
       "single.continue": "Continue",
       "single.step3Title": "SCENARIOS",
       "single.step3Desc": "Choose your experience",
-      "single.step4Title": "PRAECOQUIS",
+      "single.step4Title": "PRAECOQUIS (SOFT FINISH)",
       "single.step4Desc": "Additional options",
-      "single.step5Title": "LOGISTICS",
-      "single.step5Desc": "Masseuse and transfers",
+      "single.step5Title": "MASSEUSE",
+      "single.step5Desc": "Choose and request transfer",
       "single.step6Title": "DATE & TIME",
       "single.step6Desc": "Confirm your booking",
-      "single.noPreference": "No preference",
-      "single.specificMasseuse": "Specific masseuse",
+      "single.noPreference": "Available therapist",
+      "single.specificMasseuse": "Choose my therapist ✅",
       "single.masseusePlaceholder": "Masseuse name",
-      "single.transferTitle": "Transfer from another branch",
-      "single.transferDesc": "Masseuse transfer",
+      "single.transferTitle": "👉 If not available, transfer",
+      "single.transferDesc": "Therapist transfer",
       "single.date": "Date",
       "single.time": "Time",
       "single.scheduleNote": "Hours: Mon-Sat 8:30 AM - 12:30 AM | Sun/Holidays 10:00 AM - 12:30 AM",
       "single.nightRateDisclaimer": "Applied if your massage ends at {time} or later. Book earlier to avoid this charge.",
       "single.summaryTitle": "SUMMARY",
       "single.bookWhatsApp": "Book via WhatsApp",
-      "extras.sensitive": "Sensitive",
-      "extras.included": "Included",
-      "extras.doubleSensitive": "Double Sensitive",
-      "extras.doubleSensitiveDesc": "Intensified dual experience",
+      "extras.sensitive": "RELAXATION FINISH",
+      "extras.included": "Standard",
+      "extras.doubleSensitive": "DOUBLE PLEASURE EXPERIENCE",
+      "extras.doubleSensitiveDesc": "Double experience",
       "extras.nightRate": "Night Rate",
       "extras.nightRateDesc": "After {time}",
       "scenarios.selectAtLeast": "Select at least 1 scenario (max {max})",
