@@ -452,8 +452,16 @@ tr:last-child td { border-bottom: none; }
                         <input type="checkbox" id="g-terms-enabled">
                         <span class="lbl" style="margin:0">Mostrar disclaimer al iniciar</span>
                     </div>
-                    <span class="lbl">Contenido (HTML permitido)</span>
-                    <textarea id="g-terms-content" rows="6" style="width:100%;background:#09090b;border:1px solid rgba(255,255,255,0.1);border-radius:0.5rem;padding:0.75rem;color:#fff;font-size:0.875rem;resize:vertical"></textarea>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <span class="lbl">Contenido ES (HTML permitido)</span>
+                            <textarea id="g-terms-content" rows="6" style="width:100%;background:#09090b;border:1px solid rgba(255,255,255,0.1);border-radius:0.5rem;padding:0.75rem;color:#fff;font-size:0.875rem;resize:vertical"></textarea>
+                        </div>
+                        <div>
+                            <span class="lbl">Contenido EN (HTML permitido)</span>
+                            <textarea id="g-terms-content-en" rows="6" style="width:100%;background:#09090b;border:1px solid rgba(255,255,255,0.1);border-radius:0.5rem;padding:0.75rem;color:#fff;font-size:0.875rem;resize:vertical"></textarea>
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -588,11 +596,13 @@ function renderDisclaimer() {
     const t = DATA.TERMS_MODAL || {};
     $('#g-terms-enabled').prop('checked', !!t.enabled);
     $('#g-terms-content').val(t.content || '');
+    $('#g-terms-content-en').val(t.content_en || '');
 }
 function collectDisclaimer() {
     DATA.TERMS_MODAL = {
         enabled: $('#g-terms-enabled').is(':checked'),
-        content: $('#g-terms-content').val().trim()
+        content: $('#g-terms-content').val().trim(),
+        content_en: $('#g-terms-content-en').val().trim()
     };
 }
 

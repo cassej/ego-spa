@@ -35,8 +35,8 @@ function setupEventListeners() {
     const closeTermsModal = document.getElementById('closeTermsModal');
     const termsContent = document.getElementById('termsContent');
 
-    if (DATA.TERMS_MODAL && DATA.TERMS_MODAL.enabled && DATA.TERMS_MODAL.content) {
-        termsContent.innerHTML = DATA.TERMS_MODAL.content;
+    if (DATA.TERMS_MODAL && DATA.TERMS_MODAL.enabled && (DATA.TERMS_MODAL.content || DATA.TERMS_MODAL.content_en)) {
+        termsContent.innerHTML = (currentLang === 'en' && DATA.TERMS_MODAL.content_en) ? DATA.TERMS_MODAL.content_en : DATA.TERMS_MODAL.content;
         termsModal.classList.remove('hidden');
         termsModal.classList.add('flex');
     }

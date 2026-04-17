@@ -1319,6 +1319,7 @@
   },
   "TERMS_MODAL": {
     "enabled": true,
-    "content": "Bienvenido a Ego Spa. Al continuar, aceptas nuestros términos y condiciones de servicio."
+    "content": "Bienvenido a Ego Spa. Al continuar, aceptas nuestros términos y condiciones de servicio.",
+    "content_en": "Welcome to Ego Spa. By continuing, you accept our terms and conditions of service."
   }
 }
