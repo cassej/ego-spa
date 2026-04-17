@@ -870,6 +870,11 @@ function packCard(packKey, pack) {
             </div>
             <button class="del-pack btn btn-ghost btn-sm flex-shrink-0" style="color:#ef4444">✕ Eliminar</button>
         </div>
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-4">
+            <div><span class="lbl">Name (EN)</span>${inp(pack.name_en||'','name_en')}</div>
+            <div><span class="lbl">Descripción</span>${inp(pack.description||'','description')}</div>
+            <div><span class="lbl">Description (EN)</span>${inp(pack.description_en||'','description_en')}</div>
+        </div>
         <div class="tbl-wrap">
             <table>
                 <thead><tr><th>Key</th><th>Label</th><th>Label (EN)</th><th>Sesiones</th><th>Precio $</th><th>Precio Ego $</th><th></th></tr></thead>
@@ -903,13 +908,23 @@ function collectPacks() {
             name:       $(this).find('[name=packName]').val().trim(),
             upgradeFee: +$(this).find('[name=upgradeFee]').val(),
             validity:   $(this).find('[name=validity]').val().trim(),
+            ...(() => {
+                const nameEn = $(this).find('[name=name_en]').val().trim();
+                const desc = $(this).find('[name=description]').val().trim();
+                const descEn = $(this).find('[name=description_en]').val().trim();
+                return {
+                    ...(nameEn ? { name_en: nameEn } : {}),
+                    ...(desc ? { description: desc } : {}),
+                    ...(descEn ? { description_en: descEn } : {})
+                };
+            })(),
             sizes
         };
     });
 }
 $('#addPack').on('click', () => {
     const key = 'M5' + (Object.keys(DATA.PACK_DATA).length + 1);
-    $('#packs-container').append(packCard(key, { name:'Nuevo Pack', upgradeFee:30, sizes:{} }));
+    $('#packs-container').append(packCard(key, { name:'Nuevo Pack', upgradeFee:30, sizes:{}, name_en:'', description:'', description_en:'' }));
 });
 $(document).on('click', '.add-size', function() {
     $(this).prev('.tbl-wrap').find('.sizes-tbody').append(`<tr>
