@@ -6,6 +6,7 @@
 <title>Ego Spa — Admin</title>
 <script src="https://cdn.tailwindcss.com"></script>
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.6/Sortable.min.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 <script>
@@ -72,6 +73,14 @@ th { font-size: 10px; font-weight: 700; letter-spacing: .08em; color: #71717a;
      border-bottom: 1px solid #27272a; white-space: nowrap; }
 td { padding: 8px 14px; border-bottom: 1px solid rgba(255,255,255,.04); vertical-align: middle; }
 tr:last-child td { border-bottom: none; }
+
+/* Drag handles */
+.drag-handle { cursor:grab; color:#3f3f46; padding:4px 2px; transition:color .2s; user-select:none; display:inline-flex; align-items:center; justify-content:center; min-width:28px; min-height:28px; flex-shrink:0; }
+.drag-handle:hover { color:#71717a; }
+.drag-handle:active { cursor:grabbing; }
+.sortable-ghost { opacity:0.4; background:rgba(239,68,68,0.06); }
+.sortable-chosen { box-shadow:0 4px 16px rgba(0,0,0,.4); }
+.sortable-drag { opacity:0.9; }
 
 /* Delete buttons */
 .del-btn { cursor: pointer; color: #3f3f46; transition: color .2s;
@@ -243,7 +252,7 @@ tr:last-child td { border-bottom: none; }
                 </div>
                 <div class="card tbl-wrap">
                     <table>
-                        <thead><tr><th>ID</th><th>Nombre</th><th>Label</th><th>Label (EN)</th><th>Descripción</th><th>Desc (EN)</th><th></th></tr></thead>
+                        <thead><tr><th></th><th>ID</th><th>Nombre</th><th>Label</th><th>Label (EN)</th><th>Descripción</th><th>Desc (EN)</th><th></th></tr></thead>
                         <tbody id="branches-tbody"></tbody>
                     </table>
                 </div>
@@ -257,7 +266,7 @@ tr:last-child td { border-bottom: none; }
                 </div>
                 <div class="card tbl-wrap">
                     <table>
-                        <thead><tr><th>ID</th><th>Nombre</th><th>Label</th><th>Label (EN)</th><th>Descripción</th><th>Desc (EN)</th><th></th></tr></thead>
+                        <thead><tr><th></th><th>ID</th><th>Nombre</th><th>Label</th><th>Label (EN)</th><th>Descripción</th><th>Desc (EN)</th><th></th></tr></thead>
                         <tbody id="technique-cats-tbody"></tbody>
                     </table>
                 </div>
@@ -290,7 +299,7 @@ tr:last-child td { border-bottom: none; }
                 </div>
                 <div class="card tbl-wrap">
                     <table>
-                        <thead><tr><th>ID</th><th>Label</th><th>Label (EN)</th><th>Descripción</th><th>Desc (EN)</th><th>Icono</th><th>Color</th><th>Coming Soon</th><th></th></tr></thead>
+                        <thead><tr><th></th><th>ID</th><th>Label</th><th>Label (EN)</th><th>Descripción</th><th>Desc (EN)</th><th>Icono</th><th>Color</th><th>Coming Soon</th><th></th></tr></thead>
                         <tbody id="flows-tbody"></tbody>
                     </table>
                 </div>
@@ -304,7 +313,7 @@ tr:last-child td { border-bottom: none; }
                 </div>
                 <div class="card tbl-wrap">
                     <table>
-                        <thead><tr><th>Código</th><th>Duración</th><th>Manos</th><th>Regular $</th><th>Ego $</th><th></th></tr></thead>
+                        <thead><tr><th></th><th>Código</th><th>Duración</th><th>Manos</th><th>Regular $</th><th>Ego $</th><th></th></tr></thead>
                         <tbody id="mcode-tbody"></tbody>
                     </table>
                 </div>
@@ -326,7 +335,7 @@ tr:last-child td { border-bottom: none; }
                 </div>
                 <div class="card tbl-wrap">
                     <table>
-                        <thead><tr><th>Duración</th><th>Manos</th><th>Regular $</th><th>Ego $</th><th></th></tr></thead>
+                        <thead><tr><th></th><th>Duración</th><th>Manos</th><th>Regular $</th><th>Ego $</th><th></th></tr></thead>
                         <tbody id="hotel-tbody"></tbody>
                     </table>
                 </div>
@@ -342,7 +351,7 @@ tr:last-child td { border-bottom: none; }
                             <button class="btn btn-ghost btn-sm add-tiered" data-type="hands">+ Agregar</button>
                         </div>
                         <div class="tbl-wrap"><table style="min-width:220px">
-                            <thead><tr><th>Manos</th><th>Modificador $</th><th></th></tr></thead>
+                            <thead><tr><th></th><th>Manos</th><th>Modificador $</th><th></th></tr></thead>
                             <tbody id="tiered-hands-tbody"></tbody>
                         </table></div>
                     </div>
@@ -352,7 +361,7 @@ tr:last-child td { border-bottom: none; }
                             <button class="btn btn-ghost btn-sm add-tiered" data-type="duration">+ Agregar</button>
                         </div>
                         <div class="tbl-wrap"><table style="min-width:220px">
-                            <thead><tr><th>Minutos</th><th>Modificador $</th><th></th></tr></thead>
+                            <thead><tr><th></th><th>Minutos</th><th>Modificador $</th><th></th></tr></thead>
                             <tbody id="tiered-duration-tbody"></tbody>
                         </table></div>
                     </div>
@@ -385,7 +394,7 @@ tr:last-child td { border-bottom: none; }
                 </div>
                 <div class="card tbl-wrap">
                     <table>
-                        <thead><tr><th>ID</th><th>Nombre</th><th>Name (EN)</th><th>Descripción</th><th>Desc (EN)</th><th>Icono</th><th></th></tr></thead>
+                        <thead><tr><th></th><th>ID</th><th>Nombre</th><th>Name (EN)</th><th>Descripción</th><th>Desc (EN)</th><th>Icono</th><th></th></tr></thead>
                         <tbody id="scenarios-tbody"></tbody>
                     </table>
                 </div>
@@ -399,7 +408,7 @@ tr:last-child td { border-bottom: none; }
                 </div>
                 <div class="card tbl-wrap">
                     <table>
-                        <thead><tr><th>ID</th><th>Nombre</th><th>Name (EN)</th><th>Precio $</th><th></th></tr></thead>
+                        <thead><tr><th></th><th>ID</th><th>Nombre</th><th>Name (EN)</th><th>Precio $</th><th></th></tr></thead>
                         <tbody id="addons-tbody"></tbody>
                     </table>
                 </div>
@@ -438,7 +447,7 @@ tr:last-child td { border-bottom: none; }
                 </div>
                 <div class="card tbl-wrap">
                     <table>
-                        <thead><tr><th>Key</th><th>ES</th><th>EN</th><th></th></tr></thead>
+                        <thead><tr><th></th><th>Key</th><th>ES</th><th>EN</th><th></th></tr></thead>
                         <tbody id="translations-tbody"></tbody>
                     </table>
                 </div>
@@ -543,6 +552,9 @@ let DATA = null;
 
 const ICON_X = `<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>`;
+const ICON_DRAG = `<svg class="w-4 h-4" viewBox="0 0 20 20" fill="currentColor"><circle cx="7" cy="4" r="1.5"/><circle cx="13" cy="4" r="1.5"/><circle cx="7" cy="10" r="1.5"/><circle cx="13" cy="10" r="1.5"/><circle cx="7" cy="16" r="1.5"/><circle cx="13" cy="16" r="1.5"/></svg>`;
+function dragTd() { return `<td class="drag-handle" title="Arrastrar para reordenar">${ICON_DRAG}</td>`; }
+function dragHandleDiv() { return `<div class="drag-handle" title="Arrastrar para reordenar">${ICON_DRAG}</div>`; }
 
 function inp(val, name) {
     const v = (val == null) ? '' : String(val).replace(/"/g,'&quot;');
@@ -612,6 +624,7 @@ function collectDisclaimer() {
 function renderBranches() {
     const $b = $('#branches-tbody').empty();
     $.each(DATA.BRANCHES, (key, b) => $b.append(`<tr>
+        ${dragTd()}
         <td>${inp(key,'branchKey')}</td>
         <td>${inp(b.name,'name')}</td>
         <td>${inp(b.label,'label')}</td>
@@ -638,6 +651,7 @@ function collectBranches() {
     });
 }
 $('#addBranch').on('click', () => $('#branches-tbody').append(`<tr>
+    ${dragTd()}
     <td>${inp('new-branch','branchKey')}</td>
     <td>${inp('New Branch','name')}</td>
     <td>${inp('New Branch','label')}</td>
@@ -655,6 +669,7 @@ function renderTechniqueCats() {
     $.each(DATA.TECHNIQUE_CATEGORIES, (key, c) => {
         const techList = (c.techniques || []).join(', ');
         $b.append(`<tr>
+            ${dragTd()}
             <td>${inp(key,'catKey')}</td>
             <td>${inp(c.name,'name')}</td>
             <td>${inp(c.label,'label')}</td>
@@ -692,6 +707,7 @@ function collectTechniqueCats() {
     DATA.TECHNIQUE_CATEGORIES = catData;
 }
 $('#addTechniqueCat').on('click', () => $('#technique-cats-tbody').append(`<tr>
+    ${dragTd()}
     <td>${inp('NEW_CATEGORY','catKey')}</td>
     <td>${inp('New Category','name')}</td>
     <td>${inp('New Category','label')}</td>
@@ -734,6 +750,7 @@ function renderFlows() {
     $.each(DATA.FLOWS, (_, f) => {
         const checked = f.comingSoon ? 'checked' : '';
         $b.append(`<tr>
+            ${dragTd()}
             <td>${inp(f.id,'flowId')}</td>
             <td>${inp(f.label,'label')}</td>
             <td>${inp(f.label_en||'','label_en')}</td>
@@ -766,6 +783,7 @@ function collectFlows() {
     });
 }
 $('#addFlow').on('click', () => $('#flows-tbody').append(`<tr>
+    ${dragTd()}
     <td>${inp('new-flow','flowId')}</td>
     <td>${inp('New Flow','label')}</td>
     <td>${inp('New Flow','label_en')}</td>
@@ -783,6 +801,7 @@ $('#addFlow').on('click', () => $('#flows-tbody').append(`<tr>
 function renderMcodes() {
     const $b = $('#mcode-tbody').empty();
     $.each(DATA.M_CODE_PRICING, (codeKey, r) => $b.append(`<tr>
+        ${dragTd()}
         <td>${inp(r.code || codeKey,'code')}</td>
         <td>${num(r.duration,'duration')}</td>
         <td>${num(r.hands,'hands')}</td>
@@ -806,6 +825,7 @@ function collectMcodes() {
     });
 }
 $('#addMcode').on('click', () => $('#mcode-tbody').append(`<tr>
+    ${dragTd()}
     <td>${inp('M19','code')}</td>
     <td>${num(60,'duration')}</td><td>${num(2,'hands')}</td>
     <td>${num(100,'regularPrice')}</td><td>${num(80,'egoPrice')}</td>
@@ -825,6 +845,7 @@ function renderHotel() {
     });
     const $b = $('#hotel-tbody').empty();
     $.each(DATA.HOTEL_SERVICE_PRICING, (_, r) => $b.append(`<tr>
+        ${dragTd()}
         <td>${num(r.duration,'duration')}</td>
         <td>${num(r.hands,'hands')}</td>
         <td>${num(r.regularPrice,'regularPrice')}</td>
@@ -847,6 +868,7 @@ function collectHotel() {
     });
 }
 $('#addHotel').on('click', () => $('#hotel-tbody').append(`<tr>
+    ${dragTd()}
     <td>${num(60,'duration')}</td><td>${num(2,'hands')}</td>
     <td>${num(150,'regularPrice')}</td><td>${num(130,'egoPrice')}</td>
     <td>${delBtn()}</td>
@@ -859,6 +881,7 @@ function renderTiered() {
     ['hands','duration'].forEach(type => {
         const $b = $(`#tiered-${type}-tbody`).empty();
         $.each(DATA.TIERED_MODIFIERS[type], (k, v) => $b.append(`<tr>
+            ${dragTd()}
             <td>${num(k,'key')}</td>
             <td>${num(v,'value')}</td>
             <td>${delBtn()}</td>
@@ -876,7 +899,7 @@ function collectTiered() {
 }
 $(document).on('click', '.add-tiered', function() {
     $(`#tiered-${$(this).data('type')}-tbody`).append(`<tr>
-        <td>${num('','key')}</td><td>${num(0,'value')}</td><td>${delBtn()}</td>
+        ${dragTd()}<td>${num('','key')}</td><td>${num(0,'value')}</td><td>${delBtn()}</td>
     </tr>`);
 });
 
@@ -896,6 +919,7 @@ function packCard(packKey, pack) {
 
     return `<div class="card p-5" data-pack-key="${packKey}">
         <div class="flex flex-wrap items-center gap-3 mb-5">
+            ${dragHandleDiv()}
             <span class="badge badge-red font-display">${packKey}</span>
             <input type="text" name="packName" value="${pack.name}" style="flex:1;min-width:140px">
             <input type="text" name="validity" value="${pack.validity || ''}" placeholder="3 meses" style="width:100px">
@@ -1035,6 +1059,7 @@ function techCard(tKey, t) {
 
     return `<div class="card p-5" data-tech-key="${tKey}">
         <div class="flex items-start gap-3 mb-4">
+            ${dragHandleDiv()}
             <div class="flex-1 grid grid-cols-1 sm:grid-cols-4 gap-3">
                 <div><span class="lbl">ID</span>${inp(tKey,'techKey')}</div>
                 <div><span class="lbl">Nombre</span>${inp(t.name,'name')}</div>
@@ -1149,6 +1174,7 @@ $(document).on('click', '.add-combo', function() {
 function renderScenarios() {
     const $b = $('#scenarios-tbody').empty();
     $.each(DATA.SCENARIO_DATA, (key, s) => $b.append(`<tr>
+        ${dragTd()}
         <td>${inp(key,'id')}</td>
         <td>${inp(s.name,'name')}</td>
         <td>${inp(s.name_en||'','name_en')}</td>
@@ -1175,6 +1201,7 @@ function collectScenarios() {
     });
 }
 $('#addScenario').on('click', () => $('#scenarios-tbody').append(`<tr>
+    ${dragTd()}
     <td>${inp('new-scenario','id')}</td>
     <td>${inp('Nuevo','name')}</td>
     <td>${inp('New','name_en')}</td>
@@ -1190,6 +1217,7 @@ $('#addScenario').on('click', () => $('#scenarios-tbody').append(`<tr>
 function renderAddons() {
     const $b = $('#addons-tbody').empty();
     $.each(DATA.ADDON_PRICING, (key, a) => $b.append(`<tr>
+        ${dragTd()}
         <td>${inp(key,'id')}</td>
         <td>${inp(a.name,'name')}</td>
         <td>${inp(a.name_en||'','name_en')}</td>
@@ -1211,6 +1239,7 @@ function collectAddons() {
     });
 }
 $('#addAddon').on('click', () => $('#addons-tbody').append(`<tr>
+    ${dragTd()}
     <td>${inp('new-addon','id')}</td>
     <td>${inp('Nuevo Add-on','name')}</td>
     <td>${inp('New Add-on','name_en')}</td>
@@ -1291,6 +1320,7 @@ function renderTranslations() {
     const keys = Object.keys(es);
     keys.forEach(key => {
         $b.append(`<tr>
+            ${dragTd()}
             <td>${inp(key, 'tKey')}</td>
             <td><input type="text" name="tEs" value="${(es[key]||'').replace(/"/g,'&quot;')}"></td>
             <td><input type="text" name="tEn" value="${(en[key]||'').replace(/"/g,'&quot;')}"></td>
@@ -1308,6 +1338,7 @@ function collectTranslations() {
     });
 }
 $('#addTranslation').on('click', () => $('#translations-tbody').append(`<tr>
+    ${dragTd()}
     <td>${inp('new.key','tKey')}</td>
     <td><input type="text" name="tEs" value=""></td>
     <td><input type="text" name="tEn" value=""></td>
@@ -1358,6 +1389,16 @@ function doSave() {
 }
 $('#saveBtn, #saveBtn-mobile').on('click', doSave);
 
+// ── Sortable ──
+function initSortable() {
+    const opts = { handle:'.drag-handle', animation:150, ghostClass:'sortable-ghost', chosenClass:'sortable-chosen', dragClass:'sortable-drag' };
+    ['branches-tbody','technique-cats-tbody','flows-tbody','mcode-tbody','hotel-tbody',
+     'tiered-hands-tbody','tiered-duration-tbody','scenarios-tbody','addons-tbody','translations-tbody'
+    ].forEach(id => { const el=document.getElementById(id); if(el) new Sortable(el,{...opts, draggable:'tr'}); });
+    const p=document.getElementById('packs-container'); if(p) new Sortable(p,{...opts,draggable:'[data-pack-key]'});
+    const t=document.getElementById('techniques-container'); if(t) new Sortable(t,{...opts,draggable:'[data-tech-key]'});
+}
+
 // ============================================================
 // INIT
 // ============================================================
@@ -1368,6 +1409,7 @@ fetch('./data.json')
         renderGeneral(); renderBranches(); renderTechniqueCats(); renderMembership(); renderFlows();
         renderMcodes(); renderHotel(); renderTiered(); renderPacks(); renderTechniques();
         renderScenarios(); renderScenarioRules(); renderAddons(); renderTranslations(); renderDisclaimer();
+        initSortable();
     })
     .catch(err => {
         toast('✗ No se pudo cargar data.json: ' + err.message, false);
