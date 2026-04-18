@@ -4,32 +4,43 @@
       "name": "Marbella",
       "label": "Marbella",
       "label_en": "Marbella",
-      "description": "18 km Aeropuerto Internacional de Tocumen · 6 km Casco Viejo · 9 km Panama Canal",
-      "description_en": "18 km Tocumen International Airport  · 6 km Casco Viejo · 9 km Panama Canal"
+      "description": "18 km Aeropuerto Internacional de Tocumen · 6 km Casco Viejo",
+      "description_en": "18 km Tocumen International Airport  · 6 km Casco Viejo"
     },
     "costa-del-este": {
       "name": "Costa del Este",
       "label": "Costa del Este",
       "label_en": "Costa del Este",
-      "description": "11 km Aeropuerto Internacional de Tocumen · 17 km Casco Viejo · 21 km Panama Canal",
-      "description_en": "11 km Tocumen International Airport  · 17 km Casco Viejo · 21 km Panama Canal"
+      "description": "11 km Aeropuerto Internacional de Tocumen · 17 km Casco Viejo · 21 km Panama Cana",
+      "description_en": "11 km Tocumen International Airport  · 17 km Casco Viejo"
     },
     "san-francisco": {
       "name": "San Francisco",
       "label": "San Francisco",
       "label_en": "San Francisco",
-      "description": "14 km Aeropuerto Internacional de Tocumen · 8 km Casco Viejo · 11 km Panama Canal",
-      "description_en": "14 km Tocumen International Airport  · 8 km Casco Viejo · 11 km Panama Canal"
+      "description": "14 km Aeropuerto Internacional de Tocumen · 8 km Casco Viejo",
+      "description_en": "14 km Tocumen International Airport  · 8 km Casco Viejo"
     },
     "el-dorado": {
       "name": "El Dorado",
       "label": "El Dorado",
       "label_en": "El Dorado",
-      "description": "24 km Aeropuerto Internacional de Tocumen · 8 km Casco Viejo · 8 km Panama Canal",
-      "description_en": "24 km Tocumen International Airport  · 8 km Casco Viejo · 8 km Panama Canal"
+      "description": "24 km Aeropuerto Internacional de Tocumen · 8 km Casco Viejo",
+      "description_en": "24 km Tocumen International Airport  · 8 km Casco Viejo"
     }
   },
   "TECHNIQUE_CATEGORIES": {
+    "COUPLE_MASSAGE": {
+      "name": "COUPLE MASSAGE",
+      "label": "Masaje en Pareja",
+      "label_en": "Couple Massage",
+      "description": "Experiencia especial para dos",
+      "description_en": "Special experience for two",
+      "techniques": [
+        "tantric-couple",
+        "nuru-couple"
+      ]
+    },
     "ORIENTAL_MASSAGE": {
       "name": "ORIENTAL MASSAGE",
       "label": "Masajes Orientales",
@@ -68,25 +79,14 @@
         "cocktail",
         "cocktail-deluxe"
       ]
-    },
-    "COUPLE_MASSAGE": {
-      "name": "COUPLE MASSAGE",
-      "label": "Masaje en Pareja",
-      "label_en": "Couple Massage",
-      "description": "Experiencia especial para dos",
-      "description_en": "Special experience for two",
-      "techniques": [
-        "tantric-couple",
-        "nuru-couple"
-      ]
     }
   },
   "PACK_DATA": {
     "M51": {
-      "name": "MTX - Masajes Xpress 20 min",
+      "name": "Sesiones de 20 min cada una",
       "name_en": "MTX - 20 min",
-      "description": "Sesiones express de 20 minutos",
-      "description_en": "20 minute express sessions",
+      "description": "Masajes Tantrico Express",
+      "description_en": "Tantric Express Massage",
       "upgradeFee": 30,
       "validity": "",
       "sizes": {
@@ -121,10 +121,10 @@
       }
     },
     "M52": {
-      "name": "Baby - Masajes 40 min",
+      "name": "Sesiones de 40 min cada una",
       "name_en": "Baby - 40 min",
-      "description": "Sesiones de 40 minutos",
-      "description_en": "40 minute sessions",
+      "description": "Masajes Orientales (Tantrico, Thai & Imperial)",
+      "description_en": "Oriental Massage (Tantrico, Thai & Imperial)",
       "upgradeFee": 30,
       "validity": "",
       "sizes": {
@@ -159,10 +159,10 @@
       }
     },
     "M53": {
-      "name": "3x4 - Masajes 90 min",
+      "name": "Sesiones de 90 min cada una",
       "name_en": "3x4 - 90 min",
-      "description": "Sesiones premium de 90 minutos",
-      "description_en": "90 minute premium sessions",
+      "description": "Masajes Orientales y Deluxe",
+      "description_en": "Deluxe & Oriental Massage",
       "upgradeFee": 50,
       "validity": "",
       "sizes": {
@@ -197,10 +197,10 @@
       }
     },
     "M54": {
-      "name": "6x6 - Masajes 60 min",
+      "name": "Sesiones de 60 min cada una",
       "name_en": "6x6 - 60 min",
-      "description": "Sesiones de 60 minutos",
-      "description_en": "60 minute sessions",
+      "description": "Masajes Orientales y Deluxe",
+      "description_en": "Deluxe & Oriental Massage",
       "upgradeFee": 50,
       "validity": "",
       "sizes": {
@@ -955,7 +955,7 @@
       "flow.title": "TIPO DE SERVICIO",
       "flow.subtitle": "Selecciona el tipo de servicio",
       "flow.membership": "Unete al club. Ahorra $175 primer ano.",
-      "flow.changeBranch": "< Cambiar ubicacion",
+      "flow.changeBranch": "< Cambiar de Sucursal",
       "steps.step1of6": "PASO 1 DE 6",
       "steps.step2of6": "PASO 2 DE 6",
       "steps.step3of6": "PASO 3 DE 6",
@@ -1124,7 +1124,7 @@
       "whatsapp.membership": "Membresia",
       "whatsapp.priceFirstYear": "Precio Primer Ano",
       "whatsapp.email": "Email",
-      "whatsapp.branch": "Filial"
+      "whatsapp.branch": "Sucursal"
     },
     "en": {
       "header.subtitle": "Panama",
@@ -1145,7 +1145,7 @@
       "flow.title": "SERVICE TYPE",
       "flow.subtitle": "Select the service type",
       "flow.membership": "Join the club. Save $175 first year.",
-      "flow.changeBranch": "< Change location",
+      "flow.changeBranch": "< Change Branch",
       "steps.step1of6": "STEP 1 OF 6",
       "steps.step2of6": "STEP 2 OF 6",
       "steps.step3of6": "STEP 3 OF 6",
@@ -1319,7 +1319,7 @@
   },
   "TERMS_MODAL": {
     "enabled": true,
-    "content": "Bienvenido a Ego Spa. Al continuar, aceptas nuestros términos y condiciones de servicio.",
-    "content_en": "Welcome to Ego Spa. By continuing, you accept our terms and conditions of service."
+    "content": "Las tarifas mostradas aplican exclusivamente a clientes con cita confirmada. Para validarlas, es obligatorio completar el proceso y obtener su número de cita, el cual será requerido como único medio de identificación en el spa. De no contar con este número, aplicarán tarifas walk-in más altas. Asimismo, esta empresa no ofrece servicios sexuales ni comercializa personas.",
+    "content_en": "Displayed rates apply exclusively to clients with a confirmed appointment. To validate them, you must complete the process and obtain your appointment number, which will be required as the sole form of identification at the spa. Without this number, higher walk-in rates will apply. Additionally, this company does not offer sexual services or engage in any form of human trafficking."
   }
 }
