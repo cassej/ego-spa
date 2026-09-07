@@ -443,7 +443,10 @@ tr:last-child td { border-bottom: none; }
             <div id="section-translations" class="section space-y-5">
                 <div class="sec-head">
                     <div><div class="sec-title">Translations</div><div class="sec-sub">UI strings (ES / EN)</div></div>
-                    <button class="btn btn-ghost btn-sm" id="addTranslation">+ Translation</button>
+                    <div class="flex items-center gap-2">
+                        <input type="text" id="translationSearch" placeholder="Search translations..." class="bg-zinc-800 border border-zinc-700 rounded-lg px-3 py-1.5 text-sm text-white w-48">
+                        <button class="btn btn-ghost btn-sm" id="addTranslation">+ Translation</button>
+                    </div>
                 </div>
                 <div class="card tbl-wrap">
                     <table>
@@ -1313,6 +1316,19 @@ function collectScenarioRules() {
 // ============================================================
 // TRANSLATIONS
 // ============================================================
+function filterTranslations() {
+    const query = ($('#translationSearch').val() || '').toLowerCase();
+    $('#translations-tbody tr').each(function() {
+        const key = ($(this).find('input[name=tKey]').val() || '').toLowerCase();
+        const esVal = ($(this).find('input[name=tEs]').val() || '').toLowerCase();
+        const enVal = ($(this).find('input[name=tEn]').val() || '').toLowerCase();
+        const match = key.includes(query) || esVal.includes(query) || enVal.includes(query);
+        $(this).toggle(match);
+    });
+}
+
+$(document).on('input', '#translationSearch', filterTranslations);
+
 function renderTranslations() {
     const $b = $('#translations-tbody').empty();
     const es = DATA.TRANSLATIONS?.es || {};

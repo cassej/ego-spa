@@ -187,11 +187,12 @@ function updateSummary() {
     let details = '';
     let price = 0;
     let regularPrice = 0;
+    let packPrice = 0;
+    let egoPrice = 0;
 
     if (state.currentFlow === 'single' && state.single.technique) {
         const parts = [];
         parts.push(state.single.techniqueName);
-        // Show all selected scenarios
         if (state.single.selectedScenarios.length > 0) {
             const scenarioNames = state.single.selectedScenarios.map(s => td('SCENARIO_DATA', s, 'name') || s);
             parts.push(scenarioNames.join(' + '));
@@ -206,8 +207,12 @@ function updateSummary() {
             parts.push(t('common.extrasCount', { count: state.single.extras.length }));
         }
         details = parts.join(' · ');
-        price = calculateSinglePrice();
-        regularPrice = price;
+        
+        // Calculate all three prices
+        regularPrice = calculateSinglePrice();
+        packPrice = regularPrice; // Pack price per session is same as regular for single
+        egoPrice = Math.round(regularPrice * (1 - EGO_DISCOUNT));
+        price = regularPrice; // Default displayed price
     } else if (state.currentFlow === 'packs' && state.pack.code) {
         const parts = [];
         parts.push(state.pack.code);
@@ -216,50 +221,46 @@ function updateSummary() {
         }
         parts.push(`${state.pack.hands} ${t('summary.hands').replace(':','')}`);
         details = parts.join(' · ');
-        price = calculatePackPrice();
-        regularPrice = price;
+        
+        // For packs, calculate per-session prices
+        regularPrice = calculatePackPrice();
+        packPrice = regularPrice;
+        egoPrice = Math.round(regularPrice * (1 - EGO_DISCOUNT));
+        price = regularPrice;
     }
 
-    if (state.isAuth && price > 0) {
-        // For packs with fixed egoPrice, calculatePackPrice() already returns the ego price
-        const packSize = state.pack.size && PACK_DATA[state.pack.code]?.sizes?.[state.pack.size];
-        const hasFixedEgoPrice = state.currentFlow === 'packs' && packSize && packSize.egoPrice > 0;
+    // Update the three price displays
+    const finalRegularPrice = document.getElementById('finalRegularPrice');
+    const finalPackPrice = document.getElementById('finalPackPrice');
+    const finalEgoPrice = document.getElementById('finalEgoPrice');
+    const egoPriceRow = document.getElementById('egoPriceRow');
+    const egoSavingsNote = document.getElementById('egoSavingsNote');
 
-        if (hasFixedEgoPrice) {
-            regularPrice = parseInt(state.pack.basePrice) || 0;
-            // price already is egoPrice from calculatePackPrice()
-            if (state.pack.hands === 4) {
-                const upgradeFee = parseInt(PACK_DATA[state.pack.code].upgradeFee) || 0;
-                regularPrice += upgradeFee * (parseInt(state.pack.sessions) || 0);
-            }
-            const savings = regularPrice - price;
-            elements.summarySavings.textContent = `💥 ${t('summary.savingsProminent', { amount: formatPrice(savings) })}`;
-            elements.summarySavings.classList.remove('hidden');
-            elements.summarySavings.classList.add('savings-prominent');
-            elements.summaryPrice.textContent = formatPrice(price);
-        } else {
-            regularPrice = price;
-            price = Math.round(price * (1 - EGO_DISCOUNT));
-            const savings = regularPrice - price;
-
-            elements.summarySavings.textContent = `💥 ${t('summary.savingsProminent', { amount: formatPrice(savings) })}`;
-            elements.summarySavings.classList.remove('hidden');
-            elements.summarySavings.classList.add('savings-prominent');
-            elements.summaryPrice.textContent = formatPrice(price);
+    if (regularPrice > 0) {
+        if (finalRegularPrice) finalRegularPrice.textContent = formatPrice(regularPrice);
+        if (finalPackPrice) finalPackPrice.textContent = formatPrice(packPrice);
+        if (finalEgoPrice) finalEgoPrice.textContent = formatPrice(egoPrice);
+        
+        // Show ego price row
+        if (egoPriceRow) egoPriceRow.classList.remove('hidden');
+        
+        // Show savings note
+        const savings = regularPrice - egoPrice;
+        if (egoSavingsNote && savings > 0) {
+            egoSavingsNote.textContent = t('summary.savingsNote', { amount: formatPrice(savings) });
+            egoSavingsNote.classList.remove('hidden');
         }
-
-        elements.summarySavings.textContent = `💥 ${t('summary.savingsProminent', { amount: formatPrice(savings) })}`;
-        elements.summarySavings.classList.remove('hidden');
-        elements.summarySavings.classList.add('savings-prominent');
-        elements.summaryPrice.textContent = formatPrice(price);
     } else {
-        elements.summarySavings.classList.add('hidden');
-        elements.summarySavings.classList.remove('savings-prominent');
-        elements.summaryPrice.textContent = price > 0 ? formatPrice(price) : '';
+        if (finalRegularPrice) finalRegularPrice.textContent = '';
+        if (finalPackPrice) finalPackPrice.textContent = '';
+        if (finalEgoPrice) finalEgoPrice.textContent = '';
+        if (egoPriceRow) egoPriceRow.classList.add('hidden');
+        if (egoSavingsNote) egoSavingsNote.classList.add('hidden');
     }
 
     elements.summaryDetails.textContent = details;
 
+    // Show/hide summary - only show on final step (step 6)
     // Show/hide summary - only show on final step (step 6)
     if (price > 0 && state.currentStep === 6) {
         elements.stickySummary.classList.remove('translate-y-full');
@@ -687,6 +688,45 @@ function updateScenarioContinueButton() {
     }
 }
 
+function loadServiceTypes() {
+    const container = document.getElementById('serviceTypeSelection');
+    if (!container) return;
+
+    // Attach event listeners to service type buttons
+    document.querySelectorAll('.service-type-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            const service = btn.dataset.service;
+            state.serviceType = service;
+
+            document.getElementById('serviceTypeSelection').classList.add('hidden');
+
+            if (service === 'hotel') {
+                // Direct to Hotel Flow
+                state.currentFlow = 'hotel';
+                state.currentStep = 1;
+                elements.hotelFlow.classList.remove('hidden');
+                elements.backBtn.classList.remove('hidden');
+                goToStep(1);
+            } else if (service === 'branches') {
+                // Show branch selection
+                document.getElementById('branchSelection').classList.remove('hidden');
+                loadBranches();
+            } else if (service === 'schedules') {
+                // Show schedules modal
+                const hoursModal = document.getElementById('hoursModal');
+                if (hoursModal) {
+                    hoursModal.classList.remove('hidden');
+                    hoursModal.classList.add('flex');
+                }
+                // Return to service type selection after closing modal
+                document.getElementById('serviceTypeSelection').classList.remove('hidden');
+            }
+
+            updateStickyFooter();
+        });
+    });
+}
+
 function loadBranches() {
     const container = document.getElementById('branchesContainer');
     if (!container) return;
@@ -719,26 +759,6 @@ function loadBranches() {
         staggerIndex++;
     });
 
-    // Add hotel service option (hardcoded as it's a special service type)
-    html += `
-        <button class="branch-btn option-card rounded-2xl p-6 text-left fade-up stagger-${staggerIndex}" data-branch="hotel-service" aria-label="Hotel/Home Service">
-            <div class="flex items-start gap-4">
-                <div class="w-14 h-14 rounded-xl bg-gradient-to-br from-ego-gold/20 to-transparent flex items-center justify-center flex-shrink-0">
-                    <svg class="w-7 h-7 text-ego-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/>
-                    </svg>
-                </div>
-                <div class="flex-1">
-                    <h3 class="font-display text-2xl tracking-wide mb-1">${t('branch.hotelLabel')}</h3>
-                    <p class="text-ego-muted text-sm">${t('branch.hotelDesc')}</p>
-                </div>
-                <svg class="w-6 h-6 text-ego-muted flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
-                </svg>
-            </div>
-        </button>
-    `;
-
     container.innerHTML = html;
 
     // Attach event listeners to dynamically created branch buttons
@@ -746,23 +766,10 @@ function loadBranches() {
         btn.addEventListener('click', () => {
             const branch = btn.dataset.branch;
             state.selectedBranch = branch;
-            state.selectedBranchName = branch === 'hotel-service'
-                ? 'Hotel / Home Service'
-                : BRANCHES[branch]?.name || branch;
+            state.selectedBranchName = BRANCHES[branch]?.name || branch;
 
             document.getElementById('branchSelection').classList.add('hidden');
-
-            if (branch === 'hotel-service') {
-                // Direct to Hotel Flow
-                state.currentFlow = 'hotel';
-                state.currentStep = 1;
-                elements.hotelFlow.classList.remove('hidden');
-                elements.backBtn.classList.remove('hidden');
-                goToStep(1);
-            } else {
-                // Show flow selection for Spa branches
-                document.getElementById('flowSelection').classList.remove('hidden');
-            }
+            document.getElementById('flowSelection').classList.remove('hidden');
 
             updateStickyFooter();
         });
@@ -1050,13 +1057,19 @@ function goBack() {
         elements.touristFlow.classList.add('hidden');
         elements.membershipFlow.classList.add('hidden');
 
-        if (state.selectedBranch === 'hotel-service') {
-            // Hotel branch goes back to branch selection
+        if (state.serviceType === 'hotel') {
+            // Hotel goes back to service type selection
+            state.serviceType = null;
             state.selectedBranch = null;
             state.selectedBranchName = '';
-            document.getElementById('branchSelection').classList.remove('hidden');
+            document.getElementById('serviceTypeSelection').classList.remove('hidden');
+        } else if (state.serviceType === 'branches') {
+            // Branches goes back to service type selection
+            state.serviceType = null;
+            state.selectedBranch = null;
+            state.selectedBranchName = '';
+            document.getElementById('serviceTypeSelection').classList.remove('hidden');
         } else {
-            // Spa branches go back to flow selection
             elements.flowSelection.classList.remove('hidden');
         }
 

@@ -136,8 +136,73 @@ stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
     <!-- Main Content -->
     <main class="max-w-lg mx-auto px-4 py-6">
 
-        <!-- Branch Selection (Step 0) -->
-        <section id="branchSelection" class="space-y-6">
+        <!-- Service Type Selection (Entry Screen) -->
+        <section id="serviceTypeSelection" class="space-y-6">
+            <div class="text-center fade-up stagger-1">
+                <h2 class="font-display text-4xl md:text-5xl tracking-wide mb-2" data-i18n="serviceType.title">SELECT YOUR EXPERIENCE</h2>
+                <p class="text-ego-muted" data-i18n="serviceType.subtitle">Choose the service type</p>
+            </div>
+
+            <div class="grid gap-4 mt-8">
+                <!-- Outcall Hotel Service -->
+                <button class="service-type-btn option-card rounded-2xl p-6 text-left fade-up stagger-2" data-service="hotel">
+                    <div class="flex items-start gap-4">
+                        <div class="w-14 h-14 rounded-xl bg-gradient-to-br from-ego-gold/20 to-transparent flex items-center justify-center flex-shrink-0">
+                            <svg class="w-7 h-7 text-ego-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 21h19.5m-18-18v18m10.5-18v18m6-13.5V21M6.75 6.75h.75m-.75 3h.75m-.75 3h.75m3-6h.75m-.75 3h.75m-.75 3h.75M6.75 21v-3.375c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21M3 3h12m-.75 4.5H21m-3.75 7.5h.008v.008h-.008v-.008zm0 3h.008v.008h-.008v-.008z" />
+                            </svg>
+                        </div>
+                        <div class="flex-1">
+                            <h3 class="font-display text-2xl tracking-wide mb-1" data-i18n="serviceType.hotel.label">OUTCALL HOTEL SERVICE</h3>
+                            <p class="text-ego-muted text-sm" data-i18n="serviceType.hotel.desc">Room service. Available 24/7.</p>
+                        </div>
+                        <svg class="w-6 h-6 text-ego-muted flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                        </svg>
+                    </div>
+                </button>
+
+                <!-- Our Branches -->
+                <button class="service-type-btn option-card rounded-2xl p-6 text-left fade-up stagger-3" data-service="branches">
+                    <div class="flex items-start gap-4">
+                        <div class="w-14 h-14 rounded-xl bg-gradient-to-br from-ego-red/20 to-transparent flex items-center justify-center flex-shrink-0">
+                            <svg class="w-7 h-7 text-ego-red" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z" />
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z" />
+                            </svg>
+                        </div>
+                        <div class="flex-1">
+                            <h3 class="font-display text-2xl tracking-wide mb-1" data-i18n="serviceType.branches.label">OUR BRANCHES</h3>
+                            <p class="text-ego-muted text-sm" data-i18n="serviceType.branches.desc">Visit us at any of our locations.</p>
+                        </div>
+                        <svg class="w-6 h-6 text-ego-muted flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                        </svg>
+                    </div>
+                </button>
+
+                <!-- Schedules -->
+                <button class="service-type-btn option-card rounded-2xl p-6 text-left fade-up stagger-4" data-service="schedules">
+                    <div class="flex items-start gap-4">
+                        <div class="w-14 h-14 rounded-xl bg-gradient-to-br from-ego-zincLight/50 to-transparent flex items-center justify-center flex-shrink-0">
+                            <svg class="w-7 h-7 text-ego-muted" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+                            </svg>
+                        </div>
+                        <div class="flex-1">
+                            <h3 class="font-display text-2xl tracking-wide mb-1" data-i18n="serviceType.schedules.label">SCHEDULES</h3>
+                            <p class="text-ego-muted text-sm" data-i18n="serviceType.schedules.desc">Check our opening hours.</p>
+                        </div>
+                        <svg class="w-6 h-6 text-ego-muted flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                        </svg>
+                    </div>
+                </button>
+            </div>
+        </section>
+
+        <!-- Branch Selection (shown after selecting "Our Branches") -->
+        <section id="branchSelection" class="space-y-6 hidden">
             <div class="text-center fade-up stagger-1">
                 <h2 class="font-display text-4xl md:text-5xl tracking-wide mb-2" data-i18n="branch.title">RESERVA TU EXPERIENCIA</h2>
                 <p class="text-ego-muted" data-i18n="branch.subtitle">Selecciona la ubicación</p>
@@ -359,6 +424,7 @@ stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
                             </svg>
                         </div>
                         <h3 class="font-semibold text-sm" data-scenario-key="shower">Shower</h3>
+                        <p class="scenario-desc text-ego-muted text-xs mt-1 opacity-0 max-h-0 overflow-hidden transition-all duration-300" data-i18n="scenario.shower.desc">Experiencia de ducha</p>
                     </button>
 
                     <button class="scenario-btn option-card rounded-xl p-4 text-center fade-up stagger-2" data-scenario="massage-table" id="scenario-massage-table">
@@ -368,6 +434,7 @@ stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
                             </svg>
                         </div>
                         <h3 class="font-semibold text-sm" data-scenario-key="massage-table">Massage Table</h3>
+                        <p class="scenario-desc text-ego-muted text-xs mt-1 opacity-0 max-h-0 overflow-hidden transition-all duration-300" data-i18n="scenario.massageTable.desc">Camilla de masaje tradicional</p>
                     </button>
                 </div>
 
@@ -381,6 +448,7 @@ stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
                             </svg>
                         </div>
                         <h3 class="font-semibold text-sm" data-scenario-key="tatami-dry">Tatami (Dry)</h3>
+                        <p class="scenario-desc text-ego-muted text-xs mt-1 opacity-0 max-h-0 overflow-hidden transition-all duration-300" data-i18n="scenario.tatamiDry.desc">Tatami japonés — experiencia seca</p>
                     </button>
 
                     <button class="scenario-btn option-card rounded-xl p-4 text-center fade-up stagger-4" data-scenario="tatami-wet" id="scenario-tatami-wet">
@@ -391,6 +459,7 @@ stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
                             </svg>
                         </div>
                         <h3 class="font-semibold text-sm" data-scenario-key="tatami-wet">Wet Tatami</h3>
+                        <p class="scenario-desc text-ego-muted text-xs mt-1 opacity-0 max-h-0 overflow-hidden transition-all duration-300" data-i18n="scenario.tatamiWet.desc">Tatami japonés — experiencia húmeda con gel</p>
                     </button>
                 </div>
 
@@ -406,6 +475,7 @@ stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
                             </svg>
                         </div>
                         <h3 class="font-semibold text-sm" data-scenario-key="tantric-couch">Tantric Couch</h3>
+                        <p class="scenario-desc text-ego-muted text-xs mt-1 opacity-0 max-h-0 overflow-hidden transition-all duration-300" data-i18n="scenario.tantricCouch.desc">Sofá tántrico especializado</p>
                     </button>
 
                     <button class="scenario-btn option-card rounded-xl p-4 text-center fade-up stagger-6" data-scenario="tantric-chair" id="scenario-tantric-chair">
@@ -415,6 +485,7 @@ stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
                             </svg>
                         </div>
                         <h3 class="font-semibold text-sm" data-scenario-key="tantric-chair">Tantric Chair</h3>
+                        <p class="scenario-desc text-ego-muted text-xs mt-1 opacity-0 max-h-0 overflow-hidden transition-all duration-300" data-i18n="scenario.tantricChair.desc">Silla tántrica especializada</p>
                     </button>
 
                     <button class="scenario-btn option-card rounded-xl p-4 text-center fade-up stagger-7" data-scenario="tantric-sink" id="scenario-tantric-sink">
@@ -425,6 +496,7 @@ stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
                             </svg>
                         </div>
                         <h3 class="font-semibold text-sm" data-scenario-key="tantric-sink">Tantric Sink</h3>
+                        <p class="scenario-desc text-ego-muted text-xs mt-1 opacity-0 max-h-0 overflow-hidden transition-all duration-300" data-i18n="scenario.tantricSink.desc">Experiencia de fuente tántrica</p>
                     </button>
                 </div>
 
@@ -443,19 +515,21 @@ stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
 
                 <div class="space-y-3">
                     <label class="option-card rounded-xl p-4 flex items-center gap-4 cursor-pointer fade-up stagger-1">
-                        <input type="checkbox" class="extra-check custom-radio" data-extra="sensitive" data-addon="0" checked>
+                        <input type="radio" name="praecoquis" class="custom-radio" data-extra="double-pleasure" data-addon="25" checked>
                         <div class="flex-1">
-                            <h3 class="font-semibold" data-i18n="extras.sensitive">Sensitive</h3>
-                            <p class="text-ego-muted text-sm" data-i18n="extras.included">Incluido</p>
+                            <h3 class="font-semibold" data-i18n="extras.doublePleasure">DOUBLE PLEASURE EXPERIENCE</h3>
+                            <p class="text-ego-muted text-sm" data-i18n="extras.doublePleasureDesc">Hot shower exfoliation</p>
                         </div>
+                        <span class="text-ego-red font-semibold text-sm">+$25</span>
                     </label>
 
                     <label class="option-card rounded-xl p-4 flex items-center gap-4 cursor-pointer fade-up stagger-2">
-                        <input type="checkbox" class="extra-check custom-radio" data-extra="double-sensitive" data-addon="25">
+                        <input type="radio" name="praecoquis" class="custom-radio" data-extra="relaxation-finish" data-addon="-25">
                         <div class="flex-1">
-                            <h3 class="font-semibold" data-i18n="extras.doubleSensitive">Double Sensitive</h3>
-                            <p class="text-ego-muted text-sm" data-i18n="extras.doubleSensitiveDesc">Experiencia dual intensificada</p>
+                            <h3 class="font-semibold" data-i18n="extras.relaxationFinish">RELAXATION FINISH</h3>
+                            <p class="text-ego-muted text-sm" data-i18n="extras.relaxationFinishDesc">Hot shower with a masseur</p>
                         </div>
+                        <span class="text-ego-gold font-semibold text-sm">-$25</span>
                     </label>
                 </div>
                 <!-- Continue button will be added in Task 6 -->
@@ -471,34 +545,36 @@ stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
 
                 <div class="space-y-4">
                     <div class="option-card rounded-xl p-4 fade-up stagger-1">
-                        <label class="flex items-center gap-3 mb-3">
-                            <input type="radio" name="masseuse-pref" value="no-pref" checked class="custom-radio">
-                            <span class="font-semibold" data-i18n="single.noPreference">Sin preferencia</span>
+                        <label class="flex items-center gap-3">
+                            <input type="radio" name="masseuse-pref" value="available" checked class="custom-radio">
+                            <div class="flex-1">
+                                <span class="font-semibold" data-i18n="single.availableTherapist">Available therapist</span>
+                            </div>
                         </label>
                     </div>
 
                     <div class="option-card rounded-xl p-4 fade-up stagger-2">
                         <label class="flex items-center gap-3 mb-3">
                             <input type="radio" name="masseuse-pref" value="specific" class="custom-radio">
-                            <span class="font-semibold" data-i18n="single.specificMasseuse">Masseuse específica</span>
+                            <div class="flex-1">
+                                <span class="font-semibold" data-i18n="single.chooseTherapist">Choose my therapist ✅</span>
+                            </div>
                         </label>
-                        <input type="text" id="masseuseName" class="masseuse-input w-full bg-ego-zinc rounded-lg p-3 text-white placeholder-ego-muted" placeholder="Nombre de la masseuse" data-i18n-placeholder="single.masseusePlaceholder" disabled>
+                        <input type="text" id="masseuseName" class="masseuse-input w-full bg-ego-zinc rounded-lg p-3 text-white placeholder-ego-muted" placeholder="Masseuse name" data-i18n-placeholder="single.masseusePlaceholder" disabled>
                     </div>
 
-                    <div class="option-card rounded-xl p-4 fade-up stagger-3">
-                        <label class="flex items-center justify-between">
-                            <div>
-                                <h3 class="font-semibold" data-i18n="single.transferTitle">Transfer from another branch</h3>
-                                <p class="text-ego-muted text-sm" data-i18n="single.transferDesc">Traslado de masseuse</p>
-                            </div>
-                            <label class="relative inline-flex items-center cursor-pointer">
-                                <input type="checkbox" id="mobilityToggle" class="sr-only peer" disabled>
-                                <div class="w-11 h-6 bg-ego-zinc peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-ego-red"></div>
-                            </label>
-                        </label>
+                    <div id="travelFeeNotice" class="bg-ego-gold/10 border border-ego-gold/30 rounded-lg p-3 fade-up stagger-3 hidden">
+                        <div class="flex items-center gap-2">
+                            <svg class="w-4 h-4 text-ego-gold flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                            </svg>
+                            <p class="text-ego-gold text-sm" data-i18n="single.travelFee">+$35 travel fee for therapist transport</p>
+                        </div>
                     </div>
-                </div>
-                <!-- Continue button will be added in Task 6 -->
+
+                    <!-- Continue button will be added in Task 6 -->
+    
+<!-- Continue button will be added in Task 6 -->
             </div>
 
             <!-- Step 7: Date & Time + Final Summary -->
@@ -525,7 +601,7 @@ stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
                     </div>
 
                     <div class="text-ego-muted text-xs text-center fade-up stagger-3" data-i18n="single.scheduleNote">
-                        Horario: Lun-Sáb 8:30 AM - 12:30 AM | Dom/Fest 10:00 AM - 12:30 AM
+                        Horario: Lun-Sáb 08:30 - 00:30 | Dom/Fest 10:00 - 00:30
                     </div>
 
                     <!-- Night Rate Disclaimer -->
@@ -587,6 +663,25 @@ stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
                             <span id="finalTime" class="text-white"></span>
                         </div>
                         <div class="border-t border-ego-zincLight my-2"></div>
+                        
+                        <!-- Three pricing tiers -->
+                        <div class="space-y-2 mt-3">
+                            <div class="flex justify-between items-center bg-ego-black/50 rounded-lg p-3">
+                                <span class="text-ego-muted text-sm" data-i18n="summary.regularPrice">Regular:</span>
+                                <span id="finalRegularPrice" class="font-display text-xl text-white"></span>
+                            </div>
+                            <div class="flex justify-between items-center bg-ego-black/50 rounded-lg p-3">
+                                <span class="text-ego-muted text-sm" data-i18n="summary.packPrice">Pack (per session):</span>
+                                <span id="finalPackPrice" class="font-display text-xl text-white"></span>
+                            </div>
+                            <div id="egoPriceRow" class="flex justify-between items-center bg-ego-red/10 border border-ego-red/30 rounded-lg p-3">
+                                <span class="text-ego-red text-sm font-semibold" data-i18n="summary.egoPrice">Ego Card:</span>
+                                <span id="finalEgoPrice" class="font-display text-xl text-ego-red"></span>
+                            </div>
+                            <p id="egoSavingsNote" class="text-ego-gold text-xs text-center hidden" data-i18n="summary.savingsNote">You save with Ego Card</p>
+                        </div>
+
+                        <div class="border-t border-ego-zincLight my-2 mt-3"></div>
                         <div class="flex justify-between items-center">
                             <span class="font-semibold text-white" data-i18n="summary.total">TOTAL:</span>
                             <span id="finalPrice" class="font-display text-3xl text-ego-red"></span>
@@ -753,6 +848,7 @@ stagger-3" data-i18n="packs.bookNow">
                             <input type="radio" name="hotel-scenario" class="custom-radio" data-scenario="massage-table" data-price="25">
                             <div class="flex-1">
                                 <h3 class="font-semibold text-sm" data-scenario-key="massage-table">Massage Table</h3>
+                        <p class="scenario-desc text-ego-muted text-xs mt-1 opacity-0 max-h-0 overflow-hidden transition-all duration-300" data-i18n="scenario.massageTable.desc">Camilla de masaje tradicional</p>
                             </div>
                         </label>
 
@@ -769,21 +865,22 @@ stagger-3" data-i18n="packs.bookNow">
                 <!-- Other Extras -->
                 <div class="space-y-3 mb-4">
                     <label class="option-card rounded-xl p-4 flex items-center gap-4 cursor-pointer fade-up stagger-1">
-                        <input type="checkbox" class="hotel-extra-check custom-radio" data-extra="sensitive" data-addon="0" checked>
+                        <input type="radio" name="hotel-praecoquis" class="custom-radio" data-extra="double-pleasure" data-addon="25" checked>
                         <div class="flex-1">
-                            <h3 class="font-semibold" data-i18n="extras.sensitive">Sensitive</h3>
-                            <p class="text-ego-muted text-sm" data-i18n="extras.included">Incluido</p>
+                            <h3 class="font-semibold" data-i18n="extras.doublePleasure">DOUBLE PLEASURE EXPERIENCE</h3>
+                            <p class="text-ego-muted text-sm" data-i18n="extras.doublePleasureDesc">Hot shower exfoliation</p>
                         </div>
+                        <span class="text-ego-red font-semibold text-sm">+$25</span>
                     </label>
 
                     <label class="option-card rounded-xl p-4 flex items-center gap-4 cursor-pointer fade-up stagger-2">
-                        <input type="checkbox" class="hotel-extra-check custom-radio" data-extra="double-sensitive" data-addon="25">
+                        <input type="radio" name="hotel-praecoquis" class="custom-radio" data-extra="relaxation-finish" data-addon="-25">
                         <div class="flex-1">
-                            <h3 class="font-semibold" data-i18n="extras.doubleSensitive">Double Sensitive</h3>
-                            <p class="text-ego-muted text-sm" data-i18n="extras.doubleSensitiveDesc">Experiencia dual intensificada</p>
+                            <h3 class="font-semibold" data-i18n="extras.relaxationFinish">RELAXATION FINISH</h3>
+                            <p class="text-ego-muted text-sm" data-i18n="extras.relaxationFinishDesc">Hot shower with a masseur</p>
                         </div>
+                        <span class="text-ego-gold font-semibold text-sm">-$25</span>
                     </label>
-
                 </div>
 
                 <!-- Final Summary -->
@@ -831,7 +928,7 @@ stagger-3" data-i18n="packs.bookNow">
                     </div>
 
                     <div class="text-ego-muted text-xs text-center fade-up stagger-3" data-i18n="single.scheduleNote">
-                        Horario: Lun-Sáb 8:30 AM - 12:30 AM | Dom/Fest 10:00 AM - 12:30 AM
+                        Horario: Lun-Sáb 08:30 - 00:30 | Dom/Fest 10:00 - 00:30
                     </div>
 
                     <!-- Hotel Night Rate Disclaimer -->
@@ -1010,11 +1107,11 @@ stroke-width="2" d="M15 19l-7-7 7-7"/>
             <div class="space-y-4">
                 <div class="bg-ego-black rounded-xl p-4">
                     <p class="text-ego-red text-sm font-semibold mb-2" data-i18n="hours.weekdays">LUNES A SABADO</p>
-                    <p class="text-white">08:30 a.m. - 12:30 a.m.</p>
+                    <p class="text-white">08:30 - 00:30</p>
                 </div>
                 <div class="bg-ego-black rounded-xl p-4">
                     <p class="text-ego-red text-sm font-semibold mb-2" data-i18n="hours.weekends">DOMINGOS Y FERIADOS</p>
-                    <p class="text-white">10:00 a.m. - 12:30 a.m.</p>
+                    <p class="text-white">10:00 - 00:30</p>
                 </div>
                 <div class="bg-ego-gold/10 rounded-xl p-4 border border-ego-gold/30">
                     <p class="text-ego-gold text-sm" data-i18n="hours.lastAppt">Citas hasta 12:00 a.m.</p>

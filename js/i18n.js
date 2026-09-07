@@ -64,6 +64,7 @@ function refreshAllUI() {
     applyLanguage();
     translateScenarioButtons();
     // Re-render dynamic content
+    if (typeof loadServiceTypes === 'function') loadServiceTypes();
     if (typeof loadBranches === 'function') loadBranches();
     if (typeof loadTechniques === 'function') loadTechniques();
     if (typeof loadHotelTechniques === 'function') loadHotelTechniques();

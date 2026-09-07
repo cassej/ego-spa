@@ -67,10 +67,11 @@ function setupEventListeners() {
     const changeBranchBtn = document.getElementById('changeBranchBtn');
     if (changeBranchBtn) {
         changeBranchBtn.addEventListener('click', () => {
+            state.serviceType = null;
             state.selectedBranch = null;
             state.selectedBranchName = '';
             document.getElementById('flowSelection').classList.add('hidden');
-            document.getElementById('branchSelection').classList.remove('hidden');
+            document.getElementById('serviceTypeSelection').classList.remove('hidden');
         });
     }
 
@@ -319,54 +320,18 @@ function setupEventListeners() {
     });
 
     // Step 4: PRAECOQUIS extras (mutual exclusion: Sensitive default)
-    document.querySelectorAll('.extra-check').forEach(check => {
-        check.addEventListener('change', () => {
-            const extraKey = check.dataset.extra;
-            const extra = {
-                name: check.parentElement.querySelector('h3').textContent,
-                addon: ADDON_PRICING[extraKey]?.price ?? 0
-            };
+    document.querySelectorAll('input[name="praecoquis"]').forEach(radio => {
+        radio.addEventListener('change', () => {
+            const extraKey = radio.dataset.extra;
+            const addon = parseInt(radio.dataset.addon) || 0;
 
-            if (extraKey === 'sensitive') {
-                // Sensitive: can't be unchecked — force it back on
-                if (!check.checked) {
-                    check.checked = true;
-                    return;
-                }
-                // Uncheck Double Sensitive, remove it from state
-                const doubleCheck = document.querySelector('.extra-check[data-extra="double-sensitive"]');
-                if (doubleCheck) doubleCheck.checked = false;
-                state.single.extras = state.single.extras.filter(e => e.name !== document.querySelector('.extra-check[data-extra="double-sensitive"]')?.parentElement?.querySelector('h3')?.textContent);
-                // Add Sensitive if not already present
-                if (!state.single.extras.some(e => e.name === extra.name)) {
-                    state.single.extras.push(extra);
-                }
-            } else if (extraKey === 'double-sensitive') {
-                if (check.checked) {
-                    // Uncheck Sensitive, remove it
-                    const sensitiveCheck = document.querySelector('.extra-check[data-extra="sensitive"]');
-                    if (sensitiveCheck) sensitiveCheck.checked = false;
-                    state.single.extras = state.single.extras.filter(e => e.name !== sensitiveCheck?.parentElement?.querySelector('h3')?.textContent);
-                    state.single.extras.push(extra);
-                } else {
-                    // Unchecked Double Sensitive → auto-check Sensitive back
-                    state.single.extras = state.single.extras.filter(e => e.name !== extra.name);
-                    const sensitiveCheck = document.querySelector('.extra-check[data-extra="sensitive"]');
-                    if (sensitiveCheck) {
-                        sensitiveCheck.checked = true;
-                        const sensitiveExtra = {
-                            name: sensitiveCheck.parentElement.querySelector('h3').textContent,
-                            addon: ADDON_PRICING['sensitive']?.price ?? 0
-                        };
-                        if (!state.single.extras.some(e => e.name === sensitiveExtra.name)) {
-                            state.single.extras.push(sensitiveExtra);
-                        }
-                    }
-                }
-            }
+            // Clear extras and add the selected one
+            state.single.extras = [{
+                name: radio.parentElement.querySelector('h3').textContent,
+                addon: addon
+            }];
 
             updateStickyFooter();
-            // No auto-advance - continue button added below
         });
     });
 
@@ -382,40 +347,27 @@ function setupEventListeners() {
     document.querySelectorAll('input[name="masseuse-pref"]').forEach(radio => {
         radio.addEventListener('change', () => {
             const nameInput = document.getElementById('masseuseName');
-            const mobilityToggle = document.getElementById('mobilityToggle');
+            const travelFeeNotice = document.getElementById('travelFeeNotice');
 
             if (radio.value === 'specific') {
                 nameInput.disabled = false;
                 nameInput.focus();
+                state.single.mobilityFee = 35; // $35 travel fee
+                if (travelFeeNotice) travelFeeNotice.classList.remove('hidden');
             } else {
                 nameInput.disabled = true;
                 nameInput.value = '';
                 state.single.masseuseName = '';
-                mobilityToggle.disabled = true;
-                mobilityToggle.checked = false;
                 state.single.mobilityFee = 0;
+                if (travelFeeNotice) travelFeeNotice.classList.add('hidden');
             }
+            updateStickyFooter();
         });
     });
 
     // Masseuse name input
     document.getElementById('masseuseName').addEventListener('input', (e) => {
         state.single.masseuseName = e.target.value;
-        const mobilityToggle = document.getElementById('mobilityToggle');
-
-        if (e.target.value.trim()) {
-            mobilityToggle.disabled = false;
-        } else {
-            mobilityToggle.disabled = true;
-            mobilityToggle.checked = false;
-            state.single.mobilityFee = 0;
-        }
-    });
-
-    // Mobility toggle
-    document.getElementById('mobilityToggle').addEventListener('change', (e) => {
-        state.single.mobilityFee = e.target.checked ? (ADDON_PRICING['move-to-branches']?.price || 0) : 0;
-        updateStickyFooter();
     });
 
     // Add continue button to Step 5
@@ -544,50 +496,16 @@ function setupEventListeners() {
     });
 
     // Step 3: Extras (mutual exclusion: Sensitive default)
-    document.querySelectorAll('.hotel-extra-check').forEach(check => {
-        check.addEventListener('change', () => {
-            const extraKey = check.dataset.extra;
-            const extra = {
-                name: check.parentElement.querySelector('h3').textContent,
-                addon: ADDON_PRICING[extraKey]?.price ?? 0
-            };
+    document.querySelectorAll('input[name="hotel-praecoquis"]').forEach(radio => {
+        radio.addEventListener('change', () => {
+            const extraKey = radio.dataset.extra;
+            const addon = parseInt(radio.dataset.addon) || 0;
 
-            if (extraKey === 'sensitive') {
-                // Sensitive: can't be unchecked — force it back on
-                if (!check.checked) {
-                    check.checked = true;
-                    return;
-                }
-                // Uncheck Double Sensitive, remove it from state
-                const doubleCheck = document.querySelector('.hotel-extra-check[data-extra="double-sensitive"]');
-                if (doubleCheck) doubleCheck.checked = false;
-                state.hotel.extras = state.hotel.extras.filter(e => e.name !== document.querySelector('.hotel-extra-check[data-extra="double-sensitive"]')?.parentElement?.querySelector('h3')?.textContent);
-                if (!state.hotel.extras.some(e => e.name === extra.name)) {
-                    state.hotel.extras.push(extra);
-                }
-            } else if (extraKey === 'double-sensitive') {
-                if (check.checked) {
-                    // Uncheck Sensitive, remove it
-                    const sensitiveCheck = document.querySelector('.hotel-extra-check[data-extra="sensitive"]');
-                    if (sensitiveCheck) sensitiveCheck.checked = false;
-                    state.hotel.extras = state.hotel.extras.filter(e => e.name !== sensitiveCheck?.parentElement?.querySelector('h3')?.textContent);
-                    state.hotel.extras.push(extra);
-                } else {
-                    // Unchecked Double Sensitive → auto-check Sensitive back
-                    state.hotel.extras = state.hotel.extras.filter(e => e.name !== extra.name);
-                    const sensitiveCheck = document.querySelector('.hotel-extra-check[data-extra="sensitive"]');
-                    if (sensitiveCheck) {
-                        sensitiveCheck.checked = true;
-                        const sensitiveExtra = {
-                            name: sensitiveCheck.parentElement.querySelector('h3').textContent,
-                            addon: ADDON_PRICING['sensitive']?.price ?? 0
-                        };
-                        if (!state.hotel.extras.some(e => e.name === sensitiveExtra.name)) {
-                            state.hotel.extras.push(sensitiveExtra);
-                        }
-                    }
-                }
-            }
+            // Clear extras and add the selected one
+            state.hotel.extras = [{
+                name: radio.parentElement.querySelector('h3').textContent,
+                addon: addon
+            }];
 
             updateHotelFinalSummary();
         });

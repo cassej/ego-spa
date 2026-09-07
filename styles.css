@@ -386,11 +386,29 @@ var(--panel-light) 50%, var(--panel) 100%);
             opacity: 0;
             max-height: 0;
             margin-top: 0;
-            transition: all 0.3s ease;
+            overflow: hidden;
+            transition: opacity 0.3s ease, max-height 0.3s ease, margin-top 0.3s ease;
         }
 
+        .technique-btn:hover .technique-desc,
+        .hotel-technique-btn:hover .technique-desc,
         .technique-btn.selected .technique-desc,
         .hotel-technique-btn.selected .technique-desc {
+            opacity: 1;
+            max-height: 80px;
+            margin-top: 4px;
+        }
+
+        /* Scenario description reveal on hover */
+        .scenario-btn .scenario-desc {
+            opacity: 0;
+            max-height: 0;
+            margin-top: 0;
+            overflow: hidden;
+            transition: opacity 0.3s ease, max-height 0.3s ease, margin-top 0.3s ease;
+        }
+
+        .scenario-btn:hover .scenario-desc {
             opacity: 1;
             max-height: 60px;
             margin-top: 4px;

@@ -33,8 +33,8 @@ async function init() {
         currentLang = detectLanguage();
         document.documentElement.lang = currentLang;
 
-        // Load branches and techniques dynamically from data.json
-        loadBranches();
+        // Load service types and techniques dynamically from data.json
+        loadServiceTypes();
         loadTechniques();
         loadHotelTechniques();
         loadHotelConfig();

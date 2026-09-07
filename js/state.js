@@ -1,7 +1,8 @@
 const state = {
     isAuth: false,
     email: '',
-    selectedBranch: null, // 'marbella', 'costa-del-este', 'san-francisco', 'el-dorado', or 'hotel-service'
+    serviceType: null, // 'hotel', 'branches', 'schedules'
+    selectedBranch: null, // 'marbella', 'costa-del-este', 'san-francisco', 'el-dorado'
     selectedBranchName: '', // Display name for WhatsApp
     currentFlow: null, // 'single', 'packs', 'hotel', or 'jetlag'
     currentStep: 0,
