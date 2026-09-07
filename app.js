@@ -47,6 +47,7 @@ async function init() {
                 translateScenarioButtons();
             });
         });
+        loadServiceTypes();
         loadTechniques();
         loadHotelTechniques();
         loadHotelConfig();
