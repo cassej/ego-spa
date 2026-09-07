@@ -31,8 +31,27 @@ function setupEventListeners() {
     });
 
     // Terms/Disclaimer modal — show on init if enabled
+    const termsModal = document.getElementById('termsModal');
+    const closeTermsModal = document.getElementById('closeTermsModal');
+    const termsContent = document.getElementById('termsContent');
 
+    if (termsModal && closeTermsModal && termsContent) {
+        closeTermsModal.addEventListener('click', () => {
+            termsModal.classList.add('hidden');
+            termsModal.classList.remove('flex');
+        });
 
+        // Show terms modal on init if enabled in config
+        const termsConfig = DATA.TERMS_MODAL;
+        if (termsConfig && termsConfig.enabled) {
+            const content = currentLang === 'en' ? (termsConfig.content_en || termsConfig.content) : (termsConfig.content || '');
+            if (content) {
+                termsContent.innerHTML = content;
+                termsModal.classList.remove('hidden');
+                termsModal.classList.add('flex');
+            }
+        }
+    }
     elements.authForm.addEventListener('submit', (e) => {
         e.preventDefault();
         const email = elements.emailInput.value.trim();

@@ -1068,16 +1068,25 @@ stroke-width="2" d="M15 19l-7-7 7-7"/>
     </div>
 
     <!-- Terms/Disclaimer Modal -->
+    <div id="termsModal" class="fixed inset-0 z-[100] hidden items-center justify-center p-4 modal-backdrop">
+        <div class="w-full max-w-sm bg-ego-zinc rounded-2xl p-6 border border-white/10 fade-up max-h-[80vh] flex flex-col">
+            <div class="text-center mb-4">
+                <div class="w-16 h-16 mx-auto mb-4 rounded-full bg-gradient-to-br from-ego-gold to-yellow-700 flex items-center justify-center">
+                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+                    </svg>
+                </div>
+                <h2 class="font-display text-3xl tracking-wide mb-2" data-i18n="disclaimer.title">IMPORTANT NOTICE</h2>
+            </div>
 
+            <div id="termsContent" class="text-ego-muted text-sm leading-relaxed overflow-y-auto flex-1 mb-6 px-1"></div>
 
-</div>
-    <script src="js/i18n.js" defer></script>
-    <script src="js/state.js" defer></script>
-    <script src="js/helpers.js" defer></script>
-    <script src="js/calculations.js" defer></script>
-    <script src="js/ui.js" defer></script>
-    <script src="js/events.js" defer></script>
-    <script src="app.js" defer></script>
+            <button id="closeTermsModal" class="btn-primary w-full py-3 rounded-lg font-semibold text-white uppercase tracking-wider" data-i18n="common.understood">
+                Entendido
+            </button>
+        </div>
+    </div>
+
 
 <!-- Sticky Footer -->
 <div id="stickyFooter" class="sticky-footer">
@@ -1089,5 +1098,14 @@ stroke-width="2" d="M15 19l-7-7 7-7"/>
         </div>
     </div>
 </div>
+
+</div>
+    <script src="js/i18n.js" defer></script>
+    <script src="js/state.js" defer></script>
+    <script src="js/helpers.js" defer></script>
+    <script src="js/calculations.js" defer></script>
+    <script src="js/ui.js" defer></script>
+    <script src="js/events.js" defer></script>
+    <script src="app.js" defer></script>
 </body>
 </html>

@@ -414,7 +414,7 @@ function updateFinalSummary() {
     document.getElementById('finalHands').textContent = state.single.hands !== null ? state.single.hands + ' ' + t('single.handsUnit') : '';
     document.getElementById('finalDuration').textContent = state.single.duration !== null ? state.single.duration + ' ' + t('common.min') : '';
 
-    const extrasText = state.single.extras.map(e => e.name).join(', ') || t('extras.sensitive');
+    const extrasText = state.single.extras.map(e => e.name).join(', ') || t('summary.noExtras');
     document.getElementById('finalExtras').textContent = extrasText;
 
     document.getElementById('finalMasseuse').textContent = state.single.masseuseName || t('whatsapp.noPreference');
@@ -1022,9 +1022,9 @@ function checkDateTimeComplete() {
 
             calculateNightRate(state.single);
 
-            // Restore previous values if needed
-            if (!prevDate) state.single.bookingDate = prevDate;
-            if (!prevTime) state.single.bookingTime = prevTime;
+            // Restore previous values
+            state.single.bookingDate = prevDate;
+            state.single.bookingTime = prevTime;
 
             // Show disclaimer if night rate applies
             if (state.single.nightRate > 0) {
