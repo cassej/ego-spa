@@ -133,11 +133,39 @@ stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
         </div>
     </div>
 
+    <!-- Disclaimer Banner -->
+    <div class="bg-ego-gold/10 border-b border-ego-gold/30 py-3 px-4">
+        <div class="max-w-lg mx-auto text-center">
+            <p class="text-ego-gold text-xs leading-relaxed" data-i18n="disclaimer.banner">
+                We don't offer sexual services. These rates apply only with a confirmed appointment. Walk-in rates are higher.
+            </p>
+        </div>
+    </div>
+
     <!-- Main Content -->
     <main class="max-w-lg mx-auto px-4 py-6">
 
+        <!-- Language Selection (First Screen) -->
+        <section id="langSelection" class="space-y-6">
+            <div class="text-center py-20">
+                <h2 class="font-display text-5xl tracking-wide mb-8" data-i18n="lang.title">SELECT YOUR LANGUAGE</h2>
+                <div class="flex justify-center gap-8">
+                    <button class="lang-btn w-28 h-28 rounded-full overflow-hidden border-4 border-white/20 hover:border-ego-gold transition-all hover:scale-110" data-lang="en">
+                        <div class="w-full h-full bg-gradient-to-br from-blue-800 via-red-700 to-red-600 flex items-center justify-center">
+                            <svg class="w-16 h-16" viewBox="0 0 36 36"><rect width="36" height="36" fill="#012169"/><path d="M0,0 L36,36 M36,0 L0,36" stroke="#fff" stroke-width="6"/><path d="M0,0 L36,36 M36,0 L0,36" stroke="#C8102E" stroke-width="2"/><path d="M18,0 V36 M0,18 H36" stroke="#fff" stroke-width="10"/><path d="M18,0 V36 M0,18 H36" stroke="#C8102E" stroke-width="6"/></svg>
+                        </div>
+                    </button>
+                    <button class="lang-btn w-28 h-28 rounded-full overflow-hidden border-4 border-white/20 hover:border-ego-gold transition-all hover:scale-110" data-lang="es">
+                        <div class="w-full h-full bg-gradient-to-b from-red-600 via-yellow-400 to-red-600 flex items-center justify-center">
+                            <svg class="w-16 h-16" viewBox="0 0 36 36"><rect width="36" height="9" y="0" fill="#AA151B"/><rect width="36" height="18" y="9" fill="#F1BF00"/><rect width="36" height="9" y="27" fill="#AA151B"/></svg>
+                        </div>
+                    </button>
+                </div>
+            </div>
+        </section>
+
         <!-- Service Type Selection (Entry Screen) -->
-        <section id="serviceTypeSelection" class="space-y-6">
+        <section id="serviceTypeSelection" class="space-y-6 hidden">
             <div class="text-center fade-up stagger-1">
                 <h2 class="font-display text-4xl md:text-5xl tracking-wide mb-2" data-i18n="serviceType.title">SELECT YOUR EXPERIENCE</h2>
                 <p class="text-ego-muted" data-i18n="serviceType.subtitle">Choose the service type</p>
@@ -211,91 +239,6 @@ stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
             <div id="branchesContainer" class="grid gap-4 mt-8">
                 <!-- Branch buttons will be dynamically loaded from data.json -->
             </div>
-        </section>
-
-        <!-- Flow Selection (after Branch Selection) -->
-        <section id="flowSelection" class="space-y-6 hidden">
-            <div class="text-center fade-up stagger-1">
-                <h2 class="font-display text-4xl md:text-5xl tracking-wide mb-2" data-i18n="flow.title">TIPO DE SERVICIO</h2>
-                <p class="text-ego-muted" data-i18n="flow.subtitle">Selecciona el tipo de servicio</p>
-            </div>
-
-            <div class="grid gap-4 mt-8">
-                <button class="flow-btn option-card rounded-2xl p-6 text-left fade-up stagger-2" data-flow="single" aria-label="Masajes individuales" data-i18n-aria="aria.single">
-                    <div class="flex items-start gap-4">
-                        <div class="w-14 h-14 rounded-xl bg-gradient-to-br from-ego-red/20 to-transparent flex items-center justify-center flex-shrink-0">
-                            <svg class="w-7 h-7 text-ego-red" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
-                            </svg>
-                        </div>
-                        <div class="flex-1">
-                            <h3 class="font-display text-2xl tracking-wide mb-1" data-i18n="flow.single.label">MASAJES INDIVIDUALES</h3>
-                            <p class="text-ego-muted text-sm" data-i18n="flow.single.desc">Una visita única. Escoge técnica, manos y duración.</p>
-                        </div>
-                        <svg class="w-6 h-6 text-ego-muted flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
-                        </svg>
-                    </div>
-                </button>
-
-                <button class="flow-btn option-card rounded-2xl p-6 text-left fade-up stagger-3" data-flow="packs" aria-label="Paquetes y contratos" data-i18n-aria="aria.packs">
-                    <div class="flex items-start gap-4">
-                        <div class="w-14 h-14 rounded-xl bg-gradient-to-br from-ego-red/20 to-transparent flex items-center justify-center flex-shrink-0">
-                            <svg class="w-7 h-7 text-ego-red" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/>
-                            </svg>
-                        </div>
-                        <div class="flex-1">
-                            <h3 class="font-display text-2xl tracking-wide mb-1" data-i18n="flow.packs.label">PACKS & CONTRATOS</h3>
-                            <p class="text-ego-muted text-sm" data-i18n="flow.packs.desc">Paquetes pre-pagados M51-M54. Múltiples sesiones.</p>
-                        </div>
-                        <svg class="w-6 h-6 text-ego-muted flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
-                        </svg>
-                    </div>
-                </button>
-
-                <button class="flow-btn option-card rounded-2xl p-6 text-left fade-up stagger-4" data-flow="tourist" aria-label="Special Packs for Tourists" data-i18n-aria="aria.tourist">
-                    <div class="flex items-start gap-4">
-                        <div class="w-14 h-14 rounded-xl bg-gradient-to-br from-ego-blue/20 to-transparent flex items-center justify-center flex-shrink-0">
-                            <svg class="w-7 h-7 text-ego-gold" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 21a9 9 0 100-18 9 9 0 000 18z" />
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 3c2.5 0 4.5 4 4.5 9s-2 9-4.5 9-4.5-4-4.5-9 2-9 4.5-9z" />
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M3 12h18" />
-                            </svg>
-                        </div>
-                        <div class="flex-1">
-                            <h3 class="font-display text-2xl tracking-wide mb-1" data-i18n="flow.tourist.label">SPECIAL PACKS FOR TOURISTS</h3>
-                            <p class="text-ego-muted text-sm" data-i18n="flow.tourist.desc">Paquetes exclusivos para visitantes. ¡Viaja y disfruta!</p>
-                        </div>
-                        <svg class="w-6 h-6 text-ego-muted flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
-                        </svg>
-                    </div>
-                </button>
-
-                <button class="flow-btn option-card rounded-2xl p-6 text-left fade-up stagger-5" data-flow="membership" aria-label="Ego Card Membership" data-i18n-aria="aria.membership">
-                    <div class="flex items-start gap-4">
-                        <div class="w-14 h-14 rounded-xl bg-gradient-to-br from-ego-gold/20 to-transparent flex items-center justify-center flex-shrink-0">
-                            <svg class="w-7 h-7 text-ego-gold" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 8.25h19.5M2.25 9h19.5m-16.5 5.25h6m-6 2.25h3m-3.75 3h15a2.25 2.25 0 002.25-2.25V6.75A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25v10.5A2.25 2.25 0 004.5 19.5z" />
-                            </svg>
-                        </div>
-                        <div class="flex-1">
-                            <h3 class="font-display text-2xl tracking-wide mb-1" data-i18n="flow.membership.label">EGO CARD MEMBERSHIP</h3>
-                            <p class="text-ego-muted text-sm" data-i18n="flow.membership.desc">Únete al club. Ahorra $175 primer año.</p>
-                        </div>
-                        <svg class="w-6 h-6 text-ego-muted flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
-                        </svg>
-                    </div>
-                </button>
-            </div>
-
-            <!-- Change Branch Button -->
-            <button id="changeBranchBtn" class="w-full py-3 rounded-xl text-ego-muted hover:text-white transition-colors text-sm fade-up stagger-4" data-i18n="flow.changeBranch">
-                ← Cambiar ubicación
-            </button>
         </section>
 
         <!-- Single Massage Flow -->
@@ -1126,22 +1069,7 @@ stroke-width="2" d="M15 19l-7-7 7-7"/>
     </div>
 
     <!-- Terms/Disclaimer Modal -->
-    <div id="termsModal" class="fixed inset-0 z-[100] hidden items-center justify-center p-4 modal-backdrop">
-        <div class="w-full max-w-md bg-ego-zinc rounded-2xl p-6 border border-white/10 fade-up">
-            <div class="text-center mb-6">
-                <div class="w-16 h-16 mx-auto mb-4 rounded-full bg-gradient-to-br from-ego-gold/80 to-ego-gold/40 flex items-center justify-center">
-                    <svg class="w-8 h-8 text-ego-black" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
-                    </svg>
-                </div>
-                <h2 class="font-display text-3xl tracking-wide mb-2" style="color:var(--gold)">AVISO IMPORTANTE</h2>
-            </div>
-            <div id="termsContent" class="text-ego-muted text-sm leading-relaxed mb-6 max-h-60 overflow-y-auto"></div>
-            <button id="closeTermsModal" class="w-full py-3 rounded-lg bg-ego-gold text-ego-black font-semibold uppercase tracking-wider hover:brightness-110 transition-all">
-                Aceptar
-            </button>
-        </div>
-    </div>
+
 
 </div>
     <script src="js/i18n.js" defer></script>

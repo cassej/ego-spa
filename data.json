@@ -1153,7 +1153,9 @@
       "summary.regularPrice": "Regular:",
       "summary.packPrice": "Pack (por sesión):",
       "summary.egoPrice": "Ego Card:",
-      "summary.savingsNote": "Ahorras {amount} con Ego Card"
+      "summary.savingsNote": "Ahorras {amount} con Ego Card",
+      "lang.title": "SELECCIONA TU IDIOMA",
+      "disclaimer.banner": "No ofrecemos servicios sexuales. Estas tarifas aplican solo con cita confirmada. Sin cita, aplican tarifas walk-in (más altas)."
     },
     "en": {
       "header.subtitle": "Panama",
@@ -1372,7 +1374,9 @@
       "summary.regularPrice": "Regular:",
       "summary.packPrice": "Pack (per session):",
       "summary.egoPrice": "Ego Card:",
-      "summary.savingsNote": "You save {amount} with Ego Card"
+      "summary.savingsNote": "You save {amount} with Ego Card",
+      "lang.title": "SELECT YOUR LANGUAGE",
+      "disclaimer.banner": "We don't offer sexual services. These rates apply only with a confirmed appointment. Walk-in rates are higher."
     }
   },
   "TERMS_MODAL": {

@@ -33,8 +33,20 @@ async function init() {
         currentLang = detectLanguage();
         document.documentElement.lang = currentLang;
 
-        // Load service types and techniques dynamically from data.json
-        loadServiceTypes();
+        // Show language selection first
+        document.getElementById('langSelection').classList.remove('hidden');
+        document.querySelectorAll('.lang-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const lang = btn.dataset.lang;
+                currentLang = lang;
+                localStorage.setItem('ego-lang', lang);
+                document.documentElement.lang = lang;
+                document.getElementById('langSelection').classList.add('hidden');
+                document.getElementById('serviceTypeSelection').classList.remove('hidden');
+                applyLanguage();
+                translateScenarioButtons();
+            });
+        });
         loadTechniques();
         loadHotelTechniques();
         loadHotelConfig();

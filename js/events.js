@@ -31,20 +31,7 @@ function setupEventListeners() {
     });
 
     // Terms/Disclaimer modal — show on init if enabled
-    const termsModal = document.getElementById('termsModal');
-    const closeTermsModal = document.getElementById('closeTermsModal');
-    const termsContent = document.getElementById('termsContent');
 
-    if (DATA.TERMS_MODAL && DATA.TERMS_MODAL.enabled && (DATA.TERMS_MODAL.content || DATA.TERMS_MODAL.content_en)) {
-        termsContent.innerHTML = (currentLang === 'en' && DATA.TERMS_MODAL.content_en) ? DATA.TERMS_MODAL.content_en : DATA.TERMS_MODAL.content;
-        termsModal.classList.remove('hidden');
-        termsModal.classList.add('flex');
-    }
-
-    closeTermsModal.addEventListener('click', () => {
-        termsModal.classList.add('hidden');
-        termsModal.classList.remove('flex');
-    });
 
     elements.authForm.addEventListener('submit', (e) => {
         e.preventDefault();
@@ -61,65 +48,6 @@ function setupEventListeners() {
 
             updateSummary();
         }
-    });
-
-    // Change branch button (return to branch selection)
-    const changeBranchBtn = document.getElementById('changeBranchBtn');
-    if (changeBranchBtn) {
-        changeBranchBtn.addEventListener('click', () => {
-            state.serviceType = null;
-            state.selectedBranch = null;
-            state.selectedBranchName = '';
-            document.getElementById('flowSelection').classList.add('hidden');
-            document.getElementById('serviceTypeSelection').classList.remove('hidden');
-        });
-    }
-
-    // Flow selection (after branch)
-    document.querySelectorAll('.flow-btn').forEach(btn => {
-        btn.addEventListener('click', () => {
-            const flow = btn.dataset.flow;
-            console.log('Flow selected:', flow);
-            state.currentFlow = flow;
-            state.currentStep = 1;
-
-            elements.flowSelection.classList.add('hidden');
-
-            if (flow === 'single') {
-                console.log('Showing single flow');
-                elements.singleFlow.classList.remove('hidden');
-                elements.backBtn.classList.remove('hidden');
-                goToStep(1);
-                updateSummary();
-            } else if (flow === 'packs') {
-                console.log('Showing packs flow');
-                elements.packsFlow.classList.remove('hidden');
-                elements.backBtn.classList.remove('hidden');
-                goToStep(1);
-                updateSummary();
-            } else if (flow === 'hotel') {
-                console.log('Showing hotel flow');
-                elements.hotelFlow.classList.remove('hidden');
-                elements.backBtn.classList.remove('hidden');
-                goToStep(1);
-                updateSummary();
-            } else if (flow === 'jetlag') {
-                console.log('Showing jetlag flow');
-                elements.jetlagFlow.classList.remove('hidden');
-                elements.backBtn.classList.remove('hidden');
-            } else if (flow === 'tourist') {
-                console.log('Showing tourist flow');
-                elements.touristFlow.classList.remove('hidden');
-                elements.backBtn.classList.remove('hidden');
-                loadTouristPacks();
-            } else if (flow === 'membership') {
-                console.log('Showing membership flow');
-                elements.membershipFlow.classList.remove('hidden');
-                elements.backBtn.classList.add('hidden'); // Membership has its own back button
-            }
-
-            updateStickyFooter();
-        });
     });
 
     // Back button
@@ -534,7 +462,7 @@ function setupEventListeners() {
     // Tourist back button
     document.getElementById('touristBackBtn').addEventListener('click', () => {
         elements.touristFlow.classList.add('hidden');
-        elements.flowSelection.classList.remove('hidden');
+        document.getElementById('serviceTypeSelection').classList.remove('hidden');
         elements.backBtn.classList.add('hidden');
     });
 
@@ -547,7 +475,7 @@ function setupEventListeners() {
     // Membership back button
     document.getElementById('membershipBackBtn').addEventListener('click', () => {
         elements.membershipFlow.classList.add('hidden');
-        elements.flowSelection.classList.remove('hidden');
+        document.getElementById('serviceTypeSelection').classList.remove('hidden');
         elements.backBtn.classList.remove('hidden');
     });
 

@@ -769,7 +769,13 @@ function loadBranches() {
             state.selectedBranchName = BRANCHES[branch]?.name || branch;
 
             document.getElementById('branchSelection').classList.add('hidden');
-            document.getElementById('flowSelection').classList.remove('hidden');
+            // Go directly to single flow (no flow selection screen)
+            state.currentFlow = 'single';
+            state.currentStep = 1;
+            elements.singleFlow.classList.remove('hidden');
+            elements.backBtn.classList.remove('hidden');
+            goToStep(1);
+            updateSummary();
 
             updateStickyFooter();
         });
@@ -1063,14 +1069,11 @@ function goBack() {
             state.selectedBranch = null;
             state.selectedBranchName = '';
             document.getElementById('serviceTypeSelection').classList.remove('hidden');
-        } else if (state.serviceType === 'branches') {
-            // Branches goes back to service type selection
+        } else {
             state.serviceType = null;
             state.selectedBranch = null;
             state.selectedBranchName = '';
             document.getElementById('serviceTypeSelection').classList.remove('hidden');
-        } else {
-            elements.flowSelection.classList.remove('hidden');
         }
 
         elements.backBtn.classList.add('hidden');

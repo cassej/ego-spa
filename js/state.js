@@ -63,7 +63,7 @@ const elements = {
     authForm: document.getElementById('authForm'),
     emailInput: document.getElementById('emailInput'),
     closeAuthModal: document.getElementById('closeAuthModal'),
-    flowSelection: document.getElementById('flowSelection'),
+
     singleFlow: document.getElementById('singleFlow'),
     packsFlow: document.getElementById('packsFlow'),
     hotelFlow: document.getElementById('hotelFlow'),
