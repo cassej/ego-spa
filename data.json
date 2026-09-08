@@ -811,16 +811,57 @@
       "name": "Tarifa nocturna (11:00 p.m. en adelante)",
       "name_en": "Late Night Rate (After 11 PM)",
       "price": 25
-    },
-    "double-pleasure": {
-      "name": "Double Pleasure Experience",
-      "name_en": "Double Pleasure Experience",
+    }
+  },
+  "EXTRAS_DATA": {
+    "shower-exfoliation": {
+      "name": "Ducha Exfoliante Caliente",
+      "name_en": "Hot Shower Exfoliation",
+      "description": "Experiencia de ducha exfoliante",
+      "description_en": "Exfoliating hot shower experience",
       "price": 25
     },
-    "relaxation-finish": {
-      "name": "Relaxation Finish",
-      "name_en": "Relaxation Finish",
-      "price": -25
+    "relaxing-facial": {
+      "name": "Facial Relajante",
+      "name_en": "Relaxing Facial",
+      "description": "Tratamiento facial suavizante",
+      "description_en": "Soothing facial treatment",
+      "price": 25
+    },
+    "mani-pedi": {
+      "name": "Manicure y Pedicure",
+      "name_en": "Manicure & Pedicure",
+      "description": "Cuidado completo de uñas",
+      "description_en": "Complete nail care",
+      "price": 25
+    },
+    "extra-shiatsu": {
+      "name": "+15 min Masaje Shiatsu",
+      "name_en": "Extra 15 min Shiatsu Massage",
+      "description": "Terapia de presión profunda adicional",
+      "description_en": "Additional deep pressure therapy",
+      "price": 25
+    },
+    "extra-reflexology": {
+      "name": "+15 min Reflexología Podal",
+      "name_en": "Extra 15 min Foot Reflexology",
+      "description": "Terapia de presión en pies",
+      "description_en": "Pressure point foot therapy",
+      "price": 25
+    },
+    "extra-scalp": {
+      "name": "+15 min Masaje Capilar",
+      "name_en": "Extra 15 min Scalp Massage",
+      "description": "Tratamiento relajante de cabeza y cuero cabelludo",
+      "description_en": "Relaxing head and scalp treatment",
+      "price": 25
+    },
+    "body-trimming": {
+      "name": "Recorte de Vello Corporal",
+      "name_en": "Body Hair Trimming",
+      "description": "Afeitado parcial o corporal completo",
+      "description_en": "Partial or full body grooming",
+      "price": 25
     }
   },
   "TIERED_MODIFIERS": {
@@ -977,8 +1018,8 @@
       "single.continue": "Continuar",
       "single.step3Title": "ESCENARIOS",
       "single.step3Desc": "Elige tu experiencia",
-      "single.step4Title": "PRAECOQUIS (SENSITIVO)",
-      "single.step4Desc": "Opciones adicionales",
+      "single.step4Title": "OPCIONES ADICIONALES",
+      "single.step4Desc": "Personaliza tu experiencia",
       "single.step5Title": "MASAJISTA",
       "single.step5Desc": "Elige y solicita traslado",
       "single.step6Title": "FECHA Y HORA",
@@ -1199,8 +1240,8 @@
       "single.continue": "Continue",
       "single.step3Title": "SCENARIOS",
       "single.step3Desc": "Choose your experience",
-      "single.step4Title": "PRAECOQUIS (SOFT FINISH)",
-      "single.step4Desc": "Additional options",
+      "single.step4Title": "ADDITIONAL OPTIONS",
+      "single.step4Desc": "Personalize your experience",
       "single.step5Title": "MASSEUSE",
       "single.step5Desc": "Choose and request transfer",
       "single.step6Title": "DATE & TIME",

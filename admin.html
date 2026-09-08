@@ -414,6 +414,20 @@ tr:last-child td { border-bottom: none; }
                 </div>
             </div>
 
+            <!-- EXTRAS (Booking Step 4) -->
+            <div id="section-extras" class="section space-y-5">
+                <div class="sec-head">
+                    <div><div class="sec-title">Extras (Booking)</div><div class="sec-sub">Opciones adicionales del paso 4 — $25 c/u</div></div>
+                    <button class="btn btn-ghost btn-sm" id="addExtra">+ Extra</button>
+                </div>
+                <div class="card tbl-wrap">
+                    <table>
+                        <thead><tr><th></th><th>ID</th><th>Nombre</th><th>Name (EN)</th><th>Descripción</th><th>Desc (EN)</th><th>Precio $</th><th></th></tr></thead>
+                        <tbody id="extras-tbody"></tbody>
+                    </table>
+                </div>
+            </div>
+
             <!-- SCENARIO RULES -->
             <div id="section-scenario-rules" class="section space-y-5">
                 <div class="sec-head">
@@ -509,6 +523,7 @@ const NAV_ITEMS = [
     { id:'scenarios',      icon:'🛋', label:'Scenarios' },
     { id:'scenario-rules', icon:'📜', label:'Scenario Rules' },
     { id:'addons',         icon:'✨', label:'Add-ons' },
+    { id:'extras',         icon:'🎁', label:'Extras (Booking)' },
     { id:'translations',   icon:'🌐', label:'Translations' },
     { id:'disclaimer',     icon:'📄', label:'Disclaimer' },
 ];
@@ -1251,6 +1266,50 @@ $('#addAddon').on('click', () => $('#addons-tbody').append(`<tr>
 </tr>`));
 
 // ============================================================
+// EXTRAS (Booking Step 4)
+// ============================================================
+function renderExtras() {
+    const $b = $('#extras-tbody').empty();
+    const extras = DATA.EXTRAS_DATA || {};
+    $.each(extras, (key, e) => $b.append(`<tr>
+        ${dragTd()}
+        <td>${inp(key,'extraId')}</td>
+        <td>${inp(e.name,'name')}</td>
+        <td>${inp(e.name_en||'','name_en')}</td>
+        <td>${inp(e.description||'','description')}</td>
+        <td>${inp(e.description_en||'','description_en')}</td>
+        <td>${num(e.price,'price')}</td>
+        <td>${delBtn()}</td>
+    </tr>`));
+}
+function collectExtras() {
+    DATA.EXTRAS_DATA = {};
+    $('#extras-tbody tr').each(function() {
+        const id = $(this).find('[name=extraId]').val().trim();
+        if (!id) return;
+        const nameEn = $(this).find('[name=name_en]').val().trim();
+        const descEn = $(this).find('[name=description_en]').val().trim();
+        DATA.EXTRAS_DATA[id] = {
+            name: $(this).find('[name=name]').val().trim(),
+            ...(nameEn ? { name_en: nameEn } : {}),
+            description: $(this).find('[name=description]').val().trim(),
+            ...(descEn ? { description_en: descEn } : {}),
+            price: +$(this).find('[name=price]').val() || 25
+        };
+    });
+}
+$('#addExtra').on('click', () => $('#extras-tbody').append(`<tr>
+    ${dragTd()}
+    <td>${inp('new-extra','extraId')}</td>
+    <td>${inp('Nuevo Extra','name')}</td>
+    <td>${inp('New Extra','name_en')}</td>
+    <td>${inp('Descripción','description')}</td>
+    <td>${inp('Description','description_en')}</td>
+    <td>${num(25,'price')}</td>
+    <td>${delBtn()}</td>
+</tr>`));
+
+// ============================================================
 // SCENARIO RULES
 // ============================================================
 function renderScenarioRules() {
@@ -1370,7 +1429,7 @@ const SAVE_ICON = `<svg class="w-4 h-4 flex-shrink-0" fill="none" stroke="curren
 function doSave() {
     collectGeneral(); collectBranches(); collectTechniqueCats(); collectMembership();
     collectFlows(); collectMcodes(); collectHotel(); collectTiered();
-    collectPacks(); collectTechniques(); collectScenarios(); collectScenarioRules(); collectAddons();
+    collectPacks(); collectTechniques(); collectScenarios(); collectScenarioRules(); collectAddons(); collectExtras();
     collectTranslations(); collectDisclaimer();
 
     // Safety defaults for hotel fields
@@ -1424,7 +1483,7 @@ fetch('./data.json')
         DATA = json;
         renderGeneral(); renderBranches(); renderTechniqueCats(); renderMembership(); renderFlows();
         renderMcodes(); renderHotel(); renderTiered(); renderPacks(); renderTechniques();
-        renderScenarios(); renderScenarioRules(); renderAddons(); renderTranslations(); renderDisclaimer();
+        renderScenarios(); renderScenarioRules(); renderAddons(); renderExtras(); renderTranslations(); renderDisclaimer();
         initSortable();
     })
     .catch(err => {

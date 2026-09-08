@@ -54,89 +54,16 @@ text-white">EGO SPA & BARBA</h1>
                 <p class="text-xs text-ego-muted tracking-widest
 uppercase" data-i18n="header.subtitle">Panama</p>
             </div>
-            <div class="flex items-center gap-2">
-                <button id="langToggleBtn" onclick="toggleLanguage()" class="fade-up stagger-1 px-2 py-1 rounded text-xs font-bold bg-ego-zinc hover:bg-ego-zincLight transition-colors" aria-label="Cambiar idioma" data-i18n-aria="aria.toggleLang">
-                    <span id="langToggleText">EN</span>
-                </button>
-                <button id="authBtn" class="fade-up stagger-1 flex
-items-center gap-2 px-3 py-2 rounded-lg bg-ego-zinc hover:bg-ego-zincLight
-transition-colors" aria-label="Autenticacion Ego Card" data-i18n-aria="aria.auth">
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor"
-viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round"
-stroke-width="2" d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11
-17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121
-9z"/>
-                    </svg>
-                    <span id="authLabel" class="text-sm" data-i18n="header.authBtn">Ego Card</span>
-                </button>
-            </div>
+
         </div>
     </header>
 
-    <!-- Auth Modal -->
-    <div id="authModal" class="fixed inset-0 z-[100] hidden items-center
-justify-center p-4 modal-backdrop">
-        <div class="w-full max-w-sm bg-ego-zinc rounded-2xl p-6 border
-border-white/10 fade-up">
-            <div class="text-center mb-6">
-                <div class="w-16 h-16 mx-auto mb-4 rounded-full
-bg-gradient-to-br from-ego-red to-ego-redDark flex items-center
-justify-center">
-                    <svg class="w-8 h-8" fill="none" stroke="currentColor"
-viewBox="0 0 24 24">
-                        <path stroke-linecap="round"
-stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6
-17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5
-12l5.714-2.143L13 3z"/>
-                    </svg>
-                </div>
-                <h2 class="font-display text-3xl tracking-wide mb-2" data-i18n="auth.title">EGO
-CARD</h2>
-                <p class="text-ego-muted text-sm" data-i18n="auth.subtitle">Accede a tarifas
-exclusivas con tu correo</p>
-            </div>
 
-            <form id="authForm" class="space-y-4">
-                <div>
-                    <label for="emailInput" class="block text-sm
-text-ego-muted mb-2" data-i18n="auth.emailLabel">Correo electronico</label>
-                    <input
-                            type="email"
-                            id="emailInput"
-                            placeholder="tu@email.com"
-                            data-i18n-placeholder="auth.emailPlaceholder"
-                            class="w-full px-4 py-3 bg-ego-black border
-border-white/10 rounded-lg text-white placeholder-ego-muted
-focus:border-ego-red transition-colors"
-                            required
-                    >
-                </div>
-                <button type="submit" class="btn-primary w-full py-3
-rounded-lg font-semibold text-white uppercase tracking-wider" data-i18n="auth.submitBtn">
-                    Desbloquear Precios
-                </button>
-            </form>
-
-            <p class="text-xs text-ego-muted text-center mt-4" data-i18n="auth.savings">
-                Ahorra hasta 20% en todos los servicios
-            </p>
-
-            <button id="closeAuthModal" class="absolute top-4 right-4
-text-ego-muted hover:text-white transition-colors" aria-label="Cerrar" data-i18n-aria="aria.close">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor"
-viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round"
-stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
-                </svg>
-            </button>
-        </div>
-    </div>
 
     <!-- Disclaimer Banner -->
     <div class="bg-ego-gold/10 border-b border-ego-gold/30 py-3 px-4">
         <div class="max-w-lg mx-auto text-center">
-            <p class="text-ego-gold text-xs leading-relaxed" data-i18n="disclaimer.banner">
+            <p class="text-ego-gold text-base font-bold uppercase leading-relaxed tracking-wider" data-i18n="disclaimer.banner">
                 We don't offer sexual services. These rates apply only with a confirmed appointment. Walk-in rates are higher.
             </p>
         </div>
@@ -452,30 +379,13 @@ stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
             <div id="singleStep4" class="step-content hidden">
                 <div class="text-center mb-6 fade-up">
                     <span class="text-ego-red text-sm font-semibold tracking-wider" data-i18n="steps.step4of6">PASO 4 DE 6</span>
-                    <h2 class="font-display text-4xl tracking-wide mt-2" data-i18n="single.step4Title">PRAECOQUIS</h2>
-                    <p class="text-ego-muted text-sm mt-1" data-i18n="single.step4Desc">Opciones adicionales</p>
+                    <h2 class="font-display text-4xl tracking-wide mt-2" data-i18n="single.step4Title">ADDITIONAL OPTIONS</h2>
+                    <p class="text-ego-muted text-sm mt-1" data-i18n="single.step4Desc">Personalize your experience</p>
                 </div>
 
-                <div class="space-y-3">
-                    <label class="option-card rounded-xl p-4 flex items-center gap-4 cursor-pointer fade-up stagger-1">
-                        <input type="radio" name="praecoquis" class="custom-radio" data-extra="double-pleasure" data-addon="25" checked>
-                        <div class="flex-1">
-                            <h3 class="font-semibold" data-i18n="extras.doublePleasure">DOUBLE PLEASURE EXPERIENCE</h3>
-                            <p class="text-ego-muted text-sm" data-i18n="extras.doublePleasureDesc">Hot shower exfoliation</p>
-                        </div>
-                        <span class="text-ego-red font-semibold text-sm">+$25</span>
-                    </label>
-
-                    <label class="option-card rounded-xl p-4 flex items-center gap-4 cursor-pointer fade-up stagger-2">
-                        <input type="radio" name="praecoquis" class="custom-radio" data-extra="relaxation-finish" data-addon="-25">
-                        <div class="flex-1">
-                            <h3 class="font-semibold" data-i18n="extras.relaxationFinish">RELAXATION FINISH</h3>
-                            <p class="text-ego-muted text-sm" data-i18n="extras.relaxationFinishDesc">Hot shower with a masseur</p>
-                        </div>
-                        <span class="text-ego-gold font-semibold text-sm">-$25</span>
-                    </label>
+                <div id="extrasContainer" class="space-y-3">
+                    <!-- Extras will be dynamically loaded from data.json -->
                 </div>
-                <!-- Continue button will be added in Task 6 -->
             </div>
 
             <!-- Step 6: Logistics -->
@@ -606,8 +516,8 @@ stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
                         </div>
                         <div class="border-t border-ego-zincLight my-2"></div>
 
-                        <!-- Three pricing tiers -->
-                        <div class="space-y-2 mt-3">
+                        <!-- Three pricing tiers (hidden from display) -->
+                        <div class="space-y-2 mt-3 hidden">
                             <div class="flex justify-between items-center bg-ego-black/50 rounded-lg p-3">
                                 <span class="text-ego-muted text-sm" data-i18n="summary.regularPrice">Regular:</span>
                                 <span id="finalRegularPrice" class="font-display text-xl text-white"></span>
@@ -1067,25 +977,7 @@ stroke-width="2" d="M15 19l-7-7 7-7"/>
         </div>
     </div>
 
-    <!-- Terms/Disclaimer Modal -->
-    <div id="termsModal" class="fixed inset-0 z-[100] hidden items-center justify-center p-4 modal-backdrop">
-        <div class="w-full max-w-sm bg-ego-zinc rounded-2xl p-6 border border-white/10 fade-up max-h-[80vh] flex flex-col">
-            <div class="text-center mb-4">
-                <div class="w-16 h-16 mx-auto mb-4 rounded-full bg-gradient-to-br from-ego-gold to-yellow-700 flex items-center justify-center">
-                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
-                    </svg>
-                </div>
-                <h2 class="font-display text-3xl tracking-wide mb-2" data-i18n="disclaimer.title">IMPORTANT NOTICE</h2>
-            </div>
 
-            <div id="termsContent" class="text-ego-muted text-sm leading-relaxed overflow-y-auto flex-1 mb-6 px-1"></div>
-
-            <button id="closeTermsModal" class="btn-primary w-full py-3 rounded-lg font-semibold text-white uppercase tracking-wider" data-i18n="common.understood">
-                Entendido
-            </button>
-        </div>
-    </div>
 
 
 <!-- Sticky Footer -->

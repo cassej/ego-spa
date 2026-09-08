@@ -281,6 +281,35 @@ var(--panel-light) 50%, var(--panel) 100%);
             border-radius: 50%;
         }
 
+        /* Custom checkbox */
+        .custom-checkbox {
+            appearance: none;
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--muted);
+            border-radius: 4px;
+            transition: all 0.2s ease;
+            position: relative;
+            flex-shrink: 0;
+        }
+
+        .custom-checkbox:checked {
+            border-color: var(--accent);
+            background: var(--accent);
+        }
+
+        .custom-checkbox:checked::after {
+            content: '';
+            position: absolute;
+            top: 2px;
+            left: 5px;
+            width: 6px;
+            height: 10px;
+            border: solid white;
+            border-width: 0 2px 2px 0;
+            transform: rotate(45deg);
+        }
+
         /* Auth badge */
         .auth-badge {
             background: linear-gradient(135deg, rgba(212, 175, 55, 0.2) 
@@ -408,7 +437,8 @@ var(--panel-light) 50%, var(--panel) 100%);
             transition: opacity 0.3s ease, max-height 0.3s ease, margin-top 0.3s ease;
         }
 
-        .scenario-btn:hover .scenario-desc {
+        .scenario-btn:hover .scenario-desc,
+        .scenario-btn.selected .scenario-desc {
             opacity: 1;
             max-height: 60px;
             margin-top: 4px;

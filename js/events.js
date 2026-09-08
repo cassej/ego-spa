@@ -1,19 +1,5 @@
 function setupEventListeners() {
-    // Auth modal
-    elements.authBtn.addEventListener('click', () => {
-        if (state.isAuth) {
-            // Show auth status
-            alert(t('auth.activeAlert', { email: state.email, discount: EGO_DISCOUNT * 100 }));
-        } else {
-            elements.authModal.classList.remove('hidden');
-            elements.authModal.classList.add('flex');
-        }
-    });
 
-    elements.closeAuthModal.addEventListener('click', () => {
-        elements.authModal.classList.add('hidden');
-        elements.authModal.classList.remove('flex');
-    });
 
     // Hours modal
     const hoursBtn = document.getElementById('hoursBtn');
@@ -30,44 +16,8 @@ function setupEventListeners() {
         hoursModal.classList.remove('flex');
     });
 
-    // Terms/Disclaimer modal — show on init if enabled
-    const termsModal = document.getElementById('termsModal');
-    const closeTermsModal = document.getElementById('closeTermsModal');
-    const termsContent = document.getElementById('termsContent');
 
-    if (termsModal && closeTermsModal && termsContent) {
-        closeTermsModal.addEventListener('click', () => {
-            termsModal.classList.add('hidden');
-            termsModal.classList.remove('flex');
-        });
 
-        // Show terms modal on init if enabled in config
-        const termsConfig = DATA.TERMS_MODAL;
-        if (termsConfig && termsConfig.enabled) {
-            const content = currentLang === 'en' ? (termsConfig.content_en || termsConfig.content) : (termsConfig.content || '');
-            if (content) {
-                termsContent.innerHTML = content;
-                termsModal.classList.remove('hidden');
-                termsModal.classList.add('flex');
-            }
-        }
-    }
-    elements.authForm.addEventListener('submit', (e) => {
-        e.preventDefault();
-        const email = elements.emailInput.value.trim();
-
-        if (email) {
-            state.isAuth = true;
-            state.email = email;
-
-            elements.authLabel.textContent = t('header.authActive');
-            elements.authBtn.classList.add('auth-badge');
-            elements.authModal.classList.add('hidden');
-            elements.authModal.classList.remove('flex');
-
-            updateSummary();
-        }
-    });
 
     // Back button
     elements.backBtn.addEventListener('click', goBack);
@@ -266,28 +216,27 @@ function setupEventListeners() {
         }
     });
 
-    // Step 4: PRAECOQUIS extras (mutual exclusion: Sensitive default)
-    document.querySelectorAll('input[name="praecoquis"]').forEach(radio => {
-        radio.addEventListener('change', () => {
-            const extraKey = radio.dataset.extra;
-            const addon = parseInt(radio.dataset.addon) || 0;
-
-            // Clear extras and add the selected one
-            state.single.extras = [{
-                name: radio.parentElement.querySelector('h3').textContent,
-                addon: addon
-            }];
-
+    // Step 4: Additional Options (checkboxes, multiple selection)
+    document.getElementById('extrasContainer')?.addEventListener('change', (e) => {
+        if (e.target.matches('input[name="extra-option"]')) {
+            state.single.extras = [];
+            document.querySelectorAll('input[name="extra-option"]:checked').forEach(cb => {
+                state.single.extras.push({
+                    key: cb.dataset.extra,
+                    name: cb.closest('label').querySelector('h3').textContent,
+                    addon: parseInt(cb.dataset.addon) || 0
+                });
+            });
             updateStickyFooter();
-        });
+        }
     });
 
     // Add continue button to Step 4
-    const praecoquisContinueBtn = document.createElement('button');
-    praecoquisContinueBtn.className = 'btn-primary w-full py-4 rounded-xl font-semibold text-white uppercase tracking-wider mt-4';
-    praecoquisContinueBtn.textContent = t('single.continue');
-    praecoquisContinueBtn.addEventListener('click', () => goToStep(5));
-    document.getElementById('singleStep4').querySelector('.space-y-3').appendChild(praecoquisContinueBtn);
+    const extrasContinueBtn = document.createElement('button');
+    extrasContinueBtn.className = 'btn-primary w-full py-4 rounded-xl font-semibold text-white uppercase tracking-wider mt-4';
+    extrasContinueBtn.textContent = t('single.continue');
+    extrasContinueBtn.addEventListener('click', () => goToStep(5));
+    document.getElementById('singleStep4').querySelector('#extrasContainer').appendChild(extrasContinueBtn);
 
     // Step 5: Logistics (masseuse preference and mobility)
     // Masseuse preference radio buttons

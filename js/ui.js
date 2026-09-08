@@ -856,6 +856,34 @@ function loadTechniques() {
 }
 
 /**
+ * Load extras from data.json and render as checkboxes
+ */
+function loadExtras() {
+    const container = document.getElementById('extrasContainer');
+    if (!container || !EXTRAS_DATA) return;
+
+    let html = '';
+    let staggerIndex = 1;
+
+    Object.entries(EXTRAS_DATA).forEach(([key, extra]) => {
+        const name = td('EXTRAS_DATA', key, 'name');
+        const desc = td('EXTRAS_DATA', key, 'description');
+        html += `
+            <label class="option-card rounded-xl p-4 flex items-center gap-4 cursor-pointer fade-up stagger-${staggerIndex}">
+                <input type="checkbox" name="extra-option" class="custom-checkbox" data-extra="${key}" data-addon="${extra.price}">
+                <div class="flex-1">
+                    <h3 class="font-semibold">${name}</h3>
+                    <p class="text-ego-muted text-sm">${desc}</p>
+                </div>
+            </label>
+        `;
+        staggerIndex++;
+    });
+
+    container.innerHTML = html;
+}
+
+/**
  * Load hotel techniques from data.json (simplified, no categories needed for hotel)
  */
 function loadHotelTechniques() {
