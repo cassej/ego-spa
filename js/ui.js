@@ -328,7 +328,7 @@ function goToStep(step) {
         }
 
         // Update final summary on step 6
-        if (step === 6) {
+        if (step === 7) {
             updateFinalSummary();
         }
     } else if (state.currentFlow === 'packs') {
@@ -389,7 +389,7 @@ function goToStep(step) {
     const stickyFooter = document.getElementById('stickyFooter');
     if (stickyFooter) {
         // Don't show on final step (step 6)
-        if (state.currentFlow === 'single' && step >= 1 && step <= 5) {
+        if (state.currentFlow === 'single' && step >= 1 && step <= 6) {
             stickyFooter.classList.add('visible');
         } else {
             stickyFooter.classList.remove('visible');
@@ -413,6 +413,9 @@ function updateFinalSummary() {
     }
     document.getElementById('finalHands').textContent = state.single.hands !== null ? state.single.hands + ' ' + t('single.handsUnit') : '';
     document.getElementById('finalDuration').textContent = state.single.duration !== null ? state.single.duration + ' ' + t('common.min') : '';
+
+    const sensitiveText = state.single.sensitive === 'double-sensitive' ? 'Double Sensitive' : 'Sensitive';
+    document.getElementById('finalSensitive').textContent = sensitiveText;
 
     const extrasText = state.single.extras.map(e => e.name).join(', ') || t('summary.noExtras');
     document.getElementById('finalExtras').textContent = extrasText;
@@ -1125,6 +1128,8 @@ function resetSelections() {
         handsAddon: 0,
         duration: null,
         durationAddon: 0,
+        sensitive: 'sensitive',
+        sensitiveAddon: 0,
         extras: [],
         selectedScenarios: [],
         masseuseName: '',

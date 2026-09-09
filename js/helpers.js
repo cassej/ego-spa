@@ -167,7 +167,8 @@ function generateWhatsAppMessage() {
     const branchText = state.selectedBranchName ? `\n🏢 ${t('whatsapp.location')}: ${state.selectedBranchName}` : '';
 
     if (state.currentFlow === 'single') {
-        const extras = state.single.extras.map(e => e.name).join(', ') || t('whatsapp.sensitive');
+        const sensitive = state.single.sensitive === 'double-sensitive' ? 'Double Sensitive' : 'Sensitive';
+        const extras = state.single.extras.map(e => e.name).join(', ') || '-';
         const masseuse = state.single.masseuseName || t('whatsapp.noPreference');
         const mobility = state.single.mobilityFee > 0 ? t('whatsapp.yes') : t('whatsapp.no');
         const nightRateText = state.single.nightRate > 0 ? `\n🌙 ${t('whatsapp.nightRate', { price: state.single.nightRate })}` : '';
@@ -188,6 +189,7 @@ ${branchText}
     🛋️ ${t('whatsapp.scenario')}: ${scenarios}
     👆 ${t('whatsapp.hands')}: ${state.single.hands}
     ⏱️ ${t('whatsapp.duration')}: ${state.single.duration} ${t('common.min')}
+    💆 ${t('whatsapp.sensitive')}: ${sensitive}
 
     ✨ ${t('whatsapp.extras')}: ${extras}
     👩‍🦰 ${t('whatsapp.masseuse')}: ${masseuse}

@@ -24,6 +24,9 @@ function calculateSinglePrice() {
         total += (extra.addon || 0);
     });
 
+    // Add sensitive addon
+    total += (state.single.sensitiveAddon || 0);
+
     // Add mobility fee
     total += (state.single.mobilityFee || 0);
 

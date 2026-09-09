@@ -19,6 +19,8 @@ const state = {
         handsAddon: 0,
         duration: null,
         durationAddon: 0,
+        sensitive: 'sensitive', // 'sensitive' or 'double-sensitive'
+        sensitiveAddon: 0,
         extras: [], // Add-ons like Double Sensitive, Night Rate
         masseuseName: '',
         mobilityFee: 0,

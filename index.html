@@ -177,6 +177,8 @@ uppercase" data-i18n="header.subtitle">Panama</p>
                 <div class="step-dot" data-step="5"></div>
                 <div class="w-8 h-px bg-ego-zincLight"></div>
                 <div class="step-dot" data-step="6"></div>
+                <div class="w-8 h-px bg-ego-zincLight"></div>
+                <div class="step-dot" data-step="7"></div>
             </div>
 
             <!-- Step 1: Technique -->
@@ -369,12 +371,43 @@ uppercase" data-i18n="header.subtitle">Panama</p>
                 </button>
             </div>
 
-            <!-- Step 5: PRAECOQUIS -->
+            <!-- Step 4: Sensitive / Double Sensitive -->
             <div id="singleStep4" class="step-content hidden">
                 <div class="text-center mb-6 fade-up">
-                    <span class="text-ego-red text-sm font-semibold tracking-wider" data-i18n="steps.step4of6">PASO 4 DE 6</span>
-                    <h2 class="font-display text-4xl tracking-wide mt-2" data-i18n="single.step4Title">ADDITIONAL OPTIONS</h2>
-                    <p class="text-ego-muted text-sm mt-1" data-i18n="single.step4Desc">Personalize your experience</p>
+                    <span class="text-ego-red text-sm font-semibold tracking-wider" data-i18n="steps.step4of7">PASO 4 DE 7</span>
+                    <h2 class="font-display text-4xl tracking-wide mt-2" data-i18n="single.step4Title">SENSITIVE</h2>
+                    <p class="text-ego-muted text-sm mt-1" data-i18n="single.step4Desc">Choose your experience level</p>
+                </div>
+
+                <div class="space-y-3">
+                    <label class="option-card rounded-xl p-4 flex items-center gap-4 cursor-pointer fade-up stagger-1">
+                        <input type="radio" name="sensitive" class="custom-radio" data-sensitive="sensitive" data-addon="0" checked>
+                        <div class="flex-1">
+                            <h3 class="font-semibold" data-i18n="extras.sensitive">SENSITIVE</h3>
+                            <p class="text-ego-muted text-sm" data-i18n="extras.sensitiveDesc">Standard massage experience</p>
+                        </div>
+                    </label>
+
+                    <label class="option-card rounded-xl p-4 flex items-center gap-4 cursor-pointer fade-up stagger-2">
+                        <input type="radio" name="sensitive" class="custom-radio" data-sensitive="double-sensitive" data-addon="25">
+                        <div class="flex-1">
+                            <h3 class="font-semibold" data-i18n="extras.doubleSensitive">DOUBLE SENSITIVE</h3>
+                            <p class="text-ego-muted text-sm" data-i18n="extras.doubleSensitiveDesc">Enhanced experience with hot shower exfoliation</p>
+                        </div>
+                    </label>
+                </div>
+
+                <button id="sensitiveContinueBtn" class="btn-primary w-full py-4 rounded-xl font-semibold text-white uppercase tracking-wider mt-4 fade-up">
+                    Continuar
+                </button>
+            </div>
+
+            <!-- Step 5: Additional Options -->
+            <div id="singleStep5" class="step-content hidden">
+                <div class="text-center mb-6 fade-up">
+                    <span class="text-ego-red text-sm font-semibold tracking-wider" data-i18n="steps.step5of7">PASO 5 DE 7</span>
+                    <h2 class="font-display text-4xl tracking-wide mt-2" data-i18n="single.step5Title">ADDITIONAL OPTIONS</h2>
+                    <p class="text-ego-muted text-sm mt-1" data-i18n="single.step5Desc">Personalize your experience</p>
                 </div>
 
                 <div id="extrasContainer" class="space-y-3">
@@ -383,11 +416,11 @@ uppercase" data-i18n="header.subtitle">Panama</p>
             </div>
 
             <!-- Step 6: Logistics -->
-            <div id="singleStep5" class="step-content hidden">
+            <div id="singleStep6" class="step-content hidden">
                 <div class="text-center mb-6 fade-up">
-                    <span class="text-ego-red text-sm font-semibold tracking-wider" data-i18n="steps.step5of6">PASO 5 DE 6</span>
-                    <h2 class="font-display text-4xl tracking-wide mt-2" data-i18n="single.step5Title">LOGÍSTICA</h2>
-                    <p class="text-ego-muted text-sm mt-1" data-i18n="single.step5Desc">Masseuse y traslados</p>
+                    <span class="text-ego-red text-sm font-semibold tracking-wider" data-i18n="steps.step6of7">PASO 6 DE 7</span>
+                    <h2 class="font-display text-4xl tracking-wide mt-2" data-i18n="single.step6Title">LOGÍSTICA</h2>
+                    <p class="text-ego-muted text-sm mt-1" data-i18n="single.step6Desc">Masseuse y traslados</p>
                 </div>
 
                 <div class="space-y-4">
@@ -424,11 +457,11 @@ uppercase" data-i18n="header.subtitle">Panama</p>
             </div>
 
             <!-- Step 7: Date & Time + Final Summary -->
-            <div id="singleStep6" class="step-content hidden">
+            <div id="singleStep7" class="step-content hidden">
                 <div class="text-center mb-6 fade-up">
-                    <span class="text-ego-red text-sm font-semibold tracking-wider" data-i18n="steps.step6of6">PASO 6 DE 6</span>
-                    <h2 class="font-display text-4xl tracking-wide mt-2" data-i18n="single.step6Title">FECHA Y HORA</h2>
-                    <p class="text-ego-muted text-sm mt-1" data-i18n="single.step6Desc">Confirma tu reserva</p>
+                    <span class="text-ego-red text-sm font-semibold tracking-wider" data-i18n="steps.step7of7">PASO 7 DE 7</span>
+                    <h2 class="font-display text-4xl tracking-wide mt-2" data-i18n="single.step7Title">FECHA Y HORA</h2>
+                    <p class="text-ego-muted text-sm mt-1" data-i18n="single.step7Desc">Confirma tu reserva</p>
                 </div>
 
                 <div class="space-y-4 mb-6">
@@ -482,7 +515,11 @@ uppercase" data-i18n="header.subtitle">Panama</p>
                             <span id="finalDuration" class="text-white"></span>
                         </div>
                         <div class="flex justify-between">
-                            <span class="text-ego-muted" data-i18n="summary.extras">PRAECOQUIS:</span>
+                            <span class="text-ego-muted" data-i18n="summary.sensitive">Sensitive:</span>
+                            <span id="finalSensitive" class="text-white"></span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-ego-muted" data-i18n="summary.extras">Extras:</span>
                             <span id="finalExtras" class="text-white"></span>
                         </div>
                         <div class="flex justify-between">

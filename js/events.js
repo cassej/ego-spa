@@ -216,7 +216,19 @@ function setupEventListeners() {
         }
     });
 
-    // Step 4: Additional Options (checkboxes, multiple selection)
+    // Step 4: Sensitive / Double Sensitive (radio buttons, single selection)
+    document.querySelectorAll('input[name="sensitive"]').forEach(radio => {
+        radio.addEventListener('change', () => {
+            const sensitiveType = radio.dataset.sensitive;
+            const addon = parseInt(radio.dataset.addon) || 0;
+            state.single.sensitive = sensitiveType;
+            state.single.sensitiveAddon = addon;
+        });
+    });
+
+    document.getElementById('sensitiveContinueBtn')?.addEventListener('click', () => goToStep(5));
+
+    // Step 5: Additional Options (checkboxes, multiple selection)
     document.getElementById('extrasContainer')?.addEventListener('change', (e) => {
         if (e.target.matches('input[name="extra-option"]')) {
             state.single.extras = [];
@@ -231,12 +243,12 @@ function setupEventListeners() {
         }
     });
 
-    // Add continue button to Step 4
+    // Add continue button to Step 5
     const extrasContinueBtn = document.createElement('button');
     extrasContinueBtn.className = 'btn-primary w-full py-4 rounded-xl font-semibold text-white uppercase tracking-wider mt-4';
     extrasContinueBtn.textContent = t('single.continue');
-    extrasContinueBtn.addEventListener('click', () => goToStep(5));
-    document.getElementById('singleStep4').querySelector('#extrasContainer').appendChild(extrasContinueBtn);
+    extrasContinueBtn.addEventListener('click', () => goToStep(6));
+    document.getElementById('singleStep5').querySelector('#extrasContainer').appendChild(extrasContinueBtn);
 
     // Step 5: Logistics (masseuse preference and mobility)
     // Masseuse preference radio buttons
@@ -270,7 +282,7 @@ function setupEventListeners() {
     const logisticsContinueBtn = document.createElement('button');
     logisticsContinueBtn.className = 'btn-primary w-full py-4 rounded-xl font-semibold text-white uppercase tracking-wider mt-4';
     logisticsContinueBtn.textContent = t('single.continue');
-    logisticsContinueBtn.addEventListener('click', () => goToStep(6));
+    logisticsContinueBtn.addEventListener('click', () => goToStep(7));
     document.getElementById('singleStep5').querySelector('.space-y-4').appendChild(logisticsContinueBtn);
 
     const bookingDateInput = document.getElementById('bookingDate');
