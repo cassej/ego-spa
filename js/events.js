@@ -283,7 +283,7 @@ function setupEventListeners() {
     logisticsContinueBtn.className = 'btn-primary w-full py-4 rounded-xl font-semibold text-white uppercase tracking-wider mt-4';
     logisticsContinueBtn.textContent = t('single.continue');
     logisticsContinueBtn.addEventListener('click', () => goToStep(7));
-    document.getElementById('singleStep5').querySelector('.space-y-4').appendChild(logisticsContinueBtn);
+    document.getElementById('singleStep6').querySelector('.space-y-4').appendChild(logisticsContinueBtn);
 
     const bookingDateInput = document.getElementById('bookingDate');
     const bookingTimeInput = document.getElementById('bookingTime');
