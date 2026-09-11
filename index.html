@@ -514,28 +514,33 @@ uppercase" data-i18n="header.subtitle">Panama</p>
                             <span class="text-ego-muted" data-i18n="summary.duration">Duración:</span>
                             <span id="finalDuration" class="text-white"></span>
                         </div>
-                        <div class="flex justify-between">
-                            <span class="text-ego-muted" data-i18n="summary.sensitive">Sensitive:</span>
-                            <span id="finalSensitive" class="text-white"></span>
+                        <div class="border-t border-ego-zincLight/50 my-1"></div>
+                        <div class="flex justify-between items-center">
+                            <span class="text-ego-muted" data-i18n="summary.basePrice">Masaje:</span>
+                            <span id="finalBasePrice" class="text-white font-semibold"></span>
                         </div>
-                        <div class="flex justify-between">
-                            <span class="text-ego-muted" data-i18n="summary.extras">Extras:</span>
-                            <span id="finalExtras" class="text-white"></span>
+                        <div class="flex justify-between items-center">
+                            <span class="text-ego-muted" data-i18n="summary.sensitive">Sensitive:</span>
+                            <div class="flex items-center gap-2">
+                                <span id="finalSensitive" class="text-white"></span>
+                                <span id="finalSensitivePrice" class="text-ego-red text-xs font-semibold"></span>
+                            </div>
+                        </div>
+                        <div class="border-t border-ego-zincLight/50 my-1"></div>
+                        <div id="extrasDetailContainer" class="space-y-1">
+                            <!-- Extras detail rows will be populated dynamically -->
                         </div>
                         <div class="flex justify-between">
                             <span class="text-ego-muted" data-i18n="summary.masseuse">Masseuse:</span>
                             <span id="finalMasseuse" class="text-white"></span>
                         </div>
-                        <div id="finalMobilityRow" class="flex justify-between hidden">
+                        <div id="finalMobilityRow" class="flex justify-between items-center hidden">
                             <span class="text-ego-muted" data-i18n="summary.mobility">Traslado:</span>
-                            <span class="text-white">+$25</span>
+                            <span id="finalMobilityPrice" class="text-ego-red text-xs font-semibold"></span>
                         </div>
-                        <div id="finalNightRateRow" class="flex justify-between hidden">
+                        <div id="finalNightRateRow" class="flex justify-between items-center hidden">
                             <span id="finalNightRateLabel" class="text-ego-muted"></span>
-                            <div class="text-right">
-                                <span id="finalNightRatePrice" class="text-white"></span>
-                                <p id="finalNightRateNote" class="text-ego-muted text-xs"></p>
-                            </div>
+                            <span id="finalNightRatePrice" class="text-ego-red text-xs font-semibold"></span>
                         </div>
                         <div class="flex justify-between">
                             <span class="text-ego-muted" data-i18n="summary.date">Fecha:</span>

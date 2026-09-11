@@ -36,6 +36,28 @@ function calculateSinglePrice() {
     return total;
 }
 
+function calculateBasePrice() {
+    let total = 0;
+
+    if (['CodeBased', 'PackBased'].includes(state.single.pricingSystem) && state.single.mCode) {
+        const mCodeData = M_CODE_PRICING[state.single.mCode];
+        if (mCodeData) {
+            total = state.isAuth ? (mCodeData.egoPrice || 0) : (mCodeData.regularPrice || 0);
+        }
+    } else if (state.single.pricingSystem === 'Tiered' && state.single.technique) {
+        if (state.single.hands !== null && state.single.duration !== null) {
+            const techniqueData = TECHNIQUE_DATA[state.single.technique];
+            if (techniqueData && techniqueData.basePrice) {
+                total = techniqueData.basePrice || 0;
+                total += TIERED_MODIFIERS.hands[String(state.single.hands)] || 0;
+                total += TIERED_MODIFIERS.duration[String(state.single.duration)] || 0;
+            }
+        }
+    }
+
+    return total;
+}
+
 // Alias for calculateSinglePrice() for backward compatibility
 function calculateTotalPrice() {
     const total = calculateSinglePrice();

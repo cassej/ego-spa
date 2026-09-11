@@ -414,19 +414,50 @@ function updateFinalSummary() {
     document.getElementById('finalHands').textContent = state.single.hands !== null ? state.single.hands + ' ' + t('single.handsUnit') : '';
     document.getElementById('finalDuration').textContent = state.single.duration !== null ? state.single.duration + ' ' + t('common.min') : '';
 
+    // Base price
+    const basePriceEl = document.getElementById('finalBasePrice');
+    if (basePriceEl) {
+        const basePrice = calculateBasePrice();
+        basePriceEl.textContent = `$${basePrice}`;
+    }
+
     const sensitiveText = state.single.sensitive === 'double-sensitive' ? 'Double Sensitive' : 'Sensitive';
     document.getElementById('finalSensitive').textContent = sensitiveText;
+    const sensitivePriceEl = document.getElementById('finalSensitivePrice');
+    if (sensitivePriceEl) {
+        sensitivePriceEl.textContent = state.single.sensitiveAddon > 0 ? `+$${state.single.sensitiveAddon}` : '';
+    }
 
-    const extrasText = state.single.extras.map(e => td('EXTRAS_DATA', e.key, 'name')).join(', ') || t('summary.noExtras');
-    document.getElementById('finalExtras').textContent = extrasText;
+    // Extras detail rows
+    const extrasContainer = document.getElementById('extrasDetailContainer');
+    if (extrasContainer) {
+        if (state.single.extras.length > 0) {
+            extrasContainer.innerHTML = state.single.extras.map(e => {
+                const name = td('EXTRAS_DATA', e.key, 'name');
+                return `<div class="flex justify-between items-center">
+                    <span class="text-ego-muted text-sm pl-2">+ ${name}</span>
+                    <span class="text-ego-red text-xs font-semibold">+$${e.addon}</span>
+                </div>`;
+            }).join('');
+        } else {
+            extrasContainer.innerHTML = `<div class="flex justify-between">
+                <span class="text-ego-muted" data-i18n="summary.extras">Extras:</span>
+                <span class="text-white" data-i18n="summary.noExtras">Sin extras</span>
+            </div>`;
+        }
+    }
 
     document.getElementById('finalMasseuse').textContent = state.single.masseuseName || t('whatsapp.noPreference');
 
     const mobilityRow = document.getElementById('finalMobilityRow');
     mobilityRow.classList.toggle('hidden', state.single.mobilityFee === 0);
+    const mobilityPrice = document.getElementById('finalMobilityPrice');
+    if (mobilityPrice) mobilityPrice.textContent = `+$${state.single.mobilityFee}`;
 
     const nightRateRow = document.getElementById('finalNightRateRow');
     nightRateRow.classList.toggle('hidden', state.single.nightRate === 0);
+    const nightRatePrice = document.getElementById('finalNightRatePrice');
+    if (nightRatePrice) nightRatePrice.textContent = `+$${state.single.nightRate}`;
 
     // Update night rate disclaimer visibility
     const nightRateDisclaimer = document.getElementById('nightRateDisclaimer');
