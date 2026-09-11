@@ -233,9 +233,10 @@ function setupEventListeners() {
         if (e.target.matches('input[name="extra-option"]')) {
             state.single.extras = [];
             document.querySelectorAll('input[name="extra-option"]:checked').forEach(cb => {
+                const key = cb.dataset.extra;
                 state.single.extras.push({
-                    key: cb.dataset.extra,
-                    name: cb.closest('label').querySelector('h3').textContent,
+                    key: key,
+                    name: td('EXTRAS_DATA', key, 'name'),
                     addon: parseInt(cb.dataset.addon) || 0
                 });
             });
@@ -411,6 +412,7 @@ function setupEventListeners() {
 
             // Clear extras and add the selected one
             state.hotel.extras = [{
+                key: extraKey,
                 name: radio.parentElement.querySelector('h3').textContent,
                 addon: addon
             }];

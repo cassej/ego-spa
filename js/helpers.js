@@ -168,7 +168,7 @@ function generateWhatsAppMessage() {
 
     if (state.currentFlow === 'single') {
         const sensitive = state.single.sensitive === 'double-sensitive' ? 'Double Sensitive' : 'Sensitive';
-        const extras = state.single.extras.map(e => e.name).join(', ') || '-';
+        const extras = state.single.extras.map(e => td('EXTRAS_DATA', e.key, 'name')).join(', ') || '-';
         const masseuse = state.single.masseuseName || t('whatsapp.noPreference');
         const mobility = state.single.mobilityFee > 0 ? t('whatsapp.yes') : t('whatsapp.no');
         const nightRateText = state.single.nightRate > 0 ? `\n🌙 ${t('whatsapp.nightRate', { price: state.single.nightRate })}` : '';

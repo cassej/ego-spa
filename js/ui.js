@@ -417,7 +417,7 @@ function updateFinalSummary() {
     const sensitiveText = state.single.sensitive === 'double-sensitive' ? 'Double Sensitive' : 'Sensitive';
     document.getElementById('finalSensitive').textContent = sensitiveText;
 
-    const extrasText = state.single.extras.map(e => e.name).join(', ') || t('summary.noExtras');
+    const extrasText = state.single.extras.map(e => td('EXTRAS_DATA', e.key, 'name')).join(', ') || t('summary.noExtras');
     document.getElementById('finalExtras').textContent = extrasText;
 
     document.getElementById('finalMasseuse').textContent = state.single.masseuseName || t('whatsapp.noPreference');
@@ -464,7 +464,7 @@ function updateHotelFinalSummary() {
     const techniqueText = state.hotel.techniqueName || t('common.defaultMassage');
     const scenarioText = state.hotel.scenario ? td('SCENARIO_DATA', state.hotel.scenario, 'name') : state.hotel.scenarioName;
     const configText = `${state.hotel.hands} ${t('single.handsUnit')} · ${state.hotel.duration} ${t('common.min')}`;
-    const extrasText = state.hotel.extras.length > 0 ? state.hotel.extras.map(e => e.name).join(', ') : t('summary.noExtras');
+    const extrasText = state.hotel.extras.length > 0 ? state.hotel.extras.map(e => e.key ? td('ADDON_PRICING', e.key, 'name') : e.name).join(', ') : t('summary.noExtras');
 
     // Update step 3 summary
     if (finalTechnique) finalTechnique.textContent = techniqueText;

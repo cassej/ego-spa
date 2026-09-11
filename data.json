@@ -811,6 +811,16 @@
       "name": "Tarifa nocturna (11:00 p.m. en adelante)",
       "name_en": "Late Night Rate (After 11 PM)",
       "price": 25
+    },
+    "double-pleasure": {
+      "name": "Experiencia de Doble Placer",
+      "name_en": "Double Pleasure Experience",
+      "price": 25
+    },
+    "relaxation-finish": {
+      "name": "Acabado de Relajación",
+      "name_en": "Relaxation Finish",
+      "price": -25
     }
   },
   "EXTRAS_DATA": {
@@ -1178,11 +1188,11 @@
       "flow.membership.desc": "Unete al club. Ahorra $175 primer ano.",
       "serviceType.title": "¿CÓMO QUIERES TU EXPERIENCIA?",
       "serviceType.subtitle": "Selecciona el tipo de servicio",
-      "serviceType.hotel.label": "OUTCALL HOTEL SERVICE",
+      "serviceType.hotel.label": "SERVICIO A HOTEL",
       "serviceType.hotel.desc": "Servicio a tu habitación. Disponible 24/7.",
-      "serviceType.branches.label": "OUR BRANCHES",
+      "serviceType.branches.label": "NUESTRAS SUCURSALES",
       "serviceType.branches.desc": "Visítanos en cualquiera de nuestras sedes.",
-      "serviceType.schedules.label": "SCHEDULES",
+      "serviceType.schedules.label": "HORARIOS",
       "serviceType.schedules.desc": "Consulta nuestros horarios de atención.",
       "aria.hotel": "Servicio a hotel",
       "aria.branches": "Nuestras sucursales",
@@ -1198,6 +1208,10 @@
       "extras.sensitiveDesc": "Experiencia de masaje estándar",
       "extras.doubleSensitive": "DOUBLE SENSITIVE",
       "extras.doubleSensitiveDesc": "Experiencia mejorada con exfoliación de ducha caliente",
+      "extras.doublePleasure": "EXPERIENCIA DE DOBLE PLACER",
+      "extras.doublePleasureDesc": "Exfoliación con ducha caliente",
+      "extras.relaxationFinish": "ACABADO DE RELAJACIÓN",
+      "extras.relaxationFinishDesc": "Ducha caliente con masajista",
       "extras.relaxationFinish": "ACABADO DE RELAJACIÓN",
       "extras.relaxationFinishDesc": "Ducha caliente con masajista",
       "single.availableTherapist": "Masajista disponible",
@@ -1432,6 +1446,10 @@
       "extras.sensitiveDesc": "Standard massage experience",
       "extras.doubleSensitive": "DOUBLE SENSITIVE",
       "extras.doubleSensitiveDesc": "Enhanced experience with hot shower exfoliation",
+      "extras.doublePleasure": "DOUBLE PLEASURE EXPERIENCE",
+      "extras.doublePleasureDesc": "Hot shower exfoliation",
+      "extras.relaxationFinish": "RELAXATION FINISH",
+      "extras.relaxationFinishDesc": "Hot shower with a masseur",
       "extras.relaxationFinish": "RELAXATION FINISH",
       "extras.relaxationFinishDesc": "Hot shower with a masseur",
       "single.availableTherapist": "Available therapist",
