@@ -68,6 +68,7 @@ function refreshAllUI() {
     if (typeof loadBranches === 'function') loadBranches();
     if (typeof loadTechniques === 'function') loadTechniques();
     if (typeof loadExtras === 'function') loadExtras();
+    if (typeof loadMasseuses === 'function') loadMasseuses();
     if (typeof loadHotelTechniques === 'function') loadHotelTechniques();
     if (typeof loadPacks === 'function') loadPacks();
     if (typeof updateStickyFooter === 'function') updateStickyFooter();

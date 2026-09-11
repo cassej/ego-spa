@@ -95,6 +95,7 @@ function setupEventListeners() {
             }
 
             updateStickyFooter();
+            updateMasseusesConstraints();
 
             // Check if continue button should be enabled
             updateConfigContinueButton();
@@ -255,28 +256,40 @@ function setupEventListeners() {
     // Masseuse preference radio buttons
     document.querySelectorAll('input[name="masseuse-pref"]').forEach(radio => {
         radio.addEventListener('change', () => {
-            const nameInput = document.getElementById('masseuseName');
             const travelFeeNotice = document.getElementById('travelFeeNotice');
+            state.single.masseusePref = radio.value;
 
             if (radio.value === 'specific') {
-                nameInput.disabled = false;
-                nameInput.focus();
                 state.single.mobilityFee = 35; // $35 travel fee
                 if (travelFeeNotice) travelFeeNotice.classList.remove('hidden');
             } else {
-                nameInput.disabled = true;
-                nameInput.value = '';
-                state.single.masseuseName = '';
+                state.single.masseuses = [];
                 state.single.mobilityFee = 0;
                 if (travelFeeNotice) travelFeeNotice.classList.add('hidden');
             }
+            updateMasseusesConstraints();
             updateStickyFooter();
         });
     });
 
-    // Masseuse name input
-    document.getElementById('masseuseName').addEventListener('input', (e) => {
-        state.single.masseuseName = e.target.value;
+    // Masseuse selection checkboxes
+    document.getElementById('masseusesList')?.addEventListener('change', (e) => {
+        if (e.target.matches('input[name="masseuse-select"]')) {
+            const maxMasseuses = state.single.hands ? Math.floor(state.single.hands / 2) : 1;
+            const checked = document.querySelectorAll('input[name="masseuse-select"]:checked');
+
+            // Enforce max selection
+            if (checked.length > maxMasseuses) {
+                e.target.checked = false;
+                return;
+            }
+
+            state.single.masseuses = [];
+            checked.forEach(cb => {
+                state.single.masseuses.push(cb.dataset.masseuse);
+            });
+            updateStickyFooter();
+        }
     });
 
     // Add continue button to Step 5

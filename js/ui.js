@@ -327,7 +327,12 @@ function goToStep(step) {
             updateConfigContinueButton();
         }
 
-        // Update final summary on step 6
+        // Update masseuse constraints on step 6
+        if (step === 6) {
+            updateMasseusesConstraints();
+        }
+
+        // Update final summary on step 7
         if (step === 7) {
             updateFinalSummary();
         }
@@ -447,7 +452,9 @@ function updateFinalSummary() {
         }
     }
 
-    document.getElementById('finalMasseuse').textContent = state.single.masseuseName || t('whatsapp.noPreference');
+    document.getElementById('finalMasseuse').textContent = state.single.masseuses.length > 0
+        ? state.single.masseuses.map(k => td('MASSEUSES', k, 'name')).join(', ')
+        : t('whatsapp.noPreference');
 
     const mobilityRow = document.getElementById('finalMobilityRow');
     mobilityRow.classList.toggle('hidden', state.single.mobilityFee === 0);
@@ -918,6 +925,80 @@ function loadExtras() {
 }
 
 /**
+ * Load masseuses from data.json and render as checkboxes
+ */
+function loadMasseuses() {
+    const container = document.getElementById('masseusesList');
+    if (!container || !MASSEUSES) return;
+
+    let html = '';
+    let staggerIndex = 1;
+
+    Object.entries(MASSEUSES).forEach(([key, masseuse]) => {
+        if (!masseuse.active) return;
+        const name = td('MASSEUSES', key, 'name');
+        html += `
+            <label class="option-card rounded-lg p-3 flex items-center gap-3 cursor-pointer fade-up stagger-${staggerIndex} opacity-50 pointer-events-none" data-masseuse-key="${key}">
+                <input type="checkbox" name="masseuse-select" class="custom-checkbox" data-masseuse="${key}" disabled>
+                <span class="text-white text-sm font-semibold">${name}</span>
+            </label>
+        `;
+        staggerIndex++;
+    });
+
+    container.innerHTML = html;
+}
+
+/**
+ * Updates masseuse list visibility and max selection based on hands count
+ */
+function updateMasseusesConstraints() {
+    const container = document.getElementById('masseusesList');
+    const limitText = document.getElementById('masseuseLimitText');
+    if (!container) return;
+
+    const pref = document.querySelector('input[name="masseuse-pref"]:checked')?.value;
+    const isSpecific = pref === 'specific';
+
+    container.classList.toggle('hidden', !isSpecific);
+    if (limitText) limitText.classList.toggle('hidden', !isSpecific);
+
+    if (!isSpecific) {
+        state.single.masseuses = [];
+        container.querySelectorAll('input[name="masseuse-select"]').forEach(cb => {
+            cb.checked = false;
+            cb.disabled = true;
+            cb.closest('label').classList.add('opacity-50', 'pointer-events-none');
+        });
+        return;
+    }
+
+    const maxMasseuses = state.single.hands ? Math.floor(state.single.hands / 2) : 1;
+    if (limitText) {
+        limitText.textContent = t('single.selectMasseuses', { n: maxMasseuses });
+        limitText.classList.remove('hidden');
+    }
+
+    container.querySelectorAll('label[data-masseuse-key]').forEach(label => {
+        const cb = label.querySelector('input');
+        cb.disabled = false;
+        label.classList.remove('opacity-50', 'pointer-events-none');
+    });
+
+    // Enforce max selection
+    const checked = container.querySelectorAll('input[name="masseuse-select"]:checked');
+    if (checked.length > maxMasseuses) {
+        checked[checked.length - 1].checked = false;
+    }
+
+    // Update state
+    state.single.masseuses = [];
+    container.querySelectorAll('input[name="masseuse-select"]:checked').forEach(cb => {
+        state.single.masseuses.push(cb.dataset.masseuse);
+    });
+}
+
+/**
  * Load hotel techniques from data.json (simplified, no categories needed for hotel)
  */
 function loadHotelTechniques() {
@@ -1164,6 +1245,8 @@ function resetSelections() {
         extras: [],
         selectedScenarios: [],
         masseuseName: '',
+        masseuses: [],
+        masseusePref: 'available',
         mobilityFee: 0,
         nightRate: 0,
         bookingDate: '',

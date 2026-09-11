@@ -2,7 +2,7 @@
 // Main entry point
 
 let DATA;
-let EGO_DISCOUNT, PACK_DATA, M_CODE_PRICING, HOTEL_SERVICE_PRICING, TECHNIQUE_DATA, SCENARIO_DATA, TIERED_MODIFIERS, WHATSAPP_NUMBER, BRANCHES, TECHNIQUE_CATEGORIES, EGO_MEMBERSHIP, ADDON_PRICING, BUSINESS_HOURS, HOTEL_TECHNIQUES, HOTEL_SCENARIO_PRICE, HOTEL_TECHNIQUE_HANDS, EXTRAS_DATA;
+let EGO_DISCOUNT, PACK_DATA, M_CODE_PRICING, HOTEL_SERVICE_PRICING, TECHNIQUE_DATA, SCENARIO_DATA, TIERED_MODIFIERS, WHATSAPP_NUMBER, BRANCHES, TECHNIQUE_CATEGORIES, EGO_MEMBERSHIP, ADDON_PRICING, BUSINESS_HOURS, HOTEL_TECHNIQUES, HOTEL_SCENARIO_PRICE, HOTEL_TECHNIQUE_HANDS, EXTRAS_DATA, MASSEUSES;
 
 async function init() {
     console.log('🚀 Initializing Ego Spa Booking Widget...');
@@ -29,6 +29,7 @@ async function init() {
         HOTEL_SCENARIO_PRICE = DATA.HOTEL_SCENARIO_PRICE;
         HOTEL_TECHNIQUE_HANDS = DATA.HOTEL_TECHNIQUE_HANDS;
         EXTRAS_DATA = DATA.EXTRAS_DATA || {};
+        MASSEUSES = DATA.MASSEUSES || {};
 
         // Initialize i18n
         currentLang = detectLanguage();
@@ -51,6 +52,7 @@ async function init() {
         loadServiceTypes();
         loadTechniques();
         loadExtras();
+        loadMasseuses();
         loadHotelTechniques();
         loadHotelConfig();
         loadPacks();

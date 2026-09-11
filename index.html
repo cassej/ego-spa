@@ -437,10 +437,13 @@ uppercase" data-i18n="header.subtitle">Panama</p>
                         <label class="flex items-center gap-3 mb-3">
                             <input type="radio" name="masseuse-pref" value="specific" class="custom-radio">
                             <div class="flex-1">
-                                <span class="font-semibold" data-i18n="single.chooseTherapist">Choose my therapist ✅</span>
+                                <span class="font-semibold" data-i18n="single.chooseTherapist">Elijo mi masajista ✅</span>
                             </div>
                         </label>
-                        <input type="text" id="masseuseName" class="masseuse-input w-full bg-ego-zinc rounded-lg p-3 text-white placeholder-ego-muted" placeholder="Masseuse name" data-i18n-placeholder="single.masseusePlaceholder" disabled>
+                        <p id="masseuseLimitText" class="text-ego-muted text-xs mb-2 hidden"></p>
+                        <div id="masseusesList" class="space-y-2 hidden">
+                            <!-- Masseuses will be dynamically loaded from data.json -->
+                        </div>
                     </div>
 
                     <div id="travelFeeNotice" class="bg-ego-gold/10 border border-ego-gold/30 rounded-lg p-3 fade-up stagger-3 hidden">

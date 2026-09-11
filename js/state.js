@@ -23,6 +23,8 @@ const state = {
         sensitiveAddon: 25,
         extras: [], // Add-ons like Double Sensitive, Night Rate
         masseuseName: '',
+        masseuses: [],
+        masseusePref: 'available',
         mobilityFee: 0,
         nightRate: 0,
         bookingDate: '',

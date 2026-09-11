@@ -899,6 +899,28 @@
     "description": "Membresía exclusiva con descuentos y beneficios",
     "description_en": "Exclusive membership with discounts and perks"
   },
+  "MASSEUSES": {
+    "canela": {
+      "name": "Canela",
+      "name_en": "Canela",
+      "active": true
+    },
+    "valentina": {
+      "name": "Valentina",
+      "name_en": "Valentina",
+      "active": true
+    },
+    "dulce": {
+      "name": "Dulce",
+      "name_en": "Dulce",
+      "active": true
+    },
+    "paloma": {
+      "name": "Paloma",
+      "name_en": "Paloma",
+      "active": true
+    }
+  },
   "HOTEL_SCENARIO_PRICE": 25,
   "HOTEL_TECHNIQUES": [
     "tantric",
@@ -1217,6 +1239,7 @@
       "extras.relaxationFinishDesc": "Ducha caliente con masajista",
       "single.availableTherapist": "Masajista disponible",
       "single.chooseTherapist": "Elijo mi masajista ✅",
+      "single.selectMasseuses": "Selecciona {n} masajista(s)",
       "single.travelFee": "+$35 por traslado de masajista",
       "summary.regularPrice": "Regular:",
       "summary.packPrice": "Pack (por sesión):",
@@ -1456,6 +1479,7 @@
       "extras.relaxationFinishDesc": "Hot shower with a masseur",
       "single.availableTherapist": "Available therapist",
       "single.chooseTherapist": "Choose my therapist ✅",
+      "single.selectMasseuses": "Select {n} masseuse(s)",
       "single.travelFee": "+$35 travel fee for therapist transport",
       "summary.regularPrice": "Regular:",
       "summary.packPrice": "Pack (per session):",

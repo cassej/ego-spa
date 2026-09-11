@@ -400,6 +400,20 @@ tr:last-child td { border-bottom: none; }
                 </div>
             </div>
 
+            <!-- MASSEUSES -->
+            <div id="section-masseuses" class="section space-y-5">
+                <div class="sec-head">
+                    <div><div class="sec-title">Masseuses</div><div class="sec-sub">Masajistas disponibles</div></div>
+                    <button class="btn btn-ghost btn-sm" id="addMasseuse">+ Masseuse</button>
+                </div>
+                <div class="card tbl-wrap">
+                    <table>
+                        <thead><tr><th></th><th>ID</th><th>Nombre</th><th>Name (EN)</th><th>Activa</th><th></th></tr></thead>
+                        <tbody id="masseuses-tbody"></tbody>
+                    </table>
+                </div>
+            </div>
+
             <!-- ADD-ONS -->
             <div id="section-addons" class="section space-y-5">
                 <div class="sec-head">
@@ -523,6 +537,7 @@ const NAV_ITEMS = [
     { id:'scenarios',      icon:'🛋', label:'Scenarios' },
     { id:'scenario-rules', icon:'📜', label:'Scenario Rules' },
     { id:'addons',         icon:'✨', label:'Add-ons' },
+    { id:'masseuses',      icon:'👩‍🦰', label:'Masseuses' },
     { id:'extras',         icon:'🎁', label:'Extras (Booking)' },
     { id:'translations',   icon:'🌐', label:'Translations' },
     { id:'disclaimer',     icon:'📄', label:'Disclaimer' },
@@ -1230,6 +1245,46 @@ $('#addScenario').on('click', () => $('#scenarios-tbody').append(`<tr>
 </tr>`));
 
 // ============================================================
+// MASSEUSES
+// ============================================================
+function renderMasseuses() {
+    const $b = $('#masseuses-tbody').empty();
+    const masseuses = DATA.MASSEUSES || {};
+    $.each(masseuses, (key, m) => {
+        const checked = m.active ? 'checked' : '';
+        $b.append(`<tr>
+            ${dragTd()}
+            <td>${inp(key,'masseuseId')}</td>
+            <td>${inp(m.name,'name')}</td>
+            <td>${inp(m.name_en||'','name_en')}</td>
+            <td><input type="checkbox" name="active" ${checked} style="width:20px;height:20px"></td>
+            <td>${delBtn()}</td>
+        </tr>`);
+    });
+}
+function collectMasseuses() {
+    DATA.MASSEUSES = {};
+    $('#masseuses-tbody tr').each(function() {
+        const id = $(this).find('[name=masseuseId]').val().trim();
+        if (!id) return;
+        const nameEn = $(this).find('[name=name_en]').val().trim();
+        DATA.MASSEUSES[id] = {
+            name: $(this).find('[name=name]').val().trim(),
+            ...(nameEn ? { name_en: nameEn } : {}),
+            active: $(this).find('[name=active]').is(':checked')
+        };
+    });
+}
+$('#addMasseuse').on('click', () => $('#masseuses-tbody').append(`<tr>
+    ${dragTd()}
+    <td>${inp('new-masseuse','masseuseId')}</td>
+    <td>${inp('Nueva Masajista','name')}</td>
+    <td>${inp('New Masseuse','name_en')}</td>
+    <td><input type="checkbox" name="active" checked style="width:20px;height:20px"></td>
+    <td>${delBtn()}</td>
+</tr>`));
+
+// ============================================================
 // ADD-ONS
 // ============================================================
 function renderAddons() {
@@ -1429,7 +1484,7 @@ const SAVE_ICON = `<svg class="w-4 h-4 flex-shrink-0" fill="none" stroke="curren
 function doSave() {
     collectGeneral(); collectBranches(); collectTechniqueCats(); collectMembership();
     collectFlows(); collectMcodes(); collectHotel(); collectTiered();
-    collectPacks(); collectTechniques(); collectScenarios(); collectScenarioRules(); collectAddons(); collectExtras();
+    collectPacks(); collectTechniques(); collectScenarios(); collectScenarioRules(); collectAddons(); collectMasseuses(); collectExtras();
     collectTranslations(); collectDisclaimer();
 
     // Safety defaults for hotel fields
@@ -1483,7 +1538,7 @@ fetch('./data.json')
         DATA = json;
         renderGeneral(); renderBranches(); renderTechniqueCats(); renderMembership(); renderFlows();
         renderMcodes(); renderHotel(); renderTiered(); renderPacks(); renderTechniques();
-        renderScenarios(); renderScenarioRules(); renderAddons(); renderExtras(); renderTranslations(); renderDisclaimer();
+        renderScenarios(); renderScenarioRules(); renderAddons(); renderMasseuses(); renderExtras(); renderTranslations(); renderDisclaimer();
         initSortable();
     })
     .catch(err => {
