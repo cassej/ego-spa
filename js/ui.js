@@ -248,6 +248,14 @@ function updateSummary() {
         // Show ego price row
         if (egoPriceRow) egoPriceRow.classList.remove('hidden');
         
+        // Set selected tier visual state
+        document.querySelectorAll('.price-tier-btn').forEach(b => {
+            b.classList.remove('selected');
+            if (b.dataset.tier === state.single.selectedTier) {
+                b.classList.add('selected');
+            }
+        });
+        
         // Show savings note
         const savings = regularPrice - egoPrice;
         if (egoSavingsNote && savings > 0) {
@@ -411,6 +419,19 @@ function goToStep(step) {
     updateSummary();
 }
 
+function updateTierTotal() {
+    const regularPrice = calculateSinglePrice();
+    const egoPrice = roundTo5(Math.round(regularPrice * (1 - EGO_DISCOUNT)));
+    const packPrice = regularPrice;
+
+    let total = regularPrice;
+    if (state.single.selectedTier === 'ego') total = egoPrice;
+    else if (state.single.selectedTier === 'pack') total = packPrice;
+
+    const finalPriceEl = document.getElementById('finalPrice');
+    if (finalPriceEl) finalPriceEl.textContent = `$${total}`;
+}
+
 function updateFinalSummary() {
     document.getElementById('finalTechnique').textContent = state.single.techniqueName;
     // Show all selected scenarios
@@ -479,9 +500,7 @@ function updateFinalSummary() {
     document.getElementById('finalDate').textContent = state.single.bookingDate || '';
     document.getElementById('finalTime').textContent = state.single.bookingTime || '';
 
-    const total = calculateSinglePrice();
-    document.getElementById('finalPrice').textContent = `$${total}`;
-
+    updateTierTotal();
     updateNightRateDisclaimers();
 }
 
@@ -1251,6 +1270,7 @@ function resetSelections() {
         masseuseName: '',
         masseuses: [],
         masseusePref: 'available',
+        selectedTier: 'regular',
         mobilityFee: 0,
         nightRate: 0,
         bookingDate: '',

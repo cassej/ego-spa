@@ -514,3 +514,10 @@ var(--panel-light) 50%, var(--panel) 100%);
         .border-ego-gold\/30 {
             border-color: rgba(212, 175, 55, 0.3);
         }
+
+        /* Price tier selection */
+        .price-tier-btn.selected {
+            border-color: var(--accent) !important;
+            background: rgba(239, 68, 68, 0.1) !important;
+            box-shadow: 0 0 20px -5px rgba(239, 68, 68, 0.3);
+        }

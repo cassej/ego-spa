@@ -1,3 +1,7 @@
+function roundTo5(n) {
+    return Math.round(n / 5) * 5;
+}
+
 /**
  * Maps hands + duration to codes for CodeBased and PackBased pricing systems
  */
@@ -182,8 +186,11 @@ function generateWhatsAppMessage() {
         }
 
         const total = calculateSinglePrice();
-        const discountedTotal = state.isAuth ? Math.round(total * (1 - EGO_DISCOUNT)) : total;
-        const finalPrice = state.isAuth ? discountedTotal : total;
+        const egoPrice = roundTo5(Math.round(total * (1 - EGO_DISCOUNT)));
+        let finalPrice = total;
+        let tierLabel = 'Regular';
+        if (state.single.selectedTier === 'ego') { finalPrice = egoPrice; tierLabel = 'Ego Card'; }
+        else if (state.single.selectedTier === 'pack') { finalPrice = total; tierLabel = 'Pack'; }
 
         message = `🔥 ${t('whatsapp.newBookingSingle')}
 ${branchText}
@@ -192,6 +199,7 @@ ${branchText}
     👆 ${t('whatsapp.hands')}: ${state.single.hands}
     ⏱️ ${t('whatsapp.duration')}: ${state.single.duration} ${t('common.min')}
     💆 ${t('whatsapp.sensitive')}: ${sensitive}
+    💳 Tarifa: ${tierLabel}
 
     ✨ ${t('whatsapp.extras')}: ${extras}
     👩‍🦰 ${t('whatsapp.masseuse')}: ${masseuse}

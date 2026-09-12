@@ -25,6 +25,7 @@ const state = {
         masseuseName: '',
         masseuses: [],
         masseusePref: 'available',
+        selectedTier: 'regular', // 'regular', 'pack', or 'ego'
         mobilityFee: 0,
         nightRate: 0,
         bookingDate: '',

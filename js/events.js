@@ -314,6 +314,25 @@ function setupEventListeners() {
         });
     }
 
+    // Price tier selection
+    document.querySelectorAll('.price-tier-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            const tier = btn.dataset.tier;
+            state.single.selectedTier = tier;
+
+            // Update visual selection
+            document.querySelectorAll('.price-tier-btn').forEach(b => {
+                b.classList.remove('border-ego-red', 'bg-ego-red/10');
+                b.classList.add('border-transparent', 'bg-ego-black/50');
+            });
+            btn.classList.remove('border-transparent', 'bg-ego-black/50');
+            btn.classList.add('border-ego-red', 'bg-ego-red/10');
+
+            // Update TOTAL display
+            updateTierTotal();
+        });
+    });
+
     // Book single massage
     document.getElementById('singleBookBtn').addEventListener('click', ()   => {
         const message = generateWhatsAppMessage();
