@@ -516,8 +516,18 @@ var(--panel-light) 50%, var(--panel) 100%);
         }
 
         /* Price tier selection */
+        .price-tier-btn {
+            border: 2px solid transparent !important;
+            background-color: rgba(0,0,0,0.5) !important;
+            transition: all 0.2s ease;
+        }
+
+        .price-tier-btn:hover {
+            border-color: rgba(255,255,255,0.2) !important;
+        }
+
         .price-tier-btn.selected {
             border-color: var(--accent) !important;
-            background: rgba(239, 68, 68, 0.1) !important;
+            background-color: rgba(239, 68, 68, 0.1) !important;
             box-shadow: 0 0 20px -5px rgba(239, 68, 68, 0.3);
         }
