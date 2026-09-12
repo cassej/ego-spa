@@ -183,6 +183,10 @@ function updateStickyFooter() {
     }
 }
 
+function roundTo5(n) {
+    return Math.round(n / 5) * 5;
+}
+
 function updateSummary() {
     let details = '';
     let price = 0;
@@ -211,7 +215,7 @@ function updateSummary() {
         // Calculate all three prices
         regularPrice = calculateSinglePrice();
         packPrice = regularPrice; // Pack price per session is same as regular for single
-        egoPrice = Math.round(regularPrice * (1 - EGO_DISCOUNT));
+        egoPrice = roundTo5(Math.round(regularPrice * (1 - EGO_DISCOUNT)));
         price = regularPrice; // Default displayed price
     } else if (state.currentFlow === 'packs' && state.pack.code) {
         const parts = [];
@@ -225,7 +229,7 @@ function updateSummary() {
         // For packs, calculate per-session prices
         regularPrice = calculatePackPrice();
         packPrice = regularPrice;
-        egoPrice = Math.round(regularPrice * (1 - EGO_DISCOUNT));
+        egoPrice = roundTo5(Math.round(regularPrice * (1 - EGO_DISCOUNT)));
         price = regularPrice;
     }
 
