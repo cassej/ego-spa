@@ -231,8 +231,8 @@ ${branchText}
     } else if (state.currentFlow === 'hotel') {
         const price = calculateHotelPrice();
         const finalPrice = state.isAuth ? Math.round(price * (1 - EGO_DISCOUNT)) : price;
-        const hotelNightRateText = state.hotel.nightRate > 0 ? `\n*${t('whatsapp.nightRate', { price: state.hotel.nightRate })}*" : '';
-        const egoCardText = state.isAuth ? `\n*${t('whatsapp.egoCard')}*" : '';
+        const hotelNightRateText = state.hotel.nightRate > 0 ? `\n*${t('whatsapp.nightRate', { price: state.hotel.nightRate })}*` : '';
+        const egoCardText = state.isAuth ? `\n*${t('whatsapp.egoCard')}*` : '';
 
         message = `*${t('whatsapp.newBookingHotel')}*
 ${branchText}
