@@ -2,7 +2,7 @@
 // Main entry point
 
 let DATA;
-let EGO_DISCOUNT, PACK_DATA, M_CODE_PRICING, HOTEL_SERVICE_PRICING, TECHNIQUE_DATA, SCENARIO_DATA, TIERED_MODIFIERS, WHATSAPP_NUMBER, BRANCHES, TECHNIQUE_CATEGORIES, EGO_MEMBERSHIP, ADDON_PRICING, BUSINESS_HOURS, HOTEL_TECHNIQUES, HOTEL_SCENARIO_PRICE, HOTEL_TECHNIQUE_HANDS, EXTRAS_DATA, MASSEUSES;
+let EGO_DISCOUNT, PACK_DATA, M_CODE_PRICING, HOTEL_SERVICE_PRICING, TECHNIQUE_DATA, SCENARIO_DATA, TIERED_MODIFIERS, WHATSAPP_NUMBER, BRANCHES, TECHNIQUE_CATEGORIES, EGO_MEMBERSHIP, ADDON_PRICING, BUSINESS_HOURS, HOTEL_TECHNIQUES, HOTEL_SCENARIO_PRICE, HOTEL_TECHNIQUE_HANDS, EXTRAS_DATA, MASSEUSES, MASSAGE_GENDERS, MASSAGE_GENDER_TRANSLATIONS, EGO_BENEFITS;
 
 async function init() {
     console.log('🚀 Initializing Ego Spa Booking Widget...');
@@ -30,6 +30,9 @@ async function init() {
         HOTEL_TECHNIQUE_HANDS = DATA.HOTEL_TECHNIQUE_HANDS;
         EXTRAS_DATA = DATA.EXTRAS_DATA || {};
         MASSEUSES = DATA.MASSEUSES || {};
+        MASSAGE_GENDERS = DATA.MASSAGE_GENDERS || { men: [], women: [], couple: [] };
+        MASSAGE_GENDER_TRANSLATIONS = DATA.MASSAGE_GENDER_TRANSLATIONS || {};
+        EGO_BENEFITS = DATA.EGO_BENEFITS || [];
 
         // Initialize i18n
         currentLang = detectLanguage();
@@ -44,18 +47,18 @@ async function init() {
                 localStorage.setItem('ego-lang', lang);
                 document.documentElement.lang = lang;
                 document.getElementById('langSelection').classList.add('hidden');
-                document.getElementById('serviceTypeSelection').classList.remove('hidden');
+                document.getElementById('massageSelection').classList.remove('hidden');
                 applyLanguage();
                 translateScenarioButtons();
             });
         });
-        loadServiceTypes();
+        loadMassageSelection();
         loadTechniques();
         loadExtras();
         loadMasseuses();
         loadHotelTechniques();
         loadHotelConfig();
-        loadPacks();
+        loadPackSelection();
 
         // Apply initial language to static HTML
         applyLanguage();

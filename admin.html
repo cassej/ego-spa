@@ -211,13 +211,13 @@ tr:last-child td { border-bottom: none; }
 
     <!-- Content -->
     <main class="flex-1 overflow-y-auto">
-        <div id="main-content" class="max-w-3xl mx-auto">
+        <div id="main-content" class="max-w-screen-2xl mx-auto w-full">
 
             <!-- GENERAL -->
             <div id="section-general" class="section active space-y-5">
                 <div class="sec-head"><div><div class="sec-title">General</div><div class="sec-sub">Configuración global</div></div></div>
                 <div class="card p-5">
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                         <div><span class="lbl">WhatsApp</span><input type="text" id="g-whatsapp"></div>
                         <div><span class="lbl">Descuento Ego Card (%)</span><input type="number" id="g-discount" min="0" max="100"></div>
                     </div>
@@ -258,6 +258,29 @@ tr:last-child td { border-bottom: none; }
                 </div>
             </div>
 
+            <!-- MASSAGE GENDERS -->
+            <div id="section-massage-genders" class="section space-y-5">
+                <div class="sec-head">
+                    <div><div class="sec-title">Massage Genders</div><div class="sec-sub">Qué técnicas mostrar para cada género</div></div>
+                </div>
+                <div class="card p-5">
+                    <div class="space-y-6">
+                        <div>
+                            <span class="lbl" style="margin-bottom:8px">Men — Técnicas disponibles</span>
+                            <div id="gender-men-techniques" class="flex flex-wrap gap-2"></div>
+                        </div>
+                        <div>
+                            <span class="lbl" style="margin-bottom:8px">Women — Técnicas disponibles</span>
+                            <div id="gender-women-techniques" class="flex flex-wrap gap-2"></div>
+                        </div>
+                        <div>
+                            <span class="lbl" style="margin-bottom:8px">Couple — Técnicas disponibles</span>
+                            <div id="gender-couple-techniques" class="flex flex-wrap gap-2"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <!-- TECHNIQUE CATEGORIES -->
             <div id="section-technique-cats" class="section space-y-5">
                 <div class="sec-head">
@@ -288,6 +311,17 @@ tr:last-child td { border-bottom: none; }
                         <div><span class="lbl">Descripción</span><input type="text" id="membership-description"></div>
                         <div><span class="lbl">Description (EN)</span><input type="text" id="membership-description-en"></div>
                     </div>
+                </div>
+            </div>
+
+            <!-- EGO BENEFITS -->
+            <div id="section-ego-benefits" class="section space-y-5">
+                <div class="sec-head">
+                    <div><div class="sec-title">Ego Card Benefits</div><div class="sec-sub">Beneficios mostrados al seleccionar Ego Card</div></div>
+                    <button class="btn btn-ghost btn-sm" id="addEgoBenefit">+ Agregar</button>
+                </div>
+                <div class="card p-5">
+                    <div id="ego-benefits-list" class="space-y-3"></div>
                 </div>
             </div>
 
@@ -526,8 +560,10 @@ tr:last-child td { border-bottom: none; }
 const NAV_ITEMS = [
     { id:'general',        icon:'⚙️',  label:'General' },
     { id:'branches',       icon:'📍', label:'Branches' },
+    { id:'massage-genders', icon:'👤', label:'Massage Genders' },
     { id:'technique-cats', icon:'📂', label:'Technique Cats' },
     { id:'membership',     icon:'💳', label:'Membership' },
+    { id:'ego-benefits',   icon:'✨', label:'Ego Benefits' },
     { id:'flows',          icon:'🚀', label:'Flows' },
     { id:'mcodes',         icon:'📋', label:'M-Code Pricing' },
     { id:'hotel',          icon:'🏨', label:'Hotel Pricing' },
@@ -774,6 +810,95 @@ function collectMembership() {
         ...(descEn ? { description_en: descEn } : {})
     };
 }
+
+// ============================================================
+// MASSAGE GENDERS
+// ============================================================
+function renderMassageGenders() {
+    const genders = DATA.MASSAGE_GENDERS || { men: [], women: [], couple: [] };
+    const techniques = DATA.TECHNIQUE_DATA || {};
+
+    ['men', 'women', 'couple'].forEach(gender => {
+        const container = $(`#gender-${gender}-techniques`);
+        container.empty();
+        
+        Object.entries(techniques).forEach(([key, tech]) => {
+            const checked = genders[gender]?.includes(key) ? 'checked' : '';
+            const label = tech.name || key;
+            container.append(`
+                <label class="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-ego-black border border-ego-zincLight cursor-pointer hover:border-ego-zinc transition-colors">
+                    <input type="checkbox" name="gender-${gender}" value="${key}" ${checked} class="accent-ego-red">
+                    <span class="text-sm text-white">${label}</span>
+                </label>
+            `);
+        });
+    });
+}
+
+function collectMassageGenders() {
+    const result = { men: [], women: [], couple: [] };
+    ['men', 'women', 'couple'].forEach(gender => {
+        $(`input[name="gender-${gender}"]:checked`).each(function() {
+            result[gender].push($(this).val());
+        });
+    });
+    DATA.MASSAGE_GENDERS = result;
+}
+
+// ============================================================
+// EGO BENEFITS
+// ============================================================
+function renderEgoBenefits() {
+    const benefits = DATA.EGO_BENEFITS || [];
+    const $list = $('#ego-benefits-list').empty();
+    
+    if (benefits.length === 0) {
+        $list.append('<p class="text-ego-muted text-sm">No hay beneficios configurados. Agrega uno con el botón "+ Agregar".</p>');
+        return;
+    }
+    
+    benefits.forEach((benefit, i) => {
+        $list.append(`
+            <div class="flex items-center gap-3 p-3 rounded-lg bg-ego-black border border-ego-zincLight" data-benefit-index="${i}">
+                <span class="text-ego-gold font-mono text-sm w-6">${i + 1}.</span>
+                <div class="flex-1 grid grid-cols-1 sm:grid-cols-2 gap-2">
+                    <input type="text" name="benefit-es-${i}" value="${benefit.es || ''}" placeholder="Texto en español" class="inp">
+                    <input type="text" name="benefit-en-${i}" value="${benefit.en || ''}" placeholder="Text in English" class="inp">
+                </div>
+                <button class="del-btn" onclick="removeEgoBenefit(${i})" title="Eliminar">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
+                </button>
+            </div>
+        `);
+    });
+}
+
+function collectEgoBenefits() {
+    const benefits = [];
+    let i = 0;
+    while ($(`input[name="benefit-es-${i}"]`).length > 0) {
+        const es = $(`input[name="benefit-es-${i}"]`).val().trim();
+        const en = $(`input[name="benefit-en-${i}"]`).val().trim();
+        if (es || en) {
+            benefits.push({ es, en });
+        }
+        i++;
+    }
+    DATA.EGO_BENEFITS = benefits;
+}
+
+function removeEgoBenefit(index) {
+    const benefits = DATA.EGO_BENEFITS || [];
+    benefits.splice(index, 1);
+    DATA.EGO_BENEFITS = benefits;
+    renderEgoBenefits();
+}
+
+$('#addEgoBenefit').on('click', () => {
+    if (!DATA.EGO_BENEFITS) DATA.EGO_BENEFITS = [];
+    DATA.EGO_BENEFITS.push({ es: '', en: '' });
+    renderEgoBenefits();
+});
 
 // ============================================================
 // FLOWS
@@ -1483,6 +1608,7 @@ const SAVE_ICON = `<svg class="w-4 h-4 flex-shrink-0" fill="none" stroke="curren
 
 function doSave() {
     collectGeneral(); collectBranches(); collectTechniqueCats(); collectMembership();
+    collectMassageGenders(); collectEgoBenefits();
     collectFlows(); collectMcodes(); collectHotel(); collectTiered();
     collectPacks(); collectTechniques(); collectScenarios(); collectScenarioRules(); collectAddons(); collectMasseuses(); collectExtras();
     collectTranslations(); collectDisclaimer();
@@ -1537,6 +1663,7 @@ fetch('./data.json')
     .then(json => {
         DATA = json;
         renderGeneral(); renderBranches(); renderTechniqueCats(); renderMembership(); renderFlows();
+        renderMassageGenders(); renderEgoBenefits();
         renderMcodes(); renderHotel(); renderTiered(); renderPacks(); renderTechniques();
         renderScenarios(); renderScenarioRules(); renderAddons(); renderMasseuses(); renderExtras(); renderTranslations(); renderDisclaimer();
         initSortable();

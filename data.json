@@ -81,6 +81,22 @@
       ]
     }
   },
+  "MASSAGE_GENDERS": {
+    "men": ["tantric", "thai", "imperial", "nuru", "flegg", "lingam", "zurzum", "miso", "circuit", "circuit-deluxe", "cocktail", "cocktail-deluxe"],
+    "women": ["tantric", "thai", "imperial", "nuru", "flegg", "zurzum", "miso", "circuit", "circuit-deluxe", "cocktail", "cocktail-deluxe"],
+    "couple": ["tantric-couple", "nuru-couple"]
+  },
+  "MASSAGE_GENDER_TRANSLATIONS": {
+    "men": { "label": "Masajes para Hombres", "label_en": "Massages for Men", "desc": "Terapeuta femenina. Experiencia personalizada.", "desc_en": "Female therapist. Personalized experience." },
+    "women": { "label": "Masajes para Mujeres", "label_en": "Massages for Women", "desc": "Terapeuta femenina. Ambiente relajante.", "desc_en": "Female therapist. Relaxing environment." },
+    "couple": { "label": "Masaje en Pareja", "label_en": "Couple Massage", "desc": "Experiencia especial para dos personas.", "desc_en": "Special experience for two people." }
+  },
+  "EGO_BENEFITS": [
+    { "es": "18% de descuento en todos los masajes", "en": "18% discount on all massages" },
+    { "es": "Acceso a promociones exclusivas", "en": "Access to exclusive promotions" },
+    { "es": "Prioridad en reservas", "en": "Priority booking" },
+    { "es": "Beneficios acumulables", "en": "Stackable benefits" }
+  ],
   "PACK_DATA": {
     "M51": {
       "name": "Sesiones de 20 min cada una",
@@ -1217,6 +1233,20 @@
       "serviceType.branches.desc": "Visítanos en cualquiera de nuestras sedes.",
       "serviceType.schedules.label": "HORARIOS",
       "serviceType.schedules.desc": "Consulta nuestros horarios de atención.",
+      "massage.title": "MASAJES",
+      "massage.subtitle": "Selecciona el tipo de masaje",
+      "massage.men.label": "MASAJES PARA HOMBRES",
+      "massage.men.desc": "Terapeuta femenina. Experiencia personalizada.",
+      "massage.women.label": "MASAJES PARA MUJERES",
+      "massage.women.desc": "Terapeuta femenina. Ambiente relajante.",
+      "massage.couple.label": "MASAJE EN PAREJA",
+      "massage.couple.desc": "Experiencia especial para dos personas.",
+      "massage.hotel.label": "SERVICIO A HOTEL",
+      "massage.hotel.desc": "Servicio a tu habitación. Disponible 24/7.",
+      "packSelection.title": "OPCIONES DE PACK",
+      "packSelection.subtitle": "Selecciona un paquete de masajes",
+      "packs.from": "desde",
+      "whatsapp.membershipFee": "Membresía Ego Card (1er año)",
       "aria.hotel": "Servicio a hotel",
       "aria.branches": "Nuestras sucursales",
       "aria.schedules": "Horarios",
@@ -1457,6 +1487,20 @@
       "serviceType.branches.desc": "Visit us at any of our locations.",
       "serviceType.schedules.label": "SCHEDULES",
       "serviceType.schedules.desc": "Check our opening hours.",
+      "massage.title": "MASSAGES",
+      "massage.subtitle": "Select the type of massage",
+      "massage.men.label": "MASSAGES FOR MEN",
+      "massage.men.desc": "Female therapist. Personalized experience.",
+      "massage.women.label": "MASSAGES FOR WOMEN",
+      "massage.women.desc": "Female therapist. Relaxing environment.",
+      "massage.couple.label": "COUPLE MASSAGE",
+      "massage.couple.desc": "Special experience for two people.",
+      "massage.hotel.label": "OUTCALL HOTEL SERVICE",
+      "massage.hotel.desc": "Room service. Available 24/7.",
+      "packSelection.title": "PACK OPTIONS",
+      "packSelection.subtitle": "Select a massage package",
+      "packs.from": "from",
+      "whatsapp.membershipFee": "Ego Card Membership (1st year)",
       "aria.hotel": "Hotel service",
       "aria.branches": "Our branches",
       "aria.schedules": "Schedules",

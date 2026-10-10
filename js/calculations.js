@@ -1,14 +1,13 @@
 function calculateSinglePrice() {
     let total = 0;
 
-    // Base price
+    // Base price - always use regularPrice (not egoPrice)
     if (['CodeBased', 'PackBased'].includes(state.single.pricingSystem) && state.single.mCode) {
         const mCodeData = M_CODE_PRICING[state.single.mCode];
         if (mCodeData) {
-            total = state.isAuth ? (mCodeData.egoPrice || 0) : (mCodeData.regularPrice || 0);
+            total = mCodeData.regularPrice || 0;
         }
     } else if (state.single.pricingSystem === 'Tiered' && state.single.technique) {
-        // Only calculate if hands and duration are selected
         if (state.single.hands !== null && state.single.duration !== null) {
             const techniqueData = TECHNIQUE_DATA[state.single.technique];
             if (techniqueData && techniqueData.basePrice) {
@@ -42,7 +41,7 @@ function calculateBasePrice() {
     if (['CodeBased', 'PackBased'].includes(state.single.pricingSystem) && state.single.mCode) {
         const mCodeData = M_CODE_PRICING[state.single.mCode];
         if (mCodeData) {
-            total = state.isAuth ? (mCodeData.egoPrice || 0) : (mCodeData.regularPrice || 0);
+            total = mCodeData.regularPrice || 0;
         }
     } else if (state.single.pricingSystem === 'Tiered' && state.single.technique) {
         if (state.single.hands !== null && state.single.duration !== null) {
@@ -72,10 +71,8 @@ function calculatePackPrice() {
     const sizeData = packData.sizes[state.pack.size];
     if (!sizeData) return 0;
 
-    // If Ego Card auth and size has fixed egoPrice > 0, use it; otherwise regular price
-    let total = (state.isAuth && sizeData.egoPrice > 0)
-        ? sizeData.egoPrice
-        : (parseInt(state.pack.basePrice) || 0);
+    // Always use regular price
+    let total = parseInt(state.pack.basePrice) || 0;
 
     // Upgrade fee for 4 hands
     if (state.pack.hands === 4) {
@@ -95,7 +92,8 @@ function calculateHotelPrice() {
 
     if (!pricing) return 0;
 
-    let total = state.isAuth ? (pricing.egoPrice || 0) : (pricing.regularPrice || 0);
+    // Always use regularPrice
+    let total = pricing.regularPrice || 0;
 
     // Add extras
     state.hotel.extras.forEach(e => {

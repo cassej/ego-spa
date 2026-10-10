@@ -64,13 +64,12 @@ function refreshAllUI() {
     applyLanguage();
     translateScenarioButtons();
     // Re-render dynamic content
-    if (typeof loadServiceTypes === 'function') loadServiceTypes();
-    if (typeof loadBranches === 'function') loadBranches();
+    if (typeof loadMassageSelection === 'function') loadMassageSelection();
     if (typeof loadTechniques === 'function') loadTechniques();
     if (typeof loadExtras === 'function') loadExtras();
     if (typeof loadMasseuses === 'function') loadMasseuses();
     if (typeof loadHotelTechniques === 'function') loadHotelTechniques();
-    if (typeof loadPacks === 'function') loadPacks();
+    if (typeof loadPackSelection === 'function') loadPackSelection();
     if (typeof updateStickyFooter === 'function') updateStickyFooter();
     if (typeof updateScenarioHint === 'function') updateScenarioHint();
     // Re-render summaries if visible

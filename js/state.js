@@ -1,27 +1,23 @@
 const state = {
-    isAuth: false,
-    email: '',
-    serviceType: null, // 'hotel', 'branches', 'schedules'
-    selectedBranch: null, // 'marbella', 'costa-del-este', 'san-francisco', 'el-dorado'
-    selectedBranchName: '', // Display name for WhatsApp
-    currentFlow: null, // 'single', 'packs', 'hotel', or 'jetlag'
+    gender: null, // 'men', 'women', 'couple'
+    currentFlow: null, // 'single' or 'hotel'
     currentStep: 0,
-    // Single massage state (Spa)
+    // Single massage state
     single: {
         technique: null,
         techniqueName: '',
-        pricingSystem: null, // 'CodeBased', 'Tiered', or 'PackBased'
-        mCode: null, // Selected code for CodeBased/PackBased techniques
-        scenario: null, // Selected scenario (massage-table, tatami, etc.)
+        pricingSystem: null,
+        mCode: null,
+        scenario: null,
         scenarioName: '',
         basePrice: 0,
         hands: null,
         handsAddon: 0,
         duration: null,
         durationAddon: 0,
-        sensitive: 'double-sensitive', // 'sensitive' or 'double-sensitive'
+        sensitive: 'double-sensitive',
         sensitiveAddon: 25,
-        extras: [], // Add-ons like Double Sensitive, Night Rate
+        extras: [],
         masseuseName: '',
         masseuses: [],
         masseusePref: 'available',
@@ -62,24 +58,13 @@ const state = {
 };
 
 const elements = {
-    authBtn: document.getElementById('authBtn'),
-    authLabel: document.getElementById('authLabel'),
-    authModal: document.getElementById('authModal'),
-    authForm: document.getElementById('authForm'),
-    emailInput: document.getElementById('emailInput'),
-    closeAuthModal: document.getElementById('closeAuthModal'),
-
     singleFlow: document.getElementById('singleFlow'),
-    packsFlow: document.getElementById('packsFlow'),
     hotelFlow: document.getElementById('hotelFlow'),
-    jetlagFlow: document.getElementById('jetlagFlow'),
-    touristFlow: document.getElementById('touristFlow'),
-    membershipFlow: document.getElementById('membershipFlow'),
+    packSelectionScreen: document.getElementById('packSelectionScreen'),
     backBtn: document.getElementById('backBtn'),
     stickySummary: document.getElementById('stickySummary'),
     summaryLabel: document.getElementById('summaryLabel'),
     summaryDetails: document.getElementById('summaryDetails'),
     summaryPrice: document.getElementById('summaryPrice'),
-    summarySavings: document.getElementById('summarySavings'),
-    sizeOptions: document.getElementById('sizeOptions')
+    summarySavings: document.getElementById('summarySavings')
 };
