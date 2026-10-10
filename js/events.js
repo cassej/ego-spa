@@ -13,22 +13,13 @@ function setupEventListeners() {
 
             document.getElementById('massageSelection').classList.add('hidden');
 
-            if (gender === 'hotel') {
-                // Direct to Hotel Flow
-                state.currentFlow = 'hotel';
-                state.currentStep = 1;
-                elements.hotelFlow.classList.remove('hidden');
-                elements.backBtn.classList.remove('hidden');
-                goToStep(1);
-            } else {
-                // Load techniques for this gender and go to single flow
-                loadTechniques();
-                state.currentFlow = 'single';
-                state.currentStep = 1;
-                elements.singleFlow.classList.remove('hidden');
-                elements.backBtn.classList.remove('hidden');
-                goToStep(1);
-            }
+            // Load techniques for this gender and go to single flow
+            loadTechniques();
+            state.currentFlow = 'single';
+            state.currentStep = 1;
+            elements.singleFlow.classList.remove('hidden');
+            elements.backBtn.classList.remove('hidden');
+            goToStep(1);
 
             updateStickyFooter();
         });
