@@ -231,9 +231,10 @@ function setupEventListeners() {
     // Add continue button to Step 5
     const extrasContinueBtn = document.createElement('button');
     extrasContinueBtn.className = 'btn-primary w-full py-4 rounded-xl font-semibold text-white uppercase tracking-wider mt-4';
+    extrasContinueBtn.setAttribute('data-i18n', 'single.continue');
     extrasContinueBtn.textContent = t('single.continue');
     extrasContinueBtn.addEventListener('click', () => goToStep(6));
-    document.getElementById('singleStep5').querySelector('#extrasContainer').appendChild(extrasContinueBtn);
+    document.getElementById('singleStep5').appendChild(extrasContinueBtn);
 
     // Step 6: Logistics (masseuse preference and mobility)
     document.querySelectorAll('input[name="masseuse-pref"]').forEach(radio => {
@@ -276,6 +277,7 @@ function setupEventListeners() {
     // Add continue button to Step 6
     const logisticsContinueBtn = document.createElement('button');
     logisticsContinueBtn.className = 'btn-primary w-full py-4 rounded-xl font-semibold text-white uppercase tracking-wider mt-4';
+    logisticsContinueBtn.setAttribute('data-i18n', 'single.continue');
     logisticsContinueBtn.textContent = t('single.continue');
     logisticsContinueBtn.addEventListener('click', () => goToStep(7));
     document.getElementById('singleStep6').querySelector('.space-y-4').appendChild(logisticsContinueBtn);
