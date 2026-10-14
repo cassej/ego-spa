@@ -182,9 +182,10 @@ function generateWhatsAppMessage() {
         }
 
         const total = calculateSinglePrice();
+        const egoBasePrice = calculateSingleEgoBasePrice();
         const membershipFee = EGO_MEMBERSHIP?.firstYearPrice || 175;
-        const discountedPrice = roundTo5(Math.round(total * (1 - EGO_DISCOUNT)));
-        const egoPrice = discountedPrice + membershipFee;
+        const egoPrice = egoBasePrice + membershipFee;
+        const packUnitPrice = calculatePackUnitPrice();
         
         let finalPrice = total;
         let tierLabel = 'Regular';
@@ -194,6 +195,9 @@ function generateWhatsAppMessage() {
             finalPrice = egoPrice; 
             tierLabel = 'Ego Card';
             membershipText = `\n*${t('whatsapp.membershipFee')}:* +$${membershipFee}`;
+        } else if (state.single.selectedTier === 'pack' && packUnitPrice > 0) {
+            finalPrice = packUnitPrice;
+            tierLabel = 'Pack';
         }
 
         message = `*${t('whatsapp.newBookingSingle')}*

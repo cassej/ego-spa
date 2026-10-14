@@ -48,8 +48,7 @@ async function init() {
                 document.documentElement.lang = lang;
                 document.getElementById('langSelection').classList.add('hidden');
                 document.getElementById('massageSelection').classList.remove('hidden');
-                applyLanguage();
-                translateScenarioButtons();
+                refreshAllUI();
             });
         });
         loadMassageSelection();

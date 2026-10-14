@@ -1,22 +1,85 @@
-function calculateSinglePrice() {
-    let total = 0;
-
-    // Base price - always use regularPrice (not egoPrice)
+/**
+ * Calculate base price (without extras/addons) for single flow
+ * Uses regularPrice from M_CODE_PRICING for CodeBased/PackBased
+ * Uses basePrice + modifiers for Tiered
+ */
+function calculateSingleBasePrice() {
     if (['CodeBased', 'PackBased'].includes(state.single.pricingSystem) && state.single.mCode) {
         const mCodeData = M_CODE_PRICING[state.single.mCode];
         if (mCodeData) {
-            total = mCodeData.regularPrice || 0;
+            return mCodeData.regularPrice || 0;
         }
     } else if (state.single.pricingSystem === 'Tiered' && state.single.technique) {
         if (state.single.hands !== null && state.single.duration !== null) {
             const techniqueData = TECHNIQUE_DATA[state.single.technique];
             if (techniqueData && techniqueData.basePrice) {
-                total = techniqueData.basePrice || 0;
+                let total = techniqueData.basePrice || 0;
                 total += TIERED_MODIFIERS.hands[String(state.single.hands)] || 0;
                 total += TIERED_MODIFIERS.duration[String(state.single.duration)] || 0;
+                return total;
             }
         }
     }
+    return 0;
+}
+
+/**
+ * Calculate Ego Card base price (before extras/addons)
+ * CodeBased/PackBased: uses egoPrice from M_CODE_PRICING
+ * Tiered: applies EGO_DISCOUNT formula
+ */
+function calculateSingleEgoBasePrice() {
+    if (['CodeBased', 'PackBased'].includes(state.single.pricingSystem) && state.single.mCode) {
+        const mCodeData = M_CODE_PRICING[state.single.mCode];
+        if (mCodeData) {
+            return mCodeData.egoPrice || mCodeData.regularPrice || 0;
+        }
+    } else if (state.single.pricingSystem === 'Tiered' && state.single.technique) {
+        if (state.single.hands !== null && state.single.duration !== null) {
+            const techniqueData = TECHNIQUE_DATA[state.single.technique];
+            if (techniqueData && techniqueData.basePrice) {
+                let total = techniqueData.basePrice || 0;
+                total += TIERED_MODIFIERS.hands[String(state.single.hands)] || 0;
+                total += TIERED_MODIFIERS.duration[String(state.single.duration)] || 0;
+                return roundTo5(Math.round(total * (1 - EGO_DISCOUNT)));
+            }
+        }
+    }
+    return 0;
+}
+
+/**
+ * Calculate pack unit price per session
+ * Finds matching pack by duration, takes smallest size, returns price/sessions
+ */
+function calculatePackUnitPrice() {
+    const duration = state.single.duration;
+    if (!duration || !PACK_DATA) return 0;
+
+    // Map duration to pack code
+    // M51=20min, M52=40min, M54=60min, M53=90min
+    let packCode = null;
+    if (duration === 20) packCode = 'M51';
+    else if (duration === 40) packCode = 'M52';
+    else if (duration === 60) packCode = 'M54';
+    else if (duration === 90) packCode = 'M53';
+
+    const packData = PACK_DATA[packCode];
+    if (!packData) return 0;
+
+    // Find smallest size (by sessions)
+    const sizes = Object.values(packData.sizes);
+    if (sizes.length === 0) return 0;
+
+    // Sort by sessions ascending, take first
+    sizes.sort((a, b) => a.sessions - b.sessions);
+    const smallest = sizes[0];
+
+    return Math.round(smallest.price / smallest.sessions);
+}
+
+function calculateSinglePrice() {
+    let total = calculateSingleBasePrice();
 
     // Add extras
     state.single.extras.forEach(extra => {
@@ -36,25 +99,7 @@ function calculateSinglePrice() {
 }
 
 function calculateBasePrice() {
-    let total = 0;
-
-    if (['CodeBased', 'PackBased'].includes(state.single.pricingSystem) && state.single.mCode) {
-        const mCodeData = M_CODE_PRICING[state.single.mCode];
-        if (mCodeData) {
-            total = mCodeData.regularPrice || 0;
-        }
-    } else if (state.single.pricingSystem === 'Tiered' && state.single.technique) {
-        if (state.single.hands !== null && state.single.duration !== null) {
-            const techniqueData = TECHNIQUE_DATA[state.single.technique];
-            if (techniqueData && techniqueData.basePrice) {
-                total = techniqueData.basePrice || 0;
-                total += TIERED_MODIFIERS.hands[String(state.single.hands)] || 0;
-                total += TIERED_MODIFIERS.duration[String(state.single.duration)] || 0;
-            }
-        }
-    }
-
-    return total;
+    return calculateSingleBasePrice();
 }
 
 // Alias for calculateSinglePrice() for backward compatibility

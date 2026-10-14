@@ -147,12 +147,14 @@ function updateStickyFooter() {
 }
 
 /**
- * Calculate Ego Card price: massage with discount + $175 annual membership
+ * Calculate Ego Card total price: ego base price + $175 annual membership
+ * CodeBased/PackBased: egoPrice from M_CODE_PRICING + membership
+ * Tiered: discount formula + membership
  */
-function calculateEgoCardPrice(regularPrice) {
-    const discountedPrice = roundTo5(Math.round(regularPrice * (1 - EGO_DISCOUNT)));
+function calculateEgoCardPrice() {
+    const egoBasePrice = calculateSingleEgoBasePrice();
     const membershipFee = EGO_MEMBERSHIP?.firstYearPrice || 175;
-    return discountedPrice + membershipFee;
+    return egoBasePrice + membershipFee;
 }
 
 function updateSummary() {
@@ -180,7 +182,8 @@ function updateSummary() {
         details = parts.join(' · ');
         
         regularPrice = calculateSinglePrice();
-        egoPrice = calculateEgoCardPrice(regularPrice);
+        egoPrice = calculateEgoCardPrice();
+        packPrice = calculatePackUnitPrice();
         price = regularPrice;
     } else if (state.currentFlow === 'hotel' && state.hotel.technique) {
         const parts = [];
@@ -190,7 +193,10 @@ function updateSummary() {
         details = parts.join(' · ');
         
         regularPrice = calculateHotelPrice();
-        egoPrice = calculateEgoCardPrice(regularPrice);
+        // Hotel ego: use discount formula + membership
+        const membershipFee = EGO_MEMBERSHIP?.firstYearPrice || 175;
+        egoPrice = roundTo5(Math.round(regularPrice * (1 - EGO_DISCOUNT))) + membershipFee;
+        packPrice = 0;
         price = regularPrice;
     }
 
@@ -203,7 +209,7 @@ function updateSummary() {
 
     if (regularPrice > 0) {
         if (finalRegularPrice) finalRegularPrice.textContent = formatPrice(regularPrice);
-        if (finalPackPrice) finalPackPrice.textContent = formatPrice(regularPrice);
+        if (finalPackPrice) finalPackPrice.textContent = packPrice > 0 ? formatPrice(packPrice) : '—';
         if (finalEgoPrice) finalEgoPrice.textContent = formatPrice(egoPrice);
         
         if (egoPriceRow) egoPriceRow.classList.remove('hidden');
@@ -216,12 +222,14 @@ function updateSummary() {
             }
         });
         
-        // Show savings note (compare massage price only, not including membership)
-        const discountedPrice = roundTo5(Math.round(regularPrice * (1 - EGO_DISCOUNT)));
-        const savings = regularPrice - discountedPrice;
+        // Show savings note (compare massage base prices only, without membership)
+        const egoBasePrice = calculateSingleEgoBasePrice();
+        const savings = calculateSingleBasePrice() - egoBasePrice;
         if (egoSavingsNote && savings > 0) {
             egoSavingsNote.textContent = t('summary.savingsNote', { amount: formatPrice(savings) });
             egoSavingsNote.classList.remove('hidden');
+        } else {
+            if (egoSavingsNote) egoSavingsNote.classList.add('hidden');
         }
 
         // Show/hide ego benefits based on selected tier
@@ -386,10 +394,12 @@ function goToStep(step) {
 
 function updateTierTotal() {
     const regularPrice = calculateSinglePrice();
-    const egoPrice = calculateEgoCardPrice(regularPrice);
+    const egoPrice = calculateEgoCardPrice();
+    const packPrice = calculatePackUnitPrice();
 
     let total = regularPrice;
     if (state.single.selectedTier === 'ego') total = egoPrice;
+    else if (state.single.selectedTier === 'pack') total = packPrice > 0 ? packPrice : regularPrice;
 
     const finalPriceEl = document.getElementById('finalPrice');
     if (finalPriceEl) finalPriceEl.textContent = `$${total}`;
