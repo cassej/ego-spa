@@ -334,6 +334,10 @@ function goToStep(step) {
             updateMasseusesConstraints();
         }
 
+        if (step === 4) {
+            updateSensitiveOptions();
+        }
+
         if (step === 7) {
             updateFinalSummary();
         }
@@ -533,6 +537,28 @@ function updateConfigContinueButton() {
     if (!continueBtn) return;
     const bothSelected = state.single.hands !== null && state.single.duration !== null;
     continueBtn.disabled = !bothSelected;
+}
+
+/**
+ * Show/hide Double Sensitive based on gender
+ * Only men get Double Sensitive option; women and couple get only Sensitive
+ */
+function updateSensitiveOptions() {
+    const doubleOption = document.getElementById('doubleSensitiveOption');
+    if (!doubleOption) return;
+
+    const isMen = state.gender === 'men' || state.gender === null;
+    doubleOption.style.display = isMen ? '' : 'none';
+
+    if (!isMen) {
+        // Force Sensitive selection for women and couple
+        state.single.sensitive = 'sensitive';
+        state.single.sensitiveAddon = 0;
+        const sensitiveRadio = document.querySelector('input[name="sensitive"][data-sensitive="sensitive"]');
+        const doubleRadio = document.querySelector('input[name="sensitive"][data-sensitive="double-sensitive"]');
+        if (sensitiveRadio) sensitiveRadio.checked = true;
+        if (doubleRadio) doubleRadio.checked = false;
+    }
 }
 
 function updateHotelConfigContinueButton() {
@@ -1090,6 +1116,7 @@ function goBack() {
 }
 
 function resetSelections() {
+    const isMen = state.gender === 'men' || state.gender === null;
     state.single = {
         technique: null,
         techniqueName: '',
@@ -1102,8 +1129,8 @@ function resetSelections() {
         handsAddon: 0,
         duration: null,
         durationAddon: 0,
-        sensitive: 'double-sensitive',
-        sensitiveAddon: 25,
+        sensitive: isMen ? 'double-sensitive' : 'sensitive',
+        sensitiveAddon: isMen ? 25 : 0,
         extras: [],
         selectedScenarios: [],
         masseuseName: '',
@@ -1149,7 +1176,8 @@ function resetSelections() {
     document.querySelectorAll('input[type="radio"]').forEach(el => {
         el.checked = false;
     });
-    // Reset sensitive radio to default
-    const defaultSensitive = document.querySelector('input[name="sensitive"][data-sensitive="double-sensitive"]');
+    // Reset sensitive radio to default based on gender
+    const sensitiveKey = isMen ? 'double-sensitive' : 'sensitive';
+    const defaultSensitive = document.querySelector(`input[name="sensitive"][data-sensitive="${sensitiveKey}"]`);
     if (defaultSensitive) defaultSensitive.checked = true;
 }
