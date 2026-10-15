@@ -7,13 +7,6 @@
       "description": "11 km Aeropuerto Internacional de Tocumen · 17 km Casco Viejo",
       "description_en": "11 km Tocumen International Airport  · 17 km Casco Viejo"
     },
-    "marbella": {
-      "name": "Marbella",
-      "label": "Marbella",
-      "label_en": "Marbella",
-      "description": "18 km Aeropuerto Internacional de Tocumen · 6 km Casco Viejo",
-      "description_en": "18 km Tocumen International Airport  · 6 km Casco Viejo"
-    },
     "san-francisco": {
       "name": "San Francisco",
       "label": "San Francisco",
@@ -27,6 +20,13 @@
       "label_en": "El Dorado",
       "description": "24 km Aeropuerto Internacional de Tocumen · 8 km Casco Viejo",
       "description_en": "24 km Tocumen International Airport  · 8 km Casco Viejo"
+    },
+    "marbella": {
+      "name": "Marbella",
+      "label": "Marbella",
+      "label_en": "Marbella",
+      "description": "18 km Aeropuerto Internacional de Tocumen · 6 km Casco Viejo",
+      "description_en": "18 km Tocumen International Airport  · 6 km Casco Viejo"
     }
   },
   "TECHNIQUE_CATEGORIES": {
@@ -36,11 +36,7 @@
       "label_en": "Oriental Massage",
       "description": "Técnicas tradicionales del Oriente",
       "description_en": "Traditional techniques from the East",
-      "techniques": [
-        "tantric",
-        "thai",
-        "imperial"
-      ]
+      "techniques": ["tantric", "thai", "imperial"]
     },
     "DELUXE": {
       "name": "DELUXE",
@@ -48,11 +44,7 @@
       "label_en": "Deluxe Experience",
       "description": "Experiencias de masaje premium",
       "description_en": "Premium massage experiences",
-      "techniques": [
-        "nuru",
-        "flegg",
-        "lingam"
-      ]
+      "techniques": ["nuru", "flegg", "lingam"]
     },
     "MIX_MASSAGE": {
       "name": "MIX MASSAGE",
@@ -60,14 +52,7 @@
       "label_en": "Mix Massage",
       "description": "Técnicas de mezcla únicas",
       "description_en": "Unique blend techniques",
-      "techniques": [
-        "zurzum",
-        "miso",
-        "circuit",
-        "circuit-deluxe",
-        "cocktail",
-        "cocktail-deluxe"
-      ]
+      "techniques": ["zurzum", "miso", "circuit", "circuit-deluxe", "cocktail", "cocktail-deluxe"]
     },
     "COUPLE_MASSAGE": {
       "name": "COUPLE MASSAGE",
@@ -75,24 +60,36 @@
       "label_en": "Couple Massage",
       "description": "Experiencia especial para dos",
       "description_en": "Special experience for two",
-      "techniques": [
-        "tantric-couple",
-        "nuru-couple"
-      ]
+      "techniques": ["tantric-couple", "nuru-couple"]
     }
   },
   "MASSAGE_GENDERS": {
     "men": ["tantric", "thai", "imperial", "nuru", "flegg", "lingam", "zurzum", "miso", "circuit", "circuit-deluxe", "cocktail", "cocktail-deluxe"],
-    "women": ["tantric", "thai", "imperial", "nuru", "flegg", "zurzum", "miso", "circuit", "circuit-deluxe", "cocktail", "cocktail-deluxe"],
+    "women": ["tantric", "nuru"],
     "couple": ["tantric-couple", "nuru-couple"]
   },
   "MASSAGE_GENDER_TRANSLATIONS": {
-    "men": { "label": "Masajes para Hombres", "label_en": "Massages for Men", "desc": "Terapeuta femenina. Experiencia personalizada.", "desc_en": "Female therapist. Personalized experience." },
-    "women": { "label": "Masajes para Mujeres", "label_en": "Massages for Women", "desc": "Terapeuta femenina. Ambiente relajante.", "desc_en": "Female therapist. Relaxing environment." },
-    "couple": { "label": "Masaje en Pareja", "label_en": "Couple Massage", "desc": "Experiencia especial para dos personas.", "desc_en": "Special experience for two people." }
+    "men": {
+      "label": "Masajes para Hombres",
+      "label_en": "Massages for Men",
+      "desc": "Terapeuta femenina. Experiencia personalizada.",
+      "desc_en": "Female therapist. Personalized experience."
+    },
+    "women": {
+      "label": "Masajes para Mujeres",
+      "label_en": "Massages for Women",
+      "desc": "Terapeuta femenina. Ambiente relajante.",
+      "desc_en": "Female therapist. Relaxing environment."
+    },
+    "couple": {
+      "label": "Masaje en Pareja",
+      "label_en": "Couple Massage",
+      "desc": "Experiencia especial para dos personas.",
+      "desc_en": "Special experience for two people."
+    }
   },
   "EGO_BENEFITS": [
-    { "es": "18% de descuento en todos los masajes", "en": "18% discount on all massages" },
+    { "es": "descuentos en todos los masajes y packs", "en": "discounts on all massages and packs" },
     { "es": "Acceso a promociones exclusivas", "en": "Access to exclusive promotions" },
     { "es": "Prioridad en reservas", "en": "Priority booking" },
     { "es": "Beneficios acumulables", "en": "Stackable benefits" }
@@ -106,34 +103,10 @@
       "description": "Masajes Tantrico Express",
       "description_en": "Tantric Express Massage",
       "sizes": {
-        "S": {
-          "label": "Small 30 dias",
-          "label_en": "Small 30 days",
-          "sessions": 3,
-          "price": 115,
-          "egoPrice": 0
-        },
-        "M": {
-          "label": "Médium 3 meses",
-          "label_en": "Medium 3 months",
-          "sessions": 6,
-          "price": 185,
-          "egoPrice": 0
-        },
-        "L": {
-          "label": "Large 6 meses",
-          "label_en": "Large 6 months",
-          "sessions": 14,
-          "price": 395,
-          "egoPrice": 0
-        },
-        "U": {
-          "label": "Ilimitado 12 Meses",
-          "label_en": "12 Month Unlimited",
-          "sessions": 362,
-          "price": 1995,
-          "egoPrice": 0
-        }
+        "S": { "label": "Small 30 dias", "label_en": "Small 30 days", "sessions": 3, "price": 115, "egoPrice": 0 },
+        "M": { "label": "Médium 3 meses", "label_en": "Medium 3 months", "sessions": 6, "price": 185, "egoPrice": 0 },
+        "L": { "label": "Large 6 meses", "label_en": "Large 6 months", "sessions": 14, "price": 395, "egoPrice": 0 },
+        "U": { "label": "Ilimitado 12 Meses", "label_en": "12 Month Unlimited", "sessions": 362, "price": 1995, "egoPrice": 0 }
       }
     },
     "M52": {
@@ -144,34 +117,10 @@
       "description": "Masajes Orientales (Tantrico, Thai & Imperial)",
       "description_en": "Oriental Massage (Tantrico, Thai & Imperial)",
       "sizes": {
-        "S": {
-          "label": "Small 30 dias",
-          "label_en": "Small 30 days",
-          "sessions": 2,
-          "price": 135,
-          "egoPrice": 0
-        },
-        "M": {
-          "label": "Médium 3 meses",
-          "label_en": "Medium 3 months",
-          "sessions": 3,
-          "price": 195,
-          "egoPrice": 0
-        },
-        "L": {
-          "label": "Large 6 meses",
-          "label_en": "Large 6 months",
-          "sessions": 10,
-          "price": 395,
-          "egoPrice": 0
-        },
-        "U": {
-          "label": "Ilimitado 12 Meses",
-          "label_en": "12 Month Unlimited",
-          "sessions": 362,
-          "price": 2595,
-          "egoPrice": 0
-        }
+        "S": { "label": "Small 30 dias", "label_en": "Small 30 days", "sessions": 2, "price": 135, "egoPrice": 0 },
+        "M": { "label": "Médium 3 meses", "label_en": "Medium 3 months", "sessions": 3, "price": 195, "egoPrice": 0 },
+        "L": { "label": "Large 6 meses", "label_en": "Large 6 months", "sessions": 10, "price": 395, "egoPrice": 0 },
+        "U": { "label": "Ilimitado 12 Meses", "label_en": "12 Month Unlimited", "sessions": 362, "price": 2595, "egoPrice": 0 }
       }
     },
     "M53": {
@@ -182,34 +131,10 @@
       "description": "Masajes Orientales y Deluxe",
       "description_en": "Deluxe & Oriental Massage",
       "sizes": {
-        "R": {
-          "label": "Regular 3 meses",
-          "label_en": "Regular 3 months",
-          "sessions": 3,
-          "price": 295,
-          "egoPrice": 0
-        },
-        "D": {
-          "label": "Deluxe 5 meses",
-          "label_en": "Deluxe 5 months",
-          "sessions": 3,
-          "price": 375,
-          "egoPrice": 0
-        },
-        "XL": {
-          "label": "XL 1 año",
-          "label_en": "1 year XL",
-          "sessions": 6,
-          "price": 695,
-          "egoPrice": 0
-        },
-        "U": {
-          "label": "Ilimitado 12 Meses",
-          "label_en": "12 Month Unlimited",
-          "sessions": 362,
-          "price": 3995,
-          "egoPrice": 0
-        }
+        "R": { "label": "Regular 3 meses", "label_en": "Regular 3 months", "sessions": 3, "price": 295, "egoPrice": 0 },
+        "D": { "label": "Deluxe 5 meses", "label_en": "Deluxe 5 months", "sessions": 3, "price": 375, "egoPrice": 0 },
+        "XL": { "label": "XL 1 año", "label_en": "1 year XL", "sessions": 6, "price": 695, "egoPrice": 0 },
+        "U": { "label": "Ilimitado 12 Meses", "label_en": "12 Month Unlimited", "sessions": 362, "price": 3995, "egoPrice": 0 }
       }
     },
     "M54": {
@@ -220,517 +145,209 @@
       "description": "Masajes Orientales y Deluxe",
       "description_en": "Deluxe & Oriental Massage",
       "sizes": {
-        "R": {
-          "label": "Regular 6 meses",
-          "label_en": "Regular 6 months",
-          "sessions": 6,
-          "price": 450,
-          "egoPrice": 0
-        },
-        "D": {
-          "label": "Deluxe 6 meses",
-          "label_en": "Deluxe 6 months",
-          "sessions": 6,
-          "price": 570,
-          "egoPrice": 0
-        },
-        "XL": {
-          "label": "XL 1 año",
-          "label_en": "1 year XL",
-          "sessions": 14,
-          "price": 1200,
-          "egoPrice": 0
-        },
-        "U": {
-          "label": "Ilimitado 12 Meses",
-          "label_en": "12 Month Unlimited",
-          "sessions": 362,
-          "price": 2995,
-          "egoPrice": 0
-        }
+        "R": { "label": "Regular 6 meses", "label_en": "Regular 6 months", "sessions": 6, "price": 450, "egoPrice": 0 },
+        "D": { "label": "Deluxe 6 meses", "label_en": "Deluxe 6 months", "sessions": 6, "price": 570, "egoPrice": 0 },
+        "XL": { "label": "XL 1 año", "label_en": "1 year XL", "sessions": 14, "price": 1200, "egoPrice": 0 },
+        "U": { "label": "Ilimitado 12 Meses", "label_en": "12 Month Unlimited", "sessions": 362, "price": 2995, "egoPrice": 0 }
       }
     }
   },
   "M_CODE_PRICING": {
-    "M11": {
-      "code": "M11",
-      "duration": 20,
-      "hands": 2,
-      "regularPrice": 55,
-      "egoPrice": 50
-    },
-    "M12": {
-      "code": "M12",
-      "duration": 40,
-      "hands": 2,
-      "regularPrice": 85,
-      "egoPrice": 70
-    },
-    "M13": {
-      "code": "M13",
-      "duration": 60,
-      "hands": 2,
-      "regularPrice": 105,
-      "egoPrice": 85
-    },
-    "M14": {
-      "code": "M14",
-      "duration": 90,
-      "hands": 2,
-      "regularPrice": 155,
-      "egoPrice": 135
-    },
-    "M15": {
-      "code": "M15",
-      "duration": 40,
-      "hands": 4,
-      "regularPrice": 120,
-      "egoPrice": 100
-    },
-    "M16": {
-      "code": "M16",
-      "duration": 75,
-      "hands": 4,
-      "regularPrice": 155,
-      "egoPrice": 135
-    },
-    "M17": {
-      "code": "M17",
-      "duration": 60,
-      "hands": 6,
-      "regularPrice": 250,
-      "egoPrice": 200
-    },
-    "M18": {
-      "code": "M18",
-      "duration": 60,
-      "hands": 8,
-      "regularPrice": 350,
-      "egoPrice": 300
-    },
-    "P01": {
-      "code": "P01",
-      "duration": 75,
-      "hands": 4,
-      "regularPrice": 200,
-      "egoPrice": 165
-    },
-    "P02": {
-      "code": "P02",
-      "duration": 90,
-      "hands": 4,
-      "regularPrice": 250,
-      "egoPrice": 200
-    },
-    "P03": {
-      "code": "P03",
-      "duration": 120,
-      "hands": 8,
-      "regularPrice": 350,
-      "egoPrice": 300
-    },
-    "M21": {
-      "code": "M21",
-      "duration": 60,
-      "hands": 2,
-      "regularPrice": 135,
-      "egoPrice": 105
-    },
-    "M22": {
-      "code": "M22",
-      "duration": 90,
-      "hands": 2,
-      "regularPrice": 175,
-      "egoPrice": 145
-    },
-    "M23": {
-      "code": "M23",
-      "duration": 75,
-      "hands": 4,
-      "regularPrice": 175,
-      "egoPrice": 145
-    },
-    "M31": {
-      "code": "M31",
-      "duration": 60,
-      "hands": 6,
-      "regularPrice": 135,
-      "egoPrice": 105
-    },
-    "M32": {
-      "code": "M32",
-      "duration": 90,
-      "hands": 6,
-      "regularPrice": 175,
-      "egoPrice": 145
-    },
-    "M33": {
-      "code": "M33",
-      "duration": 90,
-      "hands": 6,
-      "regularPrice": 200,
-      "egoPrice": 175
-    },
-    "M34": {
-      "code": "M34",
-      "duration": 120,
-      "hands": 4,
-      "regularPrice": 225,
-      "egoPrice": 200
-    },
-    "M35": {
-      "code": "M35",
-      "duration": 120,
-      "hands": 4,
-      "regularPrice": 250,
-      "egoPrice": 225
-    }
+    "M11": { "code": "M11", "duration": 20, "hands": 2, "regularPrice": 55, "egoPrice": 50 },
+    "M12": { "code": "M12", "duration": 40, "hands": 2, "regularPrice": 85, "egoPrice": 70 },
+    "M13": { "code": "M13", "duration": 60, "hands": 2, "regularPrice": 105, "egoPrice": 85 },
+    "M14": { "code": "M14", "duration": 90, "hands": 2, "regularPrice": 155, "egoPrice": 135 },
+    "M15": { "code": "M15", "duration": 40, "hands": 4, "regularPrice": 120, "egoPrice": 100 },
+    "M16": { "code": "M16", "duration": 75, "hands": 4, "regularPrice": 155, "egoPrice": 135 },
+    "M17": { "code": "M17", "duration": 60, "hands": 6, "regularPrice": 250, "egoPrice": 200 },
+    "M18": { "code": "M18", "duration": 60, "hands": 8, "regularPrice": 350, "egoPrice": 300 },
+    "P01": { "code": "P01", "duration": 75, "hands": 4, "regularPrice": 200, "egoPrice": 165 },
+    "P02": { "code": "P02", "duration": 90, "hands": 4, "regularPrice": 250, "egoPrice": 200 },
+    "P03": { "code": "P03", "duration": 120, "hands": 8, "regularPrice": 350, "egoPrice": 300 },
+    "M21": { "code": "M21", "duration": 60, "hands": 2, "regularPrice": 135, "egoPrice": 105 },
+    "M22": { "code": "M22", "duration": 90, "hands": 2, "regularPrice": 175, "egoPrice": 145 },
+    "M23": { "code": "M23", "duration": 75, "hands": 4, "regularPrice": 175, "egoPrice": 145 },
+    "M31": { "code": "M31", "duration": 60, "hands": 6, "regularPrice": 135, "egoPrice": 105 },
+    "M32": { "code": "M32", "duration": 90, "hands": 6, "regularPrice": 175, "egoPrice": 145 },
+    "M33": { "code": "M33", "duration": 90, "hands": 6, "regularPrice": 200, "egoPrice": 175 },
+    "M34": { "code": "M34", "duration": 120, "hands": 4, "regularPrice": 225, "egoPrice": 200 },
+    "M35": { "code": "M35", "duration": 120, "hands": 4, "regularPrice": 250, "egoPrice": 225 }
   },
   "HOTEL_SERVICE_PRICING": {
-    "75-2": {
-      "duration": 75,
-      "hands": 2,
-      "regularPrice": 165,
-      "egoPrice": 165
-    },
-    "90-2": {
-      "duration": 90,
-      "hands": 2,
-      "regularPrice": 225,
-      "egoPrice": 225
-    },
-    "90-4": {
-      "duration": 90,
-      "hands": 4,
-      "regularPrice": 275,
-      "egoPrice": 275
-    },
-    "60-6": {
-      "duration": 60,
-      "hands": 6,
-      "regularPrice": 325,
-      "egoPrice": 325
-    },
-    "60-8": {
-      "duration": 60,
-      "hands": 8,
-      "regularPrice": 385,
-      "egoPrice": 385
-    }
+    "75-2": { "duration": 75, "hands": 2, "regularPrice": 165, "egoPrice": 165 },
+    "90-2": { "duration": 90, "hands": 2, "regularPrice": 225, "egoPrice": 225 },
+    "90-4": { "duration": 90, "hands": 4, "regularPrice": 275, "egoPrice": 275 },
+    "60-6": { "duration": 60, "hands": 6, "regularPrice": 325, "egoPrice": 325 },
+    "60-8": { "duration": 60, "hands": 8, "regularPrice": 385, "egoPrice": 385 }
   },
   "TECHNIQUE_DATA": {
     "tantric": {
       "name": "Tantrico",
       "pricingSystem": "CodeBased",
-      "allowedScenarios": [
-        "shower",
-        "massage-table",
-        "tatami-dry",
-        "tantric-couch",
-        "tantric-chair"
-      ],
+      "allowedScenarios": ["shower", "massage-table", "tatami-dry", "tantric-couch", "tantric-chair"],
       "name_en": "Tantric",
       "description": "Masaje oriental cuerpo a cuerpo, suave y sensitivo. Disfruta ducha tántrica, pileta, tatami, diván o camilla. Experiencia única hoy!",
       "description_en": "Oriental body-to-body massage, soft and sensual. Enjoy tantric shower, pool, tatami, divan or table. A unique experience today now!!",
       "category": "ORIENTAL_MASSAGE",
-      "allowedCodes": [
-        "M11",
-        "M12",
-        "M13",
-        "M14",
-        "M15",
-        "M16",
-        "M17",
-        "M18"
-      ]
+      "allowedCodes": ["M11", "M12", "M13", "M14", "M15", "M16", "M17", "M18"]
     },
     "thai": {
       "name": "Thai",
       "pricingSystem": "CodeBased",
-      "allowedScenarios": [
-        "tatami-dry"
-      ],
+      "allowedScenarios": ["tatami-dry"],
       "name_en": "Thai",
       "description": "Masaje intenso descontracturante boca abajo y tántrico boca arriba, combinando fuerza y sensibilidad en una experiencia profunda.!!",
       "description_en": "Intense deep tissue massage face down and tantric touch face up, blending strength and sensitivity into a deeply relaxing experience.",
       "category": "ORIENTAL_MASSAGE",
-      "allowedCodes": [
-        "M12",
-        "M13",
-        "M14",
-        "M15",
-        "M16"
-      ]
+      "allowedCodes": ["M12", "M13", "M14", "M15", "M16"]
     },
     "imperial": {
       "name": "Imperial",
       "pricingSystem": "CodeBased",
-      "allowedScenarios": [
-        "massage-table"
-      ],
+      "allowedScenarios": ["massage-table"],
       "name_en": "Imperial",
       "description": "Masaje estilo Thai en camilla, con mayor enfoque en hombros, cuello y cabeza, liberando tensión y mejorando movilidad total.",
       "description_en": "Thai-style massage on a table, with deeper focus on shoulders, neck and head, relieving tension and enhancing mobility and well-being.",
       "category": "ORIENTAL_MASSAGE",
-      "allowedCodes": [
-        "M12",
-        "M13",
-        "M14",
-        "M15",
-        "M16"
-      ]
+      "allowedCodes": ["M12", "M13", "M14", "M15", "M16"]
     },
     "nuru": {
       "name": "Nuru",
       "pricingSystem": "Tiered",
-      "allowedScenarios": [
-        "tatami-wet",
-        "tantric-sink"
-      ],
+      "allowedScenarios": ["tatami-wet", "tantric-sink"],
       "name_en": "Nuru",
       "description": "Masaje Deluxe en gel, experiencia sensorial cuerpo a cuerpo, fluida y envolvente, que eleva el placer y la relajación a nivel total.!",
       "description_en": "Deluxe gel massage, body-to-body sensory experience, smooth and enveloping, elevating pleasure and relaxation to a higher level now!",
       "category": "DELUXE",
       "basePrice": 135,
       "allowedCombinations": [
-        {
-          "hands": 2,
-          "duration": 60
-        },
-        {
-          "hands": 2,
-          "duration": 90
-        },
-        {
-          "hands": 4,
-          "duration": 75
-        }
+        { "hands": 2, "duration": 60 },
+        { "hands": 2, "duration": 90 },
+        { "hands": 4, "duration": 75 }
       ]
     },
     "flegg": {
       "name": "Fleggs",
       "pricingSystem": "Tiered",
-      "allowedScenarios": [
-        "tatami-wet",
-        "tantric-sink"
-      ],
+      "allowedScenarios": ["tatami-wet", "tantric-sink"],
       "name_en": "Fleggs",
       "description": "Masaje Deluxe en tatami con gel, técnica Nuru y tántrica. Pies y antepié dominan. Experiencia intensa, sensorial y única creada por nosotras.",
       "description_en": "Deluxe tatami gel massage blending Nuru and tantric techniques. Feet and forefoot lead. Intense, sensory and unique experience by us.",
       "category": "DELUXE",
       "basePrice": 135,
       "allowedCombinations": [
-        {
-          "hands": 2,
-          "duration": 60
-        },
-        {
-          "hands": 2,
-          "duration": 90
-        },
-        {
-          "hands": 4,
-          "duration": 75
-        }
+        { "hands": 2, "duration": 60 },
+        { "hands": 2, "duration": 90 },
+        { "hands": 4, "duration": 75 }
       ]
     },
     "lingam": {
       "name": "Lingam",
       "pricingSystem": "Tiered",
-      "allowedScenarios": [
-        "massage-table",
-        "tatami-dry"
-      ],
+      "allowedScenarios": ["massage-table", "tatami-dry"],
       "name_en": "Lingam",
       "description": "Masaje Deluxe enfocado en el pene, con técnicas precisas de presión en zonas clave, brindando estimulación controlada y placer intenso.",
       "description_en": "Deluxe massage focused on the penis, using precise pressure techniques on key areas, delivering controlled stimulation and intense pleasure.",
       "category": "DELUXE",
       "basePrice": 135,
       "allowedCombinations": [
-        {
-          "hands": 2,
-          "duration": 60
-        },
-        {
-          "hands": 2,
-          "duration": 90
-        },
-        {
-          "hands": 4,
-          "duration": 75
-        }
+        { "hands": 2, "duration": 60 },
+        { "hands": 2, "duration": 90 },
+        { "hands": 4, "duration": 75 }
       ]
     },
     "zurzum": {
       "name": "Zurzum",
       "pricingSystem": "CodeBased",
-      "allowedScenarios": [
-        "massage-table",
-        "tatami-dry"
-      ],
+      "allowedScenarios": ["massage-table", "tatami-dry"],
       "name_en": "Zurzum",
       "description": "Masaje mixto exclusivo: 20% tántrico y 40% shiatsu. Combina estimulación sensorial con alivio profundo relajación total y bienestar",
       "description_en": "Exclusive blend massage: 20% tantric and 40% shiatsu. Combines sensory stimulation with deep relief, relaxation and wellbeing total!",
       "category": "MIX_MASSAGE",
-      "allowedCodes": [
-        "M12",
-        "M13",
-        "M14",
-        "M15",
-        "M16"
-      ]
+      "allowedCodes": ["M12", "M13", "M14", "M15", "M16"]
     },
     "miso": {
       "name": "Misos",
       "pricingSystem": "CodeBased",
-      "allowedScenarios": [
-        "massage-table",
-        "tatami-dry"
-      ],
+      "allowedScenarios": ["massage-table", "tatami-dry"],
       "name_en": "Misos",
       "description": "Masaje mixto terapéutico y sensitivo con masajistas en lencería. Incluye relajante, piedras calientes y reflexología. Final armónico",
       "description_en": "Mixed therapeutic and sensory massage with lingerie-clad therapists. Includes relaxing, hot stones and reflexology. Harmonious finish!",
       "category": "MIX_MASSAGE",
-      "allowedCodes": [
-        "M12",
-        "M13",
-        "M14",
-        "M15",
-        "M16"
-      ]
+      "allowedCodes": ["M12", "M13", "M14", "M15", "M16"]
     },
     "circuit": {
       "name": "Circuito Oriental",
       "pricingSystem": "Tiered",
-      "allowedScenarios": [
-        "shower",
-        "massage-table",
-        "tatami-dry",
-        "tantric-couch",
-        "tantric-chair"
-      ],
+      "allowedScenarios": ["shower", "massage-table", "tatami-dry", "tantric-couch", "tantric-chair"],
       "name_en": "Oriental Circuit",
       "description": "Masaje mixto con técnicas terapéuticas y orientales por varias masajistas. Circuitos de 90 o 60 min con cierre tántrico integral",
       "description_en": "Mixed massage with therapeutic and oriental techniques by multiple therapists. 90 or 60 min circuits with a complete tantric finish experience",
       "category": "MIX_MASSAGE",
       "basePrice": 165,
       "allowedCombinations": [
-        {
-          "hands": 6,
-          "duration": 60
-        },
-        {
-          "hands": 6,
-          "duration": 90
-        }
+        { "hands": 6, "duration": 60 },
+        { "hands": 6, "duration": 90 }
       ]
     },
     "circuit-deluxe": {
       "name": "Circuito Deluxe",
       "pricingSystem": "Tiered",
-      "allowedScenarios": [
-        "shower",
-        "massage-table",
-        "tatami-dry",
-        "tatami-wet",
-        "tantric-couch",
-        "tantric-chair",
-        "tantric-sink"
-      ],
+      "allowedScenarios": ["shower", "massage-table", "tatami-dry", "tatami-wet", "tantric-couch", "tantric-chair", "tantric-sink"],
       "name_en": "Circuit Deluxe",
       "description": "90 min en 3 sesiones de 30 min con cierre tántrico. Incluye opciones Lingam, Nuru o FLEGS para una experiencia premium",
       "description_en": "90 min in 3 sessions of 30 min with tantric finish. Includes Lingam, Nuru or FLEGS options for a premium experience now!",
       "category": "MIX_MASSAGE",
       "basePrice": 165,
       "allowedCombinations": [
-        {
-          "hands": 6,
-          "duration": 90
-        }
+        { "hands": 6, "duration": 90 }
       ]
     },
     "cocktail": {
       "name": "Cocktail Oriental",
       "pricingSystem": "Tiered",
-      "allowedScenarios": [
-        "shower",
-        "massage-table",
-        "tatami-dry",
-        "tantric-couch",
-        "tantric-chair"
-      ],
+      "allowedScenarios": ["shower", "massage-table", "tatami-dry", "tantric-couch", "tantric-chair"],
       "name_en": "Cocktail Oriental",
       "description": "Experiencia de 2 horas que fusiona técnicas terapéuticas y orientales. Elige 2 a 4 estilos en tatami o camilla para relajar y renovar",
       "description_en": "2-hour experience blending therapeutic and oriental techniques. Choose 2 to 4 styles on tatami or table to relax, release tension and renew body",
       "category": "MIX_MASSAGE",
       "basePrice": 195,
       "allowedCombinations": [
-        {
-          "hands": 4,
-          "duration": 120
-        }
+        { "hands": 4, "duration": 120 }
       ]
     },
     "cocktail-deluxe": {
       "name": "Cocktail Deluxe",
       "pricingSystem": "Tiered",
-      "allowedScenarios": [
-        "shower",
-        "massage-table",
-        "tatami-dry",
-        "tatami-wet",
-        "tantric-couch",
-        "tantric-chair",
-        "tantric-sink"
-      ],
+      "allowedScenarios": ["shower", "massage-table", "tatami-dry", "tatami-wet", "tantric-couch", "tantric-chair", "tantric-sink"],
       "name_en": "Cocktail Deluxe",
       "description": "Experiencia Deluxe de 2 horas que fusiona técnicas orientales y sensoriales. Elige 2 a 4 estilos con cierre Nuru, Lingam o FLEGS premium",
       "description_en": "Deluxe 2-hour experience blending oriental and sensory techniques. Choose 2 to 4 styles with Nuru, Lingam or FLEGS premium finish now!",
       "category": "MIX_MASSAGE",
       "basePrice": 195,
       "allowedCombinations": [
-        {
-          "hands": 4,
-          "duration": 120
-        }
+        { "hands": 4, "duration": 120 }
       ]
     },
     "tantric-couple": {
       "name": "Tantrico Parejas",
       "pricingSystem": "PackBased",
-      "allowedScenarios": [
-        "massage-table",
-        "tatami-dry",
-        "tantric-couch",
-        "tantric-chair"
-      ],
+      "allowedScenarios": ["massage-table", "tatami-dry", "tantric-couch", "tantric-chair"],
       "name_en": "Tantric Couple",
       "description": "Experiencia en pareja estilo tántrico cuerpo a cuerpo. Conexión sensorial guiada, con opción de privacidad o acompañamiento sutil",
       "description_en": "Couples body-to-body tantric experience. Guided sensory connection with option for privacy or subtle therapist presence throughout**",
       "category": "COUPLE_MASSAGE",
-      "allowedCodes": [
-        "P01",
-        "P03"
-      ]
+      "allowedCodes": ["P01", "P03"]
     },
     "nuru-couple": {
       "name": "Nuru Parejas",
       "pricingSystem": "PackBased",
-      "allowedScenarios": [
-        "massage-table",
-        "tatami-dry",
-        "tatami-wet",
-        "tantric-couch",
-        "tantric-chair",
-        "tantric-sink"
-      ],
+      "allowedScenarios": ["massage-table", "tatami-dry", "tatami-wet", "tantric-couch", "tantric-chair", "tantric-sink"],
       "name_en": "Nuru Couple",
       "description": "Experiencia en pareja estilo Nuru con gel sedoso, fluidez y conexión intensa. Opción de privacidad o acompañamiento sutil y respetuoso",
       "description_en": "Couples Nuru experience with silky gel, fluid motion and deep connection. Option for privacy or subtle, respectful therapist presence**",
       "category": "COUPLE_MASSAGE",
-      "allowedCodes": [
-        "P02"
-      ]
+      "allowedCodes": ["P02"]
     }
   },
   "SCENARIO_DATA": {
@@ -785,33 +402,19 @@
     }
   },
   "SCENARIO_RULES": {
-    "limits_by_duration": {
-      "40": 2,
-      "60": 3,
-      "75": 3,
-      "90": 3,
-      "120": 4
-    },
+    "limits_by_duration": { "40": 2, "60": 3, "75": 3, "90": 3, "120": 4 },
     "technique_exclusions": {
       "tantric": [],
-      "thai": [
-        "shower"
-      ],
+      "thai": ["shower"],
       "imperial": [],
       "nuru": [],
       "flegg": [],
       "lingam": [],
       "zurzum": [],
       "miso": [],
-      "circuit": [
-        "tatami-wet",
-        "tantric-sink"
-      ],
+      "circuit": ["tatami-wet", "tantric-sink"],
       "circuit-deluxe": [],
-      "cocktail": [
-        "tatami-wet",
-        "tantric-sink"
-      ],
+      "cocktail": ["tatami-wet", "tantric-sink"],
       "cocktail-deluxe": [],
       "tantric-couple": [],
       "nuru-couple": []
@@ -841,9 +444,9 @@
   },
   "EXTRAS_DATA": {
     "shower-exfoliation": {
-      "name": "Ducha Exfoliante Caliente",
+      "name": "Exfoliación en Ducha Caliente",
       "name_en": "Hot Shower Exfoliation",
-      "description": "Experiencia de ducha exfoliante",
+      "description": "Exfoliación en ducha caliente",
       "description_en": "Exfoliating hot shower experience",
       "price": 25
     },
@@ -857,8 +460,8 @@
     "mani-pedi": {
       "name": "Manicure y Pedicure",
       "name_en": "Manicure & Pedicure",
-      "description": "Cuidado completo de uñas",
-      "description_en": "Complete nail care",
+      "description": "Corte basico de uñas de manos y pies",
+      "description_en": "Basic nail care",
       "price": 25
     },
     "extra-shiatsu": {
@@ -883,28 +486,23 @@
       "price": 25
     },
     "body-trimming": {
-      "name": "Recorte de Vello Corporal",
+      "name": "Depilación con maquina",
       "name_en": "Body Hair Trimming",
       "description": "Afeitado parcial o corporal completo",
       "description_en": "Partial or full body grooming",
       "price": 25
+    },
+    "hot-stone": {
+      "name": "+15 min Masaje Piedras Calientes",
+      "name_en": "Extra 15 min Hot Stone Massage",
+      "description": "Masaje de piedras calientes",
+      "description_en": "Hot stone massage",
+      "price": 25
     }
   },
   "TIERED_MODIFIERS": {
-    "hands": {
-      "2": 0,
-      "4": 50,
-      "6": 100,
-      "8": 150
-    },
-    "duration": {
-      "20": -20,
-      "40": -20,
-      "60": 0,
-      "75": 25,
-      "90": 50,
-      "120": 100
-    }
+    "hands": { "2": 0, "4": 50, "6": 100, "8": 150 },
+    "duration": { "20": -20, "40": -20, "60": 0, "75": 25, "90": 50, "120": 100 }
   },
   "EGO_DISCOUNT": 0.18,
   "EGO_MEMBERSHIP": {
@@ -916,70 +514,29 @@
     "description_en": "Exclusive membership with discounts and perks"
   },
   "MASSEUSES": {
-    "canela": {
-      "name": "Canela",
-      "name_en": "Canela",
-      "active": true
-    },
-    "valentina": {
-      "name": "Valentina",
-      "name_en": "Valentina",
-      "active": true
-    },
-    "dulce": {
-      "name": "Dulce",
-      "name_en": "Dulce",
-      "active": true
-    },
-    "paloma": {
-      "name": "Paloma",
-      "name_en": "Paloma",
-      "active": true
-    }
+    "Canela": { "name": "Canela", "name_en": "Canela", "active": true },
+    "Paris": { "name": "Paris", "name_en": "Paris", "active": true },
+    "Chardonay": { "name": "Chardonay", "name_en": "Chardonay", "active": true },
+    "Ginger": { "name": "Ginger", "name_en": "Ginger", "active": true },
+    "Cancun": { "name": "Cancun", "name_en": "Cancun", "active": true },
+    "Mezcal": { "name": "Mezcal", "name_en": "Mezcal", "active": true },
+    "Africa": { "name": "Africa", "name_en": "Africa", "active": true },
+    "June": { "name": "June", "name_en": "June", "active": true }
   },
   "HOTEL_SCENARIO_PRICE": 25,
-  "HOTEL_TECHNIQUES": [
-    "tantric",
-    "thai",
-    "nuru",
-    "lingam"
-  ],
+  "HOTEL_TECHNIQUES": ["tantric", "thai", "nuru", "lingam"],
   "HOTEL_TECHNIQUE_HANDS": {
-    "tantric": [
-      2,
-      4,
-      6,
-      8
-    ],
-    "thai": [
-      2,
-      4
-    ],
-    "nuru": [
-      2,
-      4
-    ],
-    "lingam": [
-      2,
-      4
-    ]
+    "tantric": [2, 4, 6, 8],
+    "thai": [2, 4],
+    "nuru": [2, 4],
+    "lingam": [2, 4]
   },
-  "WHATSAPP_NUMBER": "50760188579",
+  "WHATSAPP_NUMBER": "50760260873",
   "BUSINESS_HOURS": {
-    "weekdays": {
-      "label": "Lunes a Sábado",
-      "label_en": "Monday to Saturday",
-      "open": "08:30",
-      "close": "00:30"
-    },
-    "weekends": {
-      "label": "Domingos y Feriados",
-      "label_en": "Sundays and Holidays",
-      "open": "10:00",
-      "close": "00:30"
-    },
+    "weekdays": { "label": "Lunes a Sábado", "label_en": "Monday to Saturday", "open": "08:30", "close": "00:30" },
+    "weekends": { "label": "Domingos y Feriados", "label_en": "Sundays and Holidays", "open": "10:00", "close": "00:30" },
     "lastAppointment": "00:00",
-    "nightRateAfter": "23:00",
+    "nightRateAfter": "22:45",
     "nightRateBefore": "06:00"
   },
   "FLOWS": [
@@ -1236,11 +793,11 @@
       "serviceType.schedules.desc": "Consulta nuestros horarios de atención.",
       "massage.title": "MASAJES",
       "massage.subtitle": "Selecciona el tipo de masaje",
-      "massage.men.label": "HOMBRES",
+      "massage.men.label": "MASAJES PARA HOMBRES",
       "massage.men.desc": "Terapeuta femenina. Experiencia personalizada.",
-      "massage.women.label": "MUJERES",
+      "massage.women.label": "MASAJES PARA MUJERES",
       "massage.women.desc": "Terapeuta femenina. Ambiente relajante.",
-      "massage.couple.label": "PAREJA",
+      "massage.couple.label": "MASAJE EN PAREJA",
       "massage.couple.desc": "Experiencia especial para dos personas.",
       "massage.hotel.label": "SERVICIO A HOTEL",
       "massage.hotel.desc": "Servicio a tu habitación. Disponible 24/7.",
@@ -1266,8 +823,6 @@
       "extras.doubleSensitiveDesc": "Experiencia mejorada con exfoliación de ducha caliente",
       "extras.doublePleasure": "EXPERIENCIA DE DOBLE PLACER",
       "extras.doublePleasureDesc": "Exfoliación con ducha caliente",
-      "extras.relaxationFinish": "ACABADO DE RELAJACIÓN",
-      "extras.relaxationFinishDesc": "Ducha caliente con masajista",
       "extras.relaxationFinish": "ACABADO DE RELAJACIÓN",
       "extras.relaxationFinishDesc": "Ducha caliente con masajista",
       "single.availableTherapist": "Masajista disponible",
@@ -1493,11 +1048,11 @@
       "serviceType.schedules.desc": "Check our opening hours.",
       "massage.title": "MASSAGES",
       "massage.subtitle": "Select the type of massage",
-      "massage.men.label": "MEN",
+      "massage.men.label": "MASSAGES FOR MEN",
       "massage.men.desc": "Female therapist. Personalized experience.",
-      "massage.women.label": "WOMEN",
+      "massage.women.label": "MASSAGES FOR WOMEN",
       "massage.women.desc": "Female therapist. Relaxing environment.",
-      "massage.couple.label": "COUPLE",
+      "massage.couple.label": "COUPLE MASSAGE",
       "massage.couple.desc": "Special experience for two people.",
       "massage.hotel.label": "OUTCALL HOTEL SERVICE",
       "massage.hotel.desc": "Room service. Available 24/7.",
@@ -1523,8 +1078,6 @@
       "extras.doubleSensitiveDesc": "Enhanced experience with hot shower exfoliation",
       "extras.doublePleasure": "DOUBLE PLEASURE EXPERIENCE",
       "extras.doublePleasureDesc": "Hot shower exfoliation",
-      "extras.relaxationFinish": "RELAXATION FINISH",
-      "extras.relaxationFinishDesc": "Hot shower with a masseur",
       "extras.relaxationFinish": "RELAXATION FINISH",
       "extras.relaxationFinishDesc": "Hot shower with a masseur",
       "single.availableTherapist": "Available therapist",
