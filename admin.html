@@ -1650,7 +1650,8 @@ $('#saveBtn, #saveBtn-mobile').on('click', doSave);
 function initSortable() {
     const opts = { handle:'.drag-handle', animation:150, ghostClass:'sortable-ghost', chosenClass:'sortable-chosen', dragClass:'sortable-drag' };
     ['branches-tbody','technique-cats-tbody','flows-tbody','mcode-tbody','hotel-tbody',
-     'tiered-hands-tbody','tiered-duration-tbody','scenarios-tbody','addons-tbody','translations-tbody'
+     'tiered-hands-tbody','tiered-duration-tbody','scenarios-tbody','addons-tbody','translations-tbody',
+     'extras-tbody','masseuses-tbody'
     ].forEach(id => { const el=document.getElementById(id); if(el) new Sortable(el,{...opts, draggable:'tr'}); });
     const p=document.getElementById('packs-container'); if(p) new Sortable(p,{...opts,draggable:'[data-pack-key]'});
     const t=document.getElementById('techniques-container'); if(t) new Sortable(t,{...opts,draggable:'[data-tech-key]'});
