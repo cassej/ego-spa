@@ -79,7 +79,7 @@ function setupEventListeners() {
                 if (newDuration !== null) {
                     state.single.duration = newDuration;
                     if (['CodeBased', 'PackBased'].includes(state.single.pricingSystem)) {
-                        state.single.mCode = findMCode(h, newDuration);
+                        state.single.mCode = findMCode(h, newDuration, TECHNIQUE_DATA[technique]?.allowedCodes);
                     }
                     document.querySelectorAll('.duration-btn').forEach(dBtn => {
                         const d = parseInt(dBtn.dataset.duration);
@@ -87,7 +87,7 @@ function setupEventListeners() {
                     });
                 }
             } else if (state.single.duration !== null && ['CodeBased', 'PackBased'].includes(state.single.pricingSystem)) {
-                state.single.mCode = findMCode(h, state.single.duration);
+                state.single.mCode = findMCode(h, state.single.duration, TECHNIQUE_DATA[technique]?.allowedCodes);
             }
 
             updateStickyFooter();
@@ -120,7 +120,7 @@ function setupEventListeners() {
                 if (newHands !== null) {
                     state.single.hands = newHands;
                     if (['CodeBased', 'PackBased'].includes(state.single.pricingSystem)) {
-                        state.single.mCode = findMCode(newHands, d);
+                        state.single.mCode = findMCode(newHands, d, TECHNIQUE_DATA[technique]?.allowedCodes);
                     }
                     document.querySelectorAll('.hands-btn').forEach(hBtn => {
                         const h = parseInt(hBtn.dataset.hands);
@@ -128,7 +128,7 @@ function setupEventListeners() {
                     });
                 }
             } else if (state.single.hands !== null && ['CodeBased', 'PackBased'].includes(state.single.pricingSystem)) {
-                state.single.mCode = findMCode(state.single.hands, d);
+                state.single.mCode = findMCode(state.single.hands, d, TECHNIQUE_DATA[technique]?.allowedCodes);
             }
 
             updateStickyFooter();

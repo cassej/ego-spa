@@ -3,25 +3,24 @@ function roundTo5(n) {
 }
 
 /**
- * Maps hands + duration to codes for CodeBased and PackBased pricing systems
+ * Maps hands + duration to a pricing code
+ * Searches M_CODE_PRICING for matching hands+duration, filtered by technique's allowedCodes
  */
-function findMCode(hands, duration) {
-    // M-codes for CodeBased system
-    if (hands === 2) {
-        if (duration === 20) return 'M11';
-        if (duration === 40) return 'M12';
-        if (duration === 60) return 'M13';
-        if (duration === 90) return 'M14';
+function findMCode(hands, duration, allowedCodes) {
+    if (allowedCodes && allowedCodes.length > 0) {
+        const match = allowedCodes.find(code => {
+            const d = M_CODE_PRICING[code];
+            return d && d.hands === hands && d.duration === duration;
+        });
+        return match || null;
     }
-    if (hands === 4) {
-        if (duration === 40) return 'M15';
-        if (duration === 75) return 'M16';
-        if (duration === 90) return 'P01'; // PackBased default
-    }
-    if (hands === 6 && duration === 60) return 'M17';
-    if (hands === 8 && duration === 60) return 'M18';
-    if (hands === 8 && duration === 120) return 'P03'; // PackBased
-    return null;
+    // Fallback: search all codes by hands+duration
+    const allCodes = Object.keys(M_CODE_PRICING);
+    const match = allCodes.find(code => {
+        const d = M_CODE_PRICING[code];
+        return d && d.hands === hands && d.duration === duration;
+    });
+    return match || null;
 }
 
 /**
