@@ -200,17 +200,12 @@ function updateSummary() {
         price = regularPrice;
     }
 
-    // Update the three price displays
+    // Update the price display (only Regular shows price; Pack/Ego show narrative text)
     const finalRegularPrice = document.getElementById('finalRegularPrice');
-    const finalPackPrice = document.getElementById('finalPackPrice');
-    const finalEgoPrice = document.getElementById('finalEgoPrice');
     const egoPriceRow = document.getElementById('egoPriceRow');
-    const egoSavingsNote = document.getElementById('egoSavingsNote');
 
     if (regularPrice > 0) {
         if (finalRegularPrice) finalRegularPrice.textContent = formatPrice(regularPrice);
-        if (finalPackPrice) finalPackPrice.textContent = packPrice > 0 ? formatPrice(packPrice) : '—';
-        if (finalEgoPrice) finalEgoPrice.textContent = formatPrice(egoPrice);
         
         if (egoPriceRow) egoPriceRow.classList.remove('hidden');
         
@@ -221,25 +216,12 @@ function updateSummary() {
                 b.classList.add('selected');
             }
         });
-        
-        // Show savings note (compare massage base prices only, without membership)
-        const egoBasePrice = calculateSingleEgoBasePrice();
-        const savings = calculateSingleBasePrice() - egoBasePrice;
-        if (egoSavingsNote && savings > 0) {
-            egoSavingsNote.textContent = t('summary.savingsNote', { amount: formatPrice(savings) });
-            egoSavingsNote.classList.remove('hidden');
-        } else {
-            if (egoSavingsNote) egoSavingsNote.classList.add('hidden');
-        }
 
         // Show/hide ego benefits based on selected tier
         updateEgoBenefitsVisibility();
     } else {
         if (finalRegularPrice) finalRegularPrice.textContent = '';
-        if (finalPackPrice) finalPackPrice.textContent = '';
-        if (finalEgoPrice) finalEgoPrice.textContent = '';
         if (egoPriceRow) egoPriceRow.classList.add('hidden');
-        if (egoSavingsNote) egoSavingsNote.classList.add('hidden');
     }
 
     if (elements.summaryDetails) {

@@ -514,17 +514,20 @@ uppercase" data-i18n="header.subtitle">Panama</p>
                             <button type="button" class="price-tier-btn flex flex-col items-center rounded-xl p-3 cursor-pointer" data-tier="regular">
                                 <span class="text-ego-muted text-xs mb-1" data-i18n="summary.regularPrice">Regular:</span>
                                 <span id="finalRegularPrice" class="font-display text-lg text-white"></span>
+                                <span class="text-ego-muted text-xs mt-1" data-i18n="tier.regular.desc">Sesión individual</span>
                             </button>
                             <button type="button" class="price-tier-btn flex flex-col items-center rounded-xl p-3 cursor-pointer" data-tier="pack">
-                                <span class="text-ego-muted text-xs mb-1" data-i18n="summary.packPrice">Pack (per session):</span>
-                                <span id="finalPackPrice" class="font-display text-lg text-white"></span>
+                                <span class="text-white text-xs font-semibold mb-1" data-i18n="tier.pack.title">Pack de masajes</span>
+                                <span class="text-ego-muted text-xs" data-i18n="tier.pack.desc1">Ahorra por volumen</span>
+                                <span class="text-ego-muted text-xs" data-i18n="tier.pack.desc2">Varias sesiones</span>
                             </button>
                             <button type="button" id="egoPriceRow" class="price-tier-btn flex flex-col items-center rounded-xl p-3 cursor-pointer" data-tier="ego">
                                 <span class="text-ego-red text-xs font-semibold mb-1" data-i18n="summary.egoPrice">Ego Card:</span>
-                                <span id="finalEgoPrice" class="font-display text-lg text-ego-red"></span>
+                                <span class="text-ego-muted text-xs" data-i18n="tier.ego.desc1">Beneficios exclusivos</span>
+                                <span class="text-ego-muted text-xs" data-i18n="tier.ego.desc2">Membresía anual</span>
                             </button>
                         </div>
-                        <p id="egoSavingsNote" class="text-ego-gold text-xs text-center mt-2 hidden" data-i18n="summary.savingsNote">You save with Ego Card</p>
+                        <p class="text-ego-muted text-xs text-center mt-2" data-i18n="tier.explore">Explora packs y membresía para más beneficios.</p>
 
                         <!-- Ego Card Benefits (shown when ego tier selected) -->
                         <div id="egoBenefitsContainer" class="hidden mt-4 bg-ego-gold/10 border border-ego-gold/30 rounded-xl p-4">
