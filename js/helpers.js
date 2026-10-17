@@ -172,7 +172,7 @@ function generateWhatsAppMessage() {
         const masseuse = state.single.masseuses.length > 0
             ? state.single.masseuses.map(k => td('MASSEUSES', k, 'name')).join(', ')
             : t('whatsapp.noPreference');
-        const mobility = state.single.mobilityFee > 0 ? t('whatsapp.yes') : t('whatsapp.no');
+        const mobility = state.single.mobilityFee > 0 ? `Yes (+$${state.single.mobilityFee})` : t('whatsapp.no');
         const nightRateText = state.single.nightRate > 0 ? `\n🌙 ${t('whatsapp.nightRate', { price: state.single.nightRate })}` : '';
 
         let scenarios = state.single.scenarioName;
