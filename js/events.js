@@ -1,14 +1,8 @@
 function setupEventListeners() {
 
-    // Hours modal
-    const hoursBtn = document.getElementById('hoursBtn');
+    // Hours modal (opened from Schedules button in serviceTypeSelection)
     const hoursModal = document.getElementById('hoursModal');
     const closeHoursModal = document.getElementById('closeHoursModal');
-
-    if (hoursBtn) hoursBtn.addEventListener('click', () => {
-        hoursModal.classList.remove('hidden');
-        hoursModal.classList.add('flex');
-    });
 
     if (closeHoursModal) closeHoursModal.addEventListener('click', () => {
         hoursModal.classList.add('hidden');
