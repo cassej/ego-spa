@@ -392,6 +392,19 @@ function updateTierTotal() {
 }
 
 function updateFinalSummary() {
+    // Gender
+    const genderEl = document.getElementById('finalGender');
+    if (genderEl) {
+        const genderLabels = { men: t('massage.men.label'), women: t('massage.women.label'), couple: t('massage.couple.label') };
+        genderEl.textContent = state.gender ? (genderLabels[state.gender] || state.gender) : '';
+    }
+
+    // Branch
+    const branchEl = document.getElementById('finalBranch');
+    if (branchEl) {
+        branchEl.textContent = state.selectedBranchName || '';
+    }
+
     document.getElementById('finalTechnique').textContent = state.single.techniqueName;
     if (state.single.selectedScenarios.length > 0) {
         const scenarioNames = state.single.selectedScenarios.map(s => td('SCENARIO_DATA', s, 'name') || s);

@@ -199,8 +199,13 @@ function generateWhatsAppMessage() {
             tierLabel = 'Pack';
         }
 
-        message = `*${t('whatsapp.newBookingSingle')}*
+        const genderLabels = { men: t('massage.men.label'), women: t('massage.women.label'), couple: t('massage.couple.label') };
+        const genderText = state.gender ? genderLabels[state.gender] || state.gender : '';
+        const branchText = state.selectedBranchName ? `\n*${t('whatsapp.branch')}:* ${state.selectedBranchName}` : '';
 
+        message = `*${t('whatsapp.newBookingSingle')}*
+${branchText}
+*${t('whatsapp.gender')}:* ${genderText}
 *${t('whatsapp.technique')}:* ${state.single.techniqueName}
 *${t('whatsapp.scenario')}:* ${scenarios}
 *${t('whatsapp.hands')}:* ${state.single.hands}
