@@ -1,7 +1,25 @@
 function setupEventListeners() {
 
+    // Hours modal
+    const hoursBtn = document.getElementById('hoursBtn');
+    const hoursModal = document.getElementById('hoursModal');
+    const closeHoursModal = document.getElementById('closeHoursModal');
+
+    if (hoursBtn) hoursBtn.addEventListener('click', () => {
+        hoursModal.classList.remove('hidden');
+        hoursModal.classList.add('flex');
+    });
+
+    if (closeHoursModal) closeHoursModal.addEventListener('click', () => {
+        hoursModal.classList.add('hidden');
+        hoursModal.classList.remove('flex');
+    });
+
     // Back button
     elements.backBtn.addEventListener('click', goBack);
+
+    // Service type selection handlers
+    loadServiceTypes();
 
     // ============================================
     // MASSAGE GENDER SELECTION
@@ -12,14 +30,8 @@ function setupEventListeners() {
             state.gender = gender;
 
             document.getElementById('massageSelection').classList.add('hidden');
-
-            // Load techniques for this gender and go to single flow
-            loadTechniques();
-            state.currentFlow = 'single';
-            state.currentStep = 1;
-            elements.singleFlow.classList.remove('hidden');
+            document.getElementById('serviceTypeSelection').classList.remove('hidden');
             elements.backBtn.classList.remove('hidden');
-            goToStep(1);
 
             updateStickyFooter();
         });

@@ -675,8 +675,98 @@ function updateScenarioContinueButton() {
  * Load massage gender selection buttons
  */
 function loadMassageSelection() {
-    // Buttons are already in HTML, just need event listeners
-    // Event listeners are attached in setupEventListeners()
+    // Buttons are already in HTML, event listeners are in setupEventListeners()
+}
+
+/**
+ * Load service type selection (Hotel / Branches / Schedules)
+ */
+function loadServiceTypes() {
+    document.querySelectorAll('.service-type-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            const service = btn.dataset.service;
+            state.serviceType = service;
+
+            document.getElementById('serviceTypeSelection').classList.add('hidden');
+
+            if (service === 'hotel') {
+                state.currentFlow = 'hotel';
+                state.currentStep = 1;
+                elements.hotelFlow.classList.remove('hidden');
+                elements.backBtn.classList.remove('hidden');
+                goToStep(1);
+            } else if (service === 'branches') {
+                document.getElementById('branchSelection').classList.remove('hidden');
+                elements.backBtn.classList.remove('hidden');
+                loadBranches();
+            } else if (service === 'schedules') {
+                const hoursModal = document.getElementById('hoursModal');
+                if (hoursModal) {
+                    hoursModal.classList.remove('hidden');
+                    hoursModal.classList.add('flex');
+                }
+                document.getElementById('serviceTypeSelection').classList.remove('hidden');
+            }
+
+            updateStickyFooter();
+        });
+    });
+}
+
+/**
+ * Load branches from data.json
+ */
+function loadBranches() {
+    const container = document.getElementById('branchesContainer');
+    if (!container) return;
+
+    let html = '';
+    let staggerIndex = 2;
+
+    Object.entries(BRANCHES).forEach(([branchKey, branchData]) => {
+        html += `
+            <button class="branch-btn option-card rounded-2xl p-6 text-left fade-up stagger-${staggerIndex}" data-branch="${branchKey}" aria-label="${branchData.name}">
+                <div class="flex items-start gap-4">
+                    <div class="w-14 h-14 rounded-xl bg-gradient-to-br from-ego-red/20 to-transparent flex items-center justify-center flex-shrink-0">
+                        <svg class="w-7 h-7 text-ego-red" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+                        </svg>
+                    </div>
+                    <div class="flex-1">
+                        <h3 class="font-display text-2xl tracking-wide mb-1">${branchData.name.toUpperCase()}</h3>
+                        <p class="text-ego-muted text-sm">${td('BRANCHES', branchKey, 'description')}</p>
+                    </div>
+                    <svg class="w-6 h-6 text-ego-muted flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                    </svg>
+                </div>
+            </button>
+        `;
+        staggerIndex++;
+    });
+
+    container.innerHTML = html;
+
+    document.querySelectorAll('.branch-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            const branch = btn.dataset.branch;
+            state.selectedBranch = branch;
+            state.selectedBranchName = BRANCHES[branch]?.name || branch;
+
+            document.getElementById('branchSelection').classList.add('hidden');
+            state.currentFlow = 'single';
+            state.currentStep = 1;
+
+            loadTechniques();
+            elements.singleFlow.classList.remove('hidden');
+            elements.backBtn.classList.remove('hidden');
+            goToStep(1);
+            updateSummary();
+
+            updateStickyFooter();
+        });
+    });
 }
 
 /**
@@ -1078,22 +1168,57 @@ function goBack() {
 
     if (state.currentStep > 1) {
         goToStep(state.currentStep - 1);
-    } else {
-        // Go back to massage selection
+        return;
+    }
+
+    // At step 1 of single flow → go back to branch selection
+    if (state.currentFlow === 'single') {
         state.currentFlow = null;
         state.currentStep = 0;
-        state.gender = null;
-        
         elements.singleFlow.classList.add('hidden');
+        document.getElementById('branchSelection').classList.remove('hidden');
+        return;
+    }
+
+    // At step 1 of hotel flow → go back to service type selection
+    if (state.currentFlow === 'hotel') {
+        state.currentFlow = null;
+        state.currentStep = 0;
         elements.hotelFlow.classList.add('hidden');
-        elements.packSelectionScreen.classList.add('hidden');
+        document.getElementById('serviceTypeSelection').classList.remove('hidden');
+        return;
+    }
 
+    // On branch selection → go back to service type selection
+    const branchSelection = document.getElementById('branchSelection');
+    if (branchSelection && !branchSelection.classList.contains('hidden')) {
+        branchSelection.classList.add('hidden');
+        document.getElementById('serviceTypeSelection').classList.remove('hidden');
+        state.selectedBranch = null;
+        state.selectedBranchName = '';
+        elements.backBtn.classList.add('hidden');
+        return;
+    }
+
+    // On service type selection → go back to massage selection
+    const serviceTypeSelection = document.getElementById('serviceTypeSelection');
+    if (serviceTypeSelection && !serviceTypeSelection.classList.contains('hidden')) {
+        serviceTypeSelection.classList.add('hidden');
         document.getElementById('massageSelection').classList.remove('hidden');
-
+        state.gender = null;
         elements.backBtn.classList.add('hidden');
         elements.stickySummary.classList.add('translate-y-full');
-
         resetSelections();
+        return;
+    }
+
+    // On massage selection → go back to language selection
+    const massageSelection = document.getElementById('massageSelection');
+    if (massageSelection && !massageSelection.classList.contains('hidden')) {
+        massageSelection.classList.add('hidden');
+        document.getElementById('langSelection').classList.remove('hidden');
+        elements.backBtn.classList.add('hidden');
+        return;
     }
 }
 

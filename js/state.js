@@ -1,5 +1,8 @@
 const state = {
     gender: null, // 'men', 'women', 'couple'
+    serviceType: null, // 'hotel', 'branches', 'schedules'
+    selectedBranch: null,
+    selectedBranchName: '',
     currentFlow: null, // 'single' or 'hotel'
     currentStep: 0,
     // Single massage state
