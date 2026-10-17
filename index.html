@@ -794,25 +794,9 @@ uppercase" data-i18n="header.subtitle">Panama</p>
                     </div>
                 </div>
 
-                <!-- Other Extras -->
-                <div class="space-y-3 mb-4">
-                    <label class="option-card rounded-xl p-4 flex items-center gap-4 cursor-pointer fade-up stagger-1">
-                        <input type="radio" name="hotel-praecoquis" class="custom-radio" data-extra="double-pleasure" data-addon="25" checked>
-                        <div class="flex-1">
-                            <h3 class="font-semibold" data-i18n="extras.doublePleasure">DOUBLE PLEASURE EXPERIENCE</h3>
-                            <p class="text-ego-muted text-sm" data-i18n="extras.doublePleasureDesc">Hot shower exfoliation</p>
-                        </div>
-                        <span class="text-ego-red font-semibold text-sm">+$25</span>
-                    </label>
-
-                    <label class="option-card rounded-xl p-4 flex items-center gap-4 cursor-pointer fade-up stagger-2">
-                        <input type="radio" name="hotel-praecoquis" class="custom-radio" data-extra="relaxation-finish" data-addon="-25">
-                        <div class="flex-1">
-                            <h3 class="font-semibold" data-i18n="extras.relaxationFinish">RELAXATION FINISH</h3>
-                            <p class="text-ego-muted text-sm" data-i18n="extras.relaxationFinishDesc">Hot shower with a masseur</p>
-                        </div>
-                        <span class="text-ego-gold font-semibold text-sm">-$25</span>
-                    </label>
+                <!-- Other Extras (loaded from ADDON_PRICING) -->
+                <div id="hotelExtrasContainer" class="space-y-3 mb-4">
+                    <!-- Hotel extras will be dynamically loaded from data.json -->
                 </div>
 
                 <!-- Final Summary -->

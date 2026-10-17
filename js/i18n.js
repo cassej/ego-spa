@@ -69,6 +69,7 @@ function refreshAllUI() {
     if (typeof loadExtras === 'function') loadExtras();
     if (typeof loadMasseuses === 'function') loadMasseuses();
     if (typeof loadHotelTechniques === 'function') loadHotelTechniques();
+    if (typeof loadHotelExtras === 'function') loadHotelExtras();
     if (typeof loadPackSelection === 'function') loadPackSelection();
     if (typeof updateStickyFooter === 'function') updateStickyFooter();
     if (typeof updateScenarioHint === 'function') updateScenarioHint();

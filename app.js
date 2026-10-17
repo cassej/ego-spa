@@ -57,6 +57,7 @@ async function init() {
         loadMasseuses();
         loadHotelTechniques();
         loadHotelConfig();
+        loadHotelExtras();
         loadPackSelection();
 
         // Apply initial language to static HTML

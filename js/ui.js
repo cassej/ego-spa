@@ -1006,6 +1006,44 @@ function loadHotelConfig() {
 /**
  * Load pack selection screen with all available packs
  */
+/**
+ * Load hotel extras from ADDON_PRICING and render as radio buttons
+ * Only hotel-specific extras: double-pleasure, relaxation-finish
+ */
+function loadHotelExtras() {
+    const container = document.getElementById('hotelExtrasContainer');
+    if (!container || !ADDON_PRICING) return;
+
+    const hotelExtras = ['double-pleasure', 'relaxation-finish'];
+    let html = '';
+    let staggerIndex = 1;
+
+    hotelExtras.forEach(key => {
+        const addon = ADDON_PRICING[key];
+        if (!addon) return;
+
+        const name = td('ADDON_PRICING', key, 'name');
+        const desc = currentLang === 'en' ? '' : '';
+        const price = addon.price;
+        const priceLabel = price >= 0 ? `+$${price}` : `-$${Math.abs(price)}`;
+        const priceClass = price >= 0 ? 'text-ego-red' : 'text-ego-gold';
+        const checked = key === 'double-pleasure' ? 'checked' : '';
+
+        html += `
+            <label class="option-card rounded-xl p-4 flex items-center gap-4 cursor-pointer fade-up stagger-${staggerIndex}">
+                <input type="radio" name="hotel-praecoquis" class="custom-radio" data-extra="${key}" data-addon="${price}" ${checked}>
+                <div class="flex-1">
+                    <h3 class="font-semibold">${name}</h3>
+                </div>
+                <span class="${priceClass} font-semibold text-sm">${priceLabel}</span>
+            </label>
+        `;
+        staggerIndex++;
+    });
+
+    container.innerHTML = html;
+}
+
 function loadPackSelection() {
     const container = document.getElementById('packSelectionContainer');
     if (!container || !PACK_DATA) return;

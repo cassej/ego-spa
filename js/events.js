@@ -506,21 +506,25 @@ function setupEventListeners() {
         });
     });
 
-    // Step 3: Extras (mutual exclusion)
-    document.querySelectorAll('input[name="hotel-praecoquis"]').forEach(radio => {
-        radio.addEventListener('change', () => {
-            const extraKey = radio.dataset.extra;
-            const addon = parseInt(radio.dataset.addon) || 0;
+    // Step 3: Extras (mutual exclusion) — event delegation for dynamic elements
+    const hotelExtrasContainer = document.getElementById('hotelExtrasContainer');
+    if (hotelExtrasContainer) {
+        hotelExtrasContainer.addEventListener('change', (e) => {
+            if (e.target.matches('input[name="hotel-praecoquis"]')) {
+                const radio = e.target;
+                const extraKey = radio.dataset.extra;
+                const addon = parseInt(radio.dataset.addon) || 0;
 
-            state.hotel.extras = [{
-                key: extraKey,
-                name: radio.parentElement.querySelector('h3').textContent,
-                addon: addon
-            }];
+                state.hotel.extras = [{
+                    key: extraKey,
+                    name: radio.parentElement.querySelector('h3').textContent,
+                    addon: addon
+                }];
 
-            updateHotelFinalSummary();
+                updateHotelFinalSummary();
+            }
         });
-    });
+    }
 
     // Step 3 Continue button
     const hotelStep3ContinueBtn = document.getElementById('hotelStep3ContinueBtn');
